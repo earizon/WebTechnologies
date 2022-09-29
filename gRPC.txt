@@ -1,0 +1,406 @@
+● gRPC
+[[{protocol.grpc,dev_lang.java,code.async,qa,api_management]]
+● Summary #[grpc_summary]
+@[https://grpc.io/]
+@[https://en.wikipedia.org/wiki/GRPC]
+- Cloud Native Foundation project (initial develop:Google)
+- High performance, cross-platform/language RPC framework.
+- HTTP/2 for transport and Protocol Buffers for interface  
+  description language .
+  - pluggable support for load balancing, tracing, health
+    checking and authentication.
+- bidirectional streaming and flow control                        [async]
+- blocking or nonblocking bindings, and cancellation and timeouts.[async]
+- binary encoding on the wire (protocol buffers, or "protobufs" for short).
+- Cross-language Proxy objects auto-generated with
+  safe type checking (when supported language)                    [qa]
+
+
+  PROTOC + gRPC INSTALLATION STEPS 
+  STEP 1) install protobuf + protoc  commands
+  STEP 2) Install Node/Python/Go/... tools:
+
+  grpcurl :
+@[https://github.com/fullstorydev/grpcurl]
+  • cURL for gRPC!!!!.  CLI tool for interacting with gRPC servers.
+  • accept JSON encoding as input, much more friendly (than binary)
+    for humans/scripts.
+  • bi-directional streaming methods supported
+  • TLS supported, including mutual TLS.
+  • Docker support:
+  $ $ docker run fullstorydev/grpcurl api.grpc.me:443 list  
+  • Go quick install:
+  $ $ go get github.com/fullstorydev/grpcurl/...              
+  $ $ go install github.com/fullstorydev/grpcurl/cmd/grpcurl  
+
+$ $ grpcurl {{grpc.server.com:443}} list \  ← List all services exposed
+$           {{my.custom.server.Service}}      ← Optional. Filter by service
+                                              using server supporting reflection or
+                                              reading proto source files         or
+                                              by loading in compiled "protoset"
+                                              files (containiing encoded file
+                                              descriptor protos).
+
+$ $ grpcurl {{grpc.server.com:443}} \       ← Send an empty request
+$   {{my.custom.server.Service/Method}}   
+
+$ $ grpcurl -H                         \   ← Send request with
+$   "{{Authorization: Bearer $token}}" \     ← header and
+$   -d {{'{"foo": "bar"}'}} \                ← body
+$   {{grpc.server.com:443}} \             
+$  {{my.custom.server.Service/Method}}    
+
+  COMPILING NODEJS SCRIPT EXAMPLE 
+
+  #!/bin/sh
+  set -e                           # ← Abort on first error.
+  PROTOC=/opt/protoc_v3/bin/protoc # ← PATH to protoc compiler executable
+  OUT_DIR="./src/lib/protobuf"
+
+  if [ ! -d ${OUT_DIR} ]; then mkdir -p ${OUT_DIR} ; fi
+
+  # protoc fails if relative path is provided. (2017-01)
+  GRPC_NODE_PLUGIN=/usr/local/lib/node_modules/grpc-tools/bin/grpc_node_plugin
+
+  ${PROTOC} \
+   --proto_path=../project_proto_definition/   # ← Path to search *proto for
+   --js_out=import_style=commonjs,\
+                            binary:${OUT_DIR} \# ← JS protobuf output path
+  \
+   --grpc_out=${OUT_DIR} \                     # ← gRPC(services) output path
+   --plugin=protoc-gen-grpc=\                  # ← gRPC service related
+            ${GRPC_NODE_PLUGIN} \
+   file1.proto
+
+  COMPILING JAVA SCRIPT EXAMPLE 
+@[https://github.com/grpc/grpc-java/blob/master/README.md]
+  - Gradle protobuf conf:
+    apply plugin: 'java'
+    apply plugin: 'com.google.protobuf'
+
+    buildscript {
+      repositories { mavenCentral() }
+      dependencies {
+        classpath
+          'com.google.protobuf:protobuf-gradle-plugin:0.8.0'
+      }
+    }
+
+  - Gradle+grpc conf:
+    compile 'io.grpc:grpc-netty:1.0.1'        ┐
+    compile 'io.grpc:grpc-protobuf:1.0.1'     ├non-Android
+    compile 'io.grpc:grpc-stub:1.0.1'         ┘
+    compile 'io.grpc:grpc-okhttp:1.0.1'       ┐
+    compile 'io.grpc:grpc-protobuf-lite:1.0.1'├Android
+    compile 'io.grpc:grpc-stub:1.0.1'         ┘
+    ...
+    protobuf {
+      protoc { artifact = "com.google.protobuf:protoc:3.1.0" }
+      plugins {
+        grpc { artifact = 'io.grpc:protoc-gen-grpc-java:1.0.1' }
+      }
+      generateProtoTasks { all()*.plugins { grpc {} } }
+    }
+
+  gRPC PROTOBUF EXCEPTION HANDLING             [qa]
+C⅋P FROM @[http://stackoverflow.com/questions/38810657/exception-handling-in-grpc]
+Context: server written in Java, client written in PHP.
+Q: How can client catch exceptions from server?
+A: For handled exceptions, call responseObserver.onError().
+   If you pass in a StatusRuntimeException or StatusException
+   (generally created via status.asRuntimeException()) the status
+   code and description will be communicated to the client.
+   Unhandled exceptions  within a callback will cancel
+   the RPC and will continue propagating the exception
+   (generally leading in an UncaughtExceptionHandler being
+   called for the executor).
+
+────────────────────────────────────────────────────────────────────────────────
+● grpc ecosystem
+@[https://github.com/grpc-ecosystem]
+RPC Ecosystem that complements gRPC
+· grpc-gateway      : gRPC to JSON proxy generator following the gRPC HTTP spec
+· go-grpc-prometheus: Prometheus monitoring for your gRPC Go servers.
+· grpc-health-probe : cli tool to perform health-checks for gRPC apps
+· ...
+[[}]]
+[[{protocol.grpc,dev_lang.java,code.async,01_PM.WiP]]
+● gRPC JAVA Summary #[grpc_summary_java]
+
+  JAVA SERVER IMPEMENTATION SUMMARY 
+  service RouteGuide {
+    rpc GetFeature(Point)           returns (       Feature)    {} ←  gRPC DEFINITIONS 
+    rpc ListFeatures(Rectangle)     returns (stream Feature)    {}
+    rpc RecordRoute(stream Point)   returns (     RouteSummary) {}
+    rpc RouteChat(stream RouteNote) returns (stream RouteNote ) {}
+  }
+
+
+  public class RouteGuideServer                                    ← Server implementation
+    ... initialization code ...
+     private static class RouteGuideService
+        extends RouteGuideGrpc.RouteGuideImplBase 
+         ...
+           ┌──────────────────────────────────────────────┬────────────────────────────────────────────┐
+           │ SINGLE RESPONSE                              │ STREAM RESPONSE                            │
+ ┌─────────┼──────────────────────────────────────────────┼────────────────────────────────────────────┤
+ │ SINGLE  │  @Override                                   │  @Override                                 │
+ │ REQUEST │  public void getFeature(                     │  public void listFeatures(                 │
+ │         │      Point request,                          │       Rectangle request,                   │
+ │         │      StreamObserver responseObserver)        │       StreamObserver responseObserver) {   │
+ │         │  {                                           │    for (Feature feature : features)        │
+ │         │    // Single onNext iteration                │    {                                       │
+ │         │    responseObserver.onNext(                  │      ...                                   │
+ │         │      _checkFeature(request));                │      responseObserver.onNext(feature);     │
+ │         │    responseObserver.onCompleted();           │                      ^^^^^^^               │
+ │         │  //^ ends inmediatelly  ^                    │                   for each feature found   │
+ │         │  }                                           │    }                                       │
+ │         │                                              │     //*streaming response*                 │
+ │         │                                              │   responseObserver.onCompleted();          │
+ │         │                                              │  }                                         │
+ ├─────────┼──────────────────────────────────────────────┼────────────────────────────────────────────┼
+ │ STREAM  │  @Override                                   │  @Override                                 │
+ │ REQUEST │  public StreamObserver recordRoute(          │  public StreamObserver routeChat(          │
+ │         │      final StreamObserver responseObserver)  │      final StreamObserver responseObserver)│
+ │         │  {                                           │  {                                         │
+ │         │    return new StreamObserver() {             │    return new StreamObserver() {           │
+ │         │      @Override                               │      @Override                             │
+ │         │      public void onNext(Point point) {       │      public void onNext(RouteNote note)    │
+ │         │       ...                                    │      {                                     │
+ │         │      }                                       │        for (RouteNote prevNote :           │
+ │         │                                              │            notes.toArray(new RouteNote[0]))│
+ │         │      @Override                               │        {                                   │
+ │         │      public void onError(Throwable t) {      │          responseObserver.onNext(prevNote);│
+ │         │          logger.... "recordRoute cancelled");│        }                                   │
+ │         │      }                                       │        ...                                 │
+ │         │                                              │      }                                     │
+ │         │      @Override                               │                                            │
+ │         │      public void onCompleted() {             │      @Override                             │
+ │         │        long seconds =                        │      public void onError(Throwable t) {    │
+ │         │            NANOSECONDS.toSeconds(            │          logger.... "routeChat cancelled");│
+ │         │          System.nanoTime() - startTime);     │      }                                     │
+ │         │        responseObserver                      │                                            │
+ │         │          .onNext(                            │      //*Do not complete until received     │
+ │         │           RouteSummary.newBuilder()          │      //*onCompleted for peer               │
+ │         │            .setPointCount(pointCount)        │      @Override                             │
+ │         │            .setFeatureCount(featureCount)    │      public void onCompleted() {           │
+ │         │            .setDistance(distance)            │         responseObserver.onCompleted();    │
+ │         │            .setElapsedTime((int) seconds)    │      }                                     │
+ │         │            .build()                          │    };                                      │
+ │         │           ) ;                                │  }                                         │
+ │         │        responseObserver.onCompleted();       │                                            │
+ │         │                        ^^^^^^^^^^^^^^        │                                            │
+ │         │                        end stream            │                                            │
+ │         │      }                                       │                                            │
+ │         │    };                                        │                                            │
+ │         │  }                                           │                                            │
+ └─────────┴──────────────────────────────────────────────┴────────────────────────────────────────────┴
+
+
+  JAVA CLIENT IMPEMENTATION SUMMARY 
+
+             Initialization code 
+             function getServer() {                             │  if (require.main === module) {
+               var server = new grpc.Server();                  │    var routeServer = getServer();
+               server.addService(services.RouteGuideService, {  │    routeServer.bind('0.0.0.0:50051',
+                 getFeature: getFeature,                        │        grpc.ServerCredentials.createInsecure());
+                 listFeatures: listFeatures,                    │    ...
+                 recordRoute: recordRoute,                      │    routeServer.start();
+                 routeChat: routeChat                           │  });
+               });                                              │  exports.getServer = getServer;
+               return server;                                   │
+             }
+           ┌───────────────────────────────────────────────────┬──────────────────────────────────────────
+           │ SINGLE RESPONSE                                   │ STREAM RESPONSE 
+ ┌─────────┼───────────────────────────────────────────────────┼──────────────────────────────────────────
+ │ SINGLE  │ feature = blockingStub.                           │ Rectangle request =
+ │ REQUEST │             getFeature(                           │      Rectangle.newBuilder()
+ │         │              Point.newBuilder()                   │        .setXXX
+ │         │               .setXXX()                           │        ...
+ │         │               ....                                │        .build();
+ │         │              .build());                           │ Iterator<Feature> features
+ │         │                                                   │     = blockingStub
+ │         │                                                   │       .listFeatures(request);
+ ├─────────┼───────────────────────────────────────────────────┼───────────────────────────────────────────
+ │ STREAM  │ public void recordRoute(                          │  public void routeChat()
+ │ REQUEST │     List<Feature> features, int numPoints)        │    throws InterruptedException
+ │         │      throws InterruptedException                  │  {
+ │         │   // NOTE: java.util.concurrent.CountDownLatch    │  //
+ │         │      details removed                              │  // rpc RouteChat(stream RouteNote)
+ │         │                                                   │  //     returns (stream RouteNote) {}
+ │         │   // STEP 1. SETUP RESPONSE OBSERVER              │  //
+ │         │   StreamObserver<RouteSummary> responseObserver = │
+ │         │       new StreamObserver<RouteSummary>() {        │  //*STEP 1. SETUP RESPONSE OBSERVER*
+ │         │     @Override                                     │    final CountDownLatch finishLatch
+ │         │     public void onNext(RouteSummary summary) {    │       = new CountDownLatch(1);
+ │         │         info... summary.get*());                  │    StreamObserver<RouteNote>
+ │         │     }                                             │       requestObserver =
+ │         │     @Override                                     │        asyncStub.routeChatB ( 
+ │         │     public void onError(Throwable t) {            │          new StreamObserver<RouteNote>()  { 
+ │         │         //      ^^^^^^^                           │            @Override
+ │         │         //      RPC Failed                        │            public void onNext(RouteNote note)
+ │         │         log ... Status.fromThrowable(t););        │            {
+ │         │     }                                             │                info"Got message ... ";
+ │         │     @Override                                     │            }
+ │         │     public void onCompleted(){                    │            @Override
+ │         │         finishLatch.countDown();                  │            public void onError(Throwable t)
+ │         │     }                                             │            {
+ │         │   };                                              │                warn ... Status.fromThrowable(t);
+ │         │                                                   │            }
+ │         │   // STEP 2. SETUP REQUEST OBSERVER               │            @Override
+ │         │   StreamObserver<Point> requestObserver =         │            public void onCompleted()
+ │         │       asyncStub.recordRoute(responseObserver);    │            {
+ │         │                                                   │                finishLatch.countDown();
+ │         │   try {                                           │            }
+ │         │     for (int i = 0; i < numPoints; ++i) {         │          }*
+ │         │       // push point to req.stream                 │      )*;
+ │         │       requestObserver.onNext(point);              │
+ │         │       if (finishLatch.getCount() == 0 ) {         │  //*STEP 2: SETUP REQUEST OBSERVER*
+ │         │         /* RPC completed|failed before end of     │        try {
+ │         │          * request stream                         │    RouteNote[] requests =
+ │         │          * Sending further requests won't error,  │      {newNote(...), newNote .. };
+ │         │          * but they will just be thrown away.     │    for (RouteNote request : requests)
+ │         │          */                                       │    {
+ │         │         //                                        │      requestObserver.onNext(request);
+ │         │         return;                                   │      //             ^^^^^^^
+ │         │       }                                           │      //             Send Message
+ │         │     }                                             │    }
+ │         │   } catch (RuntimeException e) {                  │        } catch (RuntimeException e) {
+ │         │       requestObserver.onError(e) /  Cancel RPC  /;│    requestObserver.onError(e); throw e;
+ │         │       throw e;                                    │                   ^^^^^^^^^^^ 
+ │         │   }                                               │                   Cancel RPC  
+ │         │   requestObserver.onCompleted();                  │    requestObserver.onCompleted();
+ │         │                   ^^^^^^^^^^^^^                   │                   ^^^^^^^^^^^^^^
+ │         │                   Mark the end of requests        │                // Mark the end of requests
+ │         │                                                   │    finishLatch.await(1, TimeUnit.MINUTES);
+ │         │   // Receiving happens asynchronously             │    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+ │         │   finishLatch.await(1, TimeUnit.MINUTES);         │    // Receiving happens asynchronously
+ │         │                        ^^^^^^^^^^^^^^^^           │  }
+ │         │                        java.util.concurrent.      │
+ └─────────┴───────────────────────────────────────────────────┴────────────────────────────────────────────
+
+  gRPC ecosystem :                                                              [TODO]
+-@[https://github.com/grpc-ecosystem]
+
+
+
+  NODEJS SERVER IMPLEMENTATION SUMMARY 
+
+-  SERVER INITIALIZATION 
+@[https://github.com/grpc/grpc/blob/master/examples/node/static_codegen/route_guide/]
+
+  var routeServer = new grpc.Server();
+  routeServer.addService(services.RouteGuideService, {
+    getFeature: getFeature,
+    listFeatures: listFeatures,
+    recordRoute: recordRoute,
+     routeChat: routeChat
+  });
+  routeServer.bind('0.0.0.0:50051',
+                   grpc.ServerCredentials.createInsecure());
+  ... "any other initialization"...
+  routeServer.start();
+            ┌────────────────────────────────────┬──────────────────────────────────────────
+            │  SINGLE RESPONSE                   │ STREAM RESPONSE 
+  ┌─────────┼────────────────────────────────────┼──────────────────────────────────────────
+  │ SINGLE  │ function getFeature(               │ function listFeatures(
+  │ REQUEST │    call, responseCallback )        │   call) { // ← where call.request is
+  │         │ {                                  │                     Rectangle(lo, hi)
+  │         │   responseCallback(null, feature); │   _.eachB ( feature_list, feature =>   { 
+  │         │   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ │     if ("feature OK") {
+  │         │        write response              │       call.write(feature)
+  │         │ }                                  │       ^^^^^^^^^^^^^^^^^^^
+  │         │                                    │       write to response stream
+  │         │                                    │     }
+  │         │                                    │   } 
+  │         │                                    │   ) 
+  │         │                                    │   call.end();
+  │         │                                    │   ^^^^^^^^^^^
+  │         │                                    │   end stream
+  │         │                                    │ }
+  ├─────────┼────────────────────────────────────┼──────────────────────────────────────────
+  │ STREAM  │ function recordRoute (             │ function routeChat (
+  │ REQUEST │     call // ← stream, callback)    │    call // ← stream. NOTE: no callback )
+  │         │ {                                  │ {
+  │         │   call.on('data',                  │   call.on('data',
+  │         │     (point) => { ... }             │     (note) => {
+  │         │   )                                │     _.each(internal_data,
+  │         │   call.on('end',                   │     (note) => {
+  │         │     () => {                        │       call.write(note)
+  │         │       var summary = new            │            ^^^^^^^^^^^
+  │         │         messages                   │           write to resp.stream
+  │         │        .RouteSummary().set...      │     })
+  │         │       callback(null, summary);     │   })
+  │         │     })                             │   call.on('end',
+  │         │ }                                  │     () => { call.end(); }
+  │         │                                    │  )
+  │         │                                    │ }
+  └─────────┴────────────────────────────────────┴──────────────────────────────────────────
+
+  NODE.JS CLIENT IMPLEMENTATION SUMMARY 
+
+  messages = require('...._pb')
+  services = require('...._grpc_pb')
+  grpc = require('grpc')
+
+  client = new services
+             .RouteGuideClient(
+      'localhost:50051',
+      grpc
+        .credentials
+        .createInsecure())
+
+            ┌────────────────────────────────┬───────────────────────────────────
+            │ SINGLE RESPONSE                │ STREAM RESPONSE 
+ ┌──────────┼────────────────────────────────┼───────────────────────────────────
+ │ SINGLE   │ function featureCallback(      │ function runListFeatures(callback)
+ │ REQUEST  │       error, feature)          │ {
+ │          │ {                              │   call = client
+ │          │   if (error) {                 │            .listFeatures(rect);
+ │          │      ....                      │   call.on(
+ │          │      return                    │      'data',
+ │          │   }                            │      (feature) => {
+ │          │   var latitude = feature.get.. │       //  process feature 'event'
+ │          │   ...                          │   })
+ │          │   next();                      │   call.on('end', callback);
+ │          │ }                              │ }
+ │          │ client                         │
+ │          │   .getFeature(                 │
+ │          │      point1,                   │
+ │          │      featureCallback);         │
+ ├──────────┼────────────────────────────────┼───────────────────────────────────
+ │ STREAM   │ //* a) Create call.write(able)*│ function runRouteChat(callback)
+ │ REQUEST  │ //*    object*                 │ {
+ │          │ var call = client.recordRoute( │   //*1) create call.write(able)*
+ │          │   function(                    │   //*   object with onData notifier*
+ │          │     error,                     │   var call = client.routeChat()
+ │          │     stats // ← server response │   call.on(
+ │          │   )                            │     'data',
+ │          │   {                            │     (note)=> { // ← response from stream /
+ │          │     if (error) {               │       //*2) callback for stream response*
+ │          │       ...                      │       //*   object received*
+ │          │       return                   │       .. do whatever with note response
+ │          │     }                          │     }
+ │          │     // process stats response  │   )
+ │          │   }                            │   //*3) Setup onEnd*
+ │          │ );                             │   call.on('end', callback)
+ │          │ //* b) Write to stream*        │
+ │          │ for ("location in ddbb") {     │   //*4) Write to request stream*
+ │          │    call.write(location);       │   for ("note in note_ddbb") {
+ │          │ }                              │     var noteMsg = new messages
+ │          │                                │           .RouteNote().setXXX..;
+ │          │                                │     call.write(noteMsg);
+ │          │                                │   }
+ │          │                                │   call.end();
+ │          │                                │ }
+ └──────────┴────────────────────────────────┴───────────────────────────────────
+[[}]]
+
+[[{protocol.grpc,02_doc_has.comparative,01_PM.BACKLOG]]
+● Rsocket (gRPC alt)
+Rsocket authors claim that it's better than gRPC:
+- @[https://github.com/rsocket/rsocket/blob/master/Motivations.md]
+- @[https://medium.com/netifi/rpc-thunder-dome-3103e2449957]
+[[}]]
+
+[[$div}]]

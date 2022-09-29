@@ -1,0 +1,795 @@
+● CSS [[{dev_lang.css.101]]
+● CSS Selectors #[css_selector_summary]
+• BY COORDINATE: 
+  selector           Example          Example description
+  --------           -------          ------- -----------
+  .class             .intro           match 1+ element/s by class="intro"
+  #id                #firstname       match element by id
+                                      match all elements
+  html_tag           p                match all <p> elements
+  sel1,sel2,...      div, p           match <div> + <p> elements
+  element element    div p            match <p> elements inside <div> elements
+  element>element    div > p          match <p> elements with parent <div>
+  element+element    div + p          match <p> elements placed immediately
+                                      after <div> elements
+  element1~element2  p ~ ul           match every <ul> element when preceded by <p>s
+  [attribute]        [target]         match elements having a "target" attribute
+  [attribute=value]  [title=flower]   match all elements when title is     flower
+  [attribute~=value] [title~=flower]  match all elements when title is not flower
+  [attribute*=value] [title*=flower]  match all elements when title val. contains "flower"
+  [attribute|=value] [lang|=en]       match all elements when lang  val. starts with en
+  [attribute^=value] a[href^="http"]  match <a> elements when href  val. starts with http
+  [attribute$=value] a[href$="pdf"]   match <a> elements when href  val. ends   with .pdf
+  :active            a:active         Selects the active link
+
+• BY RELATIVE COORDINATE: 
+  selector           Example          Example description
+  --------           -------          ------- -----------
+  :first-of-type     p:first-of-type  match <p> element  when <p> is 1st  element of parent
+  :last-of-type      p:last-of-type   match <p> element  when <p> is last element of parent
+  :not(selector)     :not(p)          match all elements except <p>s
+  :first-child       p:first-child    match <p> element  when <p> is 1st  child of its parent
+  :last-child        p:last-child     match <p> element  when <p> is last child of its parent
+  :nth-child(n)      p:nth-child(2)   match <p> element  when <p> is 2nd  child of its parent
+  :nth-last-child(n)                  match <p> element  when <p> is "-2" child of its parent
+                     p:nth-last-child(2)
+  :nth-last-of-type(n)                match <p> element  when <p> is last-but-2 of <p>'s parent
+                     p:nth-last-of-type(2)
+  :nth-of-type(n)    p:nth-of-type(2) match <p> element  when <p> is nth of <p>'s parent
+  :only-of-type      p:only-of-type   match <p> element  when it's the only <p> of its parent 
+  :only-child        p:only-child     match <p> element when it's the only child of its parent 
+  :root              :root            match document's root element
+  ::after            p::after         Insert content after  every <p> element
+  ::before           p::before        Insert content before every <p> element
+  :empty             p:empty          match <p> elements when it has no children and no text 
+  ::first-letter     p::first-letter  match first-letter of <p> elements
+  ::first-line       p::first-line    match first-line   of <p> elements
+
+• BY STATUS:  (INPUT ELEMENTS)
+  selector           Example          Example description
+  --------           -------          ------- -----------
+  :checked           input:checked    match checked <input> element
+  :disabled          input:disabled   match disabled <input> element
+  :enabled           input:enabled    match enabled <input> element
+  :valid             input:valid      match input elements with a    valid value
+  :invalid           input:invalid    match input elements with an invalid value
+  :read-only         input:read-only  match input elements with "readonly" attribute     specified
+  :read-write        input:read-write match input elements with "readonly" attribute NOT specified
+  :required          input:required   match input elements with    "required" attribute  specified
+  :optional          input:optional   match input elements with no "required" attribute
+  :in-range          input:in-range   match input elements with a value within  a specified range
+  :out-of-range    input:out-of-range match input elements with a value outside a specified range
+  :focus             input:focus      match the input element which has focus
+
+• LINKS: 
+  ::selection        ::selection     match portion of an element selected by a user
+  :target            #news:target    match current active #news element
+                                     (clicked on a URL containing that anchor name)
+  :visited           a:visited       match all visited links
+  :link              a:link          match all unvisited links
+
+• OTHERS: 
+  :hover             a:hover         match links on mouse over
+  :lang(language)    p:lang(it)      match every <p> element with lang attribute "it"
+
+────────────────────────────────────────────────────────────────────────────────
+● CSS variables
+• CSS variables (also called CSS custom properties) let express dynamic
+  relations among CSS properties.
+  · Declared by prefixing their names with --. e.g. --background
+  · Its value can be reused in other CSS declarations using the var() function.
+  · The variable can be updated either via CSS or JavaScript ,
+    automatically updating all dependent variables reactively 
+    and allowing developers to express custom algorithms
+    closer to a Turing-complete language like JavaScript.
+  · They are scoped to the element(s) they are declared on.
+• CSS becomes more maintainable, easier to understand, paremeterize and change.
+• Can also be used with 'calc'. E.g.:
+  width: calc(var(--variable-width) + 20px);
+• Ex:
+  :root {
+    --first-color: #16f;
+    --second-color: #ff7;
+  }
+
+  #firstParagraph {
+    background-color: var(--first-color);
+    color: var(--second-color);
+  }
+
+  #secondParagraph {
+    background-color: var(--second-color);
+    color: var(--first-color);
+  }
+
+  #container {
+    --first-color: #290;
+  }
+
+  #thirdParagraph {
+    background-color: var(--first-color);
+    color: var(--second-color);
+  }
+• Extracted from
+  REF:@[https://www.infoq.com/news/2020/06/css-variables-design-systems/]
+  """ Tolinski concluded with the following advice:
+      Frameworks require overhead of both kb and onboarding. 
+    ... Write only what you need, use variables as the backbone. """
+────────────────────────────────────────────────────────────────────────────────
+● calc(ulated)
+•   WARN : css calc(ulated) can slow down rendering according to some sources.
+• E.g. extracted from @[https://developer.mozilla.org/en-US/docs/Web/CSS/calc()]
+  width: calc(10px + 100px);
+  width: calc(2em * 5);
+  width: calc(var(--variable-width) + 20px);
+• box-sizing as potential alternative to css calc :
+@[http://stackoverflow.com/questions/16034397/css-calc-alternative]
+
+  box-sizing     Description
+  related Prop.
+  -------------  -----------------------------------------------------
+  • content-box  · Default width and height (and min/max) includes
+                   only the content.
+                 · Border/padding/margin not included
+
+  • border-box   · width and height properties (and min/max properties)
+                 includes content, padding and border, but not the margin
+
+  • initial      · Set property to default value.
+                 (Read about initial)
+
+  • inherit      · Inherits property from parent element.
+────────────────────────────────────────────────────────────────────────────────
+● CSS Layout
+• Layout mode:
+  algorithm that determines position+size of boxes based on
+  how they interact with sibling and ancestor boxes:
+@[https://developer.mozilla.org/en-US/docs/Web/CSS/Layout_mode]
+  · Normal flow : (default) includes:
+    · block  layout: lay out boxes (paragraphs,...)
+    · inline layout: lay out inline items (text,...).
+  · Table layout:
+  · Float layout: cause item to position left|right with
+                  the rest of the content.
+  · Positioned layout: position elements without much interaction
+                  with other elements.
+  · Multi-column layout: lay out content in columns.
+  · Flexible box layout: lay out complex pages that can be
+                         resized smoothly.
+  · Grid layout: lay out elements relative to a fixed grid.
+
+
+→ Step 1: Define "display" property
+· @[https://developer.mozilla.org/en-US/docs/Web/CSS/display]
+·   sets
+·   - outer layout respect siblings (block or inline)
+·   - inner layout of      children (flow-root,flow,flex,grid,table)
+·
+·     none: Turns off display of an element
+·             WARN : use visibility:hidden to replace element with transparent box
+·     contents: don't produce a specific box by themselves.
+·               Place inner content on parent container.
+·
+·   - CSS3 value  syntax  Legacy CSS2
+·     ------------------  -----------
+·     block  flow-root
+·     block  flow
+·     block  flex
+·     block  grid
+·     block  table
+·     inline flow-root    inline-block
+·     inline flow
+·     inline flex         inline-flex
+·     inline grid         inline-grid
+·     inline table        inline-table
+·
+└·→ Step 2: Define float:= left | right | none  | inline-start | inline-end
+  · @[https://developer.mozilla.org/en-US/docs/Web/CSS/float]
+  ·   It implies the use of a block layout , modifying if needed the
+  ·   computed value of display values if needed.
+  ·   It defines element's placement relative to parent container .
+  ·
+  └·→ Step 3: Define clear:= left | right | both | none
+      @[https://developer.mozilla.org/en-US/docs/Web/CSS/clear]
+        It allows to control vertical placement relative to  sibling floating elements .
+        It defines whether current element must be moved below (cleared)
+        sibling floating elements to its right/left.
+        (the element itself can be or not floating).
+
+● Responsive 101 #[html_responsive_summary] [[{dev_lang.css.101,mobile,qa.responsive]]
+There are two main aspects to consider when adapting a web "page"
+to be used on mobiles and desktops (and TVs, ...)
+• ################################# 
+  # ASPECT 1) USER INPUT HARDWARE # 
+  ################################# 
+  · This is the main difference between mobiles and desktops.
+  · Desktop users can profit from a mouse with accurate movement
+    over the screen, while mobile users must use coarse finger "touchs".
+  · ✓ CSS 4 ( 2018+ , support by all major browsers) @media allows to
+    show/hide/modify (input) elements according to the accuracy of
+    system's pointer ("mouse").
+    It also allows to show/hide/modify elements according to the
+    possibility to detect mouse hovering (flying above) above them.
+
+    PRIMARY INPUT                         POINTER TYPE       DEVICE TYPE
+    ==========================            =================  ===============
+    @media (pointer  : coarse)  { ... }   limited accuracy   mobiles
+    @media (pointer  : fine  )  { ... }   high    accuracy   laptops,desktops
+    @media (pointer  : none  )  { ... }   no pointer         embedded info-pannels,...
+
+    PRIMARY INPUT                PRI/SECONDARY INPUT/S          HOVER TYPE
+    ==========================   ==========================     ===========================
+    @media (hover    : hover )   @media (any-hover    : hover ) easy   hover over elements
+    @media (hover    : none  )   @media (any-hover    : none  ) limited/none hover
+    └───────────┬────────────┘
+    Complementary to those @media filters we can
+    dynamically use Javascript to detect the
+    mouse/hover properties and react accordingly
+    Javascript Media query :
+    if ( window.matchMedia("(any-hover: none)".matches ) {      [code-snippet]
+      ...
+    }
+
+  · Ussually input elements requiring high accuracy, tooltips "on Hover", ...
+    will need to be replaced by ("simpler") alternatives on mobile phones.
+
+  · mobile "multi-touch" (zoom-in/out) effects probably will require input sliders
+    (<input type="range" ...>) on desktops.
+
+• ######################### 
+  # ASPECT 2) SCREEN SIZE # 
+  ######################### 
+  The styling to apply depending on the screen size is more subject to interpretations.
+  • meta-header viewport (mobile only):
+    <meta name="viewport"
+       content="user-scalable=no,
+                width=device-width,  *  
+                initial-scale=1" />
+
+     *   (emulated) width. If physical mobile screen is 6"-diagonal and has a native 1920px
+                        screen resolution, then an 192px-diagonal image will display in
+                        just ~0.6" by default.
+                        By setting viewport width to 192px virtual pixels, it will display
+
+    Initial-scale:1
+    Minimum-scale:
+    Maximum-scale:
+    User-scalable: yes / no
+
+  • Vision angles (vs screen size and resolution) is the key point to consider.
+    There is always an important   missing parameter to choose the right layout:
+    "Distance-from eye-to-screen".
+    This implies that we must make assumptions covering standard scenarios:
+      · For mobiles eye-to-screen is about   20- 40 cms.
+      · For laptops eye-to-screen is about   70-100 cms.
+      · For TV      eye-to-screen is about  300-500 cms.
+    with that arbirary assumption different @media can be applied:
+
+    @media only screen and
+               (pointer  : coarse)          ← probably mobile at 20-40 cms distance
+           and (min-device-width : 320px)   ← low (mobile) resolution
+           and (max-device-width : 800px) {
+               (max-width: 800px) {
+      body { font-size: 1.3em }             ← Increase font-size
+      ... 1 column  layout ...              ← e.g.: Render just 1 column of "payload" info
+    }
+
+    @media only screen and
+               (pointer  : coarse)          ← probably mobile at 20-40 cms distance
+           and (min-device-width : 801px)   ← medium (mobile) screen resolution
+           and (max-device-width :1024px) {
+      body { font-size: 1.2em }             ← Increase font-size
+      ... 1 column  layout ...              ← e.g.: Render just 1 column of "payload" info
+    }
+
+    @media only screen and
+               (pointer  : coarse)          ← probably mobile at 20-40 cms distance
+           and (min-device-width :1025px)   ← high (mobile) screen resolution
+    {
+      body { font-size: 1.2em }             ← Increase font-size
+      ... 2 column  layout ...              ← e.g.: Render 2 columns of "payload" info
+    }
+
+    @media only screen and
+               (pointer  : fine ) and       ← probably desktop at 70-100 cms distance
+                                              probably high-screen resolution
+               (max-width: 960px) {         ← probably browser windows right/left of
+                                              desktop with a 1920+px screen resolution
+      body { font-size: 10px }              ← Increase font-size
+      ... 1 column  layout ...              ← e.g.: Render just 1 column of "payload" info
+    }
+    @media only screen and
+               (pointer  : fine ) and       ← probably desktop at 70-100 cms distance
+                                              probably high-screen resolution
+               (max-width: 960px) {         ← probably maximized windows filling
+                                              desktop with a 1920+px screen resolution
+      body { font-size: 10px }              ← Increase font-size
+      ... 2 column  layout ...              ← e.g.: Render 2 columns of "payload" info
+    }
+[[}]]
+
+[[{dev_lang.css,code.low_code,qa,01_PM.TODO]]
+● Tailwindcss
+@[https://tailwindcss.com/]
+• “Best practices” don’t actually work.
+""" I’ve written a few thousand words on why traditional 
+  “semantic class names” are the reason CSS is hard to maintain, 
+  but the truth is you’re never going to believe me until you 
+  actually try it. If you can suppress the urge to retch long enough to 
+  give it a chance, I really think you'll wonder how you ever worked 
+  with CSS any other way."""
+
+────────────────────────────────────────────────────────────────────────────────
+● RunCSS @ma
+@[https://github.com/mudgen/runcss] by Nick Mudge (@[http://www.perfectabstractions.com/]) 
+• RunCSS is a runtime version of TailwindCSS. It has no build. RunCSS 
+  provides all the same CSS utility class names that we know and love 
+  from TailwindCSS.
+
+• RunCSS is batteries included. It has feature parity with TailwindCSS 
+  and beyond. RunCSS defaults are the same as TailwindCSS defaults plus 
+  TailwindCSS's additional variants, plus more. By default all variants 
+  such as hover, active, visited, group-hover etc. and responsive 
+  variants such as sm, lg etc work with all class names.
+
+• RunCSS is possible because it is a Javascript file that generates CSS 
+  at runtime.
+
+• The primary difference between TailwindCSS and RunCSS is that 
+  TailwindCSS generates CSS at build time and RunCSS generates CSS at 
+  runtime.
+
+• RunCSS has no build. Just use it. Off to the races!
+
+• The tradeoff to using RunCSS is a small amount of Javascript 
+  execution to generate CSS at runtime. The necessary CSS for each 
+  class name is generated one time as it is encountered. CSS is only 
+  generated for class names that are actually used.
+[[}]]
+
+
+[[{dev_lang.css.101]]
+● CSS Flex/Grid #[css_flex_summary]
+REF: @[http://flexbox.malven.co/] by @[https://malven.co/]
+  ELEMENT FLEX PROPERTIES RELATIVE TO ***PARENT CONTAINER*** 
+
+  • display:= how current element behaves with  siblings 
+     · flex       : As box (paragraph,...)
+     · inline-flex: As line(text     ,...)
+
+  • flex-direction:=  establishes the main axis for children
+      row    row-reverse    column  column-reverse:
+      |||⇒      ⇐|||          -         ⇑
+                              ⇓         -
+
+  • flex-wrap:= What to do when items don't fit in a line/column
+      nowrap       wrap         wrap-reverse
+      ┌───────┐    ┌───────┐    ┌───────┐
+      │|||||||│    │|||||||│    │|||    │
+      │       │    │|||    │    │|||||||│
+      └───────┘    └───────┘    └───────┘
+
+  • justify-content: who to (attempt to) distribute extra space on main axis
+
+      flex-start       flex-end       center
+      ┌───────┐        ┌───────┐      ┌───────┐
+      │|||    │        │    |||│      │  |||  │
+
+      space-between    space-around   space-evenly
+      ┌───────┐        ┌───────┐      ┌───────┐
+      │|  |  |│        │ | | | │      │ | | | │
+
+  • align-items: Determines how items are laid out on cross (vs main) axis
+     flex-start  flex-end   center     baseline   stretch
+     ┌───────┐   ┌───────┐  ┌───────┐  ┌───────┐  ┌───────┐
+     │·······│   │       │  │       │  │·······│  │  2 ...│
+     │       │   │       │  │·······│  │       │  │  2 ...│
+     │       │   │·······│  │       │  │       │  │  2 ...│
+     └───────┘   └───────┘  └───────┘  └───────┘  └───────┘
+
+
+  • align-content: Only aplies with 2+ content lines (Ex using flex-wrap)
+      flex-start  flex-end   center     space-     space-     stretch
+                                        between    around
+      ┌───────┐   ┌───────┐  ┌───────┐  ┌───────┐  ┌───────┐  ┌───────┐
+      │1 2 3 4│   │       │  │       │  │1 2 3 4│  │       │  │1 2 3 4│
+      │5 6 ...│   │       │  │1 2 3 4│  │       │  │1 2 3 4│  │1 2 3 4│
+      │       │   │1 2 3 4│  │5 6 ...│  │       │  │5 6 ...│  │5 6 ...│
+      │       │   │5 6 ···│  │       │  │5 6 ...│  │       │  │5 6 ...│
+      └───────┘   └───────┘  └───────┘  └───────┘  └───────┘  └───────┘
+
+  FLEX PROPERTIES OF ELEMENT's CHILDREN 
+
+  • order: Allows to explictly set children's order:
+    := integer
+
+  • flex-grow: determine how each child is allowed to grow as a part of a whole
+      flex-grow: 1                flex-grow
+      ┌────────────┐            ┌────────────┐
+      │┌──┐┌──┐┌──┐│            │┌┐┌──┐┌────┐│
+      ││  ││  ││  ││            ││││  ││    ││
+      ││  ││  ││  ││            ││││  ││    ││
+      (applied to all)          (1, 2, and 3)
+
+  • flex-basis: Defines size of children before remaining space is distributed
+      ┌────────────┐ ← first item 20%,
+      │┌┐┌──┐┌────┐│   second item 40%
+      ││││  ││    ││
+      ││││  ││    ││
+
+  • flex-shrink: shrink childrens if necessary. Only really useful with
+                 a set size or flex-basis
+      ┌──────────┐
+      │┌──┐┌────┐│← Ex: both want to be 100% wide
+      ││  ││    ││  2nd item has flex-shrink: 2
+      ││  ││    ││
+
+  • align-self: Sets alignment for individual item.
+      ┌───────┐
+      │·· ····│← Ex: 3rd item has align-self:flex-end
+      │       │
+      │  ·    │
+      └───────┘
+- http://grid.malven.co/     [TODO]
+[[}]]
+
+[[{dev_lang.css.101,01_PM.WiP]]
+● CSS Grid #[css_grid_summary]
+REF: @[http://grid.malven.co/] by @[https://malven.co/]
+
+• CSSgrid generator: online visual Grid design tool.
+ @[https://cssgrid-generator.netlify.app/]
+
+   [TODO] beatify with ascii-art visual hints (like original page)  [TODO]
+  ELEMENT GRID PROPERTIES RELATIVE TO ***PARENT CONTAINER*** 
+
+  • display := grid  |  inline-grid | subgrid
+
+  • grid-template: Defines the rows and columns of the grid.
+
+    Ex. 3x3 matrix:
+    grid-template-columns: 12px 12px 12px;
+    grid-template-rows: 12px 12px 12px;
+
+    Ex. 3x3 matrix:
+    grid-template-columns: repeat(3, 12px);
+    grid-template-rows: repeat(3, auto);
+
+    Ex. 3x3 matrix:
+    grid-template-columns: 8px auto 8px;
+    grid-template-rows: 8px auto 12px;
+
+    Ex. 3x3 matrix:
+    grid-template-columns: 22% 22% auto;
+    grid-template-rows: 22% auto 22%;
+
+  • grid-gap: set  size of column and row gutters.
+    Ex. 1:                  Ex.2:               Ex.3:
+    grid-row-gap   : 1px;   grid-gap: 1px 9px;  grid-gap: 6px;
+    grid-column-gap: 9px;
+
+  • justify-items: Aligns content in grid along row axis.
+    :=  start | end | center | stretch (default)
+
+  • align-items: Aligns content in grid along column axis.
+    start | end | center | stretch (default)
+
+  • justify-content: Justifies ALL grid content on row axis
+                     when total grid size is smaller than container.
+    align-content  : Justifies ALL grid content on column axis
+                     when total grid size is smaller than container.
+    := start |  end |  center |  stretch |  space-around |
+       space-between |  space-evenly
+
+  • grid-auto-flow: Algorithm used to automatically place grid items
+                    not explictly placed.
+    := row | column | dense
+
+  FLEX PROPERTIES OF ELEMENT's CHILDREN 
+
+  • grid-column: Determines an items column-based location within the grid.
+    grid-column-start: 1;
+    grid-column-end  : 3;
+
+    grid-column-start: span 3;
+
+    grid-column-start: 2;
+    grid-column-end  : 4;
+
+
+    grid-column      : 2 / 3
+    grid-column      : 2 / span 2
+
+  • grid-row: Determines an items row-based location within the grid.
+    grid-row-start: 1;
+    grid-row-end: 3;
+
+    grid-row-start: span 3;
+
+    grid-row-start: 2;
+    grid-row-end: 4;
+
+    grid-row: 1 / 3;
+    grid-row: 1 / span 3;
+
+  • grid-row + grid-column: Combining grid rows with grid columns.
+    grid-row: 1 / span 2;
+    grid-column: 1 / span 2;
+
+    grid-row: 2 / span 2;
+    grid-column: 2 / span 2;
+
+ • justify-self: Aligns content for a specific grid item along the row axis.
+   justify-self: start;
+
+   justify-self: end;
+
+   justify-self: center;
+
+   justify-self: stretch; (default)
+
+ • align-self: Aligns content for a specific grid item along the column axis.
+   align-self: start;
+
+   align-self: end;
+
+   align-self: center;
+
+   align-self: stretch; (default)
+[[}]]
+[[$div}]]
+
+[[{$div]]
+● CSS Cont.
+[[{dev_lang.css.101]]
+● CSS3 Animations #[css_animations_summary]
+• Animations allows to gradually change an element's CSS properties from
+  initial style/value to final one.
+
+@keyframes animation01 {            ← STEP 1) Define key frames describing
+                                              element/s styles at certain "times"
+
+  from   {color: red;  left:   0; }   ← from ==   "0%"
+  10%,90%{color: #AAA; left: 10%; }
+  30%,70%{color: blue; left: 20%; }
+  to     {color: green;left: 30%; }   ←   to == "100%"
+}
+
+div {                               ← Animation will apply to all div's
+  ...
+  color              : red;
+  animation-name     : animation01; ← STEP 2) Animation ussage
+
+  animation-duration : 4s;            ← (non-Opt) Set transition time
+
+  animation-delay    : 2s;            ← Opt. If negative anim. starts as
+                                             if running for "-N" secs.
+
+  animation-direction: normal         ← Opt. normal* | reverse
+                                                | alternate | alternate-reverse
+
+  animation-iteration-count: 3;       ← Opt. Repeat N times (vs infinite)
+
+  animation-timing-function: linear;  ← Opt. :=   linear | ease | ease-in
+                                             | ease-out | ease-in-out
+
+  animation-fill-mode: forwards;      ← Opt. Effect CSS before-1st/after-lst.frame
+                                        none*    : Keep original CSS
+                                        forwards : retain  last keyframe style
+                                        backwards: retain first keyframe style
+                                        both     : retain 1st keyframe before start
+                                                          lst.keyframe after  end
+}
+
+• External references:
+  · Advanced CCS3 animations using SVG can be
+  @[http://css3.bradshawenterprises.com/cfimg/]
+────────────────────────────────────────────────────────────────────────────────
+● Profiling
+• Problem Context :
+  Performance issue when adding CSS-based animation (dropped frames)
+    : Are there any tools to debug/profile the issue?
+    :
+ • Chrome : Timeline tab
+            Display stats about restyles, reflows, paint, compositing
+            operations as time goes.
+            Will be available in Firefox in a future (2014-08)
+
+ • Firefox: FirefoxDevTools → "performance" tab → profiler
+            STEP 1) Create JS calls record.
+            STEP 2) Inspect  framerate graph  along with a
+                    bar graph showing the types of activities occurred
+                    on each recorded sample
+                   (network, JIT, GC, events, styles, graphics, storage).
+                                              └──────┬───────┘
+                                         CSS animation related ones
+            Optional: Enable "Gecko platform data" for extra information
+
+            It works over remote devtools-protocol  allowing for mobile
+            profile / debug.
+
+
+[[}]]
+
+[[{dev_lang.css,01_PM.TODO]]
+● CSS Logical Props.
+@[https://developer.mozilla.org/en-US/docs/Web/CSS/CSS_Logical_Properties]
+• CSS Logical Properties and Values CSS modules introduces
+  logical properties and values that provide the ability to
+  control layout through logical, rather than physical,
+  direction and dimension mappings.
+• The module also defines logical properties and values for properties
+  previously defined in CSS 2.1. Logical properties define
+  direction‐relative equivalents of their corresponding physical
+  properties.
+[[}]]
+
+
+
+[[{]]dev_lang.css.101," >
+● CSS Background
+• background-color: red;
+
+• Image background attributes:
+  background-image   : url(image);
+  background-repeat  : repeat | no-repeat | repeat-x  | repeat-y
+  background-position: top | center | bottom
+  background-size    : 100px | 90% | cover | contains
+
+• Gradient:
+  p1: coordinates gradient start
+      TODO: Firefox(top|left|right|down)
+      Webkit: % horizontal/vertical
+  p2: coodinates gradinet end
+  1: color start
+  c2: color end
+  (-webkit|moz)-gradient(linear, p1, p2, from(c1), to(c2));
+  linear-gradient(p1, c1, c2) no-repeat;
+
+• Gradient Vertical:
+  background: -moz-linear-gradient(top, red, blue);
+  background: -webkit-gradient(linear, 0%, 0%, 0%, 100%, from(red), to(blue));
+• Gradient Horizontal
+  background: -moz-linear-gradient(left, red, blue);
+  background: -webkit-gradient(linear, 0%, 0%, 100%, 0%, from(red), to(blue));
+• Gradient Radial
+  background: -webkit-gradient(radial, p1, r1, p2, r2, from(c1), to(c2));
+[[}]]
+
+[[$div}]]
+
+[[{$div]]
+● Fonts/Art Gallery
+[[{dev_lang.css]]
+● fontsquirrel
+Declaring external font:
+@font-face
+{
+   font-family: MyFontFamilyName; /* "id" to be used in CSS for this font*/
+   src: url('my_font.ttf');
+   src: url('my_font.eot');
+   src: url('my_font.svg');
+   src: url('my_font.woff');
+}
+
+use:
+h1 { font-family: 'MyFontFamilyName'; }
+- https://www.fontsquirrel.com/
+    Free fonts have met their match. We know how hard it is to find quality
+    freeware that is licensed for commercial work. We've done the hard work, hand-
+    selecting these typefaces and presenting them in an easy-to-use format. Here
+    are some of our favorites:
+   http://christ-offer.blogspot.com.es/2011/05/html5css3-fonts-with-font-face.html
+
+- Embedding specific fonts on a web page, traditionally, has been
+  accomplished using images.  Though IE 5.0+ allowed you to embed fonts on your
+  web page, they needed to be in EOT (Embedded OpenType) format.  Other
+  browsers supported TTF (TrueType) and OTF (OpenType) fonts.  IE9 now supports
+  TTF, OTF and also WOFF (Web Open Font).  To accomplish the task of embedded
+  real fonts into your web pages, use the CSS3 @font-face rule.
+
+- Where to get quality FREE fonts for use in web pages?  FontSquirrel is a
+  great place with hundreds of free fonts, including kits that demonstrate how
+  to embed and use them into a web page, plus a generator to create your own.
+  With the kit, you get the font in all the formats so that you can craft your
+  web pages to support all the major
+[[}]]
+
+[[{dev_lang.css]]
+● "fonts for pros"
+https://type-scale.com/
+CSS :
+From: @[https://www.infoq.com/news/2020/06/css-variables-design-systems/]
+Typography-wise, Tolinski recommended leveraging existing tools to
+visualize fonts and their scale ratio. An example of code
+auto-generated for copy-pasting purposes by type-scale.com is as
+follows:
+@import url('https://fonts.googleapis.com/css?family=Poppins:400|Poppins:400');
+
+html {font-size: 100%;} /*16px*/
+
+body {
+  font-family: 'Poppins', sans-serif;
+  ...
+}kkkkkkkkk
+
+h1, h2, h3, h4, h5 {
+  font-family: 'Poppins', sans-serif;
+  ...
+}
+Extra typography resources include
+• modularscale
+  https://www.modularscale.com/
+• Figma typography recommendations
+  https://www.figma.com/best-practices/typography-systems-in-figma/
+• vertical-rhythm-reset
+  http://jhildenbiddle.github.io/vertical-rhythm-reset/sassdoc/
+[[}]]
+
+[[{dev_lang.css,02_doc_has.resource]]
+● Art Gallery
+Icon Gallery:
+@[https://github.com/NitruxSA/nitrux-icons]
+@[http://tiheum.deviantart.com/art/Faience-icon-theme-255099649]
+@[http://tiheum.deviantart.com/art/Faenza-Icons-173323228]
+@[http://0rax0.deviantart.com/art/Uniform-Icon-Theme-453054609]
+@[http://gnome-look.org/content/show.php/Dalisha?content=166286]
+[[}]]
+● Others
+[[{dev_lang.css,qa.accesibility,]]
+● Colors-for-all
+@[https://github.com/AmadeusITGroup/Colors-for-All]
+• Tool enabling to easily check color contrasts and WCAG
+  compliance (AA or AAA levels as defined by W3C) between specific
+  colors in one shot !
+• online application available for UX/UI designers or any other
+  people involved in digital accessibility.
+[[}]]
+[[{dev_lang.js,qa.responsive,performance,01_PM.TODO]]
+● Resize_Observer_API
+See also: @[https://en.wikipedia.org/wiki/Responsive_web_design] 
+@[https://developer.mozilla.org/en-US/docs/Web/API/Resize_Observer_API]
+• The Resize Observer API provides a performant mechanism by which code
+  can monitor an element for changes to its size, with notifications
+  being delivered to the observer each time the size changes.
+[[}]]
+[[{]]dev_lang.css," >
+● Apply Masks to images
+@[http://www.html5rocks.com/en/tutorials/masking/adobe/]
+
+• Clipping an image:
+
+  <svg>                           ← STEP 1: Define SVG clip
+    <defs>
+      </clipPath  id="clipping01" >
+        <circle
+          cx=284 cy=213 r=213 />
+      </clipPath>
+    </defs>
+  </svg>
+
+  img#img01 {                    ← STEP 2:  Add css to img dom
+    clip-path: url(#clipping01 );  ← with a clip-path property
+  }
+
+
+• Animated Clipping:
+  @keyframes animation01 {       ← STEP 1: Define animation
+    0% {
+      clip-path: polygon(...);
+    },
+    100% {
+      clip-path: polygon(...);
+    }
+  }
+  img#img01:hover {              ← STEP 2: Apply clip to image.
+    clip-path:
+      polygon(0px 208px, 146.5px 207px,... ...);
+    animate: animation01 3s;     ← STEP 3: Apply animation to CSS
+  }
+[[}]]
+
+
+[[$div}]]
+[[dev_lang.css.101}]]
+
