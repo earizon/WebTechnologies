@@ -1,6 +1,18 @@
+●  Apropos:
+- Visit next Web site for a great experience:
+  https://earizon.github.io/txt_world_domination/viewer.html?payload=../WebTechnologies/CSS.txt
+
+- If you want to contribute to great gistory of this
+  document you can take the next flight to:
+@[https://www.github.com/earizon/WebTechnologies]
+  Your commits and pull-request will be immortalized
+  in the Pantheon of the Unicode Gods.
+────────────────────────────────────────────────────────────────────────────────
+
+
 ● CSS [[{dev_lang.css.101]]
 ● CSS Selectors #[css_selector_summary]
-• BY COORDINATE: 
+• BY COORDINATE:
   selector           Example          Example description
   --------           -------          ------- -----------
   .class             .intro           match 1+ element/s by class="intro"
@@ -22,7 +34,7 @@
   [attribute$=value] a[href$="pdf"]   match <a> elements when href  val. ends   with .pdf
   :active            a:active         Selects the active link
 
-• BY RELATIVE COORDINATE: 
+• BY RELATIVE COORDINATE:
   selector           Example          Example description
   --------           -------          ------- -----------
   :first-of-type     p:first-of-type  match <p> element  when <p> is 1st  element of parent
@@ -36,12 +48,12 @@
   :nth-last-of-type(n)                match <p> element  when <p> is last-but-2 of <p>'s parent
                      p:nth-last-of-type(2)
   :nth-of-type(n)    p:nth-of-type(2) match <p> element  when <p> is nth of <p>'s parent
-  :only-of-type      p:only-of-type   match <p> element  when it's the only <p> of its parent 
-  :only-child        p:only-child     match <p> element when it's the only child of its parent 
+  :only-of-type      p:only-of-type   match <p> element  when it's the only <p> of its parent
+  :only-child        p:only-child     match <p> element when it's the only child of its parent
   :root              :root            match document's root element
   ::after            p::after         Insert content after  every <p> element
   ::before           p::before        Insert content before every <p> element
-  :empty             p:empty          match <p> elements when it has no children and no text 
+  :empty             p:empty          match <p> elements when it has no children and no text
   ::first-letter     p::first-letter  match first-letter of <p> elements
   ::first-line       p::first-line    match first-line   of <p> elements
 
@@ -61,14 +73,14 @@
   :out-of-range    input:out-of-range match input elements with a value outside a specified range
   :focus             input:focus      match the input element which has focus
 
-• LINKS: 
+• LINKS:
   ::selection        ::selection     match portion of an element selected by a user
   :target            #news:target    match current active #news element
                                      (clicked on a URL containing that anchor name)
   :visited           a:visited       match all visited links
   :link              a:link          match all unvisited links
 
-• OTHERS: 
+• OTHERS:
   :hover             a:hover         match links on mouse over
   :lang(language)    p:lang(it)      match every <p> element with lang attribute "it"
 
@@ -79,7 +91,7 @@
   · Declared by prefixing their names with --. e.g. --background
   · Its value can be reused in other CSS declarations using the var() function.
   · The variable can be updated either via CSS or JavaScript ,
-    automatically updating all dependent variables reactively 
+    automatically updating all dependent variables reactively
     and allowing developers to express custom algorithms
     closer to a Turing-complete language like JavaScript.
   · They are scoped to the element(s) they are declared on.
@@ -113,7 +125,7 @@
 • Extracted from
   REF:@[https://www.infoq.com/news/2020/06/css-variables-design-systems/]
   """ Tolinski concluded with the following advice:
-      Frameworks require overhead of both kb and onboarding. 
+      Frameworks require overhead of both kb and onboarding.
     ... Write only what you need, use variables as the backbone. """
 ────────────────────────────────────────────────────────────────────────────────
 ● calc(ulated)
@@ -199,9 +211,9 @@
 ● Responsive 101 #[html_responsive_summary] [[{dev_lang.css.101,mobile,qa.responsive]]
 There are two main aspects to consider when adapting a web "page"
 to be used on mobiles and desktops (and TVs, ...)
-• ################################# 
-  # ASPECT 1) USER INPUT HARDWARE # 
-  ################################# 
+• #################################
+  # ASPECT 1) USER INPUT HARDWARE #
+  #################################
   · This is the main difference between mobiles and desktops.
   · Desktop users can profit from a mouse with accurate movement
     over the screen, while mobile users must use coarse finger "touchs".
@@ -236,14 +248,14 @@ to be used on mobiles and desktops (and TVs, ...)
   · mobile "multi-touch" (zoom-in/out) effects probably will require input sliders
     (<input type="range" ...>) on desktops.
 
-• ######################### 
-  # ASPECT 2) SCREEN SIZE # 
-  ######################### 
+• #########################
+  # ASPECT 2) SCREEN SIZE #
+  #########################
   The styling to apply depending on the screen size is more subject to interpretations.
   • meta-header viewport (mobile only):
     <meta name="viewport"
        content="user-scalable=no,
-                width=device-width,  *  
+                width=device-width,  *
                 initial-scale=1" />
 
      *   (emulated) width. If physical mobile screen is 6"-diagonal and has a native 1920px
@@ -312,38 +324,38 @@ to be used on mobiles and desktops (and TVs, ...)
 ● Tailwindcss
 @[https://tailwindcss.com/]
 • “Best practices” don’t actually work.
-""" I’ve written a few thousand words on why traditional 
-  “semantic class names” are the reason CSS is hard to maintain, 
-  but the truth is you’re never going to believe me until you 
-  actually try it. If you can suppress the urge to retch long enough to 
-  give it a chance, I really think you'll wonder how you ever worked 
+""" I’ve written a few thousand words on why traditional
+  “semantic class names” are the reason CSS is hard to maintain,
+  but the truth is you’re never going to believe me until you
+  actually try it. If you can suppress the urge to retch long enough to
+  give it a chance, I really think you'll wonder how you ever worked
   with CSS any other way."""
 
 ────────────────────────────────────────────────────────────────────────────────
 ● RunCSS @ma
-@[https://github.com/mudgen/runcss] by Nick Mudge (@[http://www.perfectabstractions.com/]) 
-• RunCSS is a runtime version of TailwindCSS. It has no build. RunCSS 
-  provides all the same CSS utility class names that we know and love 
+@[https://github.com/mudgen/runcss] by Nick Mudge (@[http://www.perfectabstractions.com/])
+• RunCSS is a runtime version of TailwindCSS. It has no build. RunCSS
+  provides all the same CSS utility class names that we know and love
   from TailwindCSS.
 
-• RunCSS is batteries included. It has feature parity with TailwindCSS 
-  and beyond. RunCSS defaults are the same as TailwindCSS defaults plus 
-  TailwindCSS's additional variants, plus more. By default all variants 
-  such as hover, active, visited, group-hover etc. and responsive 
+• RunCSS is batteries included. It has feature parity with TailwindCSS
+  and beyond. RunCSS defaults are the same as TailwindCSS defaults plus
+  TailwindCSS's additional variants, plus more. By default all variants
+  such as hover, active, visited, group-hover etc. and responsive
   variants such as sm, lg etc work with all class names.
 
-• RunCSS is possible because it is a Javascript file that generates CSS 
+• RunCSS is possible because it is a Javascript file that generates CSS
   at runtime.
 
-• The primary difference between TailwindCSS and RunCSS is that 
-  TailwindCSS generates CSS at build time and RunCSS generates CSS at 
+• The primary difference between TailwindCSS and RunCSS is that
+  TailwindCSS generates CSS at build time and RunCSS generates CSS at
   runtime.
 
 • RunCSS has no build. Just use it. Off to the races!
 
-• The tradeoff to using RunCSS is a small amount of Javascript 
-  execution to generate CSS at runtime. The necessary CSS for each 
-  class name is generated one time as it is encountered. CSS is only 
+• The tradeoff to using RunCSS is a small amount of Javascript
+  execution to generate CSS at runtime. The necessary CSS for each
+  class name is generated one time as it is encountered. CSS is only
   generated for class names that are actually used.
 [[}]]
 
@@ -351,9 +363,9 @@ to be used on mobiles and desktops (and TVs, ...)
 [[{dev_lang.css.101]]
 ● CSS Flex/Grid #[css_flex_summary]
 REF: @[http://flexbox.malven.co/] by @[https://malven.co/]
-  ELEMENT FLEX PROPERTIES RELATIVE TO ***PARENT CONTAINER*** 
+  ELEMENT FLEX PROPERTIES RELATIVE TO ***PARENT CONTAINER***
 
-  • display:= how current element behaves with  siblings 
+  • display:= how current element behaves with  siblings
      · flex       : As box (paragraph,...)
      · inline-flex: As line(text     ,...)
 
@@ -398,7 +410,7 @@ REF: @[http://flexbox.malven.co/] by @[https://malven.co/]
       │       │   │5 6 ···│  │       │  │5 6 ...│  │       │  │5 6 ...│
       └───────┘   └───────┘  └───────┘  └───────┘  └───────┘  └───────┘
 
-  FLEX PROPERTIES OF ELEMENT's CHILDREN 
+  FLEX PROPERTIES OF ELEMENT's CHILDREN
 
   • order: Allows to explictly set children's order:
     := integer
@@ -441,7 +453,7 @@ REF: @[http://grid.malven.co/] by @[https://malven.co/]
  @[https://cssgrid-generator.netlify.app/]
 
    [TODO] beatify with ascii-art visual hints (like original page)  [TODO]
-  ELEMENT GRID PROPERTIES RELATIVE TO ***PARENT CONTAINER*** 
+  ELEMENT GRID PROPERTIES RELATIVE TO ***PARENT CONTAINER***
 
   • display := grid  |  inline-grid | subgrid
 
@@ -485,7 +497,7 @@ REF: @[http://grid.malven.co/] by @[https://malven.co/]
                     not explictly placed.
     := row | column | dense
 
-  FLEX PROPERTIES OF ELEMENT's CHILDREN 
+  FLEX PROPERTIES OF ELEMENT's CHILDREN
 
   • grid-column: Determines an items column-based location within the grid.
     grid-column-start: 1;
@@ -747,7 +759,7 @@ Icon Gallery:
 [[}]]
 [[{dev_lang.js,qa.responsive,performance,01_PM.TODO]]
 ● Resize_Observer_API
-See also: @[https://en.wikipedia.org/wiki/Responsive_web_design] 
+See also: @[https://en.wikipedia.org/wiki/Responsive_web_design]
 @[https://developer.mozilla.org/en-US/docs/Web/API/Resize_Observer_API]
 • The Resize Observer API provides a performant mechanism by which code
   can monitor an element for changes to its size, with notifications

@@ -1,3 +1,14 @@
+●  Apropos:
+- Visit next Web site for a great experience:
+  https://earizon.github.io/txt_world_domination/viewer.html?payload=../WebTechnologies/notes.txt
+
+- If you want to contribute to great gistory of this
+  document you can take the next flight to:
+@[https://www.github.com/earizon/WebTechnologies]
+  Your commits and pull-request will be immortalized
+  in the Pantheon of the Unicode Gods.
+────────────────────────────────────────────────────────────────────────────────
+
 [[{$div]]
 ● Javascript
 
@@ -42,7 +53,7 @@
 
   • Object.freeze(objInstance)
 
-  • Inmutable JS 
+  • Inmutable JS
     @[https://facebook.github.io/immutable-js/]                           [TODO]
 
 
@@ -66,7 +77,7 @@
   list01.slice(start[,end]) // ← return new "slice" of original array
                             //   (Works also for strings)
   list01.sort()         //                     l = [1,2,4,5]
-                   // A sort function can be provided 
+                   // A sort function can be provided
 
   list01.splice()       // Adds/removes elements from array.
                       splice accepts two lists of elements: the
@@ -74,7 +85,7 @@
   list01.toString()
   list01.valueOf()      // TODO:  Returns the primitive value of the array.
 
-•  Walking over arrays 
+•  Walking over arrays
    const list01 = [1,2,3,...]
    for (var idx = 0; idx < list01.length; idx++) {
       const elementI = list01[idx]
@@ -83,19 +94,19 @@
    for (const elementI of list01) { ... }       // Doesn't look to work properly
    list01.forEach((elementI, idx) => console.log(elementI))
 
-•  Merging arrays. Remove duplicates 
+•  Merging arrays. Remove duplicates
    const mergeList = (a, b) => [...new Set([...a, ...b]) ]
 
-•  Let vs Var 
+•  Let vs Var
   let var1 = ...;  // ← Preferred. Variable scope limited to block/statement/expression
   var var2 = ...;  // ← Discouraged. Variable global to function (even if defined inside block)
 ───────────────────────────────────────────────────────────────────────────────
-  const date2 = new Date('1995-12-17T03:24:00')        ←  GMT 
+  const date2 = new Date('1995-12-17T03:24:00')        ←  GMT
   console.log(date1 === date2)                         ← false
   console.log(date1 - date2)                           ← 0
   const date3 = Date.now()
 ────────────────────────────────────────────────────────────────────────────────
-  Strings 
+  Strings
   • String object are immutable.
   • methods do NOT alter the original String, but return new ones.
 
@@ -233,7 +244,7 @@ $ $ npm  --save-dev typescript ts-loader         ← Typescript support. (requir
 │   entry: {   ←···························· Where to start when resolving dependencies.
 │     myApp : './src/app.js',    ←·········· App we are working on (frequent changes) (other examples index.ts , ...)
 │     vendor: './src/vendor.js', ←·········· (jQuery, angular, images,..) modules NOT CHANGING over re-builds, with
-│                                         │    output cached after 1st build. 
+│                                         │    output cached after 1st build.
 │     entry3: {                  ←·········· Example entry showing all options allowed.
 │       dependOn: [...] ←··················· Must be loaded before this.
 │       filename: ...   ←··················· Specifies name of output file. e.g.:
@@ -285,25 +296,25 @@ $ $ npm  --save-dev typescript ts-loader         ← Typescript support. (requir
 │     new webpack.optimize                │    (protect yourself by commiting package.json/package-json.lock first)
 │         .OccurenceOrderPlugin(),        │  - Critically examine and scrutinize your dependencies:
 │     new webpack.optimize                │    Do you really need all of the bundled packages?
-│         .UglifyJsPlugin({               │                                                                        
+│         .UglifyJsPlugin({               │
 │          mangle: false,sourcemap: false │  STEP 2) potentially force packages and code sources to collapse
-│     })                                  │  to single entities, even if the normal rules of npm/yarn/webpack 
+│     })                                  │  to single entities, even if the normal rules of npm/yarn/webpack
 │       ],                                │  would prevent it.
-│     , new XXX...Plugin(...)             │  - Set resolve.alias in webpack.config.js 
+│     , new XXX...Plugin(...)             │  - Set resolve.alias in webpack.config.js
 │   ],                                    │    Direct webpack to use a single package when resolving dependencies
 │ }                                       │    that would follow normal (multi-package) resolution.
 └─────────────────────────────────────────┘  - Set the resolutions field with yarn:  Direct yarn (not available
                                                on npm) to resolve packages to a single version, overriding what is
                                                normally considered an allowed resolution and node_modules
-                                               installation. This work better with type-script modules than 
-                                               js modules, due to natural tendency of JS to break even for minor 
+                                               installation. This work better with type-script modules than
+                                               js modules, due to natural tendency of JS to break even for minor
                                                version upgrades. TIP: Don't use JS for module/lib development.
                                                More info at:
       @[https://formidable.com/blog/2018/finding-webpack-duplicates-with-inspectpack-plugin/]
 
-  ############################ 
-  # USSAGE (once configured) # 
-  ############################ 
+  ############################
+  # USSAGE (once configured) #
+  ############################
 
 $ $ webpack ... \             ←  Alt use. package app
 $   --watch                      ← monitor changes and rebuild automatically
@@ -313,8 +324,8 @@ $   --display-modules            ← show intermediate modules using during pack
                                  Use --config ..../webpack.config.js  to overload default path
 
 $ $ webpack-dev-server \      ← Alt 2. web server that autoreload web page on changes!!!.
-$   --hot \                     Hot Module Replacement (HMR) "magically" keeps the internal state  
-$   --inline                    of the Web App (and potentially the UI if tied to the state)  
+$   --hot \                     Hot Module Replacement (HMR) "magically" keeps the internal state
+$   --inline                    of the Web App (and potentially the UI if tied to the state)
 
 ────────────────────────────────────────────────────────────────────────────────
 ● W.pack vs ...
@@ -335,8 +346,8 @@ $   --inline                    of the Web App (and potentially the UI if tied t
              ─────────────────────────┼─────────────────────────
                1st run     2nd run    │    1st run     2nd run
              ─────────     ─────────  │  ─────────     ─────────
-     Parcel    14.92        5.22      │   738.50       35.36   
-     Rollup     0.57        0.48      │     0.71        0.66   
+     Parcel    14.92        5.22      │   738.50       35.36
+     Rollup     0.57        0.48      │     0.71        0.66
      Webpack    3.60        3.32      │     3.63        3.80
 
   PRE-SETUP:
@@ -349,9 +360,9 @@ $   --inline                    of the Web App (and potentially the UI if tied t
   1) add $prj_root/.babelrc:
      { "presets": ["env", "react", "stage-0"] }
 
-  ################## 
-  # PARCEL SUMMARY # 
-  ################## 
+  ##################
+  # PARCEL SUMMARY #
+  ##################
   • PRE-SETUP) Add next dependency to package.json:
   $ $ npm install    --save-dev  parcel-bundler:1.7.   ← local project install
   $ $ npm install -g --save-prod parcel-bundler:1.7.   ← global install
@@ -365,8 +376,8 @@ $   --inline                    of the Web App (and potentially the UI if tied t
     <script                               │ <script src="built/vendor.min.js"></script>
         src="../reactAppSrc/index.js">    │ <script src="built/built.min.js"></script>
     </script>
-  • Ussage:   No human (zero-conf) configuration needed 
-  
+  • Ussage:   No human (zero-conf) configuration needed
+
   $ $ parcel                                 ← Start web development server
   $ $ parcel index.html                      ← transpile dependencies
   $ $ parcel build public/parcel.index.html  ← production builds
@@ -376,14 +387,14 @@ $   --inline                    of the Web App (and potentially the UI if tied t
                                                Optionally add next flags to tune build:
                                                  -d dist/
                                                  --public-url '.'
-  • Parcel 2, rewritten in Rust, claims to have a 10x Faster Javascript Compiler, 
+  • Parcel 2, rewritten in Rust, claims to have a 10x Faster Javascript Compiler,
     modular configuration (while zero-confs remains possible), differential bundling
     and improved JSX and web worker support.
   @[https://www.infoq.com/news/2021/09/parcel-2-rust-faster-javascript/]
 
-  ################## 
-  # ROLLUP SUMMARY # 
-  ################## 
+  ##################
+  # ROLLUP SUMMARY #
+  ##################
   • PRE-SETUP: Add next dependencis to package.json:
     "rollup": "=0.58.2",                 [TODO]: Update (2019) version
     "rollup-plugin-babel": "=3.0.4",
@@ -391,9 +402,9 @@ $   --inline                    of the Web App (and potentially the UI if tied t
 
   • PROJECT CONFIG:
     DEVELOPMENT                                    PRODUCTION
-  $ $ rollup \                                   $ $ rollup \                           
-  $   -c rollup/rollup.dev.config.js \           $   -c rollup/rollup.prod.config.js \  
-  $   --external all                             $   --external all                     
+  $ $ rollup \                                   $ $ rollup \
+  $   -c rollup/rollup.dev.config.js \           $   -c rollup/rollup.prod.config.js \
+  $   --external all                             $   --external all
 
     import babel from 'rollup-plugin-babel'        import babel from 'rollup-plugin-babel';
                                                    import uglify from 'rollup-plugin-uglify'
@@ -418,9 +429,9 @@ $   --inline                    of the Web App (and potentially the UI if tied t
     }                                                }
 
 
-  ################# 
-  # Vite  SUMMARY # 
-  ################# 
+  #################
+  # Vite  SUMMARY #
+  #################
 •   Modern alterantive to WebPack, Rollup and Parcel, designed with ES modules
   in mind from the scratch, completely removing the need for "old bundling".
 • Vite divides modules into:
@@ -431,10 +442,10 @@ $   --inline                    of the Web App (and potentially the UI if tied t
 
   • Depends on esbuild for fast packaging:
   @[https://www.infoq.com/news/2020/06/esbuild-faster-go-js-bundler/]
-    • written in go and multi-core 
+    • written in go and multi-core
     • seeks to bring order-of-magnitude speed improvements in
       JS bundling+minification. (10x-100x)
-      0.37 secs vs 63 secs pf webpack 5!!!! 
+      0.37 secs vs 63 secs pf webpack 5!!!!
       Major features:
       ✓ Extreme speed without caching ✓ TypeScript and JSX syntax
       ✓ ES6 and CommonJS modules      ✓ Source maps
@@ -449,7 +460,7 @@ $   --inline                    of the Web App (and potentially the UI if tied t
   ✓ Improved algorithm defaults
   ✓ Improved bundle sizes (better Tree Shaking and Code generation)
   ✓ Improved compatibility with web platforms
-  ✓ clean up internal structures inR "weird state" while implementing features in v4 
+  ✓ clean up internal structures inR "weird state" while implementing features in v4
   ✓ Preparing for LTS (no breaking changes after 5)
   • two key changes have caught the attention of JS community:
     · Module Federation
@@ -544,9 +555,9 @@ $   --inline                    of the Web App (and potentially the UI if tied t
                                       // { value: undefined, done: true }
                                     }
 
-  ################################# 
-  # ECMAScript 2018 for-await-of  # 
-  ################################# 
+  #################################
+  # ECMAScript 2018 for-await-of  #
+  #################################
 • Syntax converts each iterated value via
   Promise.resolve() to a Promise, which it then awaits.
 • Can be used with sync/async iterables. e.g:
@@ -566,21 +577,21 @@ Similarly to how await works in async functions, the loop throws an exception if
  returning an exception                Promise error
  ==============================        ======================
 function createIterableMock() {        ( async function () { // (A)
-  return {                                 try { 
+  return {                                 try {
     [Symbol.asyncIterator]() {         for await (const x of
       return this;                                createIterableMock()) {
     },                                     console.log(x);
     next() {                           }
-      return Promise.reject( ··········→   } catch (e) { 
+      return Promise.reject( ··········→   } catch (e) {
         new Error('Problem!'))         console.error(e);// ← Error: Problem!
-    },// ^                                 } 
+    },// ^                                 }
   }   // async code can not throw    }  ) ()
 }     // exceptions. Promise.reject     ^ : wrap code: async doesn't work
       // used as replacement.               at script|module top level
 
-  #################### 
-  # Async generators # 
-  #################### 
+  ####################
+  # Async generators #
+  ####################
   async function*                        // ← '*' turns fun. into (a)sync generator
   createAsyncIterable(syncIterable) {    // ← Converts
     for (const elem of syncIterable) {   //   ←  sync iterable to
@@ -685,7 +696,7 @@ function createIterableMock() {        ( async function () { // (A)
 
 [[{dev_lang.js,mobile.pwa,02_doc_has.comparative,performance.web_workers,qa,01_PM.TODO]]
      #[web_workers_summary]
-● Web Workers 
+● Web Workers
 • See also #[service_workers]
 [[}]]
 [[$div}]]
@@ -693,17 +704,17 @@ function createIterableMock() {        ( async function () { // (A)
 [[{$div]]
 [[{dev_lang.js.101,troubleshooting.debugging,code.async]]
 ● Debugging
-  ################# 
-  # DEBUGGING 101 # 
-  ################# 
-• Play with ajax requests (Firefox only?) 
+  #################
+  # DEBUGGING 101 #
+  #################
+• Play with ajax requests (Firefox only?)
   → Go to inspector → network tab → RightClick on request
     → choose Edit and Resend: Now you can change anything
       you want: header, params, ... and resend.
 
 • "debugger" keyword: pause in code just when console is open
 
-• dump object to string:  JSON.stringify(myJS_object) 
+• dump object to string:  JSON.stringify(myJS_object)
   To avoid cicular dependencies problems redefine stringify like:
   REF: @[https://stackoverflow.com/questions/11616630/how-can-i-print-a-circular-structure-in-a-json-like-format]
   JSON.stringifySec = function (circ) {
@@ -734,9 +745,9 @@ function createIterableMock() {        ( async function () { // (A)
    $('css-selector’) ← return first match of CSS selector
   $$(‘css-selector’) ← return all   matches
 
-  ######################## 
-  # debugging async code # 
-  ######################## 
+  ########################
+  # debugging async code #
+  ########################
   NodeJS Dump async function chain ("async stack-trace")          [async]
 @[https://stackoverflow.com/questions/40300996/nodejs-is-is-possible-to-show-the-stack-trace-of-a-calling-async-function]
 @[https://gist.github.com/lll000111/3d6a53da4d53beb909189793c7631ba6]
@@ -770,10 +781,10 @@ function createIterableMock() {        ( async function () { // (A)
 
   • Alternative 3: (Syntax alternative)
        const result =  fnThrowingError ()
-          .catch (err => {                  // ← STEP 1: replace try-catch → promise .catch(..) 
+          .catch (err => {                  // ← STEP 1: replace try-catch → promise .catch(..)
                                                          main advantage: allows assignment to "const"
           err.stack +=                      // ← STEP 2: Same as Alt. 2
-              (new Error()).stack 
+              (new Error()).stack
              throw err
            }
        )
@@ -788,7 +799,7 @@ function createIterableMock() {        ( async function () { // (A)
       } catch(err) {
           err.stack +=
             (new Error()) .stack  ← Add locally generated stack trace to existing one
-          throw err 
+          throw err
       }
   }
 
@@ -802,14 +813,14 @@ function createIterableMock() {        ( async function () { // (A)
       }
   };
 
-  fn0().catch(console.error)      ← Dump stack here !!! 
+  fn0().catch(console.error)      ← Dump stack here !!!
 
 • TODO:
   https://stackoverflow.com/questions/7697038/more-than-10-lines-in-a-node-js-stack-error
   https://github.com/mattinsler/longjohn
-  ################### 
-  # advanced tricks # 
-  ################### 
+  ###################
+  # advanced tricks #
+  ###################
 • REF:@[https://raygun.io/blog/2015/06/useful-javascript-debugging-tips-you-didnt-know/]
   console.table(animals);      ← Display object as tables in the console: (Chrome only?)
 
@@ -874,9 +885,9 @@ function createIterableMock() {        ( async function () { // (A)
   "start" or desktop icons and run in background pooling/pushing data from/to
   remote servers while the browser is "closed".
 
-  ###################### 
-  # "Hello World!" PWA # 
-  ###################### 
+  ######################
+  # "Hello World!" PWA #
+  ######################
   SUMMARY FROM
 @[https://medium.com/james-johnson/a-simple-progressive-web-app-tutorial-f9708e5f2605]
   by James Johnson
@@ -1036,10 +1047,10 @@ function createIterableMock() {        ( async function () { // (A)
   to the correct test
 • install:
   $ npm install -g mocha
-• Commonly used with "Chai" library as assertion library 
+• Commonly used with "Chai" library as assertion library
   (assert, expect, should), installed per project like:
   $ npm install --save-dev chai
-• Commonly used with "Supertest" SuperAgent extension library as 
+• Commonly used with "Supertest" SuperAgent extension library as
   HTTP AJAX test library. , installed per project like:
   $ npm install --save-dev supertest
 • Ussage summary:
@@ -1257,7 +1268,7 @@ for React, Angular, Vue, ...
  @[https://learnxinyminutes.com/docs/typescript/]
 • Debugging TS in Firefox DevTools:    [TODO]
 @[https://hacks.mozilla.org/2019/09/debugging-typescript-in-firefox-devtools/]
-•   Syntax summary 
+•   Syntax summary
 @[https://learnxinyminutes.com/docs/typescript/]
   let isDone: boolean = false   ← 3 basic types
   let lines : number  = 42
@@ -1274,7 +1285,7 @@ for React, Angular, Vue, ...
   enum Color { Red, Green, Blue }
   let c: Color = Color.Green
 
-    Functions 
+    Functions
     let f1 = function (i: number): number {
       return i * i;                └─┬──┘
     }                              Return type (or void)
@@ -1285,7 +1296,7 @@ for React, Angular, Vue, ...
 
     let f5 = (i: number) => i * i;   ← braceless means void/none return
 
-    Interfaces 
+    Interfaces
     interface Person {                 ← Interface declaration
       name: string;
       age?: number;                      ← Optional type               [qa][billion_dolar_mistake]
@@ -1305,7 +1316,7 @@ for React, Angular, Vue, ...
           return src.search(sub) != -1
         }
 
-    Classes 
+    Classes
   class Point {                      ← class definition
     x: number;                       ← Properties public by default
     static origin = new Point(0, 0); ← Static member
@@ -1330,14 +1341,14 @@ for React, Angular, Vue, ...
     extends ParentClass { ... }      ← Class inheriting from parent class .
                                          WARN:  Discouraged. Better use composition
 
-    Modules 
+    Modules
     module Geometry {                  ← Modules, "." can be used as separator for sub modules
       export class Square { ... }
     }
     import G = Geometry;                 ← Local alias for referencing a module
     let s1 = new Geometry.Square(5);       ← Or just new G.Square(5);
 
-    Generics 
+    Generics
     class Tuple<T1, T2> {            | interface Pair<T> { | function <T>(p: Pair<T>) {
       constructor(                   |   item1: T;         |   return
           public item1: T1,          |   item2: T;         |     new
@@ -1345,12 +1356,12 @@ for React, Angular, Vue, ...
       ...                            |                     | };
     }                                |                     |
 
-    Template Strings 
+    Template Strings
   let greeting  = `Hi ${name}, how are you?`
   let multiline = `This is an example
   of a multiline string`;
 
-    Inmutable Collections 
+    Inmutable Collections
     const         number_array: Array<number> = [0, 1, 2, 3, 4];    ←          number_array can not be reasigned to other
                                                                       array (const), but current array can be modified
     const inmutable_number_array: ReadonlyArray<number> = numbers;  ← inmutable_number_array can not be reasigned to other
@@ -1365,25 +1376,25 @@ for React, Angular, Vue, ...
                                                 ... state.message ...
                                                }
 
-    Iterators and Generators 
+    Iterators and Generators
     let arrayOfAnyType = [...];                ← Array or list
-    for (const val of arrayOfAnyType) { .... } ← Iterate over values in list 
+    for (const val of arrayOfAnyType) { .... } ← Iterate over values in list
     let object = { ... }
-    for (const key in list) { ... }              Iterate over keys in object 
+    for (const key in list) { ... }              Iterate over keys in object
 [[}]]
 
 
 [[{]]dev_lang.elm,dev_lang.reason,dev_lang.js,qa,02_doc_has.comparative" bgorange>
 ● KotlinJS
 • Kotlin modern language features and first-class support for Javascript compilation
-  makes of it an ideal alternative to Javascript. 
+  makes of it an ideal alternative to Javascript.
 • Kotlin support integration with:
   (@[https://kotlinlang.org/docs/js-modules.html])
   • Unified Module Definitions (UMD): compatible with both AMD and CommonJS.
-    UMD modules are also able to be executed without being imported 
-    or when no module system is present. This is the default option for 
+    UMD modules are also able to be executed without being imported
+    or when no module system is present. This is the default option for
     the browser and nodejs targets.
-  • Asynchronous Module Definitions (AMD), which is in particular 
+  • Asynchronous Module Definitions (AMD), which is in particular
     used by the RequireJS library.
   • CommonJS, widely used by Node.js/npm (require function and module.exports object)
   • Plain. Don't compile for any module system. You can access a module by its
@@ -1419,7 +1430,7 @@ generated code.
   · Post recomends alternatives like:
     - https://rescript-lang.org/
     - https://github.com/darklang/philip2
-•  No Runtime Exceptions 
+•  No Runtime Exceptions
     Elm uses type inference to detect corner cases and give friendly
     hints.
      NoRedInk switched to Elm about two years ago, and 250k+ lines
@@ -1436,12 +1447,12 @@ generated code.
                  Int
       Hint: Use Maybe.  withDefault  to handle possible errors.
 
-•  Great Performance 
+•  Great Performance
 
-•  Enforced Semantic Versioning 
+•  Enforced Semantic Versioning
    ✓ Breaking APIs force new major version automatically.
      thanks to its "ML" type system:
-     No surprises in PATCH releases 
+     No surprises in PATCH releases
 
    $   elm diff  Microsoft/elm-json-tree-view 1.0.0 2.0.0
    This is a MAJOR change.
@@ -1456,7 +1467,7 @@ generated code.
 •  Small Assets  (faster page loads)
    Use --optimize flag, compiler do the rest. (no config needed)
 
-•  JavaScript Interoperability 
+•  JavaScript Interoperability
 ────────────────────────────────────────────────────────────────────────────────
 ● Reason (OCalm)
 @[https://reasonml.github.io/]
@@ -1498,7 +1509,7 @@ generated code.
 
 
 ● Erlscripten (Erlang)
-@[https://blog.aeternity.com/erlscripten-92c815786987] 
+@[https://blog.aeternity.com/erlscripten-92c815786987]
 • Erlang:
   · language+framework most reliable choice to build highly
     stable applications
@@ -1506,9 +1517,9 @@ generated code.
     processes.
   · Originally proprietary software within Ericsson,  released as
     free and open-source software in 1998.
-  · Erlang/OTP is supported and maintained by the 
-    Open Telecom Platform (OTP) product unit at Ericsson. 
-  · Whatsapp is developped on Erlang!!! 
+  · Erlang/OTP is supported and maintained by the
+    Open Telecom Platform (OTP) product unit at Ericsson.
+  · Whatsapp is developped on Erlang!!!
 
   Erlang → (Erlscripten) → PureScript → (transpiler) → Javascript
 
@@ -1526,24 +1537,24 @@ generated code.
 • There are also under-used code-delivery settings that instruct the
   browser to take extra precautions since they reduce the flexibility
   of the development and integration process.
-  the security they provide is worth the work, whether your application 
-  does encryption or not. 
+  the security they provide is worth the work, whether your application
+  does encryption or not.
 
-  HTTP Strict Transport Security (HSTS): 
+  HTTP Strict Transport Security (HSTS):
 - Instructs the browser to always load this page over HTTPS. This
   prevents downgrade attacks, for instance, if the attacker can
   redirect your DNS to a malicious service they can't downgrade the
   connection to unencrypted HTTP.
 
-  Strict Content Security Policies (CSP): 
+  Strict Content Security Policies (CSP):
   Whitelist safe sources for loading code, preventing apps to
   dynamically load code from unknown remote resource.
 
-  Subresource Integrity (SRI): 
+  Subresource Integrity (SRI):
   Only load trusted scripts, using cryptographic hashes to mark
   trusted scripts.
 
-  WebCrypto API: 
+  WebCrypto API:
   "relatively" new browser API helping efficient and secure delivery
   of cryptographic primitives.
   - low-level ciphers.
@@ -1552,7 +1563,7 @@ generated code.
 
 • Being directly implemented into (trusted) browser and taking
   advantage of local native execution (and even hardware acceleration)
-  they are much safer than js code. 
+  they are much safer than js code.
     WARN:  They do NOT prevent certain attacks, like
   just sending an unencrypted copy of the data to the "bad guys".
 [[}]]
@@ -1560,11 +1571,11 @@ generated code.
 [[{qa,code.low_code,01_PM.TODO]]
 ● WebScript @ma
 • "WARN": Low maintenance (v0.2) (Maybe not really needed).
-HTML                                                   
-=====================================================  
-<div class="card-image">                               
-  <img src="images/sample-1.jpg" alt="Sample Image">   
-  <span class="card-title">Card Title</span>           
+HTML
+=====================================================
+<div class="card-image">
+  <img src="images/sample-1.jpg" alt="Sample Image">
+  <span class="card-title">Card Title</span>
 </div>
 
 WEBSCRIPT
@@ -1580,7 +1591,7 @@ div.class`card-image`(
 
 
 
-Webscript is not an HTML templating language. Webscript uses Javascript, not a templating language. Therefore Webscript gives you the full power of Javascript and not the limitations of a template language. 
+Webscript is not an HTML templating language. Webscript uses Javascript, not a templating language. Therefore Webscript gives you the full power of Javascript and not the limitations of a template language.
 [[}]]
 
 
@@ -1597,8 +1608,8 @@ Webscript is not an HTML templating language. Webscript uses Javascript, not a t
 
 [[{security.aaa,use_case.identity,01_PM.TODO]]
 ● Web Authentication API
-• This API enables users to avoid text-based passwords for websites 
-  and instead uses a local device with a biometric check or private PIN 
+• This API enables users to avoid text-based passwords for websites
+  and instead uses a local device with a biometric check or private PIN
   to generate a secure cryptographic identifier.
 • Firefox adopted in in 2018
 @[https://www.infoq.com/news/2018/05/firefox-web-authentication-api]
@@ -1642,7 +1653,7 @@ more info about JWT @[../General/cryptography_map.html?query=jwt&showSearchMenu=
                                            xMidYMid aligning to the middle.
                                            xMinYMin aligning to the top-left.
                                            xMaxYMax aligning to the bottom-right.
-                                           (think of viewBox having 9 different 
+                                           (think of viewBox having 9 different
                                             anchor points)
    transform="scale(1,-1)" >             ← Make y coordinate work bottom-to-top.
 
@@ -1652,7 +1663,7 @@ more info about JWT @[../General/cryptography_map.html?query=jwt&showSearchMenu=
 │  <circle cx="100" cy="100" r="100" />
 │  <ellipse cx="100" cy="100" id=".."    ← id can also be used as in html
 │           rx="100" ry="50" />
-│  <rect x="0"      y="0" 
+│  <rect x="0"      y="0"
 │        width="10" height="4"
 │        rx="5" ry="5"                   ← Optional. rx/ry: Radio x/y
 │        stroke="orange"                 ← Adds line around outside-shape/along-path.
@@ -1660,7 +1671,7 @@ more info about JWT @[../General/cryptography_map.html?query=jwt&showSearchMenu=
 │        stroke-opacity=".5"
 │        stroke-linecap="round"          ← control stroke-end shape: butt, round, square.
 │        stroke-linejoin="bevel"         ← control corner-style: miter, round, bevel.
-│        stroke-miterlimit="4"           ← control two-different-stroke 
+│        stroke-miterlimit="4"           ← control two-different-stroke
 │                                          corners "meeting" at a point
 │   />                                     (avoid pointy triangle)
 │
@@ -1675,7 +1686,7 @@ more info about JWT @[../General/cryptography_map.html?query=jwt&showSearchMenu=
   <text x="10" y="10"                    ← x,y: anchor point
         text-anchor="middle"             ← alignment: start  | middle  | end
         textLength="900"                 ← Space out letters to fill width.
-    Lorem Ipsum... 
+    Lorem Ipsum...
     <tspan fill="limegreen"              ← tspan used to surround words inside <text>
            dx="5" dy="-3">
        ... some text ...
@@ -1696,23 +1707,23 @@ more info about JWT @[../General/cryptography_map.html?query=jwt&showSearchMenu=
  │                                         visible until used in other places like
  │                                         gradients, paths for text, masks, etc.
  │
- │   <linearGradient  id="grad01" >      ← GRADIENTS 
+ │   <linearGradient  id="grad01" >      ← GRADIENTS
  │     <stop offset="0%"   stop-color="  .." />
  │     <stop offset="100%" stop-color="  .." />
  │   </linearGradient>
- │   <mask  id="mask01"  >                  MASKING 
- │     <image width=... height=...        ← Mask Image SHOULD be black-and-white 
+ │   <mask  id="mask01"  >                  MASKING
+ │     <image width=... height=...        ← Mask Image SHOULD be black-and-white
  │       xlink:href="..." />                (black:transparent, white: show)
- │   </mask>                              
+ │   </mask>
  │
- │   <pattern  id="texture01"               TEXTURING ⅋ PATTERNS 
- │      width=... height=... 
+ │   <pattern  id="texture01"               TEXTURING ⅋ PATTERNS
+ │      width=... height=...
  │      patternUnits="userSpaceOnUse">
  │    <image xlink:href="..." ... />
  │   </pattern>
- │   <filter id="blur01">                   FILTER 
- │     <feGaussianBlur 
- │          in="SourceGraphic" 
+ │   <filter id="blur01">                   FILTER
+ │     <feGaussianBlur
+ │          in="SourceGraphic"
  │          stdDeviation="5" />
  │   </filter>
  └ </defs>
@@ -1728,13 +1739,13 @@ more info about JWT @[../General/cryptography_map.html?query=jwt&showSearchMenu=
 ● Perspective #[perspective_summary]
 @[https://github.com/jpmorganchase/perspective]
 @[https://perspective.finos.org/]
-• interactive visualization for large, real-time datasets 
+• interactive visualization for large, real-time datasets
   and customizable analytics.
 • JS engine, runs on any modern browser.
 • Integrates with Python and JupyterLab .
 • fast, memory efficient streaming query engine,
-  written in C++ and compiled for both WebAssembly and Python, 
-  with read/write/stream/virtual support for Apache Arrow. 
+  written in C++ and compiled for both WebAssembly and Python,
+  with read/write/stream/virtual support for Apache Arrow.
 [[}]]
 
 [[{use_case.data_visualization.real_time,data_management.data_visualization,02_doc_has.comparative,]]
@@ -1781,7 +1792,7 @@ more info about JWT @[../General/cryptography_map.html?query=jwt&showSearchMenu=
                                             numeric index (i). By default Nth element
                                             is binded to Nth data (ordered by index).
                                               "key" function can override the def.behaviour.
-                                            *  
+                                            *
                                            data can also be used to reorder( sort )and/or
                                            cull ( filter ) DOM elements.
 
@@ -1867,7 +1878,7 @@ more info about JWT @[../General/cryptography_map.html?query=jwt&showSearchMenu=
   tools. Vega is one such tool, and Vega uses D3 heavily within its
   implementation: vega lite → vega → d3.js
 
-• HOWTO: STEP 1) HTML SETUP 
+• HOWTO: STEP 1) HTML SETUP
 @[https://vega.github.io/vega-lite/tutorials/getting_started.html]
  ┌──────────────────────────────────────────────────────────────────────────┐
  │ <!DOCTYPE html>                                                          │
@@ -1902,7 +1913,7 @@ more info about JWT @[../General/cryptography_map.html?query=jwt&showSearchMenu=
  │ </html>                                                                  │
  └──────────────────────────────────────────────────────────────────────────┘
 
-• HOWTO: STEP 2) DATA and Visualization SETUP 
+• HOWTO: STEP 2) DATA and Visualization SETUP
 @[https://vega.github.io/vega-lite/tutorials/getting_started.html]
   TABULAR DATA SET │ EQUIVALENT VEGA-LITE
                    │ JSON ARRAY + RENDER PROP
@@ -1912,7 +1923,7 @@ more info about JWT @[../General/cryptography_map.html?query=jwt&showSearchMenu=
 gorical    rical   │     "values" : [         Other data sources type supported
       C ←→ 2  · · ·│· · · {"a": "C", "b": 2}, ┐  e.g: "data": {"url": ".../data/myData.csv"}
       C ←→ 7  · · ·│· · · {"a": "C", "b": 7}, ┤  ← each value (row) will be rendered
-      C ←→ 4  · · ·│· · · {"a": "C", "b": 4}, ┤    as a1visual mark 
+      C ←→ 4  · · ·│· · · {"a": "C", "b": 4}, ┤    as a1visual mark
       D ←→ 1  · · ·│· · · {"a": "D", "b": 1}, ┤
       ...
       E ←→ 7  · · ·│· · · {"a": "E", "b": 7}  ┘
@@ -1925,7 +1936,7 @@ gorical    rical   │     "values" : [         Other data sources type supporte
                  └ →   "encoding": {       ← Without encoding output marks will overlap.
                    │      "x": {               ← encode "x-channel" to ("row") data fields.
      vega-lite     │        "field": "a",        ("a" in this case)
-     chart         │        "type" : "nominal"   := "quantitative" | "temporal" | "ordinal" | "nominal"  *  
+     chart         │        "type" : "nominal"   := "quantitative" | "temporal" | "ordinal" | "nominal"  *
   visualization    │      },
                    │      "y": {           ← "x" alone will already render "a" distribution.
                    │        "field": "b",    "y" to compare "var a" vs "var b"
@@ -1938,7 +1949,7 @@ gorical    rical   │     "values" : [         Other data sources type supporte
                      *  @[https://vega.github.io/vega-lite/docs/encoding.html#type]
                     TIP: Vega-Lite will auto. add axis-with-labels for different-categories + axis title.
 
-• EXPLORING DATA EXAMPLES 
+• EXPLORING DATA EXAMPLES
 @[https://vega.github.io/vega-lite/tutorials/explore.html]
 
   QUANTITATIVE CONTINUOUS            SAME QUANTITATIVE VAR DISCRETIZED
@@ -1954,7 +1965,7 @@ gorical    rical   │     "values" : [         Other data sources type supporte
          "type" : "quantitative"           "bin"  : true,  ← bin == discretize cont.var.
       }                                  },                 (bin quantitative by default)
                                          "y": {
-                                           "aggregate": "count" 
+                                           "aggregate": "count"
                                          }
     }                                  }
   }                                  }
@@ -1971,7 +1982,7 @@ gorical    rical   │     "values" : [         Other data sources type supporte
       },                           in different years
       "y": {
         "field"    : "precipitation"
-        "aggregate": "mean", 
+        "aggregate": "mean",
       }
     }
   }
@@ -2003,21 +2014,21 @@ gorical    rical   │     "values" : [         Other data sources type supporte
   }
 
 
-• CALCULATED FIELD HOW-TO 
+• CALCULATED FIELD HOW-TO
   =======================
   {
     "data": ...
     "transform": [
       {
         "calculate" : "datum.temp_max - datum.temp_min",
-        "as"        : "temp_range" 
+        "as"        : "temp_range"
       }
     ],
     "mark": ...
     "encoding": {
       ...
       "y": {
-        "field": "temp_range" 
+        "field": "temp_range"
         ...
       }
     }
@@ -2200,7 +2211,7 @@ information is duplicated in every Media Segment.
    |         }
    |     }, false);
    |
-   | splits video into chunks, then "stream" to a <video> tag by 
+   | splits video into chunks, then "stream" to a <video> tag by
    | appending each chunk to the element using the MediaSource API.
    |
    | If you're interested in learning more about the API, see the specification.
@@ -2492,7 +2503,7 @@ information is duplicated in every Media Segment.
 @[https://github.com/angular/angular]
 ────────────────────────────────────────────────────────────────────────────────
 ● What's new
-•  Angular 11 
+•  Angular 11
   @[https://www.infoq.com/news/2020/11/angular-11/]
   @[https://blog.angular.io/version-11-of-angular-now-available-74721b7952f7]
   - Hot Module Replacement implementation:
@@ -2515,11 +2526,11 @@ information is duplicated in every Media Segment.
     generic types.
 
   - For simple upgrade of projects:
-  $ $ ng update @angular/cli @angular/core 
+  $ $ ng update @angular/cli @angular/core
     WARN : for more complex updates, use the interactive update guide
            provided by the Angular team.
 
-•  Angular 9 
+•  Angular 9
 @[https://www.infoq.com/news/2020/02/angular-9-ivy-rendering-engine/]
   • Ivy Compiler:
     Smaller bundle sizes, improved build times, and better debugging
@@ -2528,7 +2539,7 @@ information is duplicated in every Media Segment.
       Ivy uses tree shaking, allowing it to include only the parts of
     Angular needed for the current application.
 
-•  Angular 5 
+•  Angular 5
  Service worker implementation shipping by default.
 [[}]]
 
@@ -2537,7 +2548,7 @@ information is duplicated in every Media Segment.
 @[https://angular.io/guide/architecture]
   VIEW : "screen element" on browser, mobile, ...
 
-  COMPOMENT : $  $ ng generate component "compName"  
+  COMPOMENT : $  $ ng generate component "compName"
   • Typescript Class with ng-decorator.
 
   • Defines N views, arranged hierarchically.
@@ -2553,7 +2564,7 @@ information is duplicated in every Media Segment.
   • When a component is instantiated, it's associated directly with
     the (root) host view.
 
-                           DATA   
+                           DATA
    TEMPLATE  == HTML +    BINDING     + DIRECTIVES
                           MARKUP      @[https://angular.io/guide/built-in-directives]
                           └─┬──┘        └───┬────┘
@@ -2577,7 +2588,7 @@ information is duplicated in every Media Segment.
       Two way binding (forms mainly). Ex:      <app-item *ngIf="isActive" [item]="item">...
       <input [(ngModel)]="hero.name">
                                                <div *ngFor="let I of items">{{I.name}}</div>
- ☞  All data bindings are processed once  
+ ☞  All data bindings are processed once
     for each JS event cycle from app           <div [ngSwitch]="e.index">
     root component through tree children.        <comp1 *ngSwitchCase="'1'" [item]="ddbb[1]"></comp1>
                                                  ...
@@ -2648,7 +2659,7 @@ User click → (intercepted by) → Router  → (reacts by) → showing/hiding v
      selector   : 'app-hero-list',               ← associated html tag name
 ┌→   templateUrl: './hero-list.component.html',  ← seteable property programatically
 ·┌   providers:    [HeroService]                 ← required Service prov. array
-·· })                                              Size must match constructor arg. size 
+·· })                                              Size must match constructor arg. size
 ··
 ·· export class HeroListComponent implements  OnInit  {
 ··   heroes      : Hero[]; ← data app property. Note: Many components wrap all
@@ -2723,7 +2734,7 @@ User click → (intercepted by) → Router  → (reacts by) → showing/hiding v
 
 
 └→ Ex Service: src/app/logger.service.ts
- $ $ ng generate service ... 
+ $ $ ng generate service ...
    Service:  "Do one thing and do it right" (root/module/component)singleton .
    - Injected in components through constructors.
    @Injectable()
@@ -2742,7 +2753,7 @@ User click → (intercepted by) → Router  → (reacts by) → showing/hiding v
      NOTE: If the providers is in @Injectable() decorator, Angular
           will optimize the app by removing it, if it's not used.
 
-   - Service SCOPE: 
+   - Service SCOPE:
      ┌──────────┬─────────────────────────────────┬──────────────────────────────
      │ LEVEL    │ Scope                           │ Declaration
      ├──────────┼─────────────────────────────────┼──────────────────────────────
@@ -2765,7 +2776,7 @@ User click → (intercepted by) → Router  → (reacts by) → showing/hiding v
 
 [[{stack.angular.101,01_PM.WiP]]
 ● Responsive App
-  Observables and event processing 
+  Observables and event processing
 @[https://angular.io/guide/observables]
 
 - similar (but not identical) to the publish/subscribe
@@ -2788,9 +2799,9 @@ User click → (intercepted by) → Router  → (reacts by) → showing/hiding v
      function                         timer,  ...)
 
 -  Setup and teardown logic is handled by the observable function .
-   application code in Component02 only needs to worry about   
-   subscribing to consume values, and when done, unsubscribing 
-   It doesn't change whether the code was sync or async.       
+   application code in Component02 only needs to worry about
+   subscribing to consume values, and when done, unsubscribing
+   It doesn't change whether the code was sync or async.
 
  - Unicast example:
    const   observable01  =
@@ -2935,9 +2946,9 @@ User click → (intercepted by) → Router  → (reacts by) → showing/hiding v
 • See also other "top" Frameworks:
 @[https://www.ngdevelop.tech/best-angular-ui-component-libraries/]
 
-•  PRE-SETUP 
- $ $ npm install primeng --save              
- $ $ npm install primeicons --save           
+•  PRE-SETUP
+ $ $ npm install primeng --save
+ $ $ npm install primeicons --save
  $ $ npm install @angular/animations --save   (opt)
          ^
     Or manually add dependencies to
@@ -2949,7 +2960,7 @@ User click → (intercepted by) → Router  → (reacts by) → showing/hiding v
   +     "primeicons": "^4.0.0"
         ...
     }
-• 95% of code is native with no 3rd party dependencies 
+• 95% of code is native with no 3rd party dependencies
 • UI component library configured as ng-modules. e.g:
   import {AccordionModule} from 'primeng/accordion'; //accordion and accordion tab
   import {MenuItem}        from 'primeng/api';       //api
@@ -3011,20 +3022,20 @@ Support complex data entry scenarios with HTML-based validation and dirty checki
 
 
 - design approaches:
-  -  Alt 1: write templates using: 
+  -  Alt 1: write templates using:
            - NG template syntax
            - form-specific directives
            - "best-pattern".
     - suitable for small or simple forms
 
-  -  All 2: Use reactive(==model-driven) approach 
+  -  All 2: Use reactive(==model-driven) approach
     - lay out the controls creatively, binding to the data in your object model.
     - Set input validation rules and output display validation errors.
     - conditionally enable controls.
     - trigger built-in visual feedback,
     - ...
 _________________________________________________________
-  Alt 1: template-driven form 
+  Alt 1: template-driven form
   - Next directives defined in  FormsModule  are used:.
     - NgModel : reconcilites "form element"  ←→ data model value changes
                 - used also to respond to user input (input validation, error handling).
@@ -3040,11 +3051,11 @@ _________________________________________________________
     - Define a sample data model.
     - Include FormsModule,... "stuff".
 
-    - Bind form-controls ←→ data properties with  ngModel 
+    - Bind form-controls ←→ data properties with  ngModel
       - Examine how ngModel reports control states using CSS classes.
       - Name controls to make them accessible to ngModel.
 
-    - Track input validity/control status with  ngModel 
+    - Track input validity/control status with  ngModel
       - Add custom CSS to provide visual feedback on the status.
       - Show and hide validation-error messages.
 
@@ -3273,15 +3284,15 @@ Ex: two required fields (css:left border when OK, red otherwise)
   - testing, bundling, deployment.
   - ...
 
-  PRE-SETUP: 
-  $ $ npm install -g @angular/cli 
+  PRE-SETUP:
+  $ $ npm install -g @angular/cli
 
-  BASIC WORKFLOW 
+  BASIC WORKFLOW
   $ $ ng new my-first-project\  ←  create, build, and serve (Wait ~ 1 minute to complete)
-  $  --strict                   ←  Opt.  @[https://angular.io/guide/strict-mode]   Forbids "any" type 
+  $  --strict                   ←  Opt.  @[https://angular.io/guide/strict-mode]   Forbids "any" type
   $ CREATE ...                  ←  initial app created goes to root project folder
   $ CREATE ...                  ←  Additional apps/library go to ./projects/
-  $                            
+  $
   $ $ cd my-first-project          new, basic project
   $ $ ng serve                  ←  Automatic rebuilds on edit!!!
                                    Test server listening at:
@@ -3300,7 +3311,7 @@ Ex: two required fields (css:left border when OK, red otherwise)
 
     See more about the Workspace file structure.
 
-  Workspace and project configuration 
+  Workspace and project configuration
 
   NOTE: ☞ WORKSPACE 1  ←→ 1+ Project
                              ^^^^^^^
@@ -3310,20 +3321,20 @@ Ex: two required fields (css:left border when OK, red otherwise)
   ${WORKSPACE}
   └ ./angular.json ← workspace per-project defaults for "ng" command
                      like custorm target defaults, ...
-                     Edit it manually or through $ $ng config ... 
+                     Edit it manually or through $ $ng config ...
 
     See more about Workspace Configuration.
     See the complete schema for angular.json.
 
   ng syntax:
-$ $ ng commandNameOrAlias requiredArg --opt1 --boolOpt2 --noBoolOpt3 
+$ $ ng commandNameOrAlias requiredArg --opt1 --boolOpt2 --noBoolOpt3
                                       └─────────────┬──────────────┘
                      NOTE: opt.names in angular.json are "camelCase".
                            opt.names in ng command   are "camelCase" or
                                                          "dash-case".
 
-$ $ ng generate  "artifact or library to be generated" 
-$ $ ng add       "artifact or library to be added"     
+$ $ ng generate  "artifact or library to be generated"
+$ $ ng add       "artifact or library to be added"
        └──┬───┘  └──────────────────────────────────┘
           │       each artifact/library defines its
           │       own options in a schematic.
@@ -3336,7 +3347,7 @@ $ $ ng add       "artifact or library to be added"
      - doc        Opens Official Angular documentation in browser,
                   and searches for a given keyword.
      - e2e        Builds and serves an Angular app, then runs
-                  end-to-end tests using Protractor 
+                  end-to-end tests using Protractor
      - generate   Generates/modifies files based on a schematic.
      - help
      - new
@@ -3345,12 +3356,12 @@ $ $ ng add       "artifact or library to be added"
      - serve
      - test
      - update     Updates app and dependencies.
-                  See @[https://update.angular.io/] 
+                  See @[https://update.angular.io/]
      - version
 
      - xi18n      Extracts i18n messages from source code.
   Ex:
-$ $ ng build              my-app      -c production 
+$ $ ng build              my-app      -c production
                           ^^^^^^
                           generated artifact can also be
                           indicated with --name "my-app"
@@ -3366,7 +3377,7 @@ $ $ ng build              my-app      -c production
   └  package.json       (npm package dependencies)
   └  package-lock.json  (version information for all npm packages installed)
                         (yarn.lock in case o using yarn)
-┌ └  src/               src for root-level  main application project 
+┌ └  src/               src for root-level  main application project
 · └  node_modules/
 · └  tsconfig.json      "Solution Style" TypeScript config file. Used by
 ·                       code editors and TS's language server to inprove dev. experience.
@@ -3404,7 +3415,7 @@ $ $ ng build              my-app      -c production
 ·     └  app.po.ts
 ·
 ·
-└  SOURCE DIRECTORY LAYOUT 
+└  SOURCE DIRECTORY LAYOUT
    app/            Angular components, templates, styles, logic and data
    └ app.component.ts     : app root component logic ("AppComponent").
                             Its view becomes root of view-hierarchy
@@ -3413,9 +3424,9 @@ $ $ ng build              my-app      -c production
    └ app.component.css    :
    └ app.component.spec.ts: unit test for root AppComponent.
    └ app.module.ts        : Defines the root module named "AppModule",
-                            telling Angular how to assemble the whole app. 
-                            As you add more components to the app, they must 
-                            be declared here. 
+                            telling Angular how to assemble the whole app.
+                            As you add more components to the app, they must
+                            be declared here.
 
    assets/         images, ... to be copied as-is
    environments/   build config options for a given target
@@ -3427,12 +3438,12 @@ $ $ ng build              my-app      -c production
    index.html      CLI automatically adds all JavaScript and CSS files
                    when building your app, so you typically there is no
                    need to add any script/link tags manually.
-   main.ts         App entry point 
+   main.ts         App entry point
                    Compiles the application with the JIT compiler and
                    bootstraps the application's root module (AppModule) to
                    run in the browser.
                    - AOT compiler can also be used by appending by using
-                   $ $ ng build|serve .... --aot 
+                   $ $ ng build|serve .... --aot
    polyfills.ts    Polyfill scripts for browser support.
    styles.sass     Lists CSS files supplying styles for a project.
                    (sass extension can vary depending on defaults for project)
@@ -3445,7 +3456,7 @@ $ $ ng build              my-app      -c production
                    Not used by package managers, it tell tools⅋bundlers whether
                    the code under this directory is free of non-local side-effects.
 
-  APPLICATION-SPECIFIC CONFIG FILES 
+  APPLICATION-SPECIFIC CONFIG FILES
   .browserslistrc   :  Config sharing of target browsers and Node.js versions
                        among various front-end tools. More info at:
                      @[https://github.com/browserslist/browserslist]
@@ -3486,7 +3497,7 @@ $ $ ng build              my-app      -c production
      │Alice│          │NG-App │          │Keycloak│
      └─────┘          └───────┘          └────────┘
 
-•  PRESETUP 
+•  PRESETUP
   → Keycloak
     → Client Config
       → Add Client :
@@ -3495,9 +3506,9 @@ $ $ ng build              my-app      -c production
          Root URL       : https://myapp.mydomain.com ← or dev URL
                                                        (http://localhost:4200)
   → Create new angular app if needed:
-    $ $ ng new angular-keycloak   
+    $ $ ng new angular-keycloak
   → Adding official keycloak js adapter
-    $ $ npm i keycloak-js --save  
+    $ $ npm i keycloak-js --save
 
 • Modify Angular app and next code to main.ts
   let initOptions = { //keycloak init options
@@ -3508,7 +3519,7 @@ $ $ ng build              my-app      -c production
 
   let keycloak = Keycloak(initOptions);
 
-  keycloak 
+  keycloak
     .init({ onLoad: "login-required" })        //← page load will redirect to
     .success((auth) => {                       //  keycloak Auth. page
       if (!auth) {
@@ -3559,7 +3570,7 @@ $ $ ng build              my-app      -c production
   full-stack features like integration with the Angular CLI, router
   support, code generation, webpack and more.
 
-  External Resources 
+  External Resources
 @[https://github.com/alexziskind1/nativescript-oauth2] [AAA]
 @[https://github.com/jbristowe/awesome-nativescript] !!!
 @[https://nativescript.org/blog/adding-analytics-to-your-nativescript-app/]
@@ -3567,7 +3578,7 @@ $ $ ng build              my-app      -c production
 
 [[{stack.angular,02_doc_has.resource,01_PM.WiP]]
 ● Recipes
-  INIT SERVICE ON PAGE LOAD 
+  INIT SERVICE ON PAGE LOAD
   let window: any;
   @Injectable()
   export class MyService01 {
@@ -3639,7 +3650,7 @@ $ $ ng build              my-app      -c production
             It allows to define document structure based on
             data stored in a single place/source-of-true.
 
-  Bootstrap new React App 
+  Bootstrap new React App
 @[https://github.com/facebook/create-react-app]
   $ npx create-react-app my-app  ← Alt 1 (preinstalled with npm 5.2+)
   $ npm init react-app my-app    ← Alt 2
@@ -3666,11 +3677,11 @@ $ $ ng build              my-app      -c production
   $ npm start
 
 
-  ┌───────────────────────────────────────────┐ 
-  │React Summary(@[https://reactjs.org/docs/])│ 
-  └───────────────────────────────────────────┘ 
+  ┌───────────────────────────────────────────┐
+  │React Summary(@[https://reactjs.org/docs/])│
+  └───────────────────────────────────────────┘
 
-  JSX summary 
+  JSX summary
 - Optional but recommened: allows react to report better error/warnings.
 - Prevent Injection Attacks from external input (XSS cross-site-scripting,...).
 
@@ -3713,7 +3724,7 @@ ReactDOM.render(                    ← Add to ReactDOM
 
   const element = (                        ← Element build from component
      <Welcome name="Sara" /> );            ← name="Sara" translated to input props
-                                             - smallest "renderable"   immutable 
+                                             - smallest "renderable"   immutable
                                                building block for components
                                              - Translates to plain JS (vs DOM)
 
@@ -3729,7 +3740,7 @@ ReactDOM.render(                    ← Add to ReactDOM
     document.getElementById('root')
   );
 
--  State Management 
+-  State Management
   class Clock extends React.Component {   ← Alt.2: class declaration for component.
                                             Preferred when managing component internal state
     constructor(props) {
@@ -3762,7 +3773,7 @@ ReactDOM.render(                    ← Add to ReactDOM
   NOTE: [performance] React may batch multiple setState() calls into a single update
 
   WARN : updating new state from props and state:
-    Wrong :                                B Correct 
+    Wrong :                                B Correct
    (props/state change asynch)              (Use setState( (state,prop) ) )
     this.setState({                          this.setState((state, props) => ({
       counter: this.state.counter              counter: state.counter
@@ -3774,7 +3785,7 @@ ReactDOM.render(                    ← Add to ReactDOM
 - TODO: Read also advanced guides:
   https://reactjs.org/docs/jsx-in-depth.html#user-defined-components-must-be-capitalized
 
-  Handling Events 
+  Handling Events
 
   class Toggle extends React.Component {
     constructor(props) {
@@ -3805,7 +3816,7 @@ ReactDOM.render(                    ← Add to ReactDOM
       );
     }
 
-  Conditional Rendering 
+  Conditional Rendering
 
   function Greeting(props) {
     ...
@@ -3815,7 +3826,7 @@ ReactDOM.render(                    ← Add to ReactDOM
       : <Component2 />
   }
 
-  Lists and Keys 
+  Lists and Keys
   function NumberList(props) {
     const number_l = props.number_l;
     const listItems = number_l.map(       ← Use standard Ecmascript "map"
@@ -3889,13 +3900,13 @@ ReactDOM.render(                    ← Add to ReactDOM
     }
   }
 
-  Best patterns 
+  Best patterns
 
 - If two components need to reflect the same changing data
   put such data as prop (immutable in both) and move the state
   to a container "parent".
 
-  Composition vs Inheritance 
+  Composition vs Inheritance
 
 - Component composition recommended vs inheritance in order to reuse components.
   (pass them as props.children to other components).
@@ -3908,11 +3919,11 @@ ReactDOM.render(                    ← Add to ReactDOM
   “specific” component renders a more “generic” one and
   configures it with props:
 
-    At Facebook, we use React in thousands of components, and we  
-    haven’t found any use cases where we would recommend creating 
-    component inheritance hierarchies.                            
+    At Facebook, we use React in thousands of components, and we
+    haven’t found any use cases where we would recommend creating
+    component inheritance hierarchies.
 
-  Non-UI functionality 
+  Non-UI functionality
   To reuse non-UI functionality between components, we
   suggest extracting it into a separate JavaScript module.
   The components may import it and use that function, object,
@@ -3939,7 +3950,7 @@ without fighting to keep a framework under control.
 - orchestrate validation and submission: values/errors/visited fields
 - focus on business logic.
 - Intuitive: plain React state and props.
-- easy to debug, test and reason about. 
+- easy to debug, test and reason about.
 - No use of external state management libraries like Redux or MobX.
 - Keeps bundle size to a minimum.
 [[}]]
@@ -4046,8 +4057,8 @@ See also:
       using Redux Toolkit to create the Redux store and logic, and
       React-Redux to connect together the Redux store and the React components.
     $ $ npx create-react-app     \   ← Quick install
-    $   redux-essentials-example \  
-    $   --template redux            
+    $   redux-essentials-example \
+    $   --template redux
 
 
   WARN :... if you’re just learning React, don’t make Redux your
@@ -4064,8 +4075,8 @@ See also:
 - Redux Toolkit: recommended approach for writing Redux logic.
 - Redux DevTools Extension: allows for things like "time-travel debugging".
 
-  CONCEPTS 
-  - Extracting state Management from components: 
+  CONCEPTS
+  - Extracting state Management from components:
     function Counter() {                        // ← initial React component.
       const [counter, setCounter] = useState(0) // ← non-redux state management.
                                                      redux-way: extract (shared/global) state
@@ -4157,8 +4168,8 @@ See also:
           },                                     "immer" library detects changes and produces new immutable state
           decrement: state => {                   (middleware automatically added in configureStore)
             state.value -= 1 ←··················  - Writing immutable update logic by hand is hard, and
-          incrementByAmount: (state, action) => {   accidentally mutating state in reducers is the single  
-            state.value += action.payload           most common mistake Redux users make. 
+          incrementByAmount: (state, action) => {   accidentally mutating state in reducers is the single
+            state.value += action.payload           most common mistake Redux users make.
           }
         }
       })
@@ -4167,7 +4178,7 @@ See also:
 - Example app: counter allowing to add or subtract from a number as we click buttons.
 @[https://redux.js.org/tutorials/essentials/part-2-app-structure]
 
-  File layout: 
+  File layout:
   /src
     index.js             ← the starting point for the app
     App.js               ← the top-level React component
@@ -4180,8 +4191,8 @@ See also:
         Counter.js       ← a React component that shows the UI for the counter feature
         counterSlice.js  ← exports reducer function with the the Redux logic for "counter" feature
 
-  -  Our application might be made up of many different features, and each 
-     of those features might have its own reducer function. 
+  -  Our application might be made up of many different features, and each
+     of those features might have its own reducer function.
 
   - createSlice takes care of non-logic centric stuff like
     generation of action type strings/creator functions/objects)
@@ -4199,7 +4210,7 @@ See also:
         ...
       })
 
-- Thunks 
+- Thunks
  - specific kind of Redux function tuple that can contain asynchronous logic.
    - PRE-SETUP: add redux-thunk middleware (a type of Redux plugin) at store creation time.
                 (automatically added by configureStore).
@@ -4239,14 +4250,14 @@ See also:
   import styles from './Counter.module.css'
 
   export function Counter() {
-    const count = useSelector(selectCount) ←     WARN:  components are NOT allowed to import/access the store, 
-                              └────┬────┘               use the useSelector(...) injected Redux hook.  *  
+    const count = useSelector(selectCount) ←     WARN:  components are NOT allowed to import/access the store,
+                              └────┬────┘               use the useSelector(...) injected Redux hook.  *
     const dispatch = usedispatch()    └─················selectCount is defined in features/counter/counterSlice.js:
     const [incrementAmount, setIncrementAmount]         const selectCount = (state) => { state.counter.value }
        = useState('2')                                  (It could also be defined inline)
-    return ( ... {count}                                At every dispatched action (store updated),     
-                                                        the useSelector hook  will re-run the selector  
-      <button                                           and if value has changed, trigger re-rendering. 
+    return ( ... {count}                                At every dispatched action (store updated),
+                                                        the useSelector hook  will re-run the selector
+      <button                                           and if value has changed, trigger re-rendering.
         onClick={() => dispatch(increment())} >...    ← useDispatch (const dispatch = useDispatch()) is just
       <button                                           another Redux hook ( *  ) allowing to dispatch to the
         onClick={() => dispatch(decrement())} >...    ← actual (otherwise hidden to component) Redux store
@@ -4256,7 +4267,7 @@ See also:
 
 
  *  : Q: how do hooks know what Redux store instance to talk to?
-      A: At  index.js: 
+      A: At  index.js:
          ...
          import App from './App'
          import store from './app/store'
@@ -4269,7 +4280,7 @@ See also:
            document.getElementById('root')
          )
 
-  Advanced Redux use-cases: 
+  Advanced Redux use-cases:
 @[https://medium.com/@dan_abramov/you-might-not-need-redux-be46360cf367]
   - Persist state to a local storage and then boot up from it, out of the box.
   - Pre-fill state on the server, send it to the client in HTML, and
@@ -4347,7 +4358,7 @@ Ex OpenAPi Definition:
    |             Set Access Token
    |             Format: "Bearer"+[space]+[jwt]
    |           schema:
-   |             $ref: "#/components/schemas/entity01" 
+   |             $ref: "#/components/schemas/entity01"
    |           required: true
    |
    |         - name: queryParam1
@@ -4372,7 +4383,7 @@ Ex OpenAPi Definition:
    |           content:
    |             application/json:
    |               schema:
-   |                 $ref: '#/components/schemas/entity01' 
+   |                 $ref: '#/components/schemas/entity01'
    |         ...
    |
    | components:
@@ -4395,21 +4406,21 @@ Ex OpenAPi Definition:
 
 ● TOP Open APIs
 REF: @[https://projects.tmforum.org/wiki/display/API/Open+API+Table]
-• Account Management API 
+• Account Management API
      standardized mechanism for management of billing and settlement
    accounts, as well as for financial accounting (account receivable)
    either in B2B or B2B2C contexts.
-• Appointment API 
+• Appointment API
   standardized APIs to book appointment, including:
   ✓ parameterized searching for free slots
   ✓ nature and place of appointment.
   ✓ ...
 
-• Customer Management API 
+• Customer Management API
   standardized API for customer and customer account management
   (creation, update, retrieval, deletion and notification of events).
 
-• Partnership Type Management API 
+• Partnership Type Management API
   Standardized API for CRUD operations on partnership types.
    It is one of the APIs involved in an onboarding process .
    ✓ Identifies type of partnership among parties
@@ -4419,16 +4430,16 @@ REF: @[https://projects.tmforum.org/wiki/display/API/Open+API+Table]
   Standardized API for CRUD party management.
   Party := individual | organization
 
-• Party Role Management API 
+• Party Role Management API
  standardized API for general CRUD party roles and notification of events.
 
-• Product Catalog Management API 
+• Product Catalog Management API
   standardized API for adding partners' products to existing Catalog.
   It brings the capability for Service Providers to directly
   feed partners systems with the technical description of the products they
   propose to them.
 
-• Product Inventory Management API 
+• Product Inventory Management API
   standardized API for CRUD (representation of)product inventory management
   and product lifecycle event notification.
 
@@ -4511,7 +4522,7 @@ REF: @[https://projects.tmforum.org/wiki/display/API/Open+API+Table]
 • Party Management API :
   Provides a standardized API for party CRUD management.
 
-• Party Role Management API 
+• Party Role Management API
   Provides a standardized API for general party roles CRUD management.
 
 • Payment Management API :                                                      [payments]
@@ -4607,11 +4618,11 @@ REF: @[https://projects.tmforum.org/wiki/display/API/Open+API+Table]
 ● Open Data Protocol
 @[https://www.odata.org/]
 • ISO/IEC approved, OASIS standard
-• It defines   set of best practices for building and consuming 
-  RESTful APIs to focus on business logic without worrying 
-  about different approaches to define request/response headers, 
-  status codes, HTTP methods, URL conventions, media types, 
-  payload formats, query options, etc. 
+• It defines   set of best practices for building and consuming
+  RESTful APIs to focus on business logic without worrying
+  about different approaches to define request/response headers,
+  status codes, HTTP methods, URL conventions, media types,
+  payload formats, query options, etc.
 • OData provides guidance for:
   · tracking changes
   · defining functions/actions for reusable procedures
@@ -4624,7 +4635,7 @@ REF: @[https://projects.tmforum.org/wiki/display/API/Open+API+Table]
 
 • OData Tools include:
   - Visual Studio Code for OData Extension:
-    - adds rich support for the OData query language 
+    - adds rich support for the OData query language
   - XOData
     - generic online OData API/Service visualizer and explorer.
       It assists in rapid prototyping, verification, testing,
@@ -4653,8 +4664,8 @@ See comparative with OpenAPI and CloudEvents at:
 • Extracted from ebay anouncement to adopt AsyncAPI:
 @[https://www.infoq.com/news/2021/05/ebay-adopts-asyncapi/]
     One of the critical AsyncAPI features that eBay's team has found
-  particularly useful is   clean separation between channels,  
-  operations, and servers. 
+  particularly useful is   clean separation between channels,
+  operations, and servers.
   · A channel represents an event stream
   · An operation describes a publish or subscribe process.
   · A server facilitates the message transfer (i.e., the message bus).
@@ -4690,14 +4701,14 @@ See comparative with OpenAPI and CloudEvents at:
 ● NodeJS #[nodejs_summary]
 ● nvm Install [[{stack.nodejs.101,devops.101]]
 @[https://github.com/nvm-sh/nvm]
-• nvm: Node Version Manager allows to install different versions of node 
+• nvm: Node Version Manager allows to install different versions of node
        in parallel.
 
-  $ $ nvm install 14    
-  $ $ nvm use 14        
-  $ $ node -v           
-    v14.18.0            
-  $ $ nvm uninstall 12  
+  $ $ nvm install 14
+  $ $ nvm use 14
+  $ $ node -v
+    v14.18.0
+  $ $ nvm uninstall 12
 
 
 ● NodeJS summary
@@ -4706,9 +4717,9 @@ See comparative with OpenAPI and CloudEvents at:
   built against modern versions of V8.
 • Server API extensions for subprocesses, TTY, TCP servers, ...
 
-  ########## 
-  # nodenv # 
-  ########## 
+  ##########
+  # nodenv #
+  ##########
 @[https://github.com/nodenv/nodenv]
 • Utility to manage multiple Node.js versions installed in parallel.
 • Preferred to OS install (apt, dnf, chocolate, ...)
@@ -4728,7 +4739,7 @@ $ $ nodenv which $command     ← Display location of installed command
  $ $ node -e "{{js_code}}"   ← Evaluate JS code
  $ $ node -p "{{js_code}}"   ← Evaluate and print result, useful to see
                                node's dependencies versions
-                               e.g: $ $ node -p "{{process.versions}}"  
+                               e.g: $ $ node -p "{{process.versions}}"
                                { http_parser: '2.8.0',
                                  node: '10.16.3',
                                  v8: '6.8.275.32-node.54',
@@ -4740,16 +4751,16 @@ $ $ nodenv which $command     ← Display location of installed command
  $   --inspect-brk file.js     a debugger is connected once source code is
                                fully parsed
 
-  ####### 
-  # npm # 
-  ####### 
+  #######
+  # npm #
+  #######
 @[https://www.npmjs.com/]
 • npm : Node Package Manager manage projects and module dependencies.   [devops]
 • npm project layout
   ./package.json       ← JSON file with dev/pro. package dependendies
   ./node_modules       ← Installed packages (Add to   .gitignore , do not commit).
   ./package-lock.json  ← npm v5+: It describes the exact tree that was generated,
-                         such that subsequent installs are able to generate  
+                         such that subsequent installs are able to generate
                          identical trees , regardless of intermediate dependency updates.
                          Must be kept in git (version control) as any other source file.
 
@@ -4776,11 +4787,11 @@ $ $ npm-check --update-all  ← Update all no prompting
 $ $ npm-why $mod_name       ← Identifies why an package is installed.
 
 
-  ################# 
+  #################
   # Windows setup #    [windows][troubleshooting]
-  ################# 
+  #################
 @[https://www.npmjs.com/package/windows-build-tools]
-$ $ npm install --global windows-build-tools  
+$ $ npm install --global windows-build-tools
                          └─────────────────┘
 [[}]]
 
@@ -4806,7 +4817,7 @@ $ $ npm install --global windows-build-tools
      Otherwise, it returns its left-hand-side operand. e.g:
 
      let safe_name = nullableEntry ?? "n/a" ← Recomended fallback op. (vs || )
-• Node 12: 2019-10   LTS version!!! 
+• Node 12: 2019-10   LTS version!!!
 @[https://medium.com/@nodejs/introducing-node-js-12-76c41a1b3f3f]
 • 30% faster startup generating code cache for built-in libraries
   in advance at build time, and embed it in the binary.
@@ -4863,10 +4874,10 @@ $ $ npm install --global windows-build-tools
   plugins to support the requirements of a modern service
   - session management, security, connectivity, and testing"
 
-•  When you npm install @hapi/hapi, every single line of code you get 
-   has been verified. (No deep dependency being poorly maintained).   
-   hapi is the only leading node framework without any external code  
-   dependencies. None.                                                
+•  When you npm install @hapi/hapi, every single line of code you get
+   has been verified. (No deep dependency being poorly maintained).
+   hapi is the only leading node framework without any external code
+   dependencies. None.
 
 • End-to-end Code Hygiene — hapi requires the most secure settings
   to manage, control, and distribute code, including 2FA for all
@@ -5026,10 +5037,10 @@ Tensorflow using JS + WebGL
 [[{IA.cognitive,01_PM.BACKLOG]]
 ● Face⅋Speech Recog.
 @[https://dzone.com/articles/tutorial-how-to-build-a-pwa-with-face-and-speechrecognition?edition=636291]
-• Face detection API: 
+• Face detection API:
   face recognition in the browser:
 @[https://justadudewhohacks.github.io/face-api.js/docs/index.html]
-• Web speech API: 
+• Web speech API:
   enables "Speech to text" in the app.
 @[https://developer.mozilla.org/en-US/docs/Web/API/Web_Speech_API/Using_the_Web_Speech_API]
 
@@ -5037,7 +5048,7 @@ Tensorflow using JS + WebGL
   "Experimental Web Platform features" in the
   browser via the url: chrome://flags
 
-$ $ git clone https://github.com/petereijgermans11/progressive-web-app 
+$ $ git clone https://github.com/petereijgermans11/progressive-web-app
 [[}]]
 [[$div}]]
 
@@ -5047,18 +5058,18 @@ $ $ git clone https://github.com/petereijgermans11/progressive-web-app
 ● SEO Summary #[seo_sitemap_schema.org_summary]
 • SEO stands for  Search Engine Optimization .
 
-  ############################ 
-  # SEO rules for WHOLE site # 
-  ############################ 
+  ############################
+  # SEO rules for WHOLE site #
+  ############################
   1) Create 1 or more *sitemap.xml
 
   2) Create 1 robot.txt
 
   3) Use HTTPS (vs HTTP)
 
-  ############################ 
-  # SEO rules for html pages # 
-  ########################### 
+  ############################
+  # SEO rules for html pages #
+  ###########################
   ✓  Use Rich Structured Data to provide indexing metadata.
      For special content (charts, images, media, ...) it is
      specially important. e.g, use schema.org/VideoObject
@@ -5068,7 +5079,7 @@ $ $ git clone https://github.com/petereijgermans11/progressive-web-app
      • Title Tag / Meta Description
      • URL
      • H1, H2 Headings.
-     • anchor text of internal links 
+     • anchor text of internal links
 
   ✓  Add secondary keywords to:
      • Subheadings
@@ -5079,9 +5090,9 @@ $ $ git clone https://github.com/petereijgermans11/progressive-web-app
   NOTE: Page load speed does NOT affect SEO indexing, but it can affect
         final users, that will "skip over" slow sites.
 
-  ############################# 
-  # Sitemap Protocol standard # 
-  ############################# 
+  #############################
+  # Sitemap Protocol standard #
+  #############################
 @[https://www.sitemaps.org/protocol.html]
 • Sitemaps standard, proposed by Google, helps search engines
   (crawlers and indexers) to inform about URLs metadata
@@ -5113,7 +5124,7 @@ $ $ git clone https://github.com/petereijgermans11/progressive-web-app
   indexation results. Also via "PUSH" HTTP request like:
 
 
-$ $ curl https://${searchengine}/ping?sitemap=http://www.example.com/sitemap.gz 
+$ $ curl https://${searchengine}/ping?sitemap=http://www.example.com/sitemap.gz
   (via curl, wget, ..., returning HTTP 200 if every works "OK")
 
 
@@ -5158,15 +5169,15 @@ $ $ curl https://${searchengine}/ping?sitemap=http://www.example.com/sitemap.gz
   Sitemap: http://www.example.com/sitemap-host1.xml
   Sitemap: http://www.example.com/sitemap-host2.xml.gz
 
-  ########### 
-  # DONT's: # 
-  ########### 
+  ###########
+  # DONT's: #
+  ###########
   • Don't forget a "robots.txt" to skip content, define Sitemaps.
   • Don't block a page in robots.txt and include it in an XML sitemap.
 
-  ######################################## 
-  # robots.txt Robots Exclusion Protocol # 
-  ######################################## 
+  ########################################
+  # robots.txt Robots Exclusion Protocol #
+  ########################################
     TIP: Must be all lower-case,
     placed at URL "root"
    ┌(/var/www/html)/robots.txt ─┐
@@ -5197,7 +5208,7 @@ $ $ curl https://${searchengine}/ping?sitemap=http://www.example.com/sitemap.gz
   • /robots.txt : ignore page, do not even read html headers.
     · /robots.txt file is controlled by web-server/site administrator.
 
-  • <meta name="robots" content="noindex,follow"  
+  • <meta name="robots" content="noindex,follow"
     · ignore links inside this page.
     · Can be controlled by page-author, overriding
       defaults in robots.txt.
@@ -5219,7 +5230,7 @@ $ $ curl https://${searchengine}/ping?sitemap=http://www.example.com/sitemap.gz
 • While OpenAPI standard @[#openapi_summary] allows to   [comparative]
   design APIs (requests from client to servers) to  simplify
   implementation of client mobile/web applications,
-  schema.org allows to simplify the translation, by search engines/indexers, 
+  schema.org allows to simplify the translation, by search engines/indexers,
   of html-markup to structure-data , relationships and actions .
 • Extensible vocabulary.
 •  Google Search Gallery lists 30 rich snippet categories                [TODO]
@@ -5236,7 +5247,7 @@ $ $ curl https://${searchengine}/ping?sitemap=http://www.example.com/sitemap.gz
     <script type="application/ld+json">  ← Google's recommended
     {                                       format (vs microdata|rdf)
       "@context": "https://schema.org/",  @[#json-ld_summary]
-      "@type": "Recipe", 
+      "@type": "Recipe",
       "name": "Party Coffee Cake",
       "author": {
         "@type": "Person",
@@ -5281,8 +5292,8 @@ $ $ curl https://${searchengine}/ping?sitemap=http://www.example.com/sitemap.gz
 • HTTP/2 major flaw: when packet loss increases, performance
   degrades due to dependency on TCP packet retransmission
   (HOL blocking):
-    When packet loss surpasses a given threshold it's slower than  
-    HTTP/1 multiple parallel TCP connections. 
+    When packet loss surpasses a given threshold it's slower than
+    HTTP/1 multiple parallel TCP connections.
 • QUIC (HTTP/3 or HTTP over UPD) has first-class streams. solving
   HTTP/2 issues.
 [[}]]
@@ -5304,16 +5315,16 @@ Features
 • Client side support for protecting against XSRF                     [security]
 --------------------------------------------
 ● https://hyperfetch.bettertyped.com/docs/Getting%20Started/Overview
-  Hyper Fetch is a library for a very wide range of uses - it provides 
-  the logic necessary to perform requests, caching, queuing, offline 
-  support, presistence possibilities of the queued requests and cache. 
-  By offering the above solutions, we have the ambition to become one 
+  Hyper Fetch is a library for a very wide range of uses - it provides
+  the logic necessary to perform requests, caching, queuing, offline
+  support, presistence possibilities of the queued requests and cache.
+  By offering the above solutions, we have the ambition to become one
   of the greatest fetching tools - this is certainly not our last word.
   Motivation
-  The idea for Hyper Fetch came from our observation and leading many 
-  projects in the Reactjs environment. There are many great fetch 
-  libraries and api - like axios, fetch, swr, react-query but the logic 
-  that they provide is detached from each other - hooks from the 
+  The idea for Hyper Fetch came from our observation and leading many
+  projects in the Reactjs environment. There are many great fetch
+  libraries and api - like axios, fetch, swr, react-query but the logic
+  that they provide is detached from each other - hooks from the
   fetchers.
 [[}]]
 
@@ -5337,7 +5348,7 @@ https://pouchdb.com/ (46KB gzipped)
 [[}]]
 
 [[{low_code,security.aaa,security.oauth,stack.nodejs,01_PM.todo]]
-● PassportJS.org     @ma 
+● PassportJS.org     @ma
 @[http://www.passportjs.org/packages/]
 Simple, unobtrusive authentication middleware for Node.js and Express.
 
@@ -5355,7 +5366,7 @@ passport.authenticate('twitter'); // 'facebook' 'google' 'linkedin' 'github'
 • code. example:
  const logParent = require('pino')()
  const logChild  = logParent.child({ childProp: 'property' })
- 
+
  logParent.info('hello world!') // {"level":30,"time":15...,"msg":"hello ...","pid":XXX,"hostname":"Davids-MBP-3.fritz.box"}
  logChild .info('hello child!') // {"level":30,"time":15...,"msg":"hello ...","pid":XXX,"hostname":"Davids-MBP-3.fritz.box","childProp":"property"}
 [[}]]
