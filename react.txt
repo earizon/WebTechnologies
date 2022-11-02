@@ -1,0 +1,724 @@
+● React Summary #[react_summary] [[{stack.react.101]]
+  REF: @[https://reactjs.org/docs/]
+• React as declarative "source-of-trust":
+
+              Designed for                    Type
+    · HTML····document structure  ··········· Declarative
+    · CSS     appearance.         ··········· Declarative
+    · JS      behaviour.          ··········· Imperative
+    · React   model/behaviour/doc structure · Declarative JS
+              └────────────┬──────────────┘
+            It allows to define document structure based on
+            data stored in a single place/source-of-true.
+
+• Bootstrap new React App: @[https://github.com/facebook/create-react-app]
+  $ npx create-react-app my-app  # Alt 1 (preinstalled with npm 5.2+)
+  $ npm init react-app my-app    # Alt 2
+  $ yarn create react-app my-app # Alt 3
+  my-app/
+  ├─ README.md
+  ├─ node_modules/
+  ├─ package.json
+  ├─ .gitignore
+  ├─ public/ ( favicon.ico, index.html, manifest.json)
+  ├─ src/
+     ├─ App.css
+     ├─ App.js
+     ├─ App.test.js
+     ├─ index.css
+     ├─ index.js
+     ├─ logo.svg
+     ├─ serviceWorker.js
+     └─ setupTests.js
+  $ cd my-app
+  $ npm start
+
+● JSX summary:
+- Optional but recommened: allows react to report better error/warnings.
+- Prevent Injection Attacks from external input (XSS cross-site-scripting,...).
+  since any values embedded are scaped before rendering
+
+  const user = {name: "...", ...}
+  const element01 = (             <·· JSX expression:
+     <h1 id="1">                  <·· Use quotes to insert string literals as attr.
+      Hello, {user.name}!               class    → className, tabindex → tabIndex,...
+     </h1>;                           - compiles to:
+   );                                   const element01 = React.createElement( 'h1', ...);
+                                                          ^^^^^^^^^^^^^^^^^^^
+                                            after few checks ends up creating and object like
+                                            { type: 'h1', props: { ... } }
+
+  ReactDOM.render(                <·· Add to ReactDOM
+    element01,
+    document.getElementById('root')
+  );
+
+● Simplest React App
+
+                                      index.html:
+  <div id="root"></div>           <·· react "root" DOM
+
+  App.js:                         <·· User components must be capitalized.
+  function Welcome( props ) {           ┐ MINIMAL COMPONENT IMPLEMENTATION: (reusable UI object)
+    return <h1>Hello, {props.name}</h1>;├ props (input) → Component → (output) element and components
+  }                   └─────┬────┘      ┘ (See section State management for alternative using classes)
+                            ·             convention: Always start name with capital letter
+                            ·                            lower case are treated as DOM tags
+                            ·                            (Ex: <div /> means HTML div tag)
+                            └·············· props: component's read-only      [[{02_doc_has.comparative]]
+                                            state: component's read/write (data updates, ...)    [[}]]
+
+  const element = (                        <·· new component instance
+     <Welcome name="Sara" /> );                <·· props == { name: "Sara" }
+
+  function App() {                         <·· App component: formed by Welcome comps.
+    return (                                   name convention: component at root == "App"
+      <div>
+        <Welcome name="Sara"  />
+        <Welcome name="Cahal" />
+      </div>
+    );
+  }
+
+  ReactDOM.render( <App/>,                 <·· trigger rendering on App component (and descendents)
+    document.getElementById('root')
+  );
+
+● STATE MANAGEMENT:
+  class Clock extends React.Component {   ← Alt.2: class declaration for component.
+                                            Preferred when managing component internal state
+    constructor(props) {
+      super(props);                       ← props: immutable internal data of component
+      this.state = { date: new Date()}; } ← state:   mutable internal data of component
+
+    render() {
+      return (
+        <div>
+          {props.title} <br/>
+          {this.state.getSeconds()}
+        </div>
+      );
+    }
+
+    componentDidMount() {                  ← Lifecycle component hook.
+      this.timerID = setInterval(
+        () => { this. setState ({          ← [[{KEY-POINT]] call setState to notify react
+            date: new Date() } )             about state-changes to schedule redrawing
+                                             on next "tick" [[}]]
+        } , 1000)                            WARN : Never change this.state directly
+    }                                               after initial setup in constructor
+                                             NOTE : State is merged with old one (vs
+                                                    replaced with new one)
+
+    componentWillUnmount() {               ← Lifecycle component hook.
+      clearInterval(this.timerID);
+    }
+  }
+
+  NOTE: React may batch multiple setState() calls into a single update [[{performance}]]
+
+  WARN : updating new state from props and state:
+   WRONG :                                  CORRECT
+   ---------------------------------        ------------------------------------
+    this.setState({                          this.setState((state, props) => ({
+      counter: this.state.counter              counter: state.counter
+             + this.props.increment,                  + props.increment
+    });                                      }));
+   (props and state change asynch)          Functional updates:
+                                            If new state is computed using the previous state,
+                                            a function can be passed to setState, receiving the
+                                            previous value, and returning an updated value.
+
+
+
+● HANDLING EVENTS:
+
+  class Toggle extends React.Component {
+
+    handleClick() {                      <·· STEP 1) Define function-handle.
+      this.setState(
+        state => ({
+         isToggleOn: !state.isToggleOn
+        })
+      );
+    }
+
+    constructor(props) {
+      super(props);
+      this.state = {isToggleOn: true};     STEP 2)
+      this.handleClick =                   Bind event to function-handler + "this" context
+         this.handleClick.bind(this);
+    }
+
+    render() {
+      return (
+        <button
+          onClick={this.handleClick} >        ← event always cammelCase(onClick)
+          {this.state.isToggleOn                alt: onClick={() => this.handleClick()}
+            ? 'ON' : 'OFF'}                     (NOT RECOMMENDED: new callbacks
+        </button>                                created on each new render)
+        <button
+          onClick=
+          {this.deleteRow.bind(this, id)} >  ← Pass data to handler. Also
+            delete {this.id}                   {(e) => this.deleteRow(id, e)}
+        </button>                                (lambda syntax)
+      );
+    }
+  }
+
+● CONDITIONAL RENDERING:
+  function MyComponent(props) {
+    ...
+    if (condition1) { return null;  }  ← Return null to skip rendering
+    return (condition1)
+      ? <Component1 />
+      : <Component2 />
+  }
+
+● LISTS AND KEYS:
+  function NumberList(props) {
+    const number_l = props.number_l;
+    const listItems = number_l.map(       ← Use standard Ecmascript "map"
+          ( (n) => <hi key={n.toString()} ← key: optional, helps React idenity added/changed/deleted items
+                      <li>{n}</li> );       Use {index} (not recomended) as a last resort for key value
+    return ( <ul>{listItems}</ul> );        Ussage:
+  }                                            const number_l = [1, 2, ...];
+                                               ...
+                                               <NumberList number_l={number_l} />
+
+● Forms (Controlled Components): [[{]]
+
+  class NameForm extends React.Component {
+    constructor(props) {
+      super(props);
+      this.state = {value1: '',value2: '',value3: ''};  ← make React component state be the
+                                                           "single source of truth" for form-inpunts
+                                                           value can also refresh some other UI elements.
+
+      this.handleChange = this.handleChange.bind(this); ← Don't forget to bind
+      this.handleSubmit = this.handleSubmit.bind(this);
+    }
+
+    handleChange(event) {                               ← similar to 2/3
+      const T = event.target;
+      const value = (T.type === 'checkbox')             ← Example logic.
+                    ? T.checked : T.value;
+      const name = target.name;                         ← use target.name to known which input was affected
+      this.setState({                                     (or a different funct. handler is logic is different).
+        [name]: value    });                              ← {[...]:...} ES6 computed prop.name syntax.Equivalent to ES5
+                                                            d = {}; d[name]=value; this.setState(d);
+      this.setState( {value1: event.target.value} );
+    }
+
+    handleSubmit(event) {
+      ...
+      event.preventDefault();                          ← Don't forget.
+    }
+
+    render() {
+      return (
+        <form onSubmit={this.handleSubmit}>
+        <label>Name:
+          <input type="text" value={this.state.value1}
+            name="value1"
+            onChange={this.handleChange} />
+        </label>
+        <label>Essay:
+          <textarea value={this.state.value2}         ← Notice: textarea content defined by value attribute
+            name="value2"                               (vs inner text in standard HTML)
+            onChange={this.handleChange} />
+        </label>
+
+        <label> Pick one:
+          <select value={this.state.value3}           ← Notice: Selected value defined by value attribute
+            name="value3"                               (vs 'selected' attribute in option in standard HTML)
+            onChange={this.handleChange3}>              For multiselect:
+            <option value="value1">text1</option>       <select multiple={true} value={['B', 'C']}>
+            <option value="value2">text2</option>
+            <option value="value3">text3</option>
+          </select>
+        </label>
+        <label>Upload file:
+        <input type="file" />                          ← read only, uncontrolled by react
+        </label>
+
+
+        <input type="submit" value="Submit" />
+        </form>
+      );
+    }
+  }
+[[}]]
+
+● BASIC REACT Hooks API Reference  (16.8+) [[{react.hooks]]
+• const [state, setState] = useState(initialState);
+
+  function Counter({initialCount}) {
+    const [count, setCount] = useState(initialCount);   <···  @initial-render: returned state == value passed as the first argument (initialState)
+                                                              @        render: returned state == most-recent-state after applying updates
+    return (                                                  Use a function (vs initialState) to allow for lazy evaluation.
+      <>                                                <···  <> syntax allowed:
+        Count: {count}
+        <a onClick={() => setCount(initialCount)              }>Reset</a>
+        <a onClick={() => setCount(prevCount => prevCount - 1)}>-    </a>
+        <a onClick={() => setCount(prevCount => prevCount + 1)}>+    </a>
+      </>
+    );
+  }
+
+  Unlike Component::setState useState does NOT automatically merge update objects. [[{02_doc_has.comparative]]
+  To replicate this behavior implement setState like:
+  setState(prevState => {
+    return {
+       ...prevState,
+       ...updatedValues};  // <··· Object.assign would also work
+  });                                                                              [[}]]
+
+
+  NOTE: useReducer(....) is better suited for managing state objects containing multiple sub-values.
+
+• useEffect(didUpdateFun);
+  By default, Mutations, subscriptions, timers, logging, and other side effects are
+  NOT allowed inside the main body of a function component (react "RENDER PHASE").
+  didUpdateFun will run after the render is committed to the screen.
+  ("escape hatch" from React’s purely functional world into the imperative world)
+   By default, effects run after every completed render, but they can be setup to
+  to fire only when certain values have changed.
+
+  useEffect(() => {
+    const subscription = props.source.subscribe();
+    return () => {
+      subscription.unsubscribe();  <··· Example, effect used to clean-up subscription
+    };                                  It will run before component is removed from UI
+  });                                   preventing memory leaks.
+
+  When re-rendering, a previous effect is executed before subsecuent ones.
+
+  Compared to 'componentDidMount'|'componentDidUpdate', the function passed to 'useEffect'   [[{02_doc_has.comparative]]
+  fires after layout-and-paint, during a deferred-event, making it suitable for the many
+  common side effects, like setting up subscriptions and event handlers, because most types
+  of work shouldn’t block the browser from updating the screen. [[}]]
+
+  'useLayoutEffect' must be used when the effect must "fire synchronously" before next paint.
+
+    In React 18+, didUpdateFun will fire synchronously before layout and paint when it’s the
+  result of a discrete user input such as a click, or when it’s the result of an update
+  wrapped in flushSync.  This behavior allows the result of the effect to be observed by the
+  event system, or by the caller of flushSync.
+
+  useEffect(
+    didUpdateFun() => {           <··· function will only be triggered when props.source changes
+      const subscription =
+         props.source.subscribe();
+      return () => {
+        subscription.unsubscribe();
+      };
+    },
+    [props.source],               <··· STEP 1) pass optional 2nd argument to useEffect as array of values
+  );                                           that the effect depends on.
+                                               Pass [] to execute just once.
+
+• const value = useContext(MyContext);
+  Current returned context is determined by the value 'prop' of the nearest <MyContext.Provider>
+  "above" the calling component in the tree.
+
+  When nearest <MyContext.Provider> updates, this Hook will trigger
+
+- TODO: [[{01_PM.TODO]]
+  - Additional Hooks
+    REF: https://reactjs.org/docs/hooks-reference.html#additional-hooks
+    useReducer useCallback useMemo useRef useImperativeHandle
+    useLayoutEffect useDebugValue useDeferredValue useTransition useId
+
+  - Library Hooks: useSyncExternalStore useInsertionEffect
+    https://reactjs.org/docs/hooks-reference.html#library-hooks
+[[}]]
+
+[[react.hooks}]]
+
+
+
+● BEST PATTERNS: [[{qa.best_patterns]]
+  - If two components need to reflect the same changing data
+    put such data as prop (immutable in both) and move the state
+    to a container "parent".
+
+    Composition vs Inheritance
+
+  - Component composition recommended vs inheritance in order to reuse components.
+    (pass them as props.children to other components).
+
+    Sometimes we think about components as being “special cases” of
+    other components. For example, we might say that a WelcomeDialog is a
+    special case of Dialog.
+
+    In React, this is also achieved by composition, where a more
+    “specific” component renders a more “generic” one and
+    configures it with props:
+
+      At Facebook, we use React in thousands of components, and we
+      haven’t found any use cases where we would recommend creating
+      component inheritance hierarchies.
+
+    Non-UI functionality
+    To reuse non-UI functionality between components, we
+    suggest extracting it into a separate JavaScript module.
+    The components may import it and use that function, object,
+    or a class, without extending it.
+[[qa.best_patterns}]]
+
+● Formik Forms [[{stack.react,code.low_code,qa,01_PM.BACKLOG]]
+@[https://formik.org/]
+- orchestrate validation and submission: values/errors/visited fields
+- focus on business logic.
+- Intuitive: plain React state and props.
+- easy to debug, test and reason about.
+- No use of external state management libraries like Redux or MobX.
+- Keeps bundle size to a minimum. [[}]]
+
+● React Router [[{stack.react.101,01_PM.BACKLOG]]
+- collection of navigational components that compose declaratively
+  with your application for bookmarkable URLs , composable way to
+  navigate in React Native, ...  [[}]]
+
+● React Suspense [[{stack.react.redux,02_doc_has.comparative,01_PM.BACKLOG]]
+ (alt. to Redux)
+@[https://www.infoq.com/news/2018/12/react-suspense-redux-alternative]
+
+"If your primary use-case for Redux is using it as a client-side cache of
+server-side data, then Suspense could replace your redux usage. I’d consider
+it because you’d have simpler code and the ability to tame all those spinners."
+[[}]]
+
+● React Native [[{react,mobile.native,mobile.android,mobile.iOS,01_PM.BACKLOG]]
+@[https://reactnative.dev/]
+- Replaces web components by native Android/iOS/... ones.
+
+  import React from 'react';          // ← needed fro JSX
+  import { View, Text, Image,         // ← native components
+         ScrollView, TextInput }
+         from 'react-native';
+
+  const App = () => {
+    const [text, setText] = useState('');
+    return (
+      <ScrollView>                     // Horiz. or Vert. container
+        <Text>Some text</Text>
+        <View>                         // ← View: UI building block
+          <Text>Some more text</Text>
+          <Image
+            source={{
+              uri: 'https://.../image.png',
+            }}
+            style={ { width: 200,
+                      height: 200 }}
+          />
+        </View>
+
+      <TextInput
+        style={{
+            height: 40,
+            borderColor: 'gray',
+            borderWidth: 1
+        }}
+        placeholder="..."
+        onChangeText={text => setText(text)}
+        defaultValue={text}
+      />
+      <FlatList                        ←  Works very well with long lists . Unlike
+        data={[                           ScrollView, it only renders elements on the
+          {key: 'val1'}, {key: 'val2'},   screen.
+          {key: 'val3'}, {key: 'val4'},   SectionList preferred to split into logical
+          ...                             sections.
+        ]}
+        renderItem={                   ← Take item as input, outpus formatted output
+          ({item}) =>
+             <Text style={styles.item}>
+               {item.key}
+             </Text>}
+      />
+      </ScrollView>
+    );
+  }
+  export default App;
+
+ ------------------------------------------------------------
+  React       Android      View            Web
+ ------------------------------------------------------------
+  View        ViewGroup   UIView           div
+ ------------------------------------------------------------
+  Text        TextView    UITextView       p
+ ------------------------------------------------------------
+  Image       ImageView   UIImageView      img
+ ------------------------------------------------------------
+  ScrollView  ScrollView  UIScrollView     div
+ ------------------------------------------------------------
+  TextInput   EditText    UITextField      input type="text"
+ ------------------------------------------------------------
+
+See also:
+@[https://github.com/tldr-pages/tldr/blob/master/pages/common/ignite.md]
+- A CLI for React Native boilerplates, plugins, generators, and more.
+  More information: https://infinite.red/ignite.
+
+[[}]]
+
+● Redux summary #[redux_summary]                                      [[{react.redux]]
+  Official redux template :
+@[https://github.com/reduxjs/cra-template-redux]
+    - already configured with a standard Redux application structure,
+      using Redux Toolkit to create the Redux store and logic, and
+      React-Redux to connect together the Redux store and the React components.
+    $ $ npx create-react-app     \   ← Quick install
+    $   redux-essentials-example \
+    $   --template redux
+
+
+  WARN :... if you’re just learning React, don’t make Redux your
+        first choice.
+
+@[https://redux.js.org/tutorials/essentials/part-1-overview-concepts]
+
+- Redux: pattern + library for managing and updating application state,
+  using events called "actions".
+- centralized store for (global) state that needs to be used across your entire
+  application, with rules ensuring that the state can only be updated
+  in a predictable fashion.
+
+- Redux Toolkit: recommended approach for writing Redux logic.
+- Redux DevTools Extension: allows for things like "time-travel debugging".
+
+  CONCEPTS
+  - Extracting state Management from components:
+    function Counter() {                        // ← initial React component.
+      const [counter, setCounter] = useState(0) // ← non-redux state management.
+                                                     redux-way: extract (shared/global) state
+                                                     from the components to "Store".
+      ...
+      return ( <div>...  </div>)
+    }
+      BEST PATTERN : Keep local (non-global/shared) component
+                     state inside component (vs Redux state)
+
+  - Redux expects that all state updates are done immutably.
+
+  - Actions : plain JS object representing an application event.
+    {
+       "type"    : "domain/eventName", ← only required field in action
+       "payload" : ...                 ← Optional. payload key name is a convention.
+    }
+
+  - Reducer functions , sort of event listener
+    (the name comes from its similarity with Array.reduce() )
+    - input : (current state, action object)
+    - logic : decides how to update the state based ONLY on input state and action
+              (or ignore given an input action of no interest)
+              - next rules must be respected:
+                - not allowed to modify the existing state only clone-and-edit new version.
+                - side efffects (asynchronous logic, random values,...) NOT allowed.
+    - output: returns new state
+
+    const initialState = { value: 0 }
+
+    function counterReducer(state = initialState, action) {
+      if (action.type !== 'counter/increment') { return state; }
+      return { value: state.value + 1 }
+    }
+
+
+  - Store : Global app state (state "moved" from component states)
+    import { configureStore } from '@reduxjs/toolkit'
+
+    const getIncrementAction = () => {            ← Utility action creator .
+      return { type: 'counter/increment' }          (avoid typing/mistakes)
+    }
+
+    const store = configureStore(                 ← Store builder
+                      { reducer: counterReducer } ← 1+ reducer/s linked to new store
+                  )                                 key names will define keys in final state value.
+                                                    This code means that we want to have a state.reducder
+                                                    section in the Redux state object, and that we want the
+                                                    counterReducer function to be in charge of deciding if
+                                                    and how to update the state.counter
+
+                                                    A real app using state slides could look like:
+                                                    import reducer1 from '../features/users/usersSlice'
+                                                    ...
+                                                    export default configureStore({
+                                                      reducer: {
+                                                        users   : reducer1,
+                                                        posts   : reducer2,
+                                                        comments: reducer3
+                                                      }
+                                                    })
+
+    ...
+    store.getState()                              ← get initial state ({value: 0})
+    store.dispatch( getIncrementAction() )        ← - .dispatch()  method is the only way allowed
+                                                      to update the state
+
+    store.getState()                              ← get new state  ({value: 1})
+
+
+  - Selectors functions :
+    - "utility" functions to extract specific information from a store state. Ex:
+    const selectCounterValue = state => state.obj1.obj2.value
+
+  - Slices :
+    - collection of reducer logic and actions for a single app feature
+      (typically defined in a single file).
+    - name comes from splitting up root-state into multiple "slices".
+    - Example from @[https://github.com/reduxjs/cra-template-redux]
+      (features/counter/counterSlice.js)
+      import { createSlice } from '@reduxjs/toolkit'
+
+      export const counterSlice = createSlice({
+        name: 'counter',
+        initialState: { value: 0 },
+        reducers: { ←·················· UI will dispatch matching action types:
+          increment: state => {          {type: "counter/increment"}, {type: "counter/increment"}, ...
+            state.value += 1 ←·········   WARN : There is some magic here. Code looks to be "mutating" input state.
+          },                                     "immer" library detects changes and produces new immutable state
+          decrement: state => {                   (middleware automatically added in configureStore)
+            state.value -= 1 ←··················  - Writing immutable update logic by hand is hard, and
+          }
+          incrementByAmount: (state, action) => {   accidentally mutating state in reducers is the single
+            state.value += action.payload           most common mistake Redux users make.
+          }
+        }
+      })
+      export const { increment, decrement, incrementByAmount } = counterSlice.actions
+
+- Example app: counter allowing to add or subtract from a number as we click buttons.
+@[https://redux.js.org/tutorials/essentials/part-2-app-structure]
+
+  File layout:
+  /src
+    index.js             ← the starting point for the app
+    App.js               ← the top-level React component
+    /app
+      store.js           ← creates the Redux store instance
+                           - store setup can be customized with different
+                             kinds of plugins ("middleware" and "enhancers").
+    /features
+      /counter
+        Counter.js       ← a React component that shows the UI for the counter feature
+        counterSlice.js  ← exports reducer function with the the Redux logic for "counter" feature
+
+  -  Our application might be made up of many different features, and each
+     of those features might have its own reducer function.
+
+  - createSlice takes care of non-logic centric stuff like
+    generation of action type strings/creator functions/objects)
+    by just defining an slice name, writing an object with reducer functions.
+    (initial state is also needed to init properly).
+
+    - slice_name +"." reducer_key_name → {type: "slice_name/reducer_key_name"}
+      Ex: "counter" + "increment"          → {type: "counter/increment"}
+    - reducer_function_name →  action_creator_name
+      Ex:
+      createSlice({
+        reducers: {
+          increment: state => ... →  counterSlice.actions.increment()
+        }
+        ...
+      })
+
+- Thunks
+ - specific kind of Redux function tuple that can contain asynchronous logic.
+   - PRE-SETUP: add redux-thunk middleware (a type of Redux plugin) at store creation time.
+                (automatically added by configureStore).
+   - inside    thunk function: takes dispatch and getState as arguments
+   - outside creator function: creates and returns the thunk function
+   Ex 1: (features/counter/counterSlice.js)
+
+   export const incrementAsync            // thunk can be dispatched like regular action:
+      = amount => dispatch => {           `dispatch(incrementAsync(10))`.
+     //           └───────────┴················ inside  function
+     // └───────┴······························ outside function
+     setTimeout(() => {
+       dispatch(
+         incrementByAmount(amount)         ← Utility action creator
+       )                                     returning { type: 'XXX/YYY', payload :... }
+     }, 1000 /* millisecs */)
+   }
+
+   Ex 2: AJAX call: (features/counter/counterSlice.js)
+   const fetchUserById = (userId) => {       // ← outside "thunk creator" function
+     return async (dispatch, getState) => {  // ←  inside "thunk function"
+       try {
+         const user = await userAPI.fetchById(userId)     // ← make an async call in the thunk
+         dispatch(userLoaded(user))                       // ← dispatch an action when we get the response back
+       } catch (err) {
+         ...
+       }
+     }
+   }
+
+  The React Counter Component#
+
+  features/counter/Counter.js
+  import React, { useState } from 'react'
+  import { useSelector, useDispatch } from 'react-redux'
+  import { decrement, increment, ... } from './counterSlice'
+  import styles from './Counter.module.css'
+
+  export function Counter() {
+    const count = useSelector(selectCount) ←     WARN:  components are NOT allowed to import/access the store,
+                              └────┬────┘               use the useSelector(...) injected Redux hook.  *
+    const dispatch = usedispatch()    └─················selectCount is defined in features/counter/counterSlice.js:
+    const [incrementAmount, setIncrementAmount]         const selectCount = (state) => { state.counter.value }
+       = useState('2')                                  (It could also be defined inline)
+    return ( ... {count}                                At every dispatched action (store updated),
+                                                        the useSelector hook  will re-run the selector
+      <button                                           and if value has changed, trigger re-rendering.
+        onClick={() => dispatch(increment())} >...    ← useDispatch (const dispatch = useDispatch()) is just
+      <button                                           another Redux hook ( *  ) allowing to dispatch to the
+        onClick={() => dispatch(decrement())} >...    ← actual (otherwise hidden to component) Redux store
+    )                                                   NOTE:  components don't care whether we're dispatching a
+  }                                                     sync or async (Thunk) methods.
+                                                        They only react to input events by dispatching events.
+
+
+ *  : Q: how do hooks know what Redux store instance to talk to?
+      A: At  index.js:
+         ...
+         import App from './App'
+         import store from './app/store'
+         import { Provider } from 'react-redux'
+
+         ReactDOM.render(
+           <Provider store={store} >      ←  DON'T FORGET:  It allows to pass down/link/inject
+             <App />                         the Redux store to redux hooks in components.
+           </Provider>,
+           document.getElementById('root')
+         )
+
+  Advanced Redux use-cases:
+@[https://medium.com/@dan_abramov/you-might-not-need-redux-be46360cf367]
+  - Persist state to a local storage and then boot up from it, out of the box.
+  - Pre-fill state on the server, send it to the client in HTML, and
+    boot up from it, out of the box.
+  - Serialize user actions and attach them, together with a state
+    snapshot, to automated bug reports, so that the product developers
+    can replay them to reproduce the errors.
+  - Pass action objects over the network to implement collaborative
+    environments without dramatic changes to how the code is written.
+  - Maintain an undo history or implement optimistic mutations
+    without dramatic changes to how the code is written.
+  - Travel between the state history in development, and re-evaluate
+    the current state from the action history when the code changes, a la
+    TDD.
+  - Provide full inspection and control capabilities to the
+    development tooling so that product developers can build custom tools
+    for their apps.
+    Provide alternative UIs while reusing most of the business logic.
+[[react.redux}]]
+
+● - React+Flux Docker Dev Workflow [[{react.redux,devops,01_PM.TODO]]
+   @[https://medium.com/@tribou/react-and-flux-a-docker-development-workflow-469957f3bbf0]
+    [[}]]
+
+• batching is enabled for all updates by default in React 18+ (previously only updates in event handlers)
+  except for user-initiated "input" events
+[[stack.react}]]
