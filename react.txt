@@ -186,7 +186,7 @@
                                                ...
                                                <NumberList number_l={number_l} />
 
-● Forms (Controlled Components): [[{]]
+● FORMS (Controlled Components): [[{]]
 
   class NameForm extends React.Component {
     constructor(props) {
@@ -249,6 +249,58 @@
     }
   }
 [[}]]
+
+● REACT SHARED CONTEXT [[{react.context]]
+  https://reactjs.org/docs/context.html
+
+  - Context provides a way to pass data through the component tree
+    without having to pass props "top-down" manually at every level.
+
+API:  Class.contextType Context.Consumer Context.displayName
+
+   const ThemeContext = React.createContext('light');    <··· STEP 1) Creates Context object. When React renders a component
+                                            └──┬──┘                   SUBSCRIBING to this Context object it will read the
+                                               ·                      current context value from the closest matching Provider.
+                                               └····················  def.Value only used when no matching Provider above it exists.
+                                                                      (also useful for testing components in isolation)
+   ThemeContext.displayName = 'MyThemeContext';               <··· optional. Will be used by React DevTools
+   class App extends React.Component {
+     render() {
+       return(
+         <ThemeContext.Provider value="dark">            <··· STEP 2: Create context provider
+           <Toolbar />                                        Any child component can read it at any depth
+         </ThemeContext.Provider>                             Every Context object comes with a Provider component
+       );                                                     allowing consuming components to subscribe to context changes.
+     }                                                        One Provider can be connected to many consumers.
+   }
+
+   class ChildChildComponent extends React.Component {
+     static contextType = ThemeContext;                 <··· STEP 3: Optional. Assign a contextType to read nearest-current-value
+     render() {                                              of that Context-type. WARN: only a single context is allowed with this API.
+       return <Button theme={this.context} />;               Alternatively: https://reactjs.org/docs/context.html#consuming-multiple-contexts
+     }
+     componentDidMount()   { let value = this.context; ... } <·· we can then use it like this.context
+     componentDidUpdate()  { let value = this.context; ... }
+     ...
+   }
+
+ WARN: Minimize use of contexts to promote component reuse.
+       (Component composition or "injection" can be a better option)
+
+ WARN: The propagation from Provider to its descendant consumers
+       (including .contextType and useContext) is not subject to
+       shouldComponentUpdate method, so the consumer is updated
+       even when an ancestor component skips an update.
+
+   <MyContext.Consumer>                                      <·· Component SUBSCRIBING TO CONTEXT CHANGES.
+     {value => /* render based on context value */}
+   </MyContext.Consumer>
+
+- See complex context-ussage examples at:
+  https://reactjs.org/docs/context.html#examples
+  (Dynamic Context, Updating Context from a Nested Component, Consuming Multiple Contexts)
+
+[[react.context}]]
 
 ● BASIC REACT Hooks API Reference  (16.8+) [[{react.hooks]]
 • const [state, setState] = useState(initialState);
