@@ -303,6 +303,7 @@ API:  Class.contextType Context.Consumer Context.displayName
 [[react.context}]]
 
 ● BASIC REACT Hooks API Reference  (16.8+) [[{react.hooks]]
+  REF: @[https://reactjs.org/docs/hooks-reference.html#additional-hooks]
 • const [state, setState] = useState(initialState);
 
   function Counter({initialCount}) {
@@ -376,15 +377,52 @@ API:  Class.contextType Context.Consumer Context.displayName
 
   When nearest <MyContext.Provider> updates, this Hook will trigger
 
-- TODO: [[{01_PM.TODO]]
-  - Additional Hooks
-    REF: https://reactjs.org/docs/hooks-reference.html#additional-hooks
+• const [state, dispatchFun] = useReducer(reducerFun, initialArg, initFun);  // alternative to useState
+                ·         ·    ^^^^^^^^^^ ·        ·  ·        ·  └─────┴─··· alt1: initial state will be set
+                ·         ·    !!!!!!!!!! ·        ·  ·        ·                    "lazily" to initFun(initArg)
+                ·         ·               ·        ·  └────────┴─············ alt2: non-lazy  initial state
+                ·         ·               ·        ·
+                ·         ·               └────────┴─························ (state, action) => newState
+                ·         ·
+                └─────────┴─················································· Same reducerFun passed to useReduder
+
+
+  - preferred (vs useState) for complex state logic or when next-state depends on previous-one.
+
+- e.g:
+  const [state, dispatch] = useReducer(reducer, initialCount, init);
+
+  function reducerFun(state, action) {
+    switch (action.type) {
+      case 'increment':
+        return {count: state.count + 1};
+      case 'decrement':
+        return {count: state.count - 1};
+      default:
+        throw new Error();
+    }
+  }
+
+  function init(initialCount) {  return {count: initialCount};}
+
+  function Counter() {
+    const [state, dispatchFun] = useReducer(reducerFun, {count: 0});
+    return (
+      <>
+        Count: {state.count}
+        <button onClick={() => dispatchFun({type: 'decrement'})}>-</button>
+        <button onClick={() => dispatchFun({type: 'increment'})}>+</button>
+      </>
+    );
+  }
+
+- TODO:                                                               [[{01_PM.TODO]]
+  - Additional Hooks @[https://reactjs.org/docs/hooks-reference.html#additional-hooks]
     useReducer useCallback useMemo useRef useImperativeHandle
     useLayoutEffect useDebugValue useDeferredValue useTransition useId
 
   - Library Hooks: useSyncExternalStore useInsertionEffect
-    https://reactjs.org/docs/hooks-reference.html#library-hooks
-[[}]]
+    https://reactjs.org/docs/hooks-reference.html#library-hooks       [[}]]
 
 [[react.hooks}]]
 

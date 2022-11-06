@@ -1,0 +1,21 @@
+● NativeScript: Native (Android/iOS/...) platform APIs access within JS   [[{mobile.native,mobile.android,mobile.ios,01_PM.TODO]]
+  https://nativescript.org/
+- Supports TRULY NATIVE MOBILE APPS with Angular, Vue.js, TypeScript, or JavaScript.
+
+  let value = UIDevice.currentDevice.batteryLevel * 100    // iOS direct native access!
+  let value = bm.getIntProperty(
+                BatteryManager.BATTERY_PROPERTY_CAPACITY) // Android direct native access!
+
+  alert(`The Battery Level is: ${level}%`)
+
+- NativeScript features deep integration with modern Angular with  [[{stack.angular]]
+  full-stack features like integration with the Angular CLI, router
+  support, code generation, webpack and more. [[}]]
+● NativeScript
+@[https://docs.nativescript.org/]
+
+  External Resources
+@[https://github.com/alexziskind1/nativescript-oauth2] [AAA]
+@[https://github.com/jbristowe/awesome-nativescript] !!!
+@[https://nativescript.org/blog/adding-analytics-to-your-nativescript-app/]
+[[}]]

@@ -1,0 +1,156 @@
+● Mock Service Worker MSW (REST/GraphQL Testing) [[{qa.testing,code.low_code,01_PM.TODO]]
+@[https://www.infoq.com/news/2020/11/msw-mocking-graphql-rest-api/]
+• test UI components webapps without actual back-end, setting up mock server,
+  or stubbing native http/https/fetch implementations.
+• test  as much as possible in the same conditions and in the same way
+  as a real user would.
+• User actions are exercised on an actual rendered component,
+  they may trigger real effects (e.g., remote data fetching, API calls)
+  that need to be mocked or stubbed.
+• having tests passing against an altered version of a native fetch
+  browser method does not completely guarantee that the same tests
+  will pass against the unaltered version of fetch.
+• MSW allows developers to mock Rest and GraphQL APIs without having to
+  modify the component code or stubbing native http/https/fetch implementations.
+[[}]]
+
+● Mocha API-REST/Functional Testing[[{qa.testing,02_doc_has.comparative]]
+@[https://mochajs.org/]
+• Easy testing of async services / REST APIs / ...
+  better than Jasmine                                  [comparative]
+• JS based, runs in browser and NodeJS.
+• tests run async service serially, allowing for
+  accurate reporting, mapping uncaught exceptions
+  to the correct test
+• install:
+  $ npm install -g mocha
+• Commonly used with "Chai" library as assertion library
+  (assert, expect, should), installed per project like:
+  $ npm install --save-dev chai
+• Commonly used with "Supertest" SuperAgent extension library as
+  HTTP AJAX test library. , installed per project like:
+  $ npm install --save-dev supertest
+• Ussage summary:
+  $ mocha ← execute tests with default conf. (defaults + mocha.opts)
+  $ mocha directory_with_tests ← Run tests at location
+  $ mocha --grep {{^regex$}}   ← Run tests matching pattern
+  $ mocha --watch              ← Run tests once, the on JS file change
+  $ mocha --reporter $reporter ← Run tests with specific reporter
+• Test how-to summary:
+  · mkdir test
+  · vim test/test01.js
+    iconst request = require('supertest');
+    const app = require('../server/app.js');
+
+    describe('GET /users', function() {
+      it('return list of users', function() {
+        return request(app)
+          .get('/users')
+          .expect(200)
+          .expect('Content-Type',/json/)
+          .expect('[{"name":"ej","age":26},{"name":"jh","age":28}]')
+      })
+    })
+• See official doc for info about hooks (before, after, afterEach)
+  Retry Tests, Timeouts, Diffs, ...
+• Official examples at:
+@[https://github.com/mochajs/mocha-examples/tree/master/packages]
+  selenium, rxjs, react-webpack,programmatic-usage
+[[}]]
+
+
+
+● Selenium (Web test Automation) [[{qa.testing,code.low_code,security.aaa]]
+• External Resources:
+  ·@[http://docs.seleniumhq.org/]
+  ·@[http://docs.seleniumhq.org/projects/ide/]
+  ·@[http://code.tutsplus.com/tutorials/headless-functional-testing-with-selenium-and-phantomjs--net-30545]
+  ·@[http://stackoverflow.com/search?q=selenium]
+
+• Automate browser execution applying test on expected elements,
+  URL, events ....
+• Oldest and most widely adopted End-to-End automation framework.
+• Can orchestrate tests in any major browser.
+• Example test:
+  const {Builder, By, Key, until} = require('selenium-webdriver');       [code_snippet]
+
+  (async function example() {
+      let driver = await new
+          Builder().forBrowser('firefox').build();
+          try {
+      await driver.get('https://www.google.com'); // ← Navigate to Url
+
+      await driver
+            .findElement(By.name('q')             // *1
+          ).sendKeys('cheese', Key.ENTER);   // ← Enter "cheese", then "Enter"
+
+      let firstResult = await driver.wait(
+                until.elementLocated(
+                   By.css('h3')),                 // *1
+                10000);
+
+      console.log(await firstResult.getAttribute('textContent'));
+          } finally{
+      driver.quit();
+          }
+  })();
+
+  *1 The crux of Selenium is the element locator.
+     ✓ id                  ✓ tag name
+     ✓ name                ✓ class name
+     ✓ link text           ✓ css
+     ✓ partial link text   ✓ xpath
+
+• Selenium IDE: Firefox/Chrome extension to automatically record/save/replay tests
+  @[https://examples.javacodegeeks.com/enterprise-java/selenium/selenium-ide-commands-example/]
+  @[https://www.youtube.com/watch?v=ZG3VFDMaAlk]
+
+• Alternatives to Selenium include:
+  ✓ Cypress :  JS centric framework, probably more friendly to web developers. [TODO]
+    · No need for "wait" commands in test scripts.
+      Cypress waits automatically for commands and assertions.
+    · Tests can make use of Spies, Stubs, and Clocks to verify
+      and control the behavior of responses, functions and timers.
+    · Automatic scrolling ensures that elements are visible
+      before performing (testing) any action.
+
+  ✓ Playwright : JS centric
+    · Focused on web-scraping (headless browser)
+    · Ex:
+      const playwright = require('playwright');                           [code_snippet]
+      async function main() {
+         const browser = await
+            playwright.chromium.launch({                   ← Use choromium
+             headless: false                               ← Disable headless mode (enable view)
+         });
+         const page = await browser.newPage();
+         await page.goto('https://.../testPage');
+         const scraped_data_list = await page.
+                  $eval('#someID', headerElm => {
+           const data_list = [];
+           const li_list = headerElm.getElementsByTagName('li');
+           li_list.forEach(domObject => {
+               data_list.push(domObject.innerText.split('\n'));
+           });
+           return data_list;
+         });
+         console.log('scraped_data_list:', scraped_data_list);
+         await page.waitForTimeout(5000);                  ← wait for 5 seconds
+         await browser.close();
+     }
+
+    main();
+[[}]]
+
+
+● Fiddler Proxy [[{qa.testing,troubleshooting]]
+@[www.telerik.com/fiddler]
+• Allows to replace remote html/css/AJAX responses with local/mocked ones.
+  Very useful when deploying to remote server can be "slow" due
+  to CI constrains.
+• Allows to see the "total page weight" HTTP caching and compression
+  at a glance
+• Tutorial: http://www.youtube.com/watch?v=TP_5JYatlNQ [Video]
+[[}]]
+
+

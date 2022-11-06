@@ -1,0 +1,293 @@
+● JS Alternatives [[{javascript.alternatives]]
+● Typescript [[{typescript,javascript,qa,]]
+• JS with types.  @[https://www.typescriptlang.org/]
+• Quick tutorial:
+ @[https://learnxinyminutes.com/docs/typescript/]
+• Debugging TS in Firefox DevTools:    [TODO]
+@[https://hacks.mozilla.org/2019/09/debugging-typescript-in-firefox-devtools/]
+•   Syntax summary
+@[https://learnxinyminutes.com/docs/typescript/]
+  let isDone: boolean = false   ← 3 basic types
+  let lines : number  = 42
+  let name  : string = "Anders"
+  let   var1 = false            ← Type inference if type ommited
+
+  let name  : any = jsObject    ← any: Compatibility with non-typed JS
+  const CON1 = false            ← Make constant/immutable (prefered) [qa][billion_dolar_mistake]
+
+
+  let   typedArray01: number[]      = [1, 2, 3]
+  let genericArray02: Array<number> = [1, 2, 3]
+
+  enum Color { Red, Green, Blue }
+  let c: Color = Color.Green
+
+    Functions
+    let f1 = function (i: number): number {
+      return i * i;                └─┬──┘
+    }                              Return type (or void)
+                                   (It can also be inferred)
+
+    let f2 = (i: number): number =>  ← Arrow syntax (used also in anonoymous
+       { return i * i; }               lamdas)
+
+    let f5 = (i: number) => i * i;   ← braceless means void/none return
+
+    Interfaces
+    interface Person {                 ← Interface declaration
+      name: string;
+      age?: number;                      ← Optional type               [qa][billion_dolar_mistake]
+      move(): void;
+    }
+    let p: Person = {                  ← Interface implementation
+     name: "Bobby",
+     move: () => { }
+    };
+
+    interface SearchFn {               ← Interface describing a function type
+      (source: string,                   Only param's types are important, names are not
+       subString: string): boolean;
+    }
+    let fnSearch: SearchFn = function  ← Function implementing the interface
+        (src: string, sub: string) {
+          return src.search(sub) != -1
+        }
+
+    Classes
+  class Point {                      ← class definition
+    x: number;                       ← Properties public by default
+    static origin = new Point(0, 0); ← Static member
+    readonly name: string;           ← read-only, only allowed to be                [qa]
+                                       writen in constructor.(Typescript 3.1+)
+    constructor(
+      _x: number,
+      private y: number = 0          ← syntax shortcut 'y' defined as class property as 'x'
+      _name : string ) {
+      this.x = _x;
+      this.name )
+    }
+
+    fn01(): number {  ... }
+
+  }
+
+  class PointPerson
+    implements IPerson { ... }       ← Class implementing interface
+
+  class Child
+    extends ParentClass { ... }      ← Class inheriting from parent class .
+                                         WARN:  Discouraged. Better use composition
+
+    Modules
+    module Geometry {                  ← Modules, "." can be used as separator for sub modules
+      export class Square { ... }
+    }
+    import G = Geometry;                 ← Local alias for referencing a module
+    let s1 = new Geometry.Square(5);       ← Or just new G.Square(5);
+
+    Generics
+    class Tuple<T1, T2> {            | interface Pair<T> { | function <T>(p: Pair<T>) {
+      constructor(                   |   item1: T;         |   return
+          public item1: T1,          |   item2: T;         |     new
+          public item2: T2) { ... }  | }                   |      Tuple(p.item1, p.item2);
+      ...                            |                     | };
+    }                                |                     |
+
+    Template Strings
+  let greeting  = `Hi ${name}, how are you?`
+  let multiline = `This is an example
+  of a multiline string`;
+
+    Inmutable Collections
+    const         number_array: Array<number> = [0, 1, 2, 3, 4];    ←          number_array can not be reasigned to other
+                                                                      array (const), but current array can be modified
+    const inmutable_number_array: ReadonlyArray<number> = numbers;  ← inmutable_number_array can not be reasigned to other
+                                                                      array (const), and no modifications allowed either.
+
+    Tagged Union Types  (model state-machine states easely)        [qa]
+    DECLARATION                                USSAGE
+    type State =                               declare const state: State;
+      | { type: "loading" }                           if (state.type === "success") {
+      | { type: "success", value: number }      ... state.value  ...
+      | { type: "error", message: string };    } else if (state.type === "error") {
+                                                ... state.message ...
+                                               }
+
+    Iterators and Generators
+    let arrayOfAnyType = [...];                ← Array or list
+    for (const val of arrayOfAnyType) { .... } ← Iterate over values in list
+    let object = { ... }
+    for (const key in list) { ... }              Iterate over keys in object
+[[typescript}]]
+
+
+● KotlinJS [[{kotlin,dev_lang.reason,qa,02_doc_has.comparative]]
+• Kotlin modern language features and first-class support for Javascript compilation
+  makes of it an ideal alternative to Javascript.
+• Kotlin support integration with:
+  (@[https://kotlinlang.org/docs/js-modules.html])
+  • Unified Module Definitions (UMD): compatible with both AMD and CommonJS.
+    UMD modules are also able to be executed without being imported
+    or when no module system is present. This is the default option for
+    the browser and nodejs targets.
+  • Asynchronous Module Definitions (AMD), which is in particular
+    used by the RequireJS library.
+  • CommonJS, widely used by Node.js/npm (require function and module.exports object)
+  • Plain. Don't compile for any module system. You can access a module by its
+    name in the global scope.
+[[}]]
+
+
+● J2CL [[{]]
+• Java to Javascript transpiler by Goole.
+• Production ready and actively use in Google's products.
+@[https://github.com/google/j2cl]
+@[https://www.infoq.com/news/2019/05/j2cl-java-javascript-transpiler/]
+[[}]]
+
+● Elm (Haskell like) [[{]]
+• See also:
+@[https://www.infoq.com/articles/functional-UI-introduction-no-framework/]
+@[https://www.infoq.com/news/2021/10/elm-lessons-learnt-production/]
+  The Elm architecture is the core of Functional UI techniques that
+have crossed over to non-functional languages. The Elm architecture
+has been transposed to Rust/Wasm (e.g., yew), JavaScript (e.g., 1KB
+ferp, AppRun), TypeScript (e.g., elm-ts) and has inspired many other
+languages and libraries (e.g., Redux, SwitfUI, Dark). The Rakuten
+article provides the following illustration of the Elm architecture.
+@[https://elm-lang.org/news/small-assets-without-the-headache]
+If you use a package with hundreds of functions, like elm/html, it
+automatically gets trimmed down to the 10 you actually use. The
+compiler can just figure it out. This works across the entire
+ecosystem. Using one function from a massive package with tons of
+dependencies? No problem. You just get that one function in the
+generated code.
+• Why not use Elm:
+@[https://lukeplant.me.uk/blog/posts/why-im-leaving-elm/#technical-limitations]
+  · Post recomends alternatives like:
+    - https://rescript-lang.org/
+    - https://github.com/darklang/philip2
+•  No Runtime Exceptions
+    Elm uses type inference to detect corner cases and give friendly
+    hints.
+     NoRedInk switched to Elm about two years ago, and 250k+ lines
+    later, they still have not had to scramble to fix a confusing runtime
+    exception in production.
+    Ex:
+      -- TYPE MISMATCH ---------------------------- Main.elm
+      The 1st argument to `drop` is not what I expect:
+      8|   List.drop (String.toInt userInput) [1,2,3,4,5,6]
+                      ^^^^^^^^^^^^^^^^^^^^^^
+                 This `toInt` call produces:
+                 Maybe Int
+                 But `drop` needs the 1st argument to be:
+                 Int
+      Hint: Use Maybe.  withDefault  to handle possible errors.
+
+•  Great Performance
+
+•  Enforced Semantic Versioning
+   ✓ Breaking APIs force new major version automatically.
+     thanks to its "ML" type system:
+     No surprises in PATCH releases
+
+   $   elm diff  Microsoft/elm-json-tree-view 1.0.0 2.0.0
+   This is a MAJOR change.
+   ---- JsonTree - MAJOR ----
+       Changed:
+         - parseString : String → Result String Node
+         + parseString : String → Result Error Node
+
+         - parseValue : Value → Result String Node
+         + parseValue : Value → Result Error Node
+
+•  Small Assets  (faster page loads)
+   Use --optimize flag, compiler do the rest. (no config needed)
+
+•  JavaScript Interoperability
+[[}]]
+
+● Reason (OCalm) [[{]]
+@[https://reasonml.github.io/]
+• By Facebook.
+• " Reason lets you write simple, fast and quality type safe code
+    while leveraging both the JavaScript and OCaml ecosystems."
+• See (excellent) comparative Elm vs Reason
+@[https://stackoverflow.com/questions/51015850/reasonml-vs-elm]
+
+• See also: ReasonReact
+[[}]]
+
+● PureScript (Haskell like) [[{01_PM.TODO.NOW]]
+  - Interesting lecture:
+    https://why.cardano.org/en/science-and-engineering/why-haskell/
+
+@[https://www.purescript.org/]
+• strongly-typed functional programming language transpiling to JS.
+• Benefits
+  transpile to readable JS
+  reuse existing JS code easily
+  extensive collection of libraries for web applications/servers/...
+  Excellent tooling and editor support with instant rebuilds
+  Active community
+  Build real-world applications using functional and expressive types:
+  · Algebraic data types and pattern matching
+  · Row polymorphism and extensible records
+  · Higher kinded types
+  · Type classes with functional dependencies
+  · Higher-rank polymorphism
+
+  ┌─ Hello, PureScript! ──────────────────┐
+  │                                       │
+  │ import Prelude                        │
+  │ import Effect.Console (log)           │
+  │                                       │
+  │ greet :: String -> String             │
+  │ greet name = "Hello, " <> name <> "!" │
+  │                                       │
+  │ main = log (greet "World")            │
+  └───────────────────────────────────────┘
+[[}]]
+
+
+● Erlscripten (Erlang) [[{]]
+@[https://blog.aeternity.com/erlscripten-92c815786987]
+• Erlang:
+  · language+framework most reliable choice to build highly
+    stable applications
+  · A normal Erlang app is built out of hundreds of small Erlang
+    processes.
+  · Originally proprietary software within Ericsson,  released as
+    free and open-source software in 1998.
+  · Erlang/OTP is supported and maintained by the
+    Open Telecom Platform (OTP) product unit at Ericsson.
+  · Whatsapp is developped on Erlang!!!
+
+  Erlang → (Erlscripten) → PureScript → (transpiler) → Javascript
+[[}]]
+
+● WebScript [[{qa,code.low_code,01_PM.TODO.now]]
+• "WARN": Low maintenance (v0.2) (Maybe not really needed).
+HTML
+=====================================================
+<div class="card-image">
+  <img src="images/sample-1.jpg" alt="Sample Image">
+  <span class="card-title">Card Title</span>
+</div>
+
+WEBSCRIPT
+=================================================
+div.class`card-image`(
+  img.src`images/sample-1.jpg`.alt`Sample Image`,  ← JS standard Tagged template syntax for string arguments.
+  span.class`card-title`("Card Title") )             == img.src("images/sample-1.jpg").alt("Sample Image")
+
+• Webscript is vanilla Javascript (vs HTML templating language)
+  with the full power of Javascript without thtemplate language  limitations.
+
+  Webscript is not an HTML templating language. Webscript uses
+  Javascript, not a templating language. Therefore Webscript gives you
+  the full power of Javascript and not the limitations of a template
+  language.
+[[}]]
+
+[[javascript.alternatives}]]

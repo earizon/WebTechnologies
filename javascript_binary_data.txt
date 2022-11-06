@@ -1,0 +1,230 @@
+● Binary Data [[{dev_lang.js,performance,multimedia,data_management,01_PM.BACKLOG]]
+@[https://github.com/jDataView]
+- jBinary High-level API for working with binary data.
+- jDataView. DataView. Extended. Anywhere.
+@[https://github.com/jDataView/jBinary/wiki/jBinary-Constructor]
+@[https://github.com/jDataView/jDataView]
+@[http://www.khronos.org/registry/typedarray/specs/latest/]
+  | "* BufferArray: Array of Bytes. Constructor BufferArray(byte length)
+  | * TypedArray: Type view of the Buffer Array (Ui|i)nt(8|16|32)Array , Float(32|64)Array
+  |     Constructors:
+  |       +- TypedArray(byte length) ← Creates new BufferArray
+  |       +- TypedArray(TypedArray (existing)array) ← Creates new BufferArray duplicated of array
+  |       +- TypedArray(sequence<type> array) ← Creates new BufferArray from Javascript array
+  |       +- TypedArray((existing)buffer[, byteOffset, length]) ← Creates new view from existing buffer
+  |     Methods:
+  |       +- void set( TypedArray array[, offset]) ← copy values from TypedArray
+  |       +- void set( type[] array[, offset])     ← copy values from JS array
+  |       +- TypedArray subarray(offsetFirstElement [, offsetLastElement=""last one""]) ← Creates a view, not a new buffer!!
+  |
+  | * DataView: Low level endianess aware view of the Buffer (use for file/hardware/network access with a defined endianess defined ""outside"" our computer)
+  |     Contructor:
+  |       +- DataView(ArrayBuffer buffer[, byteOffset, byteLength])
+  |     Methods (Read):
+  |       +- get(Ui|I)nt(8|16|32)(byteOffset[, littleEndian])
+  |       +- getFloat(32|64)(byteOffset[, littleEndian])
+  |     Methods (Write):
+  |       +- set(Ui|I)nt(8|16|32)(byteOffset, value[, littleEndian] )
+  |       +- setFloat(32|64)(byteOffset, value[, littleEndian] )
+  | Note: Detecting endianness:
+  |   var littleEndian = function() {
+  |     var buffer = new ArrayBuffer(2);
+  |     new DataView(buffer).setInt16(0, 256, true);
+  |     return new Int16Array(buffer)[0] === 256; /* true | false */
+  | };
+
+- Creating a simple array of 128 32-bit floats and filling with 8 consecutive floats:
+
+  var f32s = new Float32Array(128);
+
+  var groupLength = 8;
+  for (var i = 0; i < 128/groupLength; ++i) {
+    var sub_f32s = f32s.subarray(i, i+groupLength);
+    for (var j = 0; j < 8; ++j) {
+       sub_f32s[j] = j;
+    }
+  }
+
+- Representing a point with 3xFloat32 coordinates values plus 4xUint8 color data values:
+
+  var elementSize = 3   Float32Array.BYTES_PER_ELEMENT + 4   Uint8Array.BYTES_PER_ELEMENT;
+  var buffer = new ArrayBuffer(4 * elementSize);
+  var coords = new Float32Array(buffer, 0);
+  var colors = new Uint8Array(buffer, 3 * Float32Array.BYTES_PER_ELEMENT);
+
+- Slicing a large array into multiple regions:
+  var buffer = new ArrayBuffer(1024);
+  var floats = new Float32Array(buffer,   0 /*     0 offset*/, 128); (128*4 = 512 bytes)
+  var shorts = new Uint16Array (buffer, 512 /*floats offset*/, 128); (12*2  = 256 bytes)
+  var bytes = new Uint8Array   (buffer, shorts.byteOffset + shorts.byteLength);
+
+- JBinary
+  ref: https://github.com/jDataView/jBinary
+
+  - Typical scenario:
+  - Create your custom types using jBinary.Type (if needed).
+  - Describe type set with JavaScript-compatible declarative syntax.
+  - Create jBinary instance from jDataView (or any underlying type) and your type set.
+
+- Constructors:
+  +- new jBinary(jDataView data[, typeSet])
+  +- new jBinary(javascript Byte array[, typeSet])
+  Read Methods:
+  +- read(type[, offset = binary.tell()]) ← If offset is provided internal pointer doesn't moves
+  Pointer Methods:
+  +- tell(): Return the current position. Ex: var currentPos = binary.tell();
+  +- seek(position[, callback]): Go to position; if callback → execute it and reset position.
+  +- skip(count[, callback]): Advance by count bytes; same callback behavior as seek
+  Instance helpers
+  +- slice(start, end[, forceCopy = false]): Returns sliced version of current binary with same type set.
+  +- as(typeSet[, modifyOriginal = false]): Casts instance to typeSet
+  Loading Data
+  +- jBinary.loadData(source, callback(error, data)) (static method)
+  |     source := Blob/File | HTTP(S)_URL | Data-URI (simple|base64-encoded) | Node.js (local file path|stream)
+
+  var b1 = new jBinary([0x05, 0x03, 0x7F, 0x1E]); // with default typeset
+  var b2 = new jBinary(new jDataView(data, 5, 10, true), { MetaName: ['string', 30]}); // typeset with custom type MetaName.
+  var firstInt = b1.read('uint32');           // uint32 value at offset 0 → Pointer moves 4 bytes
+  var byteAtOffset100 = b2.read('uint8', 100);// uint8 value at custom position → Pointer unchanged(offset provided)
+  var intAt200 = binary.seek(200, function () { return this.binary.read('int32') });
+  var intAfter8 = binary.skip(8, function () { return this.binary.read('int32') });
+  var binary = someExternalBinary.as(TAR); // casting
+  fileInput.addEventListener('change', function () {
+    jBinary.loadData(fileInput.files[0], function (error, data) {
+      if (error) { return console.log(error); }
+      ...
+    });
+  });
+
+  jBinary.load('sample.tar', function (error, binary) {
+    if (error) { return console.log(error); }
+    var tar = binary.read('File'); // TAR format auto-detected (using jBinary.Repo)
+  });
+
+  - Typesets normally are object dictionaries
+    { typeName1 : type1 , ← types that can refer to each other but they may also contain special config
+      typeName2 : type2 , values that set some global options or modes for entire typeset. Options are:
+      typeName3 : type3 ,
+      typeName4 : type4 ,
+      typeName5 : type5 ,
+      typeName6 : type6 ,
+       ...
+    }
+    - jBinary.all - reference to general type that represents entire data; required for enabling user to read/write entire file at once.
+    - jBinary.mimeType - sets mime-type which should be used for saving data from this typeset (i.e., when calling toURI without argument).
+    - jBinary.littleEndian - sets endianness for this format.
+
+  - __________ Integers ______________
+      uint8 (byte) / int8 - one-byte integer.
+      uint16 / int16 - word.
+      uint32 / int32 - dword (double-word).
+      uint64 / int64 - qword - please see warning about precision loss in jDataView documentation.
+    ___________ Floats  ______________
+      float32 (float) - classic 32-bit float used in languages like C.
+      float64 (double) - 64-bit float with double precision (double in C), default for JavaScript number representation.
+    ___________ Strings ______________
+      char - one-byte binary character.
+      string(@length, encoding = 'binary') - string of given length in binary or 'utf8' encoding, reads/writes to the end of binary if length is not given.
+      string0(@length, encoding = 'binary') - null-terminated string stored in given number of bytes; treated as dynamic null-terminated string if length is not given.
+    _________ Complex types __________
+      const(baseType, value, strict = false) - treats type as constant; if read value does not match expected and strict mode is enabled, calls strict(readValue) if it is function or simply throws TypeError if not.
+      array(baseType, @length) - array of given type and length, reads/writes to the end of binary if length is not given.
+      object(structure, proto = Object.prototype) - complex object of given structure (name → type), creates new context while processing inner properties; object may also contain functions instead of types for calculating some values during read/write for internal purposes.
+      extend(...object structures...) - extends one structure with others; merges data into one object when reading and passing entire object when writing.
+      enum(baseType, matches) - enumeration type with given key <=> value map (if value not found in the map, it's used "as-is").
+    _________ Binary types __________
+      bitfield(length) - unsigned integer of given bit length (supports up to 32 bits, wraps around 2^32).
+      blob(@length) - byte array represented in most native type for current engine; reads/writes to the end of binary if length is not given.
+      binary(@length, typeSet = {}) - jBinary instance on part of original one with given length and optional custom typeset (useful for container formats); accepts also raw binary data when writing.
+    _____ Control statements   ______
+      if(@condition, trueType, falseType) - conditional statement.
+      if_not(@condition, falseType, trueType) - same but inverted.
+      skip(@length) - simply skips given length on read/write.
+    ______About @  __________________
+
+    All the arguments marked with @(references) can be passed not only as direct values, but also as getter functions callback(context) or string property names inside current context chain.
+
+  - Usage (in Browser): Include scripts for jDataView and jBinary like that:
+    <script src="//jdataview.github.io/dist/jbinary.js"></script>
+    <script>
+      var typeSet = { magic: ['array', 'uint8', 4] };
+      jBinary.load('file.bin', typeSet, function (err, binary) {   console.log(binary.read('magic')); } );
+    </script>
+  - HLS player using JBinary
+    http://rreverser.github.io/mpegts/
+
+  - Ex1: Audio Data Transport Stream (ADTS):
+    (function (exports) {
+    var ADTS = {
+    /* :
+     * Structure: AAAAAAAA AAAABCCD EEFFFFGH HHIJKLMM MMMMMMMM MMMOOOOO OOOOOOPP (QQQQQQQQ QQQQQQQQ)
+     *            ^bit (not byte)
+     * Header consists of 7 or 9 bytes (without or with CRC).
+     * Usage in MPEG-TS
+     * - ADTS packet must be a content of PES packet. Pack AAC data inside ADTS frame, than pack inside PES packet, then mux by TS packetizer.
+     * - ADTS frames goes one by one in TCP stream. Look for syncword, parse header and look for next syncword after.
+    */
+        ADTSPacket: {
+    /*bits Letter*/  _start            : function () { return this.binary.tell() },
+    /*12       A */  _syncWord         : ['const', 12, 0xfff, true],           // syncword 0xFFF, all bits must be 1
+    /* 1       B */  version           : ['enum',   1, ['mpeg-4', 'mpeg-2']],  // MPEG Version: 0 for MPEG-4, 1 for MPEG-2
+    /* 2       C */  layer             : ['const',  2, 0],                     // Layer: always 0
+    /* 1       D */  isProtectionAbsent: 1,                                    // protection absent, Warning, 1 → no CRC, 0 → CRC
+    /* 2       E */  profileMinusOne   : 2,                                    // Audio_Object_Types
+    /* 4       F */  samplingFreq      : ['enum',   4, [96000,88200,64000,48000,44100,32000,24000,22050,16000,12000,11025,8000,7350]],// MPEG4 Sampl.FrequencyIndex
+    /* 1       G */  _privateStream    : 1,                                    // private stream, set to 0 when encoding, ignore when decoding
+    /* 3       H */  channelConfig     : 3,                                    // MPEG4 Audio Channel_Configurations(if 0, configuration is sent via an inband PCE)
+    /* 4    IJKL */  _reserved         : 4,                                    // originality, home, copyrighted, copyright start bits
+    /*13       M */  frameLength       : 13,                                   // frame length value. Must include 7 or 9 bytes of header length: = (ProtectionAbsent == 1 ? 7 : 9) + size(AACFrame)
+    /*11       O */  bufferFullness    : 11,                                   // Buffer fullness
+    /* 2       P */  aacFramesCountMinusOne: 2,                                 // # of AAC frames(RDBs) in ADTS frame minus 1, for maximum compatibility always use 1 AAC frame per ADTS frame
+    /*16       Q */  data              : ['blob', function (context) { return context.frameLength - (this.binary.tell() - context._start) }] // CRC if protection absent is 0
+        }
+    };
+
+    if (typeof module !== 'undefined' && exports === module.exports) {
+        module.exports = ADTS;
+    } else {
+        exports.ADTS = ADTS;
+    }
+
+    })(this);
+
+   - Ex2: MPEG-TS Packet:
+   MPEG-TS Packet:
+   Name                          |#bits|Description
+   _______________________________________________________________________________________________
+   sync byte                     |8    |Bit pattern from bit 7 to 0 as 0x47 or ASCII char 'G"
+   Transport Error Indicator(TEI)|1    |Set by demodulator if can't correct errors in the stream, to tell the demultiplexer that the packet has an uncorrectable error
+   Payload Unit Start Indicator  |1    |Boolean flag with a value of true meaning the start of PES data or PSI otherwise zero only.
+   Transport Priority            |1    |Boolean flag with a value of true meaning the current packet has a higher priority than other packets with the same PID.
+   PID                           |13   |Packet Identifier
+   Scrambling control            |2    |'00' = Not scrambled. For DVB-CSA only→'01':Reserved,'10':Scrambled with even key,'11':Scrambled with odd key
+   Adaptation field exist        |1    |Boolean flag
+   Contains payload              |1    |Boolean flag
+   Continuity counter            |4    |Sequence number of payload packets.  Incremented only when a payload is present (i.e., payload value is true)
+   Note: the total number of bits above is 32 and is called the transport stream 4-byte prefix or Transport Stream Header.
+   Adaptation field              |0+   |If adaption field exist value is true
+   Payload Data                  |0+   |If contains payload value is true
+
+   jBinary Packet Representation: {
+       _startof: function () { return this.binary.tell() },
+
+       _syncByte: ['const', 'uint8', 0x47, true],
+       transportError: 1,
+       payloadStart: 1,
+       transportPriority: 1,
+       pid: 13,
+       scramblingControl: 2,
+       _hasAdaptationField: ['Flag', 'adaptationField'],
+       _hasPayload: ['Flag', 'payload'],
+       contCounter: 4,
+       adaptationField: ['FlagDependent', '_hasAdaptationField', 'AdaptationField'],
+       payload: ['FlagDependent', '_hasPayload', jBinary.Template({
+           getBaseType: function (context) {
+               var pid = context.pid, file = this.binary.getContext(1);
+               if (pid < 2 || pid in file.pat) ...
+           }
+       })
+   }
+[[}]]

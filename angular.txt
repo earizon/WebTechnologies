@@ -1063,24 +1063,6 @@ $ $ ng build              my-app      -c production
 [[}]]
 
 
-● NativeScript (Native Apps Angular)
-[[{stack.angular,mobile.native,stack.vue,mobile.android,mobile.ios,01_PM.TODO]]
-● NativeScript
-@[https://docs.nativescript.org/]
-
-- Open source framework for building truly native mobile apps with
-  Angular, Vue.js, TypeScript, or JavaScript.
-
-- NativeScript features deep integration with modern Angular with
-  full-stack features like integration with the Angular CLI, router
-  support, code generation, webpack and more.
-
-  External Resources
-@[https://github.com/alexziskind1/nativescript-oauth2] [AAA]
-@[https://github.com/jbristowe/awesome-nativescript] !!!
-@[https://nativescript.org/blog/adding-analytics-to-your-nativescript-app/]
-[[}]]
-
 [[{stack.angular,02_doc_has.resource,01_PM.WiP]]
 ● Recipes
   INIT SERVICE ON PAGE LOAD

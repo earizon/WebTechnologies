@@ -1,0 +1,619 @@
+[[{Javascript]]
+● Javascript Summary [[{101]]
+- State Of JS: @[https://stateofjs.com/] lib/frameworks widely adopted, satisfaction ratings, ...
+-@[https://developer.mozilla.org/en-US/]
+-@[https://eloquentjavascript.net/]
+-@[https://www.infoq.com/articles/javascript-web-development-trends]
+- Browser Built-in objects:
+@[http://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects]
+
+
+● const Let vs Var [[{101,20_qa.inmutability]]
+  const VAL1 = ...;  <·· Preferred when possible, "inmutable"
+  let   var1 = ...;  <·· Preferred. Variable scope limited to block/statement/expression
+  var   var2 = ...;  <·· Discouraged. Variable global to function (even if defined inside block)
+
+  const a = [1,2,3]  <·· WARN: Reference 'a' is inmutable, referenced elements are NOT.
+  a[0] = 3 ;         <·· OK, list changed
+  Object.freeze(objInstance) <·· Really make object inmutable
+
+  See also:
+  @[https://facebook.github.io/immutable-js/] [[{01_PM.TODO}]]
+[[}]]
+
+● Array(.prototype)                                        [[{data_structure.lists,data_structure.arrays]]
+  const list01 = [1,2,3,4,1]
+  const list02 = list01.map(n => n * 2);                                        [[{functional_code}]]
+  list01.length                 5
+  1 in l                        true
+  list01.indexOf(1)             <· 0 (-1 if not found)
+  list01.lastIndexOf(1)         <· 4
+  list01.join()                 <· "1,2,3,4,1" string
+  list01.pop(2/*index*/)        <· returns 3.       list01 after:[1,2,4,1]
+  list01.pop()                  <· returns 1.       list01 after:[1,2,4]
+  list01.push(5)                <· add to current a.list01 after:[1,2,4,5]
+  list03 = list01               <· add object to new array                       [[20_qa.inmutability]]
+           .concat(5)              do NOT modify original one
+  list01.reverse()                                  l = [5,4,2,1]
+  list01.  shift()              <· 5 (1st element)   l =   [4,2,1]
+  list01.unshift(5)             <· 4 (new length)    l = [5,4,2,1]
+  list01.slice(start[,end])     <· return new "slice" of original array          [[{strings]]
+                                   (Works also for strings)                      [[}]]
+  list01.sort()                 <· sort in place
+  list01.sort(sortFuncion)      <· sort in place using custom function
+
+  list01.splice()               <· Adds/removes elements from array.
+                                   splice accepts two lists of elements:
+                                   1) elements-to-remove 2) ele.-to-be-added
+   const mergeList = (a, b)     <· Merging arrays. Removing duplicates
+     => [...new Set([...a, ...b]) ]
+
+  list01.toString()
+  list01.valueOf()              <· Returns the primitive value of the array.     [[{01_PM.TODO}]]
+
+                                ●  WALKING OVER ARRAYS
+   for (let i=0; i<list01.length; i++) { <· Fails if elements of list01 are removed
+      const elI = list01[i] ; ...           or added while loop is running.
+   }
+
+   list01.forEach(              <· PREFERRED: Works even when elements are added/
+     (elI, idx) => { ...} )        or removed list01 while looping over collection
+[[data_structure.lists,data_structure.arrays}]]
+
+●  Merge map/Object: [[data_structure.dictionary,data_structure.map,01_PM.TODO]]
+
+  const dict01 = {key1:1, key2:2}
+  Object.keys(dict01).forEach(     ● WALKING OVER DICTIONARIES/Objects/MAPS
+    key => console.log(key)
+  )
+
+  const mergedObj = {...dict01, ...dict02};  // <··· Merge map/Object:
+                                                     Object.assign would also work
+[[data_structure.dictionary,data_structure.map}]]
+················································································
+● Dates and times                                                               [[{date_time]]
+  const date2 = new Date('1995-12-17T03:24:00')        ←  GMT
+  console.log(date1 === date2)                         ← false
+  console.log(date1 - date2)                           ← 0
+  const date3 = Date.now()
+[[}]]
+
+
+● Strings                                                                       [[{strings]]
+  - String object are immutable.                                                [[{20_qa.inmutability]]
+  - methods do NOT alter the original String, but return new ones.              [[}]]
+  - String addition is really fast, using internal lists:
+
+    JS code:                               INTERNAL STORAGE
+    ("s1" + "s2") + "s3"                   's1' -> 's2' -> 's3'  <·· fast to create
+    `${prefix}+${string1}+${string2}`      's1s2s3'              <·· slower, consume less memory
+    └───────────────────────────────┴·· Template string interpolation (ECMAScript 6.0+)
+  const s = "1234"
+  s.length                   <·· 4
+  s.charAt(1)                <·· 2
+  s.charCodeAt(index)        <·· 49 (Unicode Code for "1")
+  String.concat(s1,..)       <·· Joins Strings, returns copy of result.         [[{20_qa.inmutability}]]
+  s.indexOf(2)               <·· 2 (1st occurrence) , -1 if doesn't exists
+  s.lastIndexOf(2)           <·· 2 "
+  s.match(/^1/)              <·· ["1"] (returns matching array)
+  s.replace(/^./,"A")        <·· "A234"
+  s.search(/2.4/)            <·· 1 position of 1st match.
+
+  slice(start[, end])        <··  New string from original string
+                             <··  (similar to to Array.slice,...)
+
+  split(delimiter)           <·· Splits to new string[], based on delimiter.
+
+  substr   (startPos, len)   <·· Extracts subString
+  subString(startPos, endPos)<·· Extracts subString
+
+  toLowerCase()              <·· Returns new String
+  toUpperCase()              <·· Returns new String
+
+  trim()                     <·· Returns String removing whitespaces at either end.
+
+  valueOf()                  <·· Returns primitive value of the String.
+
+  String.fromCharCode()      <·· Converts Unicode -> characters
+[[strings}]]
+
+● JS "OOP" [[{javascript.OOP,101]]
+
+  function Message(sbj, rec, con){ <··· STEP 1) Create a function-"class"
+    this.subject   = sbj;               <···    using 'this.member' to assign members
+    this.recipient = rec;
+    this.content   = con;
+  }
+  Message.prototype = {            <··· STEP 2) Define its prototype
+    func01: (){
+      ... this.recipient;               <·· use this. to refer to function-class-instance
+    },
+    func02: (){  ... }
+    ┌──────────┬──···················· Implicit, no need to be declared. The constructor
+    constructor: Message               functionXXX.prototype.constructor is functionXXX
+ };                                    itself. new functionXXX() is equivalent to
+                                       calling creating an instance of functionXXX object
+                                       and assigning .func01, .func02, ...
+
+  const
+    msg01 = new Message(s11, s12, s13); <·· the same methods are available to all instances
+    msg02 = new Message(s21, s22, s23);     of message we create.
+  msg01.send();
+  msg02.send();
+
+  var f = function() {};      <·· this is a function object.
+  var p = f.prototype;        <·· prototype-object associated.
+  var c = p.constructor;      <·· function associated with prototype
+
+  c === f                     <·· true: f.prototype.constructor == f for any function
+
+  dog.prototype.talk = function(){  <·· overide method 'talk' for dog instance.
+   console.log('the dog says');
+   animal.prototype.talk.call(this);
+  }
+
+                                           OVERRIDING METHODS:
+  dog.prototype = new animal();
+  dog.prototype.constructor = dog;
+  dog.prototype.parent = animal.prototype; <·· Keep parent prototype
+  dog.prototype.talk = function(){         <·· Override .talk
+    this.parent.talk.call(this);               <·· (optional) Call parent .talk
+    ...                                        <·· New dog functionality for '.talk'
+  }
+
+• JS NAMESPACES:
+    var com = com || {};
+    com.apress = com.apress || {};
+    com.apress.chapterone = com.apress.chapterone || {};
+    com.apress.chapterone.message = function message(...) {...}
+
+    the usage of a message object will now need to respect the namespace as follows:
+
+    var mymessage = new com.apress.chapterone.message(...);
+[[javascript.OOP}]]
+
+● promises/async/await Summary [[{javascript.async,101]]
+
+  warn!!! :                                                           [[{20_qa.error_control]]
+  Promises can not throw since that would force
+  client-code calling it to use both try-catch
+  and ".catch(...).                                                   [[}]]
+
+
+  await new Promise(                    <·· Wrap timeout (timeout-callback actually)
+   (callbackFun,callbackErr) =>             into a Promise, then "await" for competion.
+    └─────────┴──┬·········┐
+      setTimeout(callbackFun, 20000));  <·· Waiting N secs. original setTimeout function
+                                            did not provided callbackFun with result/error
+                                            so the callbackErr is lost.
+
+  const start = async function() => {   <·· 1) Declare function as async to be able to use
+   for (let i=0; i<3; i++) {                   await in function body.
+    await someAsyncProcess()            <·· 2) Now loops executes sequentially.
+    console.log(i)                             very-difficult(impossible) with callbacks
+   }
+  }
+  await start();                        <·· 3) Wait for execution completion.
+
+• async/await explained
+@[https://2ality.com/2016/10/asynchronous-iteration.html]
+  by Domenic Denicola and Kevin Smith.
+
+  async/await serve for "Asynchronous Iteration"
+
+  ECMAScript 6                     ECMAScript 2018
+  -----------------------------    -------------------------------------
+ ✓ support for sync                ✓ support for async
+   iteration over data               iteration over incomming data
+   (in RAM memory)                   (from remote HTTP/AJAX/... response)
+
+  const iterable                   const asyncIterable
+    = ['1', '2'];                    = createAsyncIterable(['1', '2']);
+
+  const iterator =                 const asyncIterator =
+    iterable[Symbol.iterator]();      asyncIterable[Symbol.asyncIterator]();
+
+  iterator.next()                  asyncIterator.next()
+  └──────┬──────┘                  .then(iterResult1 => {
+  return {value:..., done:...}        /* ↖ { value: '1', ... } */
+  ^{ value: '1', done: false }         return asyncIterator.next();
+                                   })
+
+
+  iterator.next()                  asyncIterator.next()
+  └──────┬──────┘                  .then(iterResult1 => {
+  ^{ value: '2', done: false }        /* ↖ { value: '2', ... } */
+                                       return asyncIterator.next();
+                                   })
+
+  iterator.next()                  asyncIterator.next()
+  └──────┬──────┘                  .then(iterResult1 => {
+  { value: undefined, done: true }    /* ↖ { ..., done: true  } */
+                                       return asyncIterator.next();
+  ^ next() doesn't work async      })
+                                   └─────────────┬──────────────────┘
+                                   ┌─────────────┴──────────────────┐
+                                    Within async functions syntax
+                                    for managing Promise results
+                                    can be simplified as:
+                                    async function f() {
+                                      const asyncIterable
+                                        = createAsyncIterable(['1', '2']);
+                                      const asyncIterator =
+                                        asyncIterable[Symbol.asyncIterator]();
+                                      console.log(await asyncIterator.next());
+                                      // { value: '1', done: false }
+                                      console.log(await asyncIterator.next());
+                                      // { value: '2', done: false }
+                                      console.log(await asyncIterator.next());
+                                      // { value: undefined, done: true }
+                                    }
+
+
+• ECMAScript 2018 for-await-of:
+  - Syntax converts each iterated value via Promise.resolve() to a Promise,
+    which it then awaits, allowing to be used with sync/async iterables. e.g:
+
+    async function f() {
+      for await (const x of createAsyncIterable(['a', 'b'])) { ← alt1: long explicit syntax
+   // for await (const x of                     ['a', 'b'] )   ← alt2: short         syntax
+          console.log(x);
+      }
+    }
+
+   - for-await-of and rejections:
+      Similarly to how await works in async functions, the loop throws an
+      exception if next() returns a rejection:
+
+     MOCKED asyncIterator                   Mocked code capturing
+     returning an exception                 Promise error
+     ==============================         ======================
+     function createIterableMock() {        ( async function () { // (A)
+       return {                                 try {
+         [Symbol.asyncIterator]() {         for await (const x of
+           return this;                                createIterableMock()) {
+         },                                     console.log(x);
+         next() {                           }
+           return Promise.reject( ··········→   } catch (e) {
+             new Error('Problem!'))         console.error(e);// ← Error: Problem!
+         },// ^                                 }
+       }   // async code can not throw    }  ) ()
+     }     // exceptions. Promise.reject     ^ : wrap code: async doesn't work
+           // used as replacement.               at script|module top level
+
+• ASYNC GENERATORS:
+  async function*                        // ← '*' turns fun. into (a)sync generator
+  createAsyncIterable(syncIterable) {    // ← Converts
+    for (const elem of syncIterable) {   //   ←  sync iterable to
+        yield elem;                      // ←   async   "     . next(...) will
+    }                                           return Promise for {value:,done:}
+  }
+
+  Calling the generator does NOT return a value but a generator object
+  that can be invoqued with .next(...). Then .next(...) returns
+  {value:...,done:}
+  In  Each invocation genObj.next() returns a Promise for
+  an object {value,done} that wraps a yielded value.
+
+  In the async version JS automatically will queue invocations to next()
+  (think of next(...) are async request to a remote serve). JS will
+  call the generator once it becomes ready. There is no need to wait
+  for the Promise before invoquing next(..) again (in the same way that
+  there is no need to wait for a server TCP-ACK to send another TCP-connection).
+  In many/most occasion code needs to wait for the Promise and the Promise
+  resolution, and then the for-wait-of takes care of it transparently.
+   Still Promise.all() can be use to "send" next in parallel, then wait
+  for "all" completion like:
+  const [{value:v1},{value:v2}] = await
+    Promise.all( [ asyncGenObj.next(), asyncGenObj.next(),..] );
+
+(See original source @[https://2ality.com/2016/10/asynchronous-iteration.html]
+ for more details and complex examples)
+
+- Related caolan/async: [[{01_PM.TODO]]
+  @[https://github.com/caolan/async]
+  @[http://caolan.github.io/async/v3/]
+  - Lib. providing around 70 functions that include the usual
+    'functional' suspects (map, reduce, filter, each...) as well as some
+    common patterns for asynchronous control flow (parallel, series,
+    waterfall..).
+  • It works on browsers and (NodeJS) server code.
+  [[}]]
+
+[[javascript.async}]]
+
+● Debugging 101 [[{javascript.101.debugging,troubleshooting.debugging,code.async]]
+
+• Debug/Play with ajax requests (Firefox only?)
+  → Go to inspector → network tab → RightClick on request
+    → choose Edit and Resend: Now you can change anything
+      you want: header, params, ... and resend.
+
+• "debugger" keyword: pause in code just when console is open
+
+• dump object to string: JSON.stringify(myJS_object)
+  To avoid cicular dependencies problems redefine stringify like:
+  REF: @[https://stackoverflow.com/questions/11616630/how-can-i-print-a-circular-structure-in-a-json-like-format]
+  JSON.stringifySec = function (circ) {
+    cache = []
+    result = JSON.stringify(circ, function(key, value) {
+        if (typeof value === 'object' && value !== null) {
+            if (cache.indexOf(value) !== -1) {
+                return         // Duplicate reference found, discard key
+            }
+            cache.push(value)  // Store value in our collection
+        }
+        return value
+    })
+    cache = null
+    return result
+  }
+  var circ = {};
+  circ.circ = circ;
+  JSON.stringifySec (circ)          // ← Ussage
+
+• Print the calling function in the called function:
+  var f1 = function(...){
+     console.warn( "Called from:" +
+       arguments.callee.caller.toString() );
+      ...
+  }
+• Quickly access elements in the console:
+   $('css-selector’) ← return first match of CSS selector
+  $$(‘css-selector’) ← return all   matches
+
+  ########################
+  # debugging async code #
+  ########################
+  NodeJS Dump async function chain ("async stack-trace")          [async]
+@[https://stackoverflow.com/questions/40300996/nodejs-is-is-possible-to-show-the-stack-trace-of-a-calling-async-function]
+@[https://gist.github.com/lll000111/3d6a53da4d53beb909189793c7631ba6]
+
+  • Context:  fnThrowingError is call asynchronously
+    const   fnThrowingError = async () => {
+        await ...
+        throw new Error (                 ← Some deeply nested (in the actual call hierarchy)
+          'Houston we have a problem!');    asynchronous function that throws an error.
+    }
+
+
+  • Alternative 1: Node.js 12+. (2019-08-04+)
+    Async Stack Traces come out of the box  using flag '--async-stack-traces'
+  @[https://medium.com/@nodejs/introducing-node-js-12-76c41a1b3f3f]
+
+
+  • Alternative 2:
+    const fn2 = async () => {
+      try {
+          return awaitR fnThrowingError ()
+      } catch(err) {                         // ← STEP 1: try-catch all errors.
+                                                          (DON'T return promise directly)
+          err.stack +=                       // ← STEP 2: Add a locally generated stack trace
+              (new Error()).stack                         to the one already existing on
+          throw err                                       the error object
+      }
+      ...
+      return result
+    }
+
+  • Alternative 3: (Syntax alternative)
+       const result =  fnThrowingError ()
+          .catch (err => {                  // ← STEP 1: replace try-catch → promise .catch(..)
+                                                         main advantage: allows assignment to "const"
+          err.stack +=                      // ← STEP 2: Same as Alt. 2
+              (new Error()).stack
+             throw err
+           }
+       )
+
+  Dumping "async" stack-trace fn0 → fn1 (async call) → fn2:    [async]
+  const fn1 = async () => {       ← STACK "LEVEL 1"
+      try {
+          return await fn2 ()     ←   WARN :if something more complex than just
+                                    retuning is executed then err can be different
+                                    to the fn1 async err and the async stack trace
+                                    will be "false"
+      } catch(err) {
+          err.stack +=
+            (new Error()) .stack  ← Add locally generated stack trace to existing one
+          throw err
+      }
+  }
+
+  const fn0 = async () => {       ← STACK "LEVEL 0"
+      try {
+          return await fn1()
+      } catch(err) {
+          err.stack +=
+            (new Error()) .stack  ← Add locally generated stack trace to existing one
+          throw err
+      }
+  };
+
+  fn0().catch(console.error)      ← Dump stack here !!!
+
+• TODO:
+  https://stackoverflow.com/questions/7697038/more-than-10-lines-in-a-node-js-stack-error
+  https://github.com/mattinsler/longjohn
+  ###################
+  # advanced tricks #
+  ###################
+• REF:@[https://raygun.io/blog/2015/06/useful-javascript-debugging-tips-you-didnt-know/]
+  console.table(animals);      ← Display object as tables in the console: (Chrome only?)
+
+  this.funcZ = function(){
+    console.trace('trace car') ← Dump stack trace for function funcZ
+  }
+
+  debug(car.functY)            ← Quick find a function to debug:  (Chrome only?)
+                                 (not the same that console.debug)
+
+  monitor(funct1)              ← Every time the function is called values pased in will be logged
+
+  debug(car.functY)            ← Quick find a function to debug.
+                                 (not to be confused with console.debug)
+
+• Ignore (black list) Script while debugging
+  CHROME:                                                      FIREFOX:
+  · Alt 1. inspector → source → Right click                    Inspector → Debugger → Mark scriptto black list →
+    the file to black list and choose black box script.        Click on the eye in the very bottom left corner.
+  · Alt 2. Open up settings view → Click                       https://hacks.mozilla.org/2013/08/
+    "manage framework black boxing" → write a regexp in          new-features-of-firefox-developer-tools-episode-25/
+    popup to blackbox, for example, the entire vendor folder.
+    https://developer.chrome.com/devtools/docs/blackboxing
+
+• SOURCE MAPPING
+  REF: @[http://blog.getsentry.com/2015/10/29/debuggable-javascript-with-source-maps.html]
+  • source maps : JS's version of debug symbols:
+  • Include with:
+    //# sourceMappingURL=/path/to/app.min.js.map
+  • Generated by modern JS transpilers
+  • Ex source map:
+    source map example:
+    {
+      version : 3,  // version of source map spec (should be 3)
+      file: "app.min.js", // generated filename associated to
+      sourceRoot : "",    // all sources are relative to it (opt)
+      sources: ["foo.js", "bar.js"], // URLs to original  files
+      names: ["src", "maps", "are"], // variable/method names found in your code
+      mappings: "AAgBC,SAAQ,CAAEA"   // base64Enc VLQ values source code mappings
+    }
+[[javascript.101.debugging}]]
+
+● StoryBook.js [[{javascript.101,stack.angular,stack.react,stack.vue,code.low_code,20_qa.testing,01_PM.TODO]]
+https://storybook.js.org/ !!!!
+robust UIs: sandbox to build UI components in isolation so you can
+develop hard-to-reach states and edge cases.
+for React, Angular, Vue, ...
+[[}]]
+
+● YSlow Profiler [[{javascript.101,performance.profiling.yslow,20_qa,troubleshooting.performance]]
+• home page: @[http://yslow.org]
+• YSlow analyzes web pages and why they're slow
+  based on Yahoo!'s rules for high performance web sites
+• Feature highlights:
+  ✓ Grades web page based on one of three predefined ruleset
+    or a user-defined ruleset
+  ✓ It offers suggestions for improving the page's performance
+  ✓ Summarizes the page's components
+  ✓ Displays statistics about the page;
+  ✓ Provides tools for performance analysis, including Smush.it™
+    and JSLint.
+• Check for next best-patterns/rules :
+  ✓ Minimize HTTP Requests
+  ✓ Use a Content Delivery Network
+  ✓ Add an Expires or a Cache-Control Header
+  ✓ Gzip Components
+  ✓ Put StyleSheets at the Top
+  ✓ Put Scripts at the Bottom
+  ✓ Make JavaScript and CSS External
+  ✓ Reduce DNS Lookups
+  ✓ Minify JavaScript and CSS
+  ✓ Remove Duplicate Scripts
+  ✓ Configure ETags
+  ✓ Make AJAX Cacheable
+  ✓ Use GET for AJAX Requests
+  ✓ Reduce the Number of DOM Elements
+  ✓ Reduce Cookie Size
+  ✓ Use Cookie-Free Domains for Components
+  ✓ Make favicon.ico Small and Cacheable
+  ❌ Avoid empty src or href
+  ❌ Avoid CSS Expressions
+  ❌ Avoid Redirects
+  ❌ No 404s
+  ❌ Avoid Filters
+  ❌ Do Not Scale Images in HTML
+───────────────────────────────────────────────────────────────────────
+● Mozilla Perf.Tool
+• REF: @[https://developer.mozilla.org/en-US/docs/Tools/Performance]
+• Performance tool gives insights into a site's general responsiveness,
+  JS and layout performance.
+• It allows to create a recording(profile), of a site over a period of time.
+  The tool then shows you an overview of the things the browser was doing
+  to render the page/s and a graph of the frame rate over the profile.
+[[}]]
+
+● Trusted Web Code [[{javascript,devops.security,01_PM.TODO]]
+@[https://www.infoq.com/articles/encryption-defense-native-browser-apps/]
+• Trusted code: first-line-of-defense for browser security.
+  Reusing libraries makes web development faster at the cost
+  of increasing the risk of introducing malicious code.
+• There are also under-used code-delivery settings that instruct the
+  browser to take extra precautions since they reduce the flexibility
+  of the development and integration process.
+  the security they provide is worth the work, whether your application
+  does encryption or not.
+
+  HTTP Strict Transport Security (HSTS):
+- Instructs the browser to always load this page over HTTPS. This
+  prevents downgrade attacks, for instance, if the attacker can
+  redirect your DNS to a malicious service they can't downgrade the
+  connection to unencrypted HTTP.
+
+  Strict Content Security Policies (CSP):
+  Whitelist safe sources for loading code, preventing apps to
+  dynamically load code from unknown remote resource.
+
+  Subresource Integrity (SRI):
+  Only load trusted scripts, using cryptographic hashes to mark
+  trusted scripts.
+
+  WebCrypto API:
+  "relatively" new browser API helping efficient and secure delivery
+  of cryptographic primitives.
+  - low-level ciphers.
+  - hashes
+  - "other" encryption components.
+
+• Being directly implemented into (trusted) browser and taking
+  advantage of local native execution (and even hardware acceleration)
+  they are much safer than js code.
+    WARN:  They do NOT prevent certain attacks, like
+  just sending an unencrypted copy of the data to the "bad guys".
+[[}]]
+
+● JSDOC.app [[{20_qa.documentation,01_PM.TODO]]
+  https://jsdoc.app/
+
+ /**
+  * @module foo/bar                         <- Refer like module:foo/bar.
+  *
+  * @external String                       <- Ref: external:String
+  *
+  * @event module:foo/bar.event:MyEvent    <- Ref: module:foo/bar.event:MyEvent
+  */
+  ...
+
+  /**
+   * @constructor
+   * @param {string}      param1 - some description
+   * @param {SHOE_COLORS} colors - ... Enumerated
+   * as value of {@link SHOE_COLORS}
+   */
+   Person = function(param1, colors) {
+       this.say = function() { ... } // Refer like Person#say  (instance method)
+       function say() { .. }         // Refer like Person~say  (inner method)
+       this.fA = function() {
+         this.fB = function() {...}  // Refer like Person#fA#fB
+       }
+   }
+   Person.say = function() {
+       return "I'm static.";         // Refer like Person.say  (static method)
+   }
+
+
+   $ jsdoc book.js   # generate doc.
+[[20_qa.documentation}]]
+
+·········|10·······|20·······|30·······|40·······|50·······|60·······|70········
+● TODO/Non-Classified        [[{01_PM.TODO]]
+• ES6 in depth
+@[https://hacks.mozilla.org/category/es6-in-depth/]
+
+• es6 design Patterns
+@[https://github.com/loredanacirstea/js-design-patterns] !!!
+@[http://loredanacirstea.github.io/es6-design-patterns/]
+[[01_PM.TODO}]]
+
+
+[[javascript}]]

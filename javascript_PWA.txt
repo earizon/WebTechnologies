@@ -1,0 +1,229 @@
+● Concurrency with Service Workers [[{javascript,mobile.pwa,02_doc_has.comparative,performance.service_workers,qa,code.low_code,devops,01_PM.WiP]]
+ #[service_workers_summary]
+● Web Workers
+• See also #[service_workers]
+
+• Not to be confuse with web workers:                 [comparative]
+  · Service-Workers  handle net.requests/cache/push notifications,...
+  · Web-Worker : Mimics multithreading, allowing intensive scripts
+    to be run in the background.
+• See also Service Workers in Angular #[angular_service_worker]
+
+• JS module providing web apps reliability and performance on par
+  with natively-installed code.
+• Service workers function as a network proxy managing cache.
+• intercept outgoing HTTP requests (data, HTML, even index.html),
+  and choose how to respond to them:
+  • If properly designed, it can completely satisfy the app load
+    without the need for the network.
+• S.Workers do NOT rely on server-specified caching headers .
+• preserved after closing the tab/window.
+• When a browser loads the web page/app, service workers loads first.
+  •@[https://serviceworke.rs/]
+    Service Worker Cookbook:collection of working, practical examples       [qa]
+    of using service workers in modern web apps.
+    - Network or cache: try fetch from network, fallback to cache.
+    - Cache only:
+    - Cache and update: fetch from cache, update cache then.
+    - Cache, update and refresh UI.
+    - server embedded content on missing resources.
+    - Push notification, Retrieve Payload on received notification
+    - Push notification with Payload (string, ArrayBuffer, Blob, JSON).
+    - Push Rich, defining notification language, vibration pattern, image
+    - Push Simple: (even when page is not open).
+    - Push Tag: (replace old notifications).
+    - Push Quota (experiment with browser limits)
+    - Push control-Clients: focus re-open tab
+    - Push Subscription:
+    - Immediate Claim: take control of page without waiting for avigation event
+    - Cache from ZIP recipe: cache contents from zipfile
+    - Message Relay, Fetch Remote Resources, Live Flowchart,
+      Offline Fallback, Offline Status, JSON Cache, Local Download,
+      Virtual Server, API Analytics, Load balancer, Dependency Injection,
+      Request Deferrer, Cache then Network, Render Store
+  • @[https://www.infoq.com/news/2019/08/postMessage-performance-study/]
+      Surma, Web Advocate at Google, recently published a study on the
+    performance of postMessage, the method used by web workers to
+    communicate. Surma concludes that while postMessage comes with some
+    overhead, provided the payload is below a given budget, moving non-UI
+    tasks off the main thread may result in increased overall
+    user-perceived performance.
+
+  SUMMARY                                                                 [TODO]
+  • probably the most powerful API added to the web platform recently.
+  • allows to do anything with each request/response received by a browser.
+    (cancel requests, re-route, modify/cache responses, ...)
+  Workbox library                                                     [low_code]
+@[https://developers.google.com/web/tools/workbox/]
+  • rapidly integrate common Service Worker functionality like
+    precaching, runtime caching, request routing, background sync, and more.
+  • Fully async, compatible with XHR and localStorage.
+
+• External resources:
+  • @[https://developer.mozilla.org/en-US/docs/Web/API/Service_Worker_API]    [TODO]
+  • @[https://developers.google.com/web/fundamentals/primers/service-workers/]TODO]
+[[}]]
+
+● Prog.WApps Summary [[{standards,qa.usability,mobile]] #[progressive_wapps_summary]
+@[https://developer.mozilla.org/en-US/Apps]
+• apps built using standard Web technologies, working in any modern Web browser.
+• Compared to standard web apps/sites:
+  · Apps are installed by a user, they are self-contained and don't always
+    require the chrome of a browser window.
+  · can be built to run offline.
+• Example of Progressive web apps include Gmail, Twitter or Etherpad.
+• Integrate within desktop and mobiles OSes, by allowing to access them through
+  "start" or desktop icons and run in background pooling/pushing data from/to
+  remote servers while the browser is "closed".
+
+  ######################
+  # "Hello World!" PWA #
+  ######################
+  SUMMARY FROM
+@[https://medium.com/james-johnson/a-simple-progressive-web-app-tutorial-f9708e5f2605]
+  by James Johnson
+• PWA layout:
+  Hello-PWA/
+  ├─ index.html    ← ✓ Hard code initial content to avoid empty-page when offline
+  │                    or using old / non-PWA compliant browsers.
+  │                ← ✓ PWA UI must display properly on mobile/desktop:
+  │                    Add viewport meta tag to index.html like:
+  │                    <meta name="viewport"
+  │                       content="width=device-width, initial-scale=1.0">
+  │
+  ├─ sw.js         ← ✓ Service Worker running in background in charge of
+  │                    non-user-interactive tasks (cache dynamic data, ...)
+  │
+  ├─ manifest.json ← ✓ json file specifying look and behavior on
+  │                    different devices. (orientation, theme color,...)
+  ├─ css/
+  │  └─ style.css
+  │
+  ├─ js/
+  │  └─ main.js  ← ✓ Register service worker here.
+  │
+  │  favicon.ico   ← 16x16 px
+  └─ images/
+     └─ ...      ← ✓ At least image resolution of 128x128px, 144x144 px,
+                     152x152 px, 192x192 px, 256x256 px and 512x512px needed
+                     for compliance with Windows, Mac, iPhone and Android.
+
+• ┌─ e.g. Hellow-PWA/index.html:───────────────────
+  │ <!doctype html>
+  │ <html lang="en">
+  │ <head>
+  │   <meta charset="utf-8">
+  │   <title>Hello World</title>
+  │   <link rel="stylesheet" href="css/style.css" >
+  │   <link rel="manifest"   href="/manifest.json">
+  │   <meta name="viewport"
+  │      content=
+  │        "width=device-width, initial-scale=1.0">
+  │
+  │ <!-- app icon related stuff {{{ >
+  │ <link rel="icon" href="favicon.ico" type="image/x-icon" />
+  │ <meta name="theme-color" content="white"/>
+  │ <link rel="apple-touch-icon"                       href="images/app-icon-152.png">
+  │ <meta name="msapplication-TileImage"            content="images/app-icon-144.png">
+  │ <!-- }}} >
+  │
+  │ <!-- apple mobile custom config {{{ >
+  │ <meta name="apple-mobile-web-app-capable"          content="yes">
+  │ <meta name="apple-mobile-web-app-status-bar-style" content="black">
+  │ <meta name="apple-mobile-web-app-title"            content="Hello World">
+  │ <!-- }}} >
+  │
+  │ <body class="fullscreen">
+  │   <div class="container">
+  │     <h1 class="title">Hello World!</h1>
+  │   </div>
+  │ <script src="js/main.js"></script>       ← Load at the bottom of page.
+  │ </body>                                    Really needed?
+  │ </html>
+  └────────────────────────────────────────────────
+• ┌─ e.g. Hellow-PWA/css/style.css:────────────────
+  │ body { font-family: sans-serif; }
+  │
+  │ html,
+  │ .fullscreen {
+  │    display: flex;
+  │    height: 100%;   ┐ Make content area fill
+  │    width: 100%;    ├ entire browser window
+  │    margin: 0;      │
+  │    padding: 0;     ┘
+  │ }
+  │
+  │ .container {
+  │   margin: auto;       ┐ Center the content
+  │   text-align: center; ┘ in browser window
+  │ }
+  │
+  │ .title { font-size: 3rem; }
+  └────────────────────────────────────────────────
+  • TIP: Periodically audit tests over the app using some tool
+         like (OOSS) Google’s Lighthouse.
+
+
+• ┌─ e.g. Hellow-PWA/sw.js:    ────────────────
+  │ const cacheName = 'hello-pwa';
+  │ const filesToCache = [
+  │   '/'             ,
+  │   '/index.html'   ,
+  │   '/css/style.css',
+  │   '/js/main.js'
+  │ ];
+  │
+  │ self.addEventListener(
+  │   'install', function(e) {               ← PWA standard life-cycle callback
+  │     e.waitUntil(                           called automatically when installing
+  │       caches                               for the first time.
+  │         .open(cacheName)
+  │         .then(function(cache) {
+  │           return
+  │             cache.addAll(filesToCache)
+  │       })
+  │     );
+  │ });
+  │
+  │ self.addEventListener(
+  │   'fetch', function(e) {                  ← bind "fetch" event to serve
+  │     e.respondWith(                          cached content when possible
+  │       caches
+  │         .match(e.request)
+  │         .then(function(response) {
+  │           return response                 ← Return cached content if available
+  │               || fetch(e.request);        ← try online fetch.
+  │         })                            WARN: demo code will fail if just
+  │     );                                      one of the file fetches fails.
+  │ });                                         retry strategies needed.
+  └────────────────────────────────────────────
+
+
+• ┌─ e.g. Hellow-PWA/js/main.js ────────────────
+  │ window.onload = () => {
+  │   'use strict';
+  │     if (! 'serviceWorker' in navigator) {
+  │       alert("Browser not supported. PWA needed")
+  │       throw new Error("PWA not available")
+  │     }
+  │     navigator
+  │       .serviceWorker                      ← Register service worker
+  │       .register('./sw.js');
+  │ }
+  └─────────────────────────────────────────────
+
+
+• ┌─ e.g. Hellow-PWA/manifest.json ─────────────
+  │ {
+  │   "name": "Hello World",                 ← Used at install time
+  │   "short_name": "Hello",                 ← Used in app icon
+  │   "lang": "en-US",
+  │   "start_url": "/index.html",
+  │   "display": "standalone",               ← Treat as standalone without
+  │   "background_color": "white",             browser chrome
+  │   "theme_color": "white"                 ← Must match
+  │ }                                          <meta name="theme-color" content="white"/>
+  └─────────────────────────────────────────────
+[[}]]
+
+

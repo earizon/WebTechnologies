@@ -9,8 +9,11 @@
   in the Pantheon of the Unicode Gods.
 ────────────────────────────────────────────────────────────────────────────────
 
+TODO:
+- @[https://jvns.ca/blog/2018/11/01/tailwind--write-css-without-the-css/]
+- @[https://css-tricks.com/learning-to-learn/]
 
-● CSS [[{dev_lang.css.101]]
+
 ● CSS Selectors #[css_selector_summary]
 • BY COORDINATE:
   selector           Example          Example description
@@ -803,5 +806,6 @@ See also: @[https://en.wikipedia.org/wiki/Responsive_web_design]
 
 
 [[$div}]]
+
 [[dev_lang.css.101}]]
 
