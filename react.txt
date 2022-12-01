@@ -11,7 +11,7 @@
             It allows to define document structure based on
             data stored in a single place/source-of-true.
 
-• Bootstrap new React App: @[https://github.com/facebook/create-react-app]
+• Bootstrap new React App: @[https://github.com/facebook/create-react-app] [[{]]
   $ npx create-react-app my-app  # Alt 1 (preinstalled with npm 5.2+)
   $ npm init react-app my-app    # Alt 2
   $ yarn create react-app my-app # Alt 3
@@ -32,8 +32,9 @@
      └─ setupTests.js
   $ cd my-app
   $ npm start
+  [[}]]
 
-● JSX summary:
+● JSX summary: [[{]]
 - Optional but recommened: allows react to report better error/warnings.
 - Prevent Injection Attacks from external input (XSS cross-site-scripting,...).
   since any values embedded are scaped before rendering
@@ -53,7 +54,9 @@
     document.getElementById('root')
   );
 
-● Simplest React App
+  [[}]]
+
+● Simplest React App [[{]]
 
                                       index.html:
   <div id="root"></div>           <·· react "root" DOM
@@ -84,7 +87,33 @@
     document.getElementById('root')
   );
 
-● STATE MANAGEMENT:
+  [[}]]
+
+● STATE MANAGEMENT: [[{]]
+
+• Sharing global Inmutable (after initialization) objects: [[{]]
+  REF: https://stackoverflow.com/questions/34351804/how-to-declare-a-global-variable-in-react
+
+  Standard ECMAScript 'import' is the simplest way to share inmutable objects.
+
+  - src/sharedObjects.js
+    const myShareInmutableObject = {}
+    export default myShareInmutableObject
+
+  - src/someWhereElseAtAppInit.js:
+    import myShareInmutableObject from './sharedObjects'
+    myShareInmutableObject.someProp = 'someValue'
+    Object.freeze(myShareInmutableObject)  //          <···· From there on, object is really inmutable.
+                                                             and globally accesible anywhere.
+
+  Example react state using singleton:
+   https://codesandbox.io/s/adoring-architecture-ru3vt (see UserContext.tsx)
+
+  When using 'react-create-app' global objects can also be cleanly
+  initialized when referencing environment variables.
+  Creating a .env file at the root of your project with prefixed REACT_
+  [[}]]
+
   class Clock extends React.Component {   ← Alt.2: class declaration for component.
                                             Preferred when managing component internal state
     constructor(props) {
