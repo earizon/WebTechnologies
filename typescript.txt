@@ -1,0 +1,158 @@
+typescript Summary [[{typescript]]
+
+● Use 'let' for variables, const for constants.
+
+const isDone: boolean = false;    const isDone = false;      ● 4 BASIC TYPES
+const lines : number = 42;        const lines  = 42;
+const name  : string = "Anders";  const name   = "Anders";
+let   domObj: any    = form01;
+            ^^^^^^^^^^                         ^
+            EXPLICIT                          TYPE
+          TYPE DECLARATION                  INFERRED
+
+● [[{collections]]
+  const list1: number[]      = [1, 2, 3];  <··· generic array.
+  const list1: Array<number> = [1, 2, 3];  <··· typed array.
+
+  enum eColor { Red, Green, Blue };         <··· enum declaration.
+  const c: eColor = eColor.Green;
+  console.log(eColor[c]); // "Green"
+
+  function fun1(): void { ... }            <··· Function with no return value
+
+let f1 = function (i: number): number    { return i * i; } <·· return type ': number' can be inferred.
+                                                               Use (i: number = 0) to provide default value.
+let f2 =          (i: number): number => { return i * i; } <·· return type ': number' can be inferred.
+
+interface IPerson {                        <···  any object with the properties is compliant
+  readonly name: string;                         <··· readonly (Typescript 3.1+) (except in constructor)
+  readonly age?: number;                         <··· '?' implies optional prop.
+  move(): void;
+}
+const p1 : IPerson = { name: "Bobby",          move: () => { } }; // <··· OK, age is optional.
+const p2 : IPerson = { name: "Bobby", age: 42, move: () => { } };
+const p3 : IPerson = { name: "Bobby", age: true                }; // <··· Error. Missing move()
+
+interface ISearchFunc {                         <··· Interface describing a function type
+  (source: string, subString: string): boolean; <··· Only input&output (returned) params matter.
+}
+const mySearch: ISearchFunc
+       = (src: string, sub: string) : boolean
+         => { return src.search(sub) != -1; }
+
+class Point  implements IPerson {  <··· Class definition.
+  static origin = new Point(0, 0);   <·· Static member Point:origin
+  x: number;   <··· members Public by default.
+
+  constructor(
+    x: number,                  <·· 'public'/'private' keywords in this context will generate
+    public y: number = 0            boiler plate code for the property and the initialization in the
+    name : string                   constructor.
+  )
+  {
+    this.x = x;
+    this.name = name;
+  }
+
+  dist(): number {
+    return Math.sqrt(this.x * this.x + this.y * this.y);
+  }
+
+  // IPerson implementation, missing properties will cause compile-time error.
+  name: string
+  move() {}
+}
+const p1 = new Point(10, 20);
+const p2 = new Point(25); //y will be 0
+
+class Point3D extends Point { <··· Inheritance (Discouraged)
+  constructor(x: number, y: number, public z: number = 0) {
+    super(x, y); // <··· Calling super class constructor
+                         at constructor start is  mandatory
+    ...
+  }
+
+  dist(): number {  <···· Overwrite parent function
+    let d = super.dist();
+    return Math.sqrt(d * d + this.z * this.z);
+  }
+}
+
+namespace Geometry {       <·· (previously called modules).
+
+  export class Square {
+    constructor(public sideLength: number = 0) {
+    }
+    area() {
+      return Math.pow(this.sideLength, 2);
+    }
+  }
+}
+let s1 = new Geometry.Square(5);
+import G = Geometry;       <·· Local alias for namespace
+let s2 = new G.Square(10); <·· Namespace usssage.
+
+class Tuple<T1, T2> {      <·· Generics for classes/interfaces/functions
+  constructor(public item1: T1, public item2: T2) {
+  }
+}
+let pairToTuple = function <T>(p: Pair<T>) {
+  return new Tuple(p.item1, p.item2);
+};
+let tuple = pairToTuple({ item1: "hello", item2: "world" });
+
+// Including references to a definition file:
+/// <reference path="jquery.d.ts" />
+
+let multiline = `Hi ${name},              <·· (multiline) template string
+, how are you?`;
+
+let numbers: Array<number> = [0, 1, 2, 3, 4];     <··· Array definition
+let moreNumbers: ReadonlyArray<number> = numbers; <··· Inmutable array definition:
+                                                       moreNumbers[5] = 5;  // Error
+                                                       moreNumbers.push(5); // Error
+                                                       moreNumbers.length = 3; // Error
+                                                       numbers = moreNumbers; // Error, missing mutating methods
+
+type State =                       <··· Tagged Union Types
+  | { type: "loading" }
+  | { type: "success", value: number }
+  | { type: "error", message: string };
+
+
+declare const state: State;
+if (state.type === "success") { console.log(state.value); }
+if (state.type === "error"  ) { console.error(state.message); }
+
+
+
+type OrderSize = "regular" | "large";          <··· Template Literal Types
+type OrderItem = "Espresso" | "Cappuccino";         Use: CREATE COMPLEX STRING TYPES!!!
+type Order = `A ${OrderSize} ${OrderItem}`;
+const order1: Order = "A regular Cappuccino";
+const order2: Order = "A large Espresso";
+const order3: Order = "A small Espresso";           <··· Error!!!
+
+// Iterators and Generators
+// for..of statement
+// iterate over the list of values on the object being iterated
+
+for (const val of list)   { ... } <··· iterate over array values. alt 1
+for (const key in object) { ... } <··· iterate over object keys.
+
+● Debugging TypeSCript in Firefox DevTools:
+@[https://hacks.mozilla.org/2019/09/debugging-typescript-in-firefox-devtools/]
+  debugging TypeScript is done through a source-map,
+  created by the TS compiler.
+
+$ npm install -g typescript
+$ tsc hello.ts --sourceMap <···  generates hello.js with a 'final line':
+                                 + //# sourceMappingURL=hello.js.map
+The source map allows to visually "click" on a line to debug (either
+in the original ts file or the final js one and map to its "peer" file).
+
+It also allows to map generated variables to the original variable and scope.
+
+-> to see the original variables (used in the original TypeScript code)
+   "click" on the Map checkbox (in Firefox debugger).
+[[typescript}]]
