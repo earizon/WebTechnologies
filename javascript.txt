@@ -607,6 +607,9 @@ for React, Angular, Vue, ...
 
 ·········|10·······|20·······|30·······|40·······|50·······|60·······|70········
 ● TODO/Non-Classified        [[{01_PM.TODO]]
+• https://json2html.com/started/
+  transform (server) JSON to html.
+
 • ES6 in depth
 @[https://hacks.mozilla.org/category/es6-in-depth/]
 

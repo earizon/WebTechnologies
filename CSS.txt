@@ -211,7 +211,7 @@ TODO:
         sibling floating elements to its right/left.
         (the element itself can be or not floating).
 
-● Responsive 101 #[html_responsive_summary] [[{dev_lang.css.101,mobile,qa.responsive]]
+● Responsive 101 #[html_responsive_summary] [[{dev_lang.css.101,mobile,20_QA.responsive]]
 There are two main aspects to consider when adapting a web "page"
 to be used on mobiles and desktops (and TVs, ...)
 • #################################
@@ -323,7 +323,7 @@ to be used on mobiles and desktops (and TVs, ...)
     }
 [[}]]
 
-[[{dev_lang.css,code.low_code,qa,01_PM.TODO]]
+[[{dev_lang.css,code.low_code,20_QA,01_PM.TODO]]
 ● Tailwindcss
 @[https://tailwindcss.com/]
 • “Best practices” don’t actually work.
@@ -751,7 +751,7 @@ Icon Gallery:
 @[http://gnome-look.org/content/show.php/Dalisha?content=166286]
 [[}]]
 ● Others
-[[{dev_lang.css,qa.accesibility,]]
+[[{dev_lang.css,20_QA.accesibility,]]
 ● Colors-for-all
 @[https://github.com/AmadeusITGroup/Colors-for-All]
 • Tool enabling to easily check color contrasts and WCAG
@@ -760,7 +760,7 @@ Icon Gallery:
 • online application available for UX/UI designers or any other
   people involved in digital accessibility.
 [[}]]
-[[{dev_lang.js,qa.responsive,performance,01_PM.TODO]]
+[[{dev_lang.js,20_QA.responsive,performance,01_PM.TODO]]
 ● Resize_Observer_API
 See also: @[https://en.wikipedia.org/wiki/Responsive_web_design]
 @[https://developer.mozilla.org/en-US/docs/Web/API/Resize_Observer_API]

@@ -91,7 +91,7 @@
 
 ● STATE MANAGEMENT: [[{]]
 
-• Sharing global Inmutable (after initialization) objects: [[{]]
+• Sharing global Inmutable (after initialization) objects: [[{20_QA.INMUTABILITY]]
   REF: https://stackoverflow.com/questions/34351804/how-to-declare-a-global-variable-in-react
 
   Standard ECMAScript 'import' is the simplest way to share inmutable objects.

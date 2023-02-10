@@ -1,127 +1,5 @@
 ● JS Alternatives [[{javascript.alternatives]]
-● Typescript [[{typescript,javascript,qa,]]
-• JS with types.  @[https://www.typescriptlang.org/]
-• Quick tutorial:
- @[https://learnxinyminutes.com/docs/typescript/]
-• Debugging TS in Firefox DevTools:    [TODO]
-@[https://hacks.mozilla.org/2019/09/debugging-typescript-in-firefox-devtools/]
-•   Syntax summary
-@[https://learnxinyminutes.com/docs/typescript/]
-  let isDone: boolean = false   ← 3 basic types
-  let lines : number  = 42
-  let name  : string = "Anders"
-  let   var1 = false            ← Type inference if type ommited
-
-  let name  : any = jsObject    ← any: Compatibility with non-typed JS
-  const CON1 = false            ← Make constant/immutable (prefered) [qa][billion_dolar_mistake]
-
-
-  let   typedArray01: number[]      = [1, 2, 3]
-  let genericArray02: Array<number> = [1, 2, 3]
-
-  enum Color { Red, Green, Blue }
-  let c: Color = Color.Green
-
-    Functions
-    let f1 = function (i: number): number {
-      return i * i;                └─┬──┘
-    }                              Return type (or void)
-                                   (It can also be inferred)
-
-    let f2 = (i: number): number =>  ← Arrow syntax (used also in anonoymous
-       { return i * i; }               lamdas)
-
-    let f5 = (i: number) => i * i;   ← braceless means void/none return
-
-    Interfaces
-    interface Person {                 ← Interface declaration
-      name: string;
-      age?: number;                      ← Optional type               [qa][billion_dolar_mistake]
-      move(): void;
-    }
-    let p: Person = {                  ← Interface implementation
-     name: "Bobby",
-     move: () => { }
-    };
-
-    interface SearchFn {               ← Interface describing a function type
-      (source: string,                   Only param's types are important, names are not
-       subString: string): boolean;
-    }
-    let fnSearch: SearchFn = function  ← Function implementing the interface
-        (src: string, sub: string) {
-          return src.search(sub) != -1
-        }
-
-    Classes
-  class Point {                      ← class definition
-    x: number;                       ← Properties public by default
-    static origin = new Point(0, 0); ← Static member
-    readonly name: string;           ← read-only, only allowed to be                [qa]
-                                       writen in constructor.(Typescript 3.1+)
-    constructor(
-      _x: number,
-      private y: number = 0          ← syntax shortcut 'y' defined as class property as 'x'
-      _name : string ) {
-      this.x = _x;
-      this.name )
-    }
-
-    fn01(): number {  ... }
-
-  }
-
-  class PointPerson
-    implements IPerson { ... }       ← Class implementing interface
-
-  class Child
-    extends ParentClass { ... }      ← Class inheriting from parent class .
-                                         WARN:  Discouraged. Better use composition
-
-    Modules
-    module Geometry {                  ← Modules, "." can be used as separator for sub modules
-      export class Square { ... }
-    }
-    import G = Geometry;                 ← Local alias for referencing a module
-    let s1 = new Geometry.Square(5);       ← Or just new G.Square(5);
-
-    Generics
-    class Tuple<T1, T2> {            | interface Pair<T> { | function <T>(p: Pair<T>) {
-      constructor(                   |   item1: T;         |   return
-          public item1: T1,          |   item2: T;         |     new
-          public item2: T2) { ... }  | }                   |      Tuple(p.item1, p.item2);
-      ...                            |                     | };
-    }                                |                     |
-
-    Template Strings
-  let greeting  = `Hi ${name}, how are you?`
-  let multiline = `This is an example
-  of a multiline string`;
-
-    Inmutable Collections
-    const         number_array: Array<number> = [0, 1, 2, 3, 4];    ←          number_array can not be reasigned to other
-                                                                      array (const), but current array can be modified
-    const inmutable_number_array: ReadonlyArray<number> = numbers;  ← inmutable_number_array can not be reasigned to other
-                                                                      array (const), and no modifications allowed either.
-
-    Tagged Union Types  (model state-machine states easely)        [qa]
-    DECLARATION                                USSAGE
-    type State =                               declare const state: State;
-      | { type: "loading" }                           if (state.type === "success") {
-      | { type: "success", value: number }      ... state.value  ...
-      | { type: "error", message: string };    } else if (state.type === "error") {
-                                                ... state.message ...
-                                               }
-
-    Iterators and Generators
-    let arrayOfAnyType = [...];                ← Array or list
-    for (const val of arrayOfAnyType) { .... } ← Iterate over values in list
-    let object = { ... }
-    for (const key in list) { ... }              Iterate over keys in object
-[[typescript}]]
-
-
-● KotlinJS [[{kotlin,dev_lang.reason,qa,02_doc_has.comparative]]
+● KotlinJS [[{kotlin,dev_lang.reason,20_qa,02_doc_has.comparative]]
 • Kotlin modern language features and first-class support for Javascript compilation
   makes of it an ideal alternative to Javascript.
 • Kotlin support integration with:
@@ -266,7 +144,7 @@ generated code.
   Erlang → (Erlscripten) → PureScript → (transpiler) → Javascript
 [[}]]
 
-● WebScript [[{qa,code.low_code,01_PM.TODO.now]]
+● WebScript [[{20_qa,code.low_code,01_PM.TODO.now]]
 • "WARN": Low maintenance (v0.2) (Maybe not really needed).
 HTML
 =====================================================

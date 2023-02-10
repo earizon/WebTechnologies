@@ -43,20 +43,6 @@
 @[https://www.infoq.com/news/2018/05/firefox-web-authentication-api]
 [[}]]
 
-● did-jwt [[{security.aaa,use_case.identity.ssi,security.oauth,standards.security.jwt,01_PM.BACKLOG]]
-more info about JWT @[../General/cryptography_map.html?query=jwt&showSearchMenu=false]
-@[https://github.com/decentralized-identity/did-jwt]
-
-• The did-JWT library allows you to sign and verify JSON Web Tokens
-  (JWT) using ES256K, ES256K-R and Ed25519 algorithms.
-
-• Public keys are resolved using the Decentralized ID (DID) of the
-  signing identity of the claim, which is passed as the iss attribute
-  of the encoded JWT.
-
-• Supported methods: ethr | uport | https | nacl | muport
-[[}]]
-
 ● W3C Credentials API [[{security.aaa,use_case.identity,api_management,security,standards]]
 @[https://w3c-ccg.github.io/credential-handler-api/]
 • Credential Management Level 1 describes an imperative API enabling
@@ -290,6 +276,9 @@ more info about JWT @[../General/cryptography_map.html?query=jwt&showSearchMenu=
 [[}]]
 
 [[{use_case.data_visualization.real_time,data_management.data_visualization,01_PM.TODO]]
+● https://mafs.dev/
+  Math components for React apps.
+
 ● Vega Lite!!! @ma #[vega_lite_summary]
 @[https://vega.github.io/vega-lite/]
 @[https://vega.github.io/vega-lite/examples/]

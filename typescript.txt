@@ -2,13 +2,16 @@ typescript Summary [[{typescript]]
 
 ● Use 'let' for variables, const for constants.
 
-const isDone: boolean = false;    const isDone = false;      ● 4 BASIC TYPES
-const lines : number = 42;        const lines  = 42;
-const name  : string = "Anders";  const name   = "Anders";
-let   domObj: any    = form01;
-            ^^^^^^^^^^                         ^
-            EXPLICIT                          TYPE
-          TYPE DECLARATION                  INFERRED
+  const isDone: boolean = false;    const isDone = false;      ● BASIC TYPES
+  const lines : number = 42;        const lines  = 42;
+  const name  : string = "Anders";  const name   = "Anders";
+  let   domObj: any    = form01;
+              ^^^^^^^^^^                         ^
+              EXPLICIT                          TYPE
+            TYPE DECLARATION                  INFERRED
+
+  const name  : JSON   = ...       <··· JSON type
+  let   addr? : string | string[], <··· type string Or string[]
 
 ● [[{collections]]
   const list1: number[]      = [1, 2, 3];  <··· generic array.

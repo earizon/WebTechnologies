@@ -1,11 +1,11 @@
 ● gRPC
-[[{protocol.grpc,dev_lang.java,code.async,qa,api_management]]
+[[{protocol.grpc,dev_lang.java,code.async,20_qa,api_management]]
 ● Summary #[grpc_summary]
 @[https://grpc.io/]
 @[https://en.wikipedia.org/wiki/GRPC]
 - Cloud Native Foundation project (initial develop:Google)
 - High performance, cross-platform/language RPC framework.
-- HTTP/2 for transport and Protocol Buffers for interface  
+- HTTP/2 for transport and Protocol Buffers for interface
   description language .
   - pluggable support for load balancing, tracing, health
     checking and authentication.
@@ -13,10 +13,10 @@
 - blocking or nonblocking bindings, and cancellation and timeouts.[async]
 - binary encoding on the wire (protocol buffers, or "protobufs" for short).
 - Cross-language Proxy objects auto-generated with
-  safe type checking (when supported language)                    [qa]
+  safe type checking (when supported language)                    [20_qa]
 
 
-  PROTOC + gRPC INSTALLATION STEPS 
+  PROTOC + gRPC INSTALLATION STEPS
   STEP 1) install protobuf + protoc  commands
   STEP 2) Install Node/Python/Go/... tools:
 
@@ -28,10 +28,10 @@
   • bi-directional streaming methods supported
   • TLS supported, including mutual TLS.
   • Docker support:
-  $ $ docker run fullstorydev/grpcurl api.grpc.me:443 list  
+  $ $ docker run fullstorydev/grpcurl api.grpc.me:443 list
   • Go quick install:
-  $ $ go get github.com/fullstorydev/grpcurl/...              
-  $ $ go install github.com/fullstorydev/grpcurl/cmd/grpcurl  
+  $ $ go get github.com/fullstorydev/grpcurl/...
+  $ $ go install github.com/fullstorydev/grpcurl/cmd/grpcurl
 
 $ $ grpcurl {{grpc.server.com:443}} list \  ← List all services exposed
 $           {{my.custom.server.Service}}      ← Optional. Filter by service
@@ -42,15 +42,15 @@ $           {{my.custom.server.Service}}      ← Optional. Filter by service
                                               descriptor protos).
 
 $ $ grpcurl {{grpc.server.com:443}} \       ← Send an empty request
-$   {{my.custom.server.Service/Method}}   
+$   {{my.custom.server.Service/Method}}
 
 $ $ grpcurl -H                         \   ← Send request with
 $   "{{Authorization: Bearer $token}}" \     ← header and
 $   -d {{'{"foo": "bar"}'}} \                ← body
-$   {{grpc.server.com:443}} \             
-$  {{my.custom.server.Service/Method}}    
+$   {{grpc.server.com:443}} \
+$  {{my.custom.server.Service/Method}}
 
-  COMPILING NODEJS SCRIPT EXAMPLE 
+  COMPILING NODEJS SCRIPT EXAMPLE
 
   #!/bin/sh
   set -e                           # ← Abort on first error.
@@ -72,7 +72,7 @@ $  {{my.custom.server.Service/Method}}
             ${GRPC_NODE_PLUGIN} \
    file1.proto
 
-  COMPILING JAVA SCRIPT EXAMPLE 
+  COMPILING JAVA SCRIPT EXAMPLE
 @[https://github.com/grpc/grpc-java/blob/master/README.md]
   - Gradle protobuf conf:
     apply plugin: 'java'
@@ -102,7 +102,7 @@ $  {{my.custom.server.Service/Method}}
       generateProtoTasks { all()*.plugins { grpc {} } }
     }
 
-  gRPC PROTOBUF EXCEPTION HANDLING             [qa]
+  gRPC PROTOBUF EXCEPTION HANDLING             [20_qa]
 C⅋P FROM @[http://stackoverflow.com/questions/38810657/exception-handling-in-grpc]
 Context: server written in Java, client written in PHP.
 Q: How can client catch exceptions from server?
@@ -127,9 +127,9 @@ RPC Ecosystem that complements gRPC
 [[{protocol.grpc,dev_lang.java,code.async,01_PM.WiP]]
 ● gRPC JAVA Summary #[grpc_summary_java]
 
-  JAVA SERVER IMPEMENTATION SUMMARY 
+  JAVA SERVER IMPEMENTATION SUMMARY
   service RouteGuide {
-    rpc GetFeature(Point)           returns (       Feature)    {} ←  gRPC DEFINITIONS 
+    rpc GetFeature(Point)           returns (       Feature)    {} ←  gRPC DEFINITIONS
     rpc ListFeatures(Rectangle)     returns (stream Feature)    {}
     rpc RecordRoute(stream Point)   returns (     RouteSummary) {}
     rpc RouteChat(stream RouteNote) returns (stream RouteNote ) {}
@@ -139,7 +139,7 @@ RPC Ecosystem that complements gRPC
   public class RouteGuideServer                                    ← Server implementation
     ... initialization code ...
      private static class RouteGuideService
-        extends RouteGuideGrpc.RouteGuideImplBase 
+        extends RouteGuideGrpc.RouteGuideImplBase
          ...
            ┌──────────────────────────────────────────────┬────────────────────────────────────────────┐
            │ SINGLE RESPONSE                              │ STREAM RESPONSE                            │
@@ -197,9 +197,9 @@ RPC Ecosystem that complements gRPC
  └─────────┴──────────────────────────────────────────────┴────────────────────────────────────────────┴
 
 
-  JAVA CLIENT IMPEMENTATION SUMMARY 
+  JAVA CLIENT IMPEMENTATION SUMMARY
 
-             Initialization code 
+             Initialization code
              function getServer() {                             │  if (require.main === module) {
                var server = new grpc.Server();                  │    var routeServer = getServer();
                server.addService(services.RouteGuideService, {  │    routeServer.bind('0.0.0.0:50051',
@@ -211,7 +211,7 @@ RPC Ecosystem that complements gRPC
                return server;                                   │
              }
            ┌───────────────────────────────────────────────────┬──────────────────────────────────────────
-           │ SINGLE RESPONSE                                   │ STREAM RESPONSE 
+           │ SINGLE RESPONSE                                   │ STREAM RESPONSE
  ┌─────────┼───────────────────────────────────────────────────┼──────────────────────────────────────────
  │ SINGLE  │ feature = blockingStub.                           │ Rectangle request =
  │ REQUEST │             getFeature(                           │      Rectangle.newBuilder()
@@ -235,8 +235,8 @@ RPC Ecosystem that complements gRPC
  │         │     public void onNext(RouteSummary summary) {    │       = new CountDownLatch(1);
  │         │         info... summary.get*());                  │    StreamObserver<RouteNote>
  │         │     }                                             │       requestObserver =
- │         │     @Override                                     │        asyncStub.routeChatB ( 
- │         │     public void onError(Throwable t) {            │          new StreamObserver<RouteNote>()  { 
+ │         │     @Override                                     │        asyncStub.routeChatB (
+ │         │     public void onError(Throwable t) {            │          new StreamObserver<RouteNote>()  {
  │         │         //      ^^^^^^^                           │            @Override
  │         │         //      RPC Failed                        │            public void onNext(RouteNote note)
  │         │         log ... Status.fromThrowable(t););        │            {
@@ -267,8 +267,8 @@ RPC Ecosystem that complements gRPC
  │         │     }                                             │    }
  │         │   } catch (RuntimeException e) {                  │        } catch (RuntimeException e) {
  │         │       requestObserver.onError(e) /  Cancel RPC  /;│    requestObserver.onError(e); throw e;
- │         │       throw e;                                    │                   ^^^^^^^^^^^ 
- │         │   }                                               │                   Cancel RPC  
+ │         │       throw e;                                    │                   ^^^^^^^^^^^
+ │         │   }                                               │                   Cancel RPC
  │         │   requestObserver.onCompleted();                  │    requestObserver.onCompleted();
  │         │                   ^^^^^^^^^^^^^                   │                   ^^^^^^^^^^^^^^
  │         │                   Mark the end of requests        │                // Mark the end of requests
@@ -284,9 +284,9 @@ RPC Ecosystem that complements gRPC
 
 
 
-  NODEJS SERVER IMPLEMENTATION SUMMARY 
+  NODEJS SERVER IMPLEMENTATION SUMMARY
 
--  SERVER INITIALIZATION 
+-  SERVER INITIALIZATION
 @[https://github.com/grpc/grpc/blob/master/examples/node/static_codegen/route_guide/]
 
   var routeServer = new grpc.Server();
@@ -301,19 +301,19 @@ RPC Ecosystem that complements gRPC
   ... "any other initialization"...
   routeServer.start();
             ┌────────────────────────────────────┬──────────────────────────────────────────
-            │  SINGLE RESPONSE                   │ STREAM RESPONSE 
+            │  SINGLE RESPONSE                   │ STREAM RESPONSE
   ┌─────────┼────────────────────────────────────┼──────────────────────────────────────────
   │ SINGLE  │ function getFeature(               │ function listFeatures(
   │ REQUEST │    call, responseCallback )        │   call) { // ← where call.request is
   │         │ {                                  │                     Rectangle(lo, hi)
-  │         │   responseCallback(null, feature); │   _.eachB ( feature_list, feature =>   { 
+  │         │   responseCallback(null, feature); │   _.eachB ( feature_list, feature =>   {
   │         │   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ │     if ("feature OK") {
   │         │        write response              │       call.write(feature)
   │         │ }                                  │       ^^^^^^^^^^^^^^^^^^^
   │         │                                    │       write to response stream
   │         │                                    │     }
-  │         │                                    │   } 
-  │         │                                    │   ) 
+  │         │                                    │   }
+  │         │                                    │   )
   │         │                                    │   call.end();
   │         │                                    │   ^^^^^^^^^^^
   │         │                                    │   end stream
@@ -337,7 +337,7 @@ RPC Ecosystem that complements gRPC
   │         │                                    │ }
   └─────────┴────────────────────────────────────┴──────────────────────────────────────────
 
-  NODE.JS CLIENT IMPLEMENTATION SUMMARY 
+  NODE.JS CLIENT IMPLEMENTATION SUMMARY
 
   messages = require('...._pb')
   services = require('...._grpc_pb')
@@ -351,7 +351,7 @@ RPC Ecosystem that complements gRPC
         .createInsecure())
 
             ┌────────────────────────────────┬───────────────────────────────────
-            │ SINGLE RESPONSE                │ STREAM RESPONSE 
+            │ SINGLE RESPONSE                │ STREAM RESPONSE
  ┌──────────┼────────────────────────────────┼───────────────────────────────────
  │ SINGLE   │ function featureCallback(      │ function runListFeatures(callback)
  │ REQUEST  │       error, feature)          │ {
