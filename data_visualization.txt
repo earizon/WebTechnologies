@@ -1,0 +1,502 @@
+# Data Visualization
+[[{data_mng.visualization.real_time,]]
+# SVG Summary #[svg_summary]
+<svg xmlns="http://www.w3.org/2000/svg" ← xmlns not necesary inside html
+   viewBox="0 0 256 256"                 ← left_x up_y width height
+   preserveAspectRatio="xMidYMid"        ← Optional uniform scaling:
+                                           xMidYMid aligning to the middle.
+                                           xMinYMin aligning to the top-left.
+                                           xMaxYMax aligning to the bottom-right.
+                                           (think of viewBox having 9 different
+                                            anchor points)
+   transform="scale(1,-1)" >             ← Make y coordinate work bottom-to-top.
+
+┌ <g stroke="orange" class="..."         ← group: Apply default attribute to children
+│    fill="orange"                       ← fill: shape color (name|#hex|rgb()|rgba())
+│    opacity=".5"  >
+│  <circle cx="100" cy="100" r="100" />
+│  <ellipse cx="100" cy="100" id=".."    ← id can also be used as in html
+│           rx="100" ry="50" />
+│  <rect x="0"      y="0"
+│        width="10" height="4"
+│        rx="5" ry="5"                   ← Optional. rx/ry: Radio x/y
+│        stroke="orange"                 ← Adds line around outside-shape/along-path.
+│        stroke-width="10"
+│        stroke-opacity=".5"
+│        stroke-linecap="round"          ← control stroke-end shape: butt, round, square.
+│        stroke-linejoin="bevel"         ← control corner-style: miter, round, bevel.
+│        stroke-miterlimit="4"           ← control two-different-stroke
+│                                          corners "meeting" at a point
+│   />                                     (avoid pointy triangle)
+│
+│  <polygon points="0,0 10,0 0,10" />    ← Polygon (triagle in this case)
+│  <line x1="0" y1="0" x2="3" y2="5"     ← x1/y1: start, x2/y2: end
+│        stroke-dasharray="4,6"  />      ← create dashed lines for strokes
+│                                          4,6: "4-pixel-dash then 6-pixel-space"
+│  <polyline points="0,0 1,2 2,1 3,3"/>  ← multipoint x1/y1 x2/y2 x3/y3 ... line.
+│  <path d="M1,1 Q2,2 3,1" />            ← multiple anchors with handles.
+└ </g>                                      Generally written by a program (vs by hand)
+
+  <text x="10" y="10"                    ← x,y: anchor point
+        text-anchor="middle"             ← alignment: start  | middle  | end
+        textLength="900"                 ← Space out letters to fill width.
+    Lorem Ipsum...
+    <tspan fill="limegreen"              ← tspan used to surround words inside <text>
+           dx="5" dy="-3">
+       ... some text ...
+     </tspan>
+   </text>
+
+   <a xlink:href="https://...">          ← Add hyperlink
+     <text>Dinosaurs!</text>
+   </a>
+   <image xlink:href="..." />
+
+   <symbol id="icon01" viewBox="...">    ← defining Reusable symbol
+     <rect .../>
+   </symbol>
+   <use xlink:href="#icon01" />          ← Using it later on.
+
+ ┌ <defs>                                ← section to create shapes that won't be
+ │                                         visible until used in other places like
+ │                                         gradients, paths for text, masks, etc.
+ │
+ │   <linearGradient  id="grad01" >      ← GRADIENTS
+ │     <stop offset="0%"   stop-color="  .." />
+ │     <stop offset="100%" stop-color="  .." />
+ │   </linearGradient>
+ │   <mask  id="mask01"  >                  MASKING
+ │     <image width=... height=...        ← Mask Image SHOULD be black-and-white
+ │       xlink:href="..." />                (black:transparent, white: show)
+ │   </mask>
+ │
+ │   <pattern  id="texture01"               TEXTURING & PATTERNS
+ │      width=... height=...
+ │      patternUnits="userSpaceOnUse">
+ │    <image xlink:href="..." ... />
+ │   </pattern>
+ │   <filter id="blur01">                   FILTER
+ │     <feGaussianBlur
+ │          in="SourceGraphic"
+ │          stdDeviation="5" />
+ │   </filter>
+ └ </defs>
+
+   <rect fill="url(#texture01)" ...       ← Apply texture to shape / text
+                                            Alt. fill="url(#grad01)" (Apply gradient)
+         filter="url(#blur01)"            ← Apply filter  to shape / text
+         mask="url(#mask01) />            ← Apply mask    to shape / text
+</svg>
+[[}]]
+
+[[{data_mng.visualization,data_mng.visualization.real_time,stack.react,01_PM.BACKLOG]]
+# Perspective #[perspective_summary]
+@[https://github.com/jpmorganchase/perspective]
+@[https://perspective.finos.org/]
+• interactive visualization for large, real-time datasets
+  and customizable analytics.
+• JS engine, runs on any modern browser.
+• Integrates with Python and JupyterLab .
+• fast, memory efficient streaming query engine,
+  written in C++ and compiled for both WebAssembly and Python,
+  with read/write/stream/virtual support for Apache Arrow.
+[[}]]
+
+[[{data_mng.visualization.real_time,data_mng.visualization,02_doc_has.comparative,]]
+# D3.js
+• External resouces:
+@[https://d3js.org/]
+@[https://github.com/d3/d3]
+@[https://www.youtube.com/watch?v=_8V5o2UHG0E&t=894s]
+• White-paper summary:
+ @[http://idl.cs.washington.edu/files/2011-D3-InfoVis.pdf]
+  · ...based on CSS these libraries (jQuery) share the concept
+    of a selection:
+    identify a set ofe lements using simple predicates, then
+    apply a series of operators that mutate the selected elements.
+  · For data visualization, document transformers must handle the
+    cre-ation and deletion of elements, not just the styling of existing
+    nodes.This is impossible with CSS, and tedious with jQuery.
+  · D3 alternatives, like Processing and Raphaël are tedious for     [comparative]
+    complex tasks (no convenient abstractions).
+  • selection  : D3's atomic operand:  filter over document's elements.
+  • Operators  : Act on selections, modifying content.
+  • Data joins : bind input data to elements, enabling functional
+                operators that depend on data, and producing
+                enter and exit subselections for the creation and
+                destruction of elements in correspondence with data.
+  • event      : Special operators responding to user input and
+    handlers     enable interaction.
+  • helper     : simplify common tasks:
+    modules      ✓ data-processing utilities such as next/cross operators,
+                   CSV parser, date/number formating, ...
+                 ✓ layouts:
+                 ✓ ...
+
+
+  const x = (d, i) => { return i*25 },  ← scale fun. for position encoding
+        y = (d, i) => { return 10 -d }
+
+  const svg = d3
+        .select("body")                 ← Add SVG container to body
+        .append("svg:svg")
+        .data([ [1, 2, 3, 2, 1, 0.5] ]) ← bind data (array of arbitrary values)
+                                            Data is then passed to functional operators
+                                            as first argument by convention along with
+                                            numeric index (i). By default Nth element
+                                            is binded to Nth data (ordered by index).
+                                              "key" function can override the def.behaviour.
+                                            *
+                                           data can also be used to reorder( sort )and/or
+                                           cull ( filter ) DOM elements.
+
+  svg.append("svg:path")                ← Add path element for the area
+     .attr("class", "area")
+     .attr("d",
+           d3.svg
+             .area().x(x).y0(14).y1(y))
+
+  svg.append("svg:path")                ← Add path element to emphasize
+     .attr("class", "line")                the top line.
+     .attr("d" ,
+           d3.svg.line().x(x).y(y))
+
+  const g = svg.selectAll("g")          ← Add containers for reference values.
+        .data(d3.range(0,2, .5))          select || selectAll accept CSS selector
+        .enter()                          syntax?.
+                                          selects can be chained,
+                                            ex: selectAll("p").select("b")
+        .append("svg:g")                ← insert(),append() ops. add new elements to   DOM
+                                          remove            ops. del.    elements from DOM
+                                          transition(..)  same syntax than style/attr but
+                                             interpolating from current to final value
+                                             gradually over time.
+
+  g.append("svg:line")                  ← Add reference lines.
+   .attr("class", (d) => {"rule"})        ← operator acting on selection and
+   .attr("x2",160)                          wrapping W3C DOM API,
+   .attr("y1", y)                           := .attr(...) | .style(...) | .property(...)
+   .attr("y2", y)                              .html(...) | .text(...)  |
+                                               .each(...) (general extension point operator)
+                                            and expressed either as constants or functions.
+
+  g.append("svg:text")                  ← (g) Add reference labels.
+   .attr("x",164)
+   .attr("y",y)
+   .attr("dy", ".3em")
+   .text(d3.format(",.1"))
+
+  *                     ┌─┐┌─┐┌─┐┌─┐┌─┐┌─┐┌─┐┌─┐┌─┐┌─┐  NOTE: Data is sticky: Once bound
+       e  e  e  e  e  e │u││u││u││u││u││ ││ ││ ││ ││ │        to nodes, it is available
+                        └─┘└─┘└─┘└─┘└─┘└─┘└─┘└─┘└─┘└─┘        in next re-selection with
+       └───────┬──────┘ └──────┬──────┘└──────┬──────┘        no need for .data(...) operator
+       entering data    updated data    exit nodes with
+       data with no     bounded to      no matching data
+       matching nodes.  matching nodes  allowed to be
+       insert will bind                 removed.
+       new nodes to the
+       data.
+
+
+• used as "kernel" library for other high level ones
+  e.g.: @[#vega_lite_summary]
+
+• Extracted from @[https://observablehq.com/@d3/learn-d3]
+ • D3 stands for "Data Driven Documents".
+ • D3 allows to bind arbitrary data to a Document Object Model (DOM),
+   and then apply data-driven transformations to the document.
+   e.g:
+    INPUT        BIND TO
+    ========     =======
+    number[] --→ D3.js ─┬→ Interactive SVG chart
+                        ├→ HTML table
+                        ├·····→
+
+  •  Step learning path : 30+ modules , 1000s of methods.
+[[}]]
+
+[[{data_mng.visualization.real_time,data_mng.visualization,01_PM.TODO]]
+# https://mafs.dev/
+  Math components for React apps.
+
+# Vega Lite!!! @ma #[vega_lite_summary]
+@[https://vega.github.io/vega-lite/]
+@[https://vega.github.io/vega-lite/examples/]
+• HIGH-LEVEL GRAMMAR OF INTERACTIVE GRAPHICS with declarative JSON syntax.
+  by University of Washington Interactive Data Lab
+• visualizations for data analysis and presentation.
+• Used by:
+  Tableau , Google, Microsoft, Airbnb, Los Angeles Times, CERN,
+  Carnegie Mellon University, Berkeley University, ...
+• Extracted from: https://vega.github.io/vega/about/vega-and-d3/
+  ... D3 is intentionally a lower-level library (than Vega) ...
+  a "visualization kernel" rather than a "toolkit" or "framework"
+  ... intended as a supporting layer for higher-level visualization
+  tools. Vega is one such tool, and Vega uses D3 heavily within its
+  implementation: vega lite → vega → d3.js
+
+• HOWTO: STEP 1) HTML SETUP
+@[https://vega.github.io/vega-lite/tutorials/getting_started.html]
+ ┌──────────────────────────────────────────────────────────────────────────┐
+ │ <!DOCTYPE html>                                                          │
+ │ <html>                                                                   │
+ │ <head>                                                                   │
+ │   ...                                                                    │
+ │   <script src="https://cdn.jsdelivr.net/npm/vega@5.20.2"      ></script> │
+ │   <script src="https://cdn.jsdelivr.net/npm/vega-lite@5.1.0"  ></script> │
+ │   <script src="https://cdn.jsdelivr.net/npm/vega-embed@6.17.0"></script> │
+ │                                                                          │
+ │   <style media="screen">                                                 │
+ │     .vega-actions a {       /* Add space between Vega-Embed links */     │
+ │       margin-right: 5px;                                                 │
+ │     }                                                                    │
+ │   </style>                                                               │
+ │ </head>                                                                  │
+ │ <body>                                                                   │
+ │   ...                                                                    │
+ │   <div id="vis" ></div>     <!-- visualization container -->             │
+ │                                                                          │
+ │   <script>                                                               │
+ │     var vlSpec = {                                                       │
+ │       $schema: 'https://vega.github.io/schema/vega-lite/v5.json',        │
+ │       data     : { values: [ ... ] },                                    │
+ │       mark     : 'bar',                                                  │
+ │       encoding : { ... }                                                 │
+ │     }                                                                    │
+ │                                                                          │
+ │     vegaEmbed( '#vis' , vlSpec); // Embed visualization in "div"         │
+ │   </script>                                                              │
+ │ </body>                                                                  │
+ │ </html>                                                                  │
+ └──────────────────────────────────────────────────────────────────────────┘
+
+• HOWTO: STEP 2) DATA and Visualization SETUP
+@[https://vega.github.io/vega-lite/tutorials/getting_started.html]
+  TABULAR DATA SET │ EQUIVALENT VEGA-LITE
+                   │ JSON ARRAY + RENDER PROP
+  ================ │ ========================
+ var. a    var. b  │ {
+  cate- vs nume-   │   "data" : {          ← "data" prop defines data source for chart
+gorical    rical   │     "values" : [         Other data sources type supported
+      C ←→ 2  · · ·│· · · {"a": "C", "b": 2}, ┐  e.g: "data": {"url": ".../data/myData.csv"}
+      C ←→ 7  · · ·│· · · {"a": "C", "b": 7}, ┤  ← each value (row) will be rendered
+      C ←→ 4  · · ·│· · · {"a": "C", "b": 4}, ┤    as a1visual mark
+      D ←→ 1  · · ·│· · · {"a": "D", "b": 1}, ┤
+      ...
+      E ←→ 7  · · ·│· · · {"a": "E", "b": 7}  ┘
+                   │           ]
+                   │   },
+      vega-lite  ┌ →   "mark": "point",    ← mark key indicates how to render data
+          chart  │ │                         mark properties := position, size, color
+  visualization ─┤ │                         vega-lite will render one point per "data" object
+     properties  │ │
+                 └ →   "encoding": {       ← Without encoding output marks will overlap.
+                   │      "x": {               ← encode "x-channel" to ("row") data fields.
+     vega-lite     │        "field": "a",        ("a" in this case)
+     chart         │        "type" : "nominal"   := "quantitative" | "temporal" | "ordinal" | "nominal"  *
+  visualization    │      },
+                   │      "y": {           ← "x" alone will already render "a" distribution.
+                   │        "field": "b",    "y" to compare "var a" vs "var b"
+                   │        "type" : "quantitative"
+                   │        "title": "b's average"   ← optional.
+                   │        "aggregate": "average"   ← optional := "aggregate" | "average"
+                   │      }                                           ^
+                   │   }                                          "mark" : "bar"
+                   │ }
+                     *  @[https://vega.github.io/vega-lite/docs/encoding.html#type]
+                    TIP: Vega-Lite will auto. add axis-with-labels for different-categories + axis title.
+
+• EXPLORING DATA EXAMPLES
+@[https://vega.github.io/vega-lite/tutorials/explore.html]
+
+  QUANTITATIVE CONTINUOUS            SAME QUANTITATIVE VAR DISCRETIZED
+  VAR DISTRIBUTION ALONG X AXIS      AS BAR HISTOGRAM ALONG X/Y AXES
+  =============================      ===============================
+
+  {                                  {
+    "data": ...                        "data": ...
+    "mark": "tick",                    "mark": "bar",
+    "encoding": {                      "encoding": {
+      "x": {                             "x": {
+         "field": "precipitation",         "field": "precipitation"
+         "type" : "quantitative"           "bin"  : true,  ← bin == discretize cont.var.
+      }                                  },                 (bin quantitative by default)
+                                         "y": {
+                                           "aggregate": "count"
+                                         }
+    }                                  }
+  }                                  }
+
+  MEAN PRECIPITATION VS (month) DATE
+  ==================================
+  {
+    "data": ...
+    "mark": "line",
+    "encoding": {
+      "x": {
+        "field"    : "date"
+        "timeUnit" : "month",  ← : yearmonth will compare same month
+      },                           in different years
+      "y": {
+        "field"    : "precipitation"
+        "aggregate": "mean",
+      }
+    }
+  }
+
+  WEATHER TYPE OVER MONTH STACKED (aggregate) BAR
+  ==============================================
+  {
+    "data": ...
+    "mark": "bar" ,
+    "encoding": {
+      "x": {
+        "timeUnit"  : "month",
+        "field"     : "date",
+        "type"      : "ordinal"
+      },
+      "y": {
+        "aggregate": "count",   ←···· we need to add "color" prop.
+        "type"     : "quantitative"   to indicate stack visualization
+      },                                ·
+      "color": {                        ·
+        "field": "weather",     ←······─┘
+        "type": "nominal",
+        "scale": {   ← Optional. Customize default category colors
+          "domain": ["sun", "fog" , "drizzle", "rain", "snow"],
+          "range":  ["#ea2","#c77", "#aec7e8", "#1b4", "#946"]
+        }
+      }
+    }
+  }
+
+
+• CALCULATED FIELD HOW-TO
+  =======================
+  {
+    "data": ...
+    "transform": [
+      {
+        "calculate" : "datum.temp_max - datum.temp_min",
+        "as"        : "temp_range"
+      }
+    ],
+    "mark": ...
+    "encoding": {
+      ...
+      "y": {
+        "field": "temp_range"
+        ...
+      }
+    }
+  }
+[[}]]
+
+
+[[{data_mng.visualization,data_mng.visualization,]]
+# JointJS #[jointjs_summary]
+@[http://www.jointjs.com/tutorial]
+@[http://www.jointjs.com/demos/umlcd]
+• JointJS
+
+  INPUT                        PROCESSING              OUTPUT
+  =====                        ==========              ======
+  GRAPH MODEL:          ···→   attach graph to   ···→   rendered view
+  · N joint.dia.Element's      joint.dia.Paper
+      (or descendants)
+  · M joint.dia.Link's
+      ^^^^^^^^^^^^^^^^
+      cell := Element or Link
+
+- Joint.JS  "Hello World!:
+  <script src="joint.js"></script>
+  <script>
+    const graph01 = new joint.dia.Graph()    ← Represent a diagram.
+
+    const paper      = new joint.dia.Paper({
+        el: $('#myholder'),                  ← paper container
+        width: 600, height: 200, gridSize: 1 ← CSS data
+        model: graph01,                      ← attached graph
+    })
+    paper.scale(.5);
+    paper.$el.css('pointer-events', 'none');
+
+    graph01.on('all',                        ← .on(...) D3 operator reacting to input events
+                                               On D3, callback receives data and index as
+                                               1st arg.  TODO:Q: Is the same for vega-lite?
+      function(eventName, cell)              ← Event handling based on the Backbone MVC
+      { ... })                                 See all events triggered by any model in the
+                                               graph.
+
+
+
+    const rect01 =                           ← Basic shapes in JointJS:
+      new joint.shapes.basic.Rect({            ✓ joint.shapes.basic.Rect
+        position: { x: 100, y: 30 })           ✓ joint.shapes.basic.Circle
+                                               ✓ joint.shapes.basic.Text
+                                               ✓ joint.shapes.basic.Image
+
+    rect01.attr({                            ← Shape styling
+      rect: { rx: 5, ry: 5,
+              fill      : '#2C3E50',
+              'stroke-width': 2,
+              stroke    : 'black' },
+      text: { text      : 'my label',
+              fill      : ...,
+              'font-size': 18, ... }
+    })
+
+    rect01.on('change:position',             ← bind event to shape
+      (element) => {
+        ... element.id
+        ... element.get('position')
+      })
+
+    link.set('vertices',                     ← Set vertices on a link
+      [ { x: 300, y: 60 },
+        { x: 400, y: 60 },
+        { x: 400, y: 20 }
+      ])
+  link.set('smooth', true)                   ← Avoid sharp break at vertice
+                                               (Use interpolated curve)
+[[}]]
+
+[[{data_mng.visualization,data_mng.visualization,01_PM.TODO]]
+# JS Pivot Tables
+See also Vega-Lite pivot charts @[#vega_lite_summary]
+@[https://github.com/search?q=pivot+table]
+@[https://pivottable.js.org/examples/]
+@[https://github.com/nicolaskruchten/pivottable]
+@[https://www.flexmonster.com/demos/pivot-table-js/]
+[[}]]
+
+[[{performance.visualization,data_mng.visualization.real_time,data_mng.visualization,01_PM.BACKLOG]]
+# Complex Model Real Time Render
+@[https://www.infoq.com/presentations/autodesk-forge-viewer/]
+Shwetha Nagaraja & Federico Rocha explore in detail some of the most
+interesting heavily-optimized techniques and strategies that Autodesk
+Forge Viewer introduces for viewing extremely large 2D and 3D models
+in the browser in real-time. These include progressive rendering to
+reduce time to first pixel, geometry consolidation to reduce draw
+overhead.
+[[}]]
+
+[[{stack.react,data_mng.visualization,data_mng.visualization,01_PM.BACKLOG]]
+# Visx
+• @[https://www.infoq.com/news/2020/12/airbnb-visx-data-visualization/]
+  Airbnb Releases Visx, a Set of Low-Level Primitives for Interactive
+  Visualizations with React components that can be composed into interactive
+  visualizations.
+• Builds on D3 primitives, React component model, DOM handling.
+• data visualization solution   easy to learn without sacrificing
+  expressiveness.
+  " ...  After 3 years of development, 2.5 years of production use
+    at Airbnb, and a rewrite in TypeScript we are excited to announce
+    the official 1.0 release of visx (formerly vx). ..."
+[[}]]
+
+
+
+[[$div}]]
+
+

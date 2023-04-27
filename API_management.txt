@@ -1,0 +1,908 @@
+# API Management
+[[{20_qa.api_management,api_management.101,standards.api_management,use_case.crm,use_case.erp,security.aaa,use_case.payments,use_case.monetization,standards,security.privacy,use_case.b2b]]
+#[openapi_summary]
+# OpenAPI Spec 3.x
+@[https://swagger.io/specification/]
+* language-agnostic RESTful APIs interface definition for computers and humans .
+* can also be used as documentation.
+* External Resources:
+  · Collection of OpenAPI Tools: @[https://github.com/OpenAPITools]
+    · OpenAPI-diff:
+      @[https://github.com/quen2404/openapi-diff]
+  · OpenAPI topics @ github:
+    @[https://github.com/topics/openapi]
+    · ...
+
+
+Ex OpenAPi Definition:
+   | openapi: '3.0.3'
+   |
+   | info:
+   |   title: 'MyRESTService'
+   |   description: MyRESTService API Document
+   |   version: '0.0.1'
+   |
+   | servers: [ { url: https://www.mycompany.com/ } ]
+   |
+   | paths:
+   |   '/api/v1/module1/service1':
+   |     put:
+   |       summary: ...
+   |       description: >
+   |         This is a multi-line markup description
+   |          * bullet1
+   |          * bullet2
+   |       tags: [ MyModule1, Service1, ... ]   ← Orthogonal topics
+   |
+   |       requestBody:
+   |         $ref: '#/components/requestBodies/entity01'
+   |       parameters:
+   |         - name: SecuritySchemes
+   |           in  : header       ← :=  header ← HEAD / GET / PUT / POST
+   |                                  | query  ←        GET / PUT / POST
+   |                                  | body   ←              PUT / POST
+   |           description: |
+   |             Set Access Token
+   |             Format: "Bearer"+[space]+[jwt]
+   |           schema:
+   |             $ref: "#/components/schemas/entity01"
+   |           required: true
+   |
+   |         - name: queryParam1
+   |           in  : query
+   |           required: true
+   |           schema:
+   |             type: string    ← boolean | number | ...
+   |                               { type: string, enum: [asc, desc] }
+   |         - name: ...
+   |
+   |       responses:
+   |         '200': { description: 'OK' }
+   |         '400': { description: 'KO' }
+   |
+   |   '/api/v1/module1/service1':
+   |     get:
+   |       summary: ...
+   |       ...
+   |       responses:
+   |         '200':
+   |           description: 'OK'
+   |           content:
+   |             application/json:
+   |               schema:
+   |                 $ref: '#/components/schemas/entity01'
+   |         ...
+   |
+   | components:
+   |   schemas:
+   |     entity01:
+   |       type: object
+   |       properties:
+   |         blNo           : { type: string }
+   |         senderCompanyId: { type: string }
+   |         version        : { type: number }
+   |
+   |   requestBodies:
+   |     entity01:
+   |       content:
+   |         "application/json":
+   |           schema:
+   |             $ref: '#/components/schemas/entity01'
+
+────────────────────────────────────────────────────────────────────────────────
+
+# TOP Open APIs
+REF: @[https://projects.tmforum.org/wiki/display/API/Open+API+Table]
+• Account Management API
+     standardized mechanism for management of billing and settlement
+   accounts, as well as for financial accounting (account receivable)
+   either in B2B or B2B2C contexts.
+• Appointment API
+  standardized APIs to book appointment, including:
+  ✓ parameterized searching for free slots
+  ✓ nature and place of appointment.
+  ✓ ...
+
+• Customer Management API
+  standardized API for customer and customer account management
+  (creation, update, retrieval, deletion and notification of events).
+
+• Partnership Type Management API
+  Standardized API for CRUD operations on partnership types.
+   It is one of the APIs involved in an onboarding process .
+   ✓ Identifies type of partnership among parties
+     (allowed role types list, e.g: [ Buyer, Seller, Developer].
+• Party Management API :
+
+  Standardized API for CRUD party management.
+  Party := individual | organization
+
+• Party Role Management API
+ standardized API for general CRUD party roles and notification of events.
+
+• Product Catalog Management API
+  standardized API for adding partners' products to existing Catalog.
+  It brings the capability for Service Providers to directly
+  feed partners systems with the technical description of the products they
+  propose to them.
+
+• Product Inventory Management API
+  standardized API for CRUD (representation of)product inventory management
+  and product lifecycle event notification.
+
+• Product Offering Qualification API :
+  One of Pre-Ordering Management API Family.
+
+• Product Ordering API :
+  standardized API for placing a product order.
+  simple set of operations to interact with CRM/Order negotiation systems
+  in a consistent manner.
+
+• Quote Management API :
+  one of the Pre-Ordering Management APIs.
+
+• Shopping Cart API :
+  standardized API for shopping-carts CRUD and events management.
+  used for the temporary selection and reservation of product
+  offerings in e-commerce and retail purchase.
+
+• Trouble Ticket API :
+  standardized API to Trouble Ticket Management Systems CRUD among
+  partners as result of an issue or problem identified by a customer
+  or another system.
+  Examples of Trouble Ticket API clients include CRM applications,
+  network management or fault management systems, or other trouble
+  ticket management systems (e.g. B2B).
+
+• Agreement Management API :
+  standardized API for managing agreements, especially in the context
+  of partnerships between partners.
+
+• Communication API :
+  create+send communications, notifications, and instructions to
+  Parties, Individuals, Organizations or Users.
+
+• Entity Catalog Management API :
+  The entity catalog is intended to provide any SID entity to consumers via a
+  catalog, with its specification and policy providing governance over its
+  content. The API provides management of the entity specifications and their
+  associations thru CRUD operations.
+
+• Federated Identity API :                                                      [aaa]
+  management of principals of any kind (persons, objects, …) and their
+  access to resources in an open environment which can span across different
+  enterprise boundaries. It relies on authentication, authorization and consent
+  mechanisms to protect privacy with a simple and easy user experience.
+  Different parties can provide identity services
+  (operators, social networks, GSMA, …).
+
+• Geographic Address Management API :
+  Standardized client interface to an (worldwide) Address management system,
+  validating and searching for geographic address data:
+  1) searching an area as a start (city, town ...)
+  2) zooming on the streets of this area
+  3) listing all the street segments (numbers) in a street.
+
+• Geographic Location Management API :
+  Provides the information of a geographic region of the entity (customer,
+  equipment, address).
+
+• Geographic Site Management API :
+  CRUD ops to manage sites that can be associated with customers, accounts,
+  service delivery or other entities.
+
+• Loyalty Management API :                                   [monetization]
+  Supports the management of loyalty program specifications, loyalty program
+  members, their associated products and loyalty accounts with loyalty balances
+  https://www.tmforum.org/resources/specification/tmf658-loyalty-management-api-rest-specification-r17-0-1/
+
+• Partnership Type Management API :
+  Standardized mechanisms for creating partnership types. It is one of the APIs
+  involved in an onboarding process.
+
+• Party Interaction Management API :
+  A User Interaction captures information about past interactions in order to
+  reuse it in future ones. This allows agents to serve users better by knowing
+  the steps they went through. It also allows customers to see better the
+  actions they have performed and how they interacted with us.
+
+• Party Management API :
+  Provides a standardized API for party CRUD management.
+
+• Party Role Management API
+  Provides a standardized API for general party roles CRUD management.
+
+• Payment Management API :                                                      [payments]
+  standardized client interface to Payment Systems for notifying about
+  performed payments or refunds.
+  Examples of Payment API originators (clients) include:
+  Web servers, mobile app servers, Contact center dashboards or retail
+  store systems.
+
+• Payment Methods API :                                                         [payments]
+  This API supports the frequently-used payment methods for the customer to
+  choose and pay the usage, including voucher card, coupon, and money transfer.
+
+• Prepay Balance Management API                                                 [payments]
+  REST API for Balance Management. It includes the model definition as well as
+  all available operations for prepay balance management. Prepaid subscribers
+  pay fees before using services. Therefore, the subscribers must have
+  sufficient balances. Operators can provide multiple recharge channels for
+  subscribers. Subscribers can pass credit between different subscriptions,
+  therefore transferring the balance from one account to another.
+
+• Privacy Management API :                                                      [privacy]
+  The Privacy management API provides standardized mechanisms for privacy
+  profile types, privacy profiles and privacy agreements such as creation,
+  update, retrieval, deletion and notification of events..
+
+• Product Catalog Management API :
+  standardized API for rapidly adding partners' products to an existing
+  Catalog. It brings the capability for Service Providers to directly
+  feed partners systems with the technical description of the products they
+  propose to them.
+
+• Product Inventory Management API :
+  standardized API for CRUD of representation-of-product in inventory.
+
+• Product Offering Qualification API :
+  One of Pre-Ordering Management API Family, providing Product Offering
+  commercial eligibility.
+
+• Product Ordering API :
+  standardized API for placing a product order interacting with CRM/
+  Order negotiation systems in a consistent manner.
+
+• Quote Management API :                                                       [payments]
+  One of the Pre-Ordering Management APIs allowing to place a customer
+  quote with all of the necessary quote parameters.
+
+• Resource Catalog Management API :
+  API spec allowing the management of the entire lifecycle of the
+  Resource Catalog elements and the consultation of resource catalog
+  elements during several processes such as ordering process.
+
+• Resource Function Activation and Configuration API :
+  This API introduces Resource Function which is used to represent a Network
+  Service as well as a Network Function. The Network Service and Network
+  Function class definitions and associations in TR244 (which, in turn, builds
+  on concepts from the SID addenda on Logical Resource and Service) are
+  utilized to define the Resource Function
+
+• Trouble Ticket API :
+  standardized client interface to Trouble Ticket Management Systems
+  for creating, tracking and managing trouble tickets among partners as a
+  result of an issue or problem identified by a customer or another system.
+  API clients include CRM applications, network management or fault
+  management systems, or other trouble ticket management systems (e.g. B2B).
+
+• Usage Consumption Management API :                                            [monetization]
+  API allowing real-time view of the balance of the various buckets
+  (SMS, Voice, Data for example) that a user consumes with each of his devices
+  and the usages done out of the bucket.  Usage report retrieves the data
+  related to these balances.
+   This API should also allow performing a direct top-up on the balance of
+  a prepaid bucket with voucher references or with a given credit value after
+  a payment done by a credit card or with a credit value transfer.
+
+• Usage Management API :
+   Provides standardized mechanism for collection-of-usages CRUD management.
+  E.g: It allows a service provider to
+       1) retrieve usage generated by a partner service platform in order to rate it
+       2) provide rated usage to a partner for consumption follow up purposes.
+
+• User Roles&Permissions API :
+  user role : entity that defines a set of privileges covering various functions
+              and/or manageable assets.
+              (session) User are assigned a given role then it is actually allocated
+              all the privileges defined for that role type and the corresponding
+              permissions are created for that user.
+
+[[}]]
+
+[[{api_management,standards,arch.async,01_PM.TODO]]
+# Open Data Protocol
+@[https://www.odata.org/]
+* ISO/IEC approved, OASIS standard
+* It defines   set of best practices for building and consuming
+  RESTful APIs to focus on business logic without worrying
+  about different approaches to define request/response headers,
+  status codes, HTTP methods, URL conventions, media types,
+  payload formats, query options, etc.
+* OData provides guidance for:
+  · tracking changes
+  · defining functions/actions for reusable procedures
+  · sending asynchronous/batch requests.                           [async]
+* OData RESTful APIs are easy to consume.
+  - OData metadata, a machine-readable description of the
+    data model of the APIs, enables the creation of powerful
+    generic client proxies and tools.
+* OData Tools include:
+  - Visual Studio Code for OData Extension:
+    - adds rich support for the OData query language
+  - XOData
+    - generic online OData API/Service visualizer and explorer.
+      It assists in rapid prototyping, verification, testing,
+      and documentation of OData APIs. With XOData Chrome App
+      it's also possible to explore OData Services deployed
+      locally or on private networks.
+[[}]]
+
+[[{arch.async,standards.api_management,api_management.101,20_qa,01_PM.TODO]]
+# asyncapi.org/ #[asyncapi_summary]
+@[https://www.asyncapi.org/]
+* Low level standard (vs OpenAPI high-level/business oriented)
+  to architect future event-driven architectures.
+* Open source tools to easily build and maintain your event-driven
+  architecture. All powered by the AsyncAPI specification, the industry
+  standard for defining asynchronous APIs.
+* Compatible with OpenAPI Spec, allowing to re-use schema definitions.
+
+See comparative with OpenAPI and CloudEvents at:
+@[https://www.asyncapi.com/blog/async_standards_compare]
+
+• Extracted from ebay anouncement to adopt AsyncAPI:
+@[https://www.infoq.com/news/2021/05/ebay-adopts-asyncapi/]
+    One of the critical AsyncAPI features that eBay's team has found
+  particularly useful is   clean separation between channels,
+  operations, and servers.
+  · A channel represents an event stream
+  · An operation describes a publish or subscribe process.
+  · A server facilitates the message transfer (i.e., the message bus).
+  This separation allows a complete representation of producers, consumers,
+  and message schemas, resulting in a standardized model of a
+  message-driven ecosystem.
+[[}]]
+
+[[{01_PM.low_code,api_management,20_qa.testing,01_PM.TODO]]
+# Mirage: Fast Prototyping
+@[https://miragejs.com]
+
+* Mirage JS is an API mocking library that lets you build, test and
+  share a complete working JavaScript application without having to
+  rely on any backend services.
+
+# WireMock
+* HTTP-based simulator to mock APIs for fast, robust and comprehensive testing.
+* Fix the problem of testing APIs that do NOT yet exists or is imcomplete.
+* test edge cases/failure modes that real API won't reliably produce.
+* It can reduce build time from hours to minutes.
+[[}]]
+
+[[{api_management.apigee,01_PM.TODO]]
+# APIgee: x-Cloud API Mng
+- The Cross-Cloud API Management Platform
+  https://cloud.google.com/apigee/
+[[}]]
+
+
+# Postman/Newman SUMMARY:  [[{]]
+  =======================
+
+┌───────────────────────────────────────────────────────────────────────────────────────────────┐
+│ WARN:                                                                                         │
+│   Postman is NOT suitable for proper testing (as of 2022─08─25).                              │
+│ It works "OK" when testing isolated request─response("unit tests") , but complexity grows     │
+│ exponentially when trying to create chain of expected requests─responses ("functional tests"),│
+│ requiring lot of custom─and─non─standard code "juggling" with variables                       │
+│ to be able to keep state. It neither allows to check "stuff" outside the API, like            │
+│ state of DDBBs, pending messages in queues, ... making integration tests impossible.          │
+│                                                                                               │
+│   Also, due to the async nature of Javascript, simple things like "wait for N seconds" to let │
+│ previous request be processed in background become really tricky. An simple "sleep 10" in     │
+│ shell script needs a search in stackoverflow to search for custom patch code in Postman/Newman│
+└───────────────────────────────────────────────────────────────────────────────────────────────┘
+
+REF: http://www.postmanlabs.com/postman-collection/tutorial-concepts.html
+     https://github.com/postmanlabs/postman-collection/blob/develop/types/index.d.ts
+
+                                     ┌────────────┐   ┌───────────┐
+                   ┌─────────────────┤ Collection ├───>Information│
+                   │                 └─────┬──────┘   └───────────┘
+                   │                       │
+           ┌───────v───┐                ┌──v───┐
+           │ ItemGroup │        ┌───────┤ Item ├──────────┐
+           └─┬────────┬┘        │       └───┬──┘          │
+             │        │         │           │             │
+    ┌────────v──┐ ┌───v──┐ ┌────v────┐ ┌────v──────┐  ┌───v────┐
+    │ ItemGroup │ │ Item │ │ Request │ │ Responses │  │ Events │
+    └───────────┘ └──────┘ └─────────┘ └───────────┘  └────────┘
+
+    "ItemGroup" is referred to as "Folder" in UIs/newman output.
+
+
+# pre-request tests and (post-response) test examples:
+  REF: https://learning.postman.com/docs/writing-scripts/script-references/test-examples/
+
+  pm.test("XXXX", () => {                                 <- create test spec inside Pre-request|Tests scripts.
+                                                              returns back pm, allowing for chainable calls.
+
+    setTimeout(() => {
+      pm.expect(pm.response.code).to.equal(200)           ;
+      done();                                             <- (optional), useful to test async.functions.
+    }, 1500);
+
+    pm.test.index()                                       <- Get total-number-of-tests executed
+
+    pm.expect(pm.environment.name).to.eql("DEV");         <- Check active Postman environment
+
+    pm.response.to.have.status(200);                      <- alt 1: Chai Assertion Library BDD syntax
+    pm.expect(pm.response.code).to.eql(200);              <- alt 2: programatic response.
+    pm.expect(pm.response.code).to.be.oneOf([201,202]);   <- Check range of codes
+    pm.response.to.have.status("Created");
+
+    pm.response.to.have.header("Content-Type");           TESTING RESPONSE HEADERS:
+    pm.expect(
+     pm.response.headers.get('Content-Type')
+    ).to.eql('application/json');
+
+    pm.expect(pm.cookies.has('JSESSIONID')).to.be.true;   TEST RESPONSE COOKIE
+    pm.expect(pm.cookies.get('isLoggedIn')).to.eql('1');
+
+
+    pm.expect(pm.response.responseTime).to.be.below(200); TESTING RESPONSE TIMES
+
+                                                    // parsing response.
+    const responseJson = pm.response.json();        // <- Alt 1: Parse as JSON
+    pm.expect(jsonData.errors).to.be.empty;         // { ..., "errors" : [], ...}
+    pm.expect(jsonData.areas).to.include("goods");  // { ... "areas": [ ... "goods", ... ], ...}
+    pm.expect(responseJson.type).to.eql('vip');
+    pm.expect(responseJson.name).to.be.a('string');
+    pm.expect(responseJson.name).to.eql(
+                pm.environment.get("NAME"));           <- Use ENV.VAR
+    pm.expect(responseJson.id).to.have.lengthOf(1);
+    pm.expect(responseJson.age).to.eql(23);
+
+  //const responseJson = xml2Json(pm.response.text()); <- Alt.2: Parse as XML
+
+  //const parse=require('csv─parse/lib/sync');         <- Alt.3: Parse as CSV.
+  //const responseJson = parse(pm.response.text());
+
+    const $ = cheerio.load(pm.response.text());     // <- Alt.4: Parse HTML
+    console.log($.html());
+
+    pm.expect(pm.response.text())                   // <- Alt.5.1: Non-parseable response.
+       .to.include("customer_id");
+    pm.response.to.have.body("whole-body-text");    // <- Alt.5.2: Non-parseable response.
+
+    pm.expect(jsonData).to.be.an("object");            TESTING RESPONSE SCHEMA. ALT 1.
+    pm.expect(jsonData.name).to.be.a("string");        {
+    pm.expect(jsonData.age).to.be.a("number");           "name": "Jane",
+    pm.expect(jsonData.hobbies).to.be.an("array");       "age": 29,
+    pm.expect(jsonData.website).to.be.undefined;         "hobbies": [ "..", ],
+    pm.expect(jsonData.email).to.be.null;                "email": null
+                                                       }
+
+     const schema = {                                  TESTING RESPONSE SCHEMA. ALT 2.
+      "items": {                                       (Using Tiny Validator V4 tv4)
+         "type": "boolean"
+      }
+     };
+     const data1 = [true, false];
+     pm.expect(tv4.validate(data1, schema)).to.be.true;
+
+
+     const schema = {                                      TESTING RESPONSE SCHEMA. ALT 3.
+       "properties": {                                     Ajv JSON schema validator
+         "alpha": {
+           "type": "boolean"
+         }
+       }
+     };
+     pm.response.to.have.jsonSchema(schema);
+
+                                                           FILTER/SEARCH INTO OBJECT SCHEMA:
+    const notificationSettings = jsonData.settings.find    <- find == "filter"
+        (m => m.type === "type1");                          |{
+    pm.expect(notificationSettings)                         | "settings": [
+      .to.be.an("object", "error ....");                    |  { "type": "type1", "set1":["val1","val2"] },
+    pm.expect(notificationSettings.set1).to.include("val2");|  { ... },
+    pm.expect(notificationSettings.set1)                    |   ],
+      .to.have.members(["val1", "val2"]);                   |   ...
+                                                            |}
+
+    const expected = { "key1":true, "error":[] }                     EXPECT OBJECT "DEEP" IN RESPONSE
+    pm.expect(pm.response.json()).                                   { "key1": true, "key2":..., "error": [] }
+     to.deep.include(expected);                                      will match
+
+    // .deep causes all .equal|.include|.members|.keys|.property
+    // assertions that follow in the chain to use deep/loose
+    // equality (vs strict '===' equality).
+    // '.eql' also compares loosely but doesn't apply to             [[{02_doc_has.comparative]]
+    // assertions following in the chain, while .eql does.           [[}]]
+  });
+
+   pm.expect({a: 1, b: 2}).to.have.all.keys('a', 'b');      <- .all is the default in not indicated.
+   pm.expect({a: 1, b: 2}).to.have.any.keys('a', 'b');
+   pm.expect({a: 1, b: 2}).to.not.have.any.keys('c', 'd');
+   pm.expect({a: 1}).to.have.property('a');
+   pm.expect({a: 1, b: 2}).to.be.an('object')
+     .that.has.all.keys('a', 'b');
+
+# TROUBLESHOOTING COMMON TEST ERRORS:
+  console  .log() // .info() .warn() .error()
+  pm.collectionVariables.get("varname1")
+
+# POSTMAN SANDBOX API (pm.* providing access to request/response data and vars): [[{]]
+  https://learning.postman.com/docs/writing-scripts/script-references/postman-sandbox-api-reference/
+
+• VISIBILITY SCOPES FOR VARIABLES:
+  pm.variables           : Variables NOT persisted across new requests or collections.
+  pm.iterationData       : Data
+  pm.collectionVariables : Environment  <- Variables of this collection (not shared with others in same project)
+  pm.environment         : Collection   <- Variables shared among (same project) and different collections
+  pm.globals             : Global
+  Note: same var.names can be defined in different scope. "Closest" one takes precendence.
+
+  pm.variables.toObject()            <-  Return all vars+values in SCOPE
+  pm.variables.has(varName:String)
+  pm.variables.get(varName:String)
+  pm.variables.set(varName:String, varValue:*)
+  pm.variables.unset(variableName:String)
+  pm.variables.clear()               <- Clear all vars
+  pm.variables.replaceIn("... {{$varName}}"); // <- {{$varName}} resolves to
+    └────┬───┘                                     current value of var.
+    alternatively: .iterationData | .collectionVariables | .environment | .globals
+
+  SCOPE SPECIFIC METHODS
+  ======================
+  pm.environment        .name:String   <- Current ENV.NAME.
+  pm.iterationData      .toJSON()
+
+• REQUEST/RESPONSE API:
+ ┌ REQUEST ───────────────────────┐
+ │ pm.request.url:Url             │
+ │ pm.request.headers:HeaderList  │
+ │ pm.request.method:String       │
+ │ pm.request.body:RequestBody    <- RequestBody is IMMUTABLE
+ │ pm.request.headers.add   ({key:'headerN',value: 'valueN'})
+ │ pm.request.headers.upsert({key:'headerN',value: 'valueN'})
+ │ pm.request.headers.remove(name)│
+ ├ RESPONSE ──────────────────────┤
+ │ pm.response.code:Number        │
+ │ pm.response.status:String      │
+ │ pm.response.headers:HeaderList │
+ │ pm.response.responseTime:Number│
+ │ pm.response.responseSize:Number│
+ │ pm.response.text() → String    │
+ │ pm.response.json() → Object    │
+ ├ info ──────────────────────────┤
+ │ pm.info.eventName := prerequest| test
+ │ pm.info.iteration:Number       │
+ │ pm.info.iterationCount:Number  │
+ │ pm.info.requestName:String     │
+ │ pm.info.requestId:String   <- unique GUID
+ ├ pm.cookies ────────────────────┤
+ │ pm.cookies.has(sKey)           │
+ │ pm.cookies.get(sKey)           │
+ │ pm.cookies.toObject() → Object │
+ │ pm.cookies.jar() → Object      <- specify domain for access to request cookies.
+ │ To enable programmatic access: │
+ │ 1) add the cookie URL to the allowlist.
+ │                                │
+ │ jar.set("httpbin.org",         │     <- URL:String
+ │         "session-id", "abc123",│     <- Set cookie using name+value.
+ │         └───────────────────┴─········ Alt: use PostmanCookie|compatible object
+ │                                │        { name, value, isHTTPOnly }
+ │         (e, cookie) => {       │     <- Callback
+ │           if (e) { throw e };  │
+ │           console.log(`Cookie:${cookie}`);
+ │         }                      │
+ │ );                             │
+ │ jar.get(URL, cookieName, callback (error, value))   <- Get cookie from cookie-jar
+ │ jar.getAll(URL         , callback (error, cookies)) <- Get all the cookies
+ │ jar.unset(URL, token, callback(error))              <- Remove cookie
+ │ jar.clear(URL:String, callback (error)) → Object    <- Clear all cookies from jar
+ └────────────────────────────────┘
+
+• SENDING (ASYNC) REQUESTS FROM PRE-REQUEST|TEST SCRIPTs.
+  =======================================================
+  const GET_REQUEST01  = 'https://.../post',    <- Alt 1: Simplified GET      REQUEST
+  const POST_REQUEST01 = {                      <- Alt 2: detailed   POST/PUT REQUEST
+    url: 'https://postman-echo.com/post',
+    method: 'POST',
+    header: {
+      'Content-Type': 'application/json',
+      'X-Foo': 'bar'
+    },
+    body: {
+      mode: 'raw',
+      raw: JSON.stringify({ key: '...' })      <- Converting JSON to "RAW STRING"
+    }
+  };
+  pm.sendRequest(POST_REQUEST01,               <- TRIGGERS ASYNC REQUEST
+    (err, resp) => { if (err) { ... }
+    pm.test('...', () => {
+      pm.expect(e).to.equal(null);
+      pm.expect(resp).to.have.property('code', 200);
+      pm.expect(resp).to.have.property('status', 'OK');
+    });
+  });
+
+  ┌─ COMPLEX WORKFLOWS ─────────────────────────────────────────────────┐
+  │ ─ When you running a collection Postman will run the requests in:   │
+  │   ─  DEFAULT ORDER or                                               │
+  │   ─  ORDER SPECIFIED WHEN SETTING UP THE TEST.                      │
+  │                                                                     │
+  │   THIS ORDER CAN BE OVERRIDING USING pm.setNextRequest              │
+  │                                                                     │
+  │ PATTERN: use 'NEXT' enviroment-scoped state var as "state machine"  │
+  │ for non-trivial workflows. e.g:                                     │
+  │                                                                     │
+  │ request 1 "pushes" NEXT pointing to itself (pm.info.requestId):     │
+  │   pm.environment.set('NEXT', pm.info.requestId)                     │
+  │                                                                     │
+  │ request 2 "pulls" NEXT  and calls back request 1:                   │
+  │   postman.setNextRequest(pm.environment.get('NEXT'));               │
+  └─────────────────────────────────────────────────────────────────────┘
+    WARN: setNextRequest has NO effect when running isolated requests.
+          only running collections or Newman.
+
+• SCRIPTING POSTMAN VISUALIZATIONS
+  ================================
+    pm.visualizer.set(      <- set template to for response data in 'Postman Visualizer'
+      `<p>{{res.info}}</p>`,       <- HTML template
+      { res: pm.response.json() }, <- (opt): JSON accessible inside template string
+      options:Object               <- (opt): Options for Handlebars.compile()
+    )
+
+    pm.getData( (error, data) => { <- Building Response data into Visualizations
+      var value = data.res.info;      (tpl string)
+    });
+
+• USING EXTERNAL LIBRARIES
+  require(moduleName:String)
+
+  └ SANDBOX BUILT-IN LIBRARY MODULES:
+    ajv       : JSON schema validator
+    atob      : ASCII  to Base64 lib.
+    btoa      : Base64 to ASCII lib.
+    chai      :
+    cheerio   : markup-to-tree parsing + traversing/manipulating API
+    crypto-js :
+    csv-parse/lib/sync:
+    lodash    : ("latest" with v3.10.1 preloaded)
+    moment    : Deprecated/legacy JS 'date' library
+    postman-collection:
+    tv4       :
+    uuid      :
+    xml2js    :
+  └ NODEJS MODULES:
+    path , assert  , buffer  , util  , url  ,
+    querystring , string-decoder  , stream  , timers  , events
+    punycode (Convert complex codings to/from ASCII).
+[[}]]
+
+# Running Collections on the command-line with newman: [[{]]
+  # REF: https://learning.postman.com/docs/running-collections/using-newman-cli/newman-options/
+  npx newman run \                 <- Official docker images supported:
+    --env-var "host=${IP}" \          docker run -t postman/newman run ...
+    --env-var "port=15000" \
+    --color off \
+    --disable-unicode  \
+    --insecure \
+    project01_collection.json
+
+  # BASIC OPTIONS:
+  # ==============
+  # -e, --environment $file_or_URL
+  # -d, --iteration-data $file
+  # -g, --globals $file
+  # -n, --iteration-count $number
+  # --working-dir $path         work path to use while reading files with relative paths. Def: CWD
+  # --no-insecure-file-read     Prevents reading of files situated outside work-dir.
+  # --export-environment [path] file_path output for final environment variables file before completing a run
+  # --export-globals [path]     file_path output for final global variables file before completing a run
+  # --export-collection [path]  file_path output for final collection file before completing a run
+  #
+  # REQUEST OPTIONS
+  # ===============
+  # --delay-request   $millisec_delay_between_request
+  # --timeout         $millisecs_for_entire_collection_execution
+  # --timeout-request $millisecs
+  # --timeout-script  $millisecs_timeout_for_scripts
+  #
+  # MISCELLANEOUS OPTIONS
+  # =====================
+  # --bail                      Stops runner when a test-case fails.
+  # --silent                    Turn off terminal output.
+  # --color off                 (auto*|on|off)
+  # --disable-unicode
+  # --insecure                  Turn off strict SSL.
+  # --suppress-exit-code        Continue running tests even after a failure AND exit with code=0
+  # --ignore-redirects          Turn off automatic following of 3XX responses.
+  # --verbose                   Show detailed information of collection run and each request sent.
+  # --cookie-jar [path]         Specify the file path for a JSON Cookie Jar. Uses tough-cookie to deserialize the file.
+  # --export-cookie-jar $path]  path to-file where Newman will output final cookie jar file before completing a run.
+  # --global-var "GLOBAL_VAR_NAME=SOME_VALUE"
+  # --env-var "ENV_VAR_NAME=SOME_VALUE"
+
+• USING NEWMAN AS A NODE.JS LIBRARY: <- This allows to integrate Postman test with other types of tests.
+  var newman = require('newman');
+  const RUN_OPTIONS = {
+    collection: require('./sample-collection.json'),
+    reporters: 'cli'
+  }
+  const RUN_CALLBACK = (err) => {
+      if (err) { throw err; }
+      console.log('collection run complete!');
+  }
+  newman.run(RUN_OPTIONS, RUN_CALLBACK);
+
+• UPLOADING FILES (relative location to collection).
+
+  ┌─ file─upload.postman_collection.json ─────────
+  │   $ newman run file-upload.postman_collection.json
+  │ {
+  │   "variables": [],
+  │   "info": {
+  │     "name": "file-upload",
+  │     "_postman_id": "9dbfcf22-fdf4-f328-e440-95dbd8e4cfbb",
+  │     "schema": "https://schema.getpostman.com/json/collection/v2.0.0/collection.json"
+  │   },
+  │   "item": [
+  │     {
+  │       "name": "FORM DATA UPLOAD",
+  │       "request": {
+  │         "description": "Upload file as FORM-DATA field using a 'POST' request."
+  │         "url": "https://postman-echo.com/post",
+  │         "method": "POST",
+  │         "header": [],
+  │         "body": {
+  │           "mode": "formdata",
+  │           "formdata": [
+  │             { "key": "file",
+  │               "type": "file",
+  │               "enabled": true,
+  │               "src": "sample-file.txt" }
+  │           ]
+  │         },
+  │       },
+  │       "event": [
+  │         {
+  │           "listen": "test",
+  │           "script": {
+  │             "type": "text/javascript",
+  │             "exec": [
+  │               "var response = JSON.parse(responseBody).files[\"sample-file.txt\"];",
+  │               "",
+  │               "tests[\"Status code is 200\"] = responseCode.code === 200;",
+  │               "tests[\"File was uploaded correctly\"] = /^data:application\\/octet-stream;base64/.test(response);",
+  │               ""
+  │             ]
+  │           }
+  │         }
+  │       ]
+  │       "response": []
+  │     }
+  │   ]
+  │ }
+  └───────────────────────────────────────────────
+
+• USING NEWMAN CUSTOM (COLLECTION RUN) REPORTERS
+
+ - Use case example:
+   - logging out response body when a request (or its tests) fail.
+
+
+ - custom reporter: Node.js module with name 'newman-reporter-$name' or @myorg/newman-reporter-$name
+
+   /- index.js ---------------------
+   | function (emitter, reporterOptions, collectionRunOptions) {
+   |   // emitter              : event emitter triggering newmanrunevents (https://github.com/postmanlabs/newman#newmanrunevents)
+   |   // reporterOptions      : object of the reporter specific options.
+   |   // collectionRunOptions :
+   |   // https://github.com/postmanlabs/newman#newmanrunoptions-object--callback-function--run-eventemitter
+   | };
+
+   2) Publish reporter using npm publish,
+
+
+   3) Use it:
+   $ npm install newman-reporter-teamcity
+
+   cli:
+   $ newman run collection.json -r teamcity --reporter-myreporter-$OPTION_NAME $OPTION_VALUE  # (option is optional)
+
+   programatically:
+   var newman = require('newman');
+   newman.run({
+      collection: 'collection.json',
+      reporters: 'myreporter',
+      reporter: {
+        myreporter: {
+          'option-name': 'option-value'
+        }
+      }
+   }, function (err, summary) {
+     ...
+   });
+[[}]]
+
+# Code generator library  [[{]]
+  - https://learning.postman.com/docs/developer/code-generators/
+  - https://github.com/postmanlabs/postman-code-generators
+  Utility to auto-generate client-code for API collections in any supported lang:
+  Currently:  csharp ,shell curl/libcurl/wget/httpie ,dart ,golang ,http ,java ,
+              js/nodejs, objective-c, ocaml, php, powershell, python, Rlang, ruby
+  (https://github.com/postmanlabs/postman-code-generators/tree/develop/codegens)
+
+  - PRESETUP
+    └ Alt 1) npm
+      $ npm install --save-dev postman-code-generators (NodeJS+npm preinstalled)
+        ...
+        added 78 packages, and audited 79 packages in 1m
+
+    └ Alt 2) git + npm
+      $ git clone https://github.com/postmanlabs/postman-code-generators.git
+      $ npm install;             <- install all dependencies in production mode.
+      $ npm run deepinstall dev; <- install dev dependencies also for all codegens run:
+
+  PROGRAMATIC USSAGE:
+
+  const TARGET_CLIENT_LAN = 'nodejs'
+  const TARGET_CLIENT_VARIANT = 'request'
+  const CODEGEN = require('postman-code-generators'),
+  const SDK = require('postman-collection'),
+  const REQUEST01 = new SDK.Request('https://www.google.com'),
+
+  console.log(CODEGEN.getLanguageList()); <- Get supported lang. list
+
+  CODEGEN.getOptions(                 <- (optional) find supported config
+     TARGET_CLIENT_LAN,               options for target (language,variant)
+     TARGET_CLIENT_VARIANT,
+     (error, opts) => {... .log(opts);}
+     } );
+
+  const CONVERT_OPTIONS = {
+          indentCount: 3,
+          indentType: 'Space',
+          trimRequestBody: true,
+          followRedirect: true
+        };
+
+  CODEGEN.convert(
+     TARGET_CLIENT_LAN,
+     TARGET_CLIENT_VARIANT,
+     REQUEST01, CONVERT_OPTIONS,
+     (error, snippet) => {... .log(snippet);}
+  });
+[[}]]
+
+# Collection SDK (CI/CD Pipelines): [[{]]
+  http://www.postmanlabs.com/postman-collection/
+  https://github.com/postmanlabs/postman-collection
+   The Collection SDK provides an interface for working with
+  the data structures defined by the Postman Collection Schema.
+  creating/modifying collection elements, define request detail,
+  variables, authentication, :..
+
+  const         FS   = require('fs'),
+        COLLECTION   = require('postman-collection').Collection;
+
+  const STRING_INPUT = FS.readFileSync('collection01.json').toString() // <- read collection file as string
+  const myCollection = new COLLECTION(JSON.parse(STRING_INPUT));       // <- parse to collection object
+
+[[}]]
+
+
+# TODO:
+- Postman Utilities:
+  - https://learning.postman.com/docs/developer/intro-api/
+  - https://learning.postman.com/docs/developer/echo-api/
+  - https://learning.postman.com/docs/developer/runtime-library/
+  - https://learning.postman.com/docs/developer/collection-conversion/
+    convert from a variety of API formats into Postman Collections.
+    (Currently OpenAPI, Swagger, RAML, or GraphQL schema)
+
+
+- https://github.com/AmadeusITGroup/Postman-Orchestrator 
+
+- https://github.com/postmanlabs/newman/blob/develop/examples/find-unique-urls-in-run.js
+
+## https://github.com/BBVA/apicheck
+   APICheck focuses not only in the security testing and hacking use
+   cases. The goal of the project is to become a complete toolset for
+   DevSecOps cycles.
+[[}]]
+

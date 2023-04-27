@@ -1,0 +1,172 @@
+NOTE: Package bundler "==" assets bundle +  runtime module "loader"
+
+# WebPack Summary [[{dev_lang.js.webpack]]
+
+WARN: `esbuild` (golang based) is probably preferred for new projects with "big" codebases,
+       but `webpack` is still the most widely used HTML/JS/CSS packager.
+
+- Requirements: Node.JS 10.13.0+ (2021-11)
+$ $ npm init -y                                  ← Init new NodeJS proyect (package.json)
+$ $ npm  --development webpack                   ← add webpack dev.dependency
+$ $ npm  --development webpack-dev-server        ← web server enabling page reload on changes.
+$ $ npm  css-loader style-loader --save-dev      ← css bundler.
+$ $ npm  --save-dev typescript ts-loader         ← Typescript support. (requires extra tsconfig.json)
+
+┌    webpack.config.js  ──────────────────┐ ← NOTE: It's a JS file (not JSON file)
+│ 'use strict'                            │
+│                                         │
+│ const debug = process.env.NODE_ENV !==  │
+│               "production"              │
+│ const ExtractText =                     <·· moves all required *.css modules in entry chunks into isolated CSS file.
+│  require('extract-text-webpack-plugin'),│   (avoid inlining CSS inside JS bundle, loading an caching in parallel)
+│       path = require('path'),           │
+│    webpack = require('webpack')         │
+│                                         │
+│ module.exports = {                      │
+│   mode: 'production' ←···················· := development | production | none
+│   context: __dirname,                   │
+│   devtool: debug ? 'inline-sourcemap'   │
+│                  : null                 │
+│                                         │
+│   entry: {   <···························· Where to start when resolving dependencies.
+│     myApp : './src/app.js',    <·········· typical entrypoint for NodeJS we are working on (frequent changes) (other examples index.ts , ...)
+│     vendor: './src/vendor.js', <·········· (react/images/...) mods. NOT CHANGING over rebuilds(output CACHED after 1st build)
+│                                         │
+│     entry3: {                  <·········· Example entry showing all options allowed.
+│       dependOn: [...]            <········ Must be loaded before this.
+│       filename: ...              <········ Set output file name. e.g.: '[name].[contentHash].bundle.js'
+│       import  : ...              <········ RUNTIME mods loaded upon startup  (afte build and packaging)
+│       library: ...               <········ Lib.options to bundle a lib. More info at:
+│                                         │@[https://webpack.js.org/configuration/output/#outputlibrary]
+│       runtime: ...               <········ If set, a new runtime chunk will be created (incompatible with dependOn)
+│       publicPath: ...            <········ Public external URL address for output files
+│     }                                   │
+│   }                                     │
+│                                         │
+│   output: {                             │
+│     path : "./" , filename:"bundle.js" <··· must match <script src="bundle.js" /> @ index.html
+│   },                                    │   Or filename: '$name.build.js' where $name is replaced in multi-
+│                                         │   output packages by myApp, vendor, entry3, ....
+│                                         │
+│   module: {                   <··········· Extension point (vs 'plugins' that offer wider ranges of task)
+│                                         │
+│     rules: [                    <········· Ordered list of rules for loaders
+│       {                                 │
+│         test: /\.txt$/          <········· Apply to files matching regex
+│        ,use : 'raw-loader'      <········· Loader (transformer) to use for matching file
+│       },                                │
+│                                         │
+│       { test: /\.css$/,         <········· embed output css in bundle.js (discouraged)
+│         loader: 'style!css'             │  alternatively, to output css to styles.css:
+│                                         │  loader: ExtractText.extract('style', 'css')
+│       }                                 │
+│       { test: /\.tsx?$/,        <········· TS rules (.ts, .tsx)
+│         use: 'ts-loader',       <········· Alt: 'babel-loader', ...
+│         exclude: /node_modules/,        │
+│       }                                 │
+│     ]                                   │
+│   },                                    │
+│                                         │
+│   resolve: {                    <········· type-script support.
+│     extensions: ['.tsx', '.ts', '.js'], │
+│   },                                    │
+│                                         │
+│   plugins: debug ? [] : [       <·········  Plugins allow wider range of tasks than loaders,
+│                                         │   (e.g.: bundle optimization, ENV.VARs injection,...)
+│     new HtmlWebpackPlugin(              │
+│       { template:                       │┌ inspectpack de-duplicate plugin:
+│            '.../tpl.html' }             │· ================================
+│     )                                   │· STEP 1) metalevel tips:
+│     ,                                   │·    - Look for identical code sources.
+│     new webpack.optimize.DedupePlugin(),←┘    - Change dependencies in root package.json:
+│     new webpack.optimize                │       (WARN: commit package.json & package-json.lock first)
+│         .OccurenceOrderPlugin(),        │     - Critically examine and scrutinize your dependencies:
+│     new webpack.optimize                │       Do you really need all of the bundled packages?
+│         .UglifyJsPlugin({               │
+│          mangle: false,sourcemap: false │  STEP 2) potentially force packages and code sources to collapse
+│     })                                  │  to single entities, even if the normal rules of npm/yarn/webpack
+│       ],                                │  would prevent it.
+│     , new XXX...Plugin(...)             │    - Set resolve.alias in webpack.config.js
+│   ],                                    │      Direct webpack to use a single package when resolving dependencies
+│ }                                       │      that would follow normal (multi-package) resolution.
+└─────────────────────────────────────────┘    - Set the resolutions field with yarn:  Direct yarn (not available
+                                                 on npm) to resolve packages to a single version, overriding what is
+                                                 normally considered an allowed resolution and node_modules
+                                                 installation. This work better with TS than with JS modules,
+                                                 due to the natural tendency of JS to break even for minor
+                                                 version upgrades.
+                                                 TIP: Don't use JS for module/lib development.
+                                                 More info at:
+                              @[https://formidable.com/blog/2018/finding-webpack-duplicates-with-inspectpack-plugin/]
+
+### WebPack ussage (once configured)
+```bash
+  $ webpack ...         \  <·· Alt 1: use. package app
+    --watch             \      ← monitor changes and rebuild automatically
+    --progress --colors \        http://localhost:8080/webpack-dev-server/
+    -p                  \      ← production optimizations (slower during dev)
+    --display-modules          ← show intermediate modules using during packing.
+                               Use --config ..../webpack.config.js  to overload default path
+
+  $ webpack-dev-server \   <·· Alt 2: web server autoreloading web page on changes!!!.
+    --hot \                    Hot Module Replacement (HMR) "magically" keeps the internal state
+    --inline                   of the Web App (and potentially the UI if tied to the state)
+```
+
+## What's new [[{]]
+@[https://www.infoq.com/news/2020/10/webpack-5/]
+## Webpack 5.0:
+  rethinks some core architectural decisions focusing on:
+  ✓ Improved performance (persistent and long-term) caching
+  ✓ Improved algorithm defaults
+  ✓ Improved bundle sizes (better Tree Shaking and Code generation)
+  ✓ Improved compatibility with web platforms
+  ✓ clean up internal structures inR "weird state" while implementing features in v4
+  ✓ Preparing for LTS (no breaking changes after 5)
+  • two key changes have caught the attention of JS community:
+    · Module Federation
+    · change in default behavior for the Node.js API polyfills.
+[[}]]
+[[dev_lang.js.webpack}]]
+
+# Esbuild (x100 faster) [[{dev_lang.js.esbuild]]
+@[https://www.infoq.com/news/2020/06/esbuild-faster-go-js-bundler/]
+* written in golang and multi-core as base.
+* Extreme speed without needing a cache (up to 100x faster)
+* Support fo JS/TypeScript/JSX built-in
+* straightforward API for CLI,JS and Go
+* Supports ESM (ES6 Modules) and CommonJS modules
+* Tree shaking, minification, and source maps
+* Local server, watch mode, and plugins
+
+* Vite uses esbuild for fast packaging (esbuild for Vue???)
+  * designed with ES modules in mind from the scratch removing the need for "old bundling".
+  * Vite divides modules into:
+    1. Dependencies: with little/no-change during development,
+       shipped in various module formats (e.g. ESM or CommonJS).
+    2. Source code: often non-plain standard (JSX/Vue/Svelte components)
+       that needs transforming, and edited very often.
+    • seeks to bring order-of-magnitude speed improvements in
+      JS bundling+minification. (10x-100x)
+      0.37 secs vs 63 secs pf webpack 5!!!!
+[[dev_lang.js.esbuild}]]
+
+# Rome v10: Integrated Toolchain [[{dev_lang.js.rome,01_PM.TODO]]
+  https://www.infoq.com/news/2022/11/rome-v10-stable-release-linter/
+* All-In-One, Integrated Front-End Toolchain (linter, formatter, ...)
+  aiming to unify the dozens of frontend language tools into a single
+  easy-to-use tool built from scratch for JS,TS,HTML,JSON,MD and CSS.
+  """I really hope @rometools accomplishes for linting/formatting/testing
+     what esbuild did for compilation."""
+* designed to replace Babel, ESLint, webpack, Prettier, Jest and others.
+* Rust rewrite, up 2 ORDERS OF MAGNITUDE FASTER than ESLint and Prettier
+  (tested on a large codebase of over 400 files)
+* Available as VSCode extension.
+* Minimal configuration.
+* beautiful and descriptive diagnostics
+* built-in support for JavaScript and TypeScript.
+* WARN: type bundling & (type)doc generation still remain painfully slow.
+
+* Rome formatter aims at feature parity with Prettier, the de-facto
+  standard for code formatting in the front-end community.
+[[dev_lang.js.rome}]]
