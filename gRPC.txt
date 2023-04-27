@@ -1,6 +1,6 @@
-● gRPC
-[[{protocol.grpc,dev_lang.java,code.async,20_qa,api_management]]
-● Summary #[grpc_summary]
+# gRPC
+[[{protocol.grpc,dev_lang.java,arch.async,20_qa,api_management]]
+# Summary #[grpc_summary]
 @[https://grpc.io/]
 @[https://en.wikipedia.org/wiki/GRPC]
 - Cloud Native Foundation project (initial develop:Google)
@@ -116,7 +116,7 @@ A: For handled exceptions, call responseObserver.onError().
    called for the executor).
 
 ────────────────────────────────────────────────────────────────────────────────
-● grpc ecosystem
+# grpc ecosystem
 @[https://github.com/grpc-ecosystem]
 RPC Ecosystem that complements gRPC
 · grpc-gateway      : gRPC to JSON proxy generator following the gRPC HTTP spec
@@ -124,8 +124,8 @@ RPC Ecosystem that complements gRPC
 · grpc-health-probe : cli tool to perform health-checks for gRPC apps
 · ...
 [[}]]
-[[{protocol.grpc,dev_lang.java,code.async,01_PM.WiP]]
-● gRPC JAVA Summary #[grpc_summary_java]
+[[{protocol.grpc,dev_lang.java,arch.async,01_PM.WiP]]
+# gRPC JAVA Summary #[grpc_summary_java]
 
   JAVA SERVER IMPEMENTATION SUMMARY
   service RouteGuide {
@@ -397,7 +397,7 @@ RPC Ecosystem that complements gRPC
 [[}]]
 
 [[{protocol.grpc,02_doc_has.comparative,01_PM.BACKLOG]]
-● Rsocket (gRPC alt)
+# Rsocket (gRPC alt)
 Rsocket authors claim that it's better than gRPC:
 - @[https://github.com/rsocket/rsocket/blob/master/Motivations.md]
 - @[https://medium.com/netifi/rpc-thunder-dome-3103e2449957]

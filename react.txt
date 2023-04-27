@@ -1,4 +1,4 @@
-● React Summary #[react_summary] [[{stack.react.101]]
+# React Summary #[react_summary] [[{stack.react.101]]
   REF: @[https://reactjs.org/docs/]
 • React as declarative "source-of-trust":
 
@@ -34,7 +34,7 @@
   $ npm start
   [[}]]
 
-● JSX summary: [[{]]
+# JSX summary: [[{]]
 - Optional but recommened: allows react to report better error/warnings.
 - Prevent Injection Attacks from external input (XSS cross-site-scripting,...).
   since any values embedded are scaped before rendering
@@ -56,7 +56,7 @@
 
   [[}]]
 
-● Simplest React App [[{]]
+# Simplest React App [[{]]
 
                                       index.html:
   <div id="root"></div>           <·· react "root" DOM
@@ -89,7 +89,7 @@
 
   [[}]]
 
-● STATE MANAGEMENT: [[{]]
+# STATE MANAGEMENT: [[{]]
 
 • Sharing global Inmutable (after initialization) objects: [[{20_QA.INMUTABILITY]]
   REF: https://stackoverflow.com/questions/34351804/how-to-declare-a-global-variable-in-react
@@ -131,7 +131,7 @@
 
     componentDidMount() {                  ← Lifecycle component hook.
       this.timerID = setInterval(
-        () => { this. setState ({          ← [[{KEY-POINT]] call setState to notify react
+        () => { this. setState ({          ← [[{02_doc_has.keypoint]] call setState to notify react
             date: new Date() } )             about state-changes to schedule redrawing
                                              on next "tick" [[}]]
         } , 1000)                            WARN : Never change this.state directly
@@ -160,7 +160,7 @@
 
 
 
-● HANDLING EVENTS:
+# HANDLING EVENTS:
 
   class Toggle extends React.Component {
 
@@ -195,7 +195,7 @@
     }
   }
 
-● CONDITIONAL RENDERING:
+# CONDITIONAL RENDERING:
   function MyComponent(props) {
     ...
     if (condition1) { return null;  }  ← Return null to skip rendering
@@ -204,7 +204,7 @@
       : <Component2 />
   }
 
-● LISTS AND KEYS:
+# LISTS AND KEYS:
   function NumberList(props) {
     const number_l = props.number_l;
     const listItems = number_l.map(       ← Use standard Ecmascript "map"
@@ -215,7 +215,7 @@
                                                ...
                                                <NumberList number_l={number_l} />
 
-● FORMS (Controlled Components): [[{]]
+# FORMS (Controlled Components): [[{]]
 
   class NameForm extends React.Component {
     constructor(props) {
@@ -279,7 +279,7 @@
   }
 [[}]]
 
-● REACT SHARED CONTEXT [[{react.context]]
+# REACT SHARED CONTEXT [[{react.context]]
   https://reactjs.org/docs/context.html
 
   - Context provides a way to pass data through the component tree
@@ -331,7 +331,7 @@ API:  Class.contextType Context.Consumer Context.displayName
 
 [[react.context}]]
 
-● BASIC REACT Hooks API Reference  (16.8+) [[{react.hooks]]
+# BASIC REACT Hooks API Reference  (16.8+) [[{react.hooks]]
   REF: @[https://reactjs.org/docs/hooks-reference.html#additional-hooks]
 • const [state, setState] = useState(initialState);
 
@@ -457,7 +457,7 @@ API:  Class.contextType Context.Consumer Context.displayName
 
 
 
-● BEST PATTERNS: [[{qa.best_patterns]]
+# BEST PATTERNS: [[{20_qa.best_patterns]]
   - If two components need to reflect the same changing data
     put such data as prop (immutable in both) and move the state
     to a container "parent".
@@ -484,9 +484,9 @@ API:  Class.contextType Context.Consumer Context.displayName
     suggest extracting it into a separate JavaScript module.
     The components may import it and use that function, object,
     or a class, without extending it.
-[[qa.best_patterns}]]
+[[20_qa.best_patterns}]]
 
-● Formik Forms [[{stack.react,code.low_code,qa,01_PM.BACKLOG]]
+# Formik Forms [[{stack.react,01_PM.low_code,20_qa,01_PM.BACKLOG]]
 @[https://formik.org/]
 - orchestrate validation and submission: values/errors/visited fields
 - focus on business logic.
@@ -495,12 +495,12 @@ API:  Class.contextType Context.Consumer Context.displayName
 - No use of external state management libraries like Redux or MobX.
 - Keeps bundle size to a minimum. [[}]]
 
-● React Router [[{stack.react.101,01_PM.BACKLOG]]
+# React Router [[{stack.react.101,01_PM.BACKLOG]]
 - collection of navigational components that compose declaratively
   with your application for bookmarkable URLs , composable way to
   navigate in React Native, ...  [[}]]
 
-● React Suspense [[{stack.react.redux,02_doc_has.comparative,01_PM.BACKLOG]]
+# React Suspense [[{stack.react.redux,02_doc_has.comparative,01_PM.BACKLOG]]
  (alt. to Redux)
 @[https://www.infoq.com/news/2018/12/react-suspense-redux-alternative]
 
@@ -509,7 +509,7 @@ server-side data, then Suspense could replace your redux usage. I’d consider
 it because you’d have simpler code and the ability to tame all those spinners."
 [[}]]
 
-● React Native [[{react,mobile.native,mobile.android,mobile.iOS,01_PM.BACKLOG]]
+# React Native [[{react,mobile.native,mobile.android,mobile.iOS,01_PM.BACKLOG]]
 @[https://reactnative.dev/]
 - Replaces web components by native Android/iOS/... ones.
 
@@ -582,7 +582,7 @@ See also:
 
 [[}]]
 
-● Redux summary #[redux_summary]                                      [[{react.redux]]
+# Redux summary #[redux_summary]                                      [[{react.redux]]
   Official redux template :
 @[https://github.com/reduxjs/cra-template-redux]
     - already configured with a standard Redux application structure,
@@ -834,7 +834,7 @@ See also:
     Provide alternative UIs while reusing most of the business logic.
 [[react.redux}]]
 
-● - React+Flux Docker Dev Workflow [[{react.redux,devops,01_PM.TODO]]
+# - React+Flux Docker Dev Workflow [[{react.redux,devops,01_PM.TODO]]
    @[https://medium.com/@tribou/react-and-flux-a-docker-development-workflow-469957f3bbf0]
     [[}]]
 

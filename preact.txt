@@ -1,4 +1,4 @@
-● Preact
+# Preact
 @[https://github.com/preactjs/preact]
 
 Fast 3kB alternative to React with the same modern API.
@@ -13,7 +13,7 @@ without fighting to keep a framework under control.
 
 
 
-● let vdom = {        ←  Virtual DOM:
+# let vdom = {        ←  Virtual DOM:
     type: 'p',           Declarative description of desired tree-structure
     props: {             to be build/rendered after receiving inputs.
       class: 'big',
@@ -21,7 +21,7 @@ without fighting to keep a framework under control.
     }                      props.children (this 'children' props always exists)
   }
 
-● BUILDING the Virual DOM Programatically: [[{]]
+# BUILDING the Virual DOM Programatically: [[{]]
   │Vanilla JS              │JSX:               │htm:              │
   │─────────────────────── │───────────────────│──────────────────│
   │import {                │import {           │import {          │
@@ -39,7 +39,7 @@ without fighting to keep a framework under control.
   │   document.body);      │   document.body); │   document.body);│
 [[}]]
 
-● DEFINING A COMPONENT (Button01)
+# DEFINING A COMPONENT (Button01)
 
 const onClicked = () => { ...  }     <- Standard JS function
 function Button01(props) {           <- Define a custom function component  'Button01' *1
@@ -118,7 +118,7 @@ function Button01(props) {           <- Define a custom function component  'But
 │ render(vdom, document.body)               <- Trigger rendering execution.
 └───────────────────────────────────────────┘
 
-● WRAPPER (decorator) COMPONENT using props.children ─────────────────
+# WRAPPER (decorator) COMPONENT using props.children ─────────────────
   function Wrapper1(props) {         ← Ussage:
      <table>                           <Wrapper1>... some complex html ...</Wrapper1>
      <tr>
@@ -127,7 +127,7 @@ function Button01(props) {           <- Define a custom function component  'But
      </table>
   }
 
-● ── Refs ───────────────────────────────────────────────────────────────────
+# ── Refs ───────────────────────────────────────────────────────────────────
   Used to store Browser's DOM-reatled information during rendering.
   (whose changes are NOT tracked by Preact once rendered). E.g. Ussae
   const ref2DOM = createRef()              // <- create new ref. (to Browser DOM)
@@ -138,7 +138,7 @@ function Button01(props) {           <- Define a custom function component  'But
 
   BEST-PATTERN: scope refs to classes (vs global)
 
-● ── CONTEXT ────────────────────────────────────────────────────────────────
+# ── CONTEXT ────────────────────────────────────────────────────────────────
   PROBLEM: Different Components at various locations within the tree need
     to access common data. (authentication data, user profile info,
     caches, storage, etc.)

@@ -1,4 +1,4 @@
-●  Apropos:
+#  Apropos:
 - Visit next Web site for a great experience:
   https://earizon.github.io/txt_world_domination/viewer.html?payload=../WebTechnologies/CSS.txt
 
@@ -14,7 +14,7 @@ TODO:
 - @[https://css-tricks.com/learning-to-learn/]
 
 
-● CSS Selectors #[css_selector_summary]
+# CSS Selectors #[css_selector_summary]
 • BY COORDINATE:
   selector           Example          Example description
   --------           -------          ------- -----------
@@ -88,7 +88,7 @@ TODO:
   :lang(language)    p:lang(it)      match every <p> element with lang attribute "it"
 
 ────────────────────────────────────────────────────────────────────────────────
-● CSS variables
+# CSS variables
 • CSS variables (also called CSS custom properties) let express dynamic
   relations among CSS properties.
   · Declared by prefixing their names with --. e.g. --background
@@ -131,7 +131,7 @@ TODO:
       Frameworks require overhead of both kb and onboarding.
     ... Write only what you need, use variables as the backbone. """
 ────────────────────────────────────────────────────────────────────────────────
-● calc(ulated)
+# calc(ulated)
 •   WARN : css calc(ulated) can slow down rendering according to some sources.
 • E.g. extracted from @[https://developer.mozilla.org/en-US/docs/Web/CSS/calc()]
   width: calc(10px + 100px);
@@ -155,7 +155,7 @@ TODO:
 
   • inherit      · Inherits property from parent element.
 ────────────────────────────────────────────────────────────────────────────────
-● CSS Layout
+# CSS Layout
 • Layout mode:
   algorithm that determines position+size of boxes based on
   how they interact with sibling and ancestor boxes:
@@ -211,7 +211,7 @@ TODO:
         sibling floating elements to its right/left.
         (the element itself can be or not floating).
 
-● Responsive 101 #[html_responsive_summary] [[{dev_lang.css.101,mobile,20_QA.responsive]]
+# Responsive 101 #[html_responsive_summary] [[{dev_lang.css.101,mobile,20_QA.responsive]]
 There are two main aspects to consider when adapting a web "page"
 to be used on mobiles and desktops (and TVs, ...)
 • #################################
@@ -323,8 +323,8 @@ to be used on mobiles and desktops (and TVs, ...)
     }
 [[}]]
 
-[[{dev_lang.css,code.low_code,20_QA,01_PM.TODO]]
-● Tailwindcss
+[[{dev_lang.css,01_PM.low_code,20_QA,01_PM.TODO]]
+# Tailwindcss
 @[https://tailwindcss.com/]
 • “Best practices” don’t actually work.
 """ I’ve written a few thousand words on why traditional
@@ -335,7 +335,7 @@ to be used on mobiles and desktops (and TVs, ...)
   with CSS any other way."""
 
 ────────────────────────────────────────────────────────────────────────────────
-● RunCSS @ma
+# RunCSS @ma
 @[https://github.com/mudgen/runcss] by Nick Mudge (@[http://www.perfectabstractions.com/])
 • RunCSS is a runtime version of TailwindCSS. It has no build. RunCSS
   provides all the same CSS utility class names that we know and love
@@ -364,7 +364,7 @@ to be used on mobiles and desktops (and TVs, ...)
 
 
 [[{dev_lang.css.101]]
-● CSS Flex/Grid #[css_flex_summary]
+# CSS Flex/Grid #[css_flex_summary]
 REF: @[http://flexbox.malven.co/] by @[https://malven.co/]
   ELEMENT FLEX PROPERTIES RELATIVE TO ***PARENT CONTAINER***
 
@@ -449,7 +449,7 @@ REF: @[http://flexbox.malven.co/] by @[https://malven.co/]
 [[}]]
 
 [[{dev_lang.css.101,01_PM.WiP]]
-● CSS Grid #[css_grid_summary]
+# CSS Grid #[css_grid_summary]
 REF: @[http://grid.malven.co/] by @[https://malven.co/]
 
 • CSSgrid generator: online visual Grid design tool.
@@ -555,9 +555,9 @@ REF: @[http://grid.malven.co/] by @[https://malven.co/]
 [[$div}]]
 
 [[{$div]]
-● CSS Cont.
+# CSS Cont.
 [[{dev_lang.css.101]]
-● CSS3 Animations #[css_animations_summary]
+# CSS3 Animations #[css_animations_summary]
 • Animations allows to gradually change an element's CSS properties from
   initial style/value to final one.
 
@@ -600,7 +600,7 @@ div {                               ← Animation will apply to all div's
   · Advanced CCS3 animations using SVG can be
   @[http://css3.bradshawenterprises.com/cfimg/]
 ────────────────────────────────────────────────────────────────────────────────
-● Profiling
+# Profiling
 • Problem Context :
   Performance issue when adding CSS-based animation (dropped frames)
     : Are there any tools to debug/profile the issue?
@@ -627,7 +627,7 @@ div {                               ← Animation will apply to all div's
 [[}]]
 
 [[{dev_lang.css,01_PM.TODO]]
-● CSS Logical Props.
+# CSS Logical Props.
 @[https://developer.mozilla.org/en-US/docs/Web/CSS/CSS_Logical_Properties]
 • CSS Logical Properties and Values CSS modules introduces
   logical properties and values that provide the ability to
@@ -642,7 +642,7 @@ div {                               ← Animation will apply to all div's
 
 
 [[{]]dev_lang.css.101," >
-● CSS Background
+# CSS Background
 • background-color: red;
 
 • Image background attributes:
@@ -674,9 +674,9 @@ div {                               ← Animation will apply to all div's
 [[$div}]]
 
 [[{$div]]
-● Fonts/Art Gallery
+# Fonts/Art Gallery
 [[{dev_lang.css]]
-● fontsquirrel
+# fontsquirrel
 Declaring external font:
 @font-face
 {
@@ -711,7 +711,7 @@ h1 { font-family: 'MyFontFamilyName'; }
 [[}]]
 
 [[{dev_lang.css]]
-● "fonts for pros"
+# "fonts for pros"
 https://type-scale.com/
 CSS :
 From: @[https://www.infoq.com/news/2020/06/css-variables-design-systems/]
@@ -742,7 +742,7 @@ Extra typography resources include
 [[}]]
 
 [[{dev_lang.css,02_doc_has.resource]]
-● Art Gallery
+# Art Gallery
 Icon Gallery:
 @[https://github.com/NitruxSA/nitrux-icons]
 @[http://tiheum.deviantart.com/art/Faience-icon-theme-255099649]
@@ -750,9 +750,9 @@ Icon Gallery:
 @[http://0rax0.deviantart.com/art/Uniform-Icon-Theme-453054609]
 @[http://gnome-look.org/content/show.php/Dalisha?content=166286]
 [[}]]
-● Others
+# Others
 [[{dev_lang.css,20_QA.accesibility,]]
-● Colors-for-all
+# Colors-for-all
 @[https://github.com/AmadeusITGroup/Colors-for-All]
 • Tool enabling to easily check color contrasts and WCAG
   compliance (AA or AAA levels as defined by W3C) between specific
@@ -761,7 +761,7 @@ Icon Gallery:
   people involved in digital accessibility.
 [[}]]
 [[{dev_lang.js,20_QA.responsive,performance,01_PM.TODO]]
-● Resize_Observer_API
+# Resize_Observer_API
 See also: @[https://en.wikipedia.org/wiki/Responsive_web_design]
 @[https://developer.mozilla.org/en-US/docs/Web/API/Resize_Observer_API]
 • The Resize Observer API provides a performant mechanism by which code
@@ -769,7 +769,7 @@ See also: @[https://en.wikipedia.org/wiki/Responsive_web_design]
   being delivered to the observer each time the size changes.
 [[}]]
 [[{]]dev_lang.css," >
-● Apply Masks to images
+# Apply Masks to images
 @[http://www.html5rocks.com/en/tutorials/masking/adobe/]
 
 • Clipping an image:

@@ -1,4 +1,4 @@
-● NativeScript: Native (Android/iOS/...) platform APIs access within JS   [[{mobile.native,mobile.android,mobile.ios,01_PM.TODO]]
+# NativeScript: Native (Android/iOS/...) platform APIs access within JS   [[{mobile.native,mobile.android,mobile.ios,01_PM.TODO]]
   https://nativescript.org/
 - Supports TRULY NATIVE MOBILE APPS with Angular, Vue.js, TypeScript, or JavaScript.
 
@@ -11,7 +11,7 @@
 - NativeScript features deep integration with modern Angular with  [[{stack.angular]]
   full-stack features like integration with the Angular CLI, router
   support, code generation, webpack and more. [[}]]
-● NativeScript
+# NativeScript
 @[https://docs.nativescript.org/]
 
   External Resources

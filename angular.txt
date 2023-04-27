@@ -1,13 +1,13 @@
     ● ANGULAR @[https://angular.io/docs] [Official Doc]
 [[{$div]]
 [[{stack.angular,02_doc_has.resource]]
-● Ext.Links
+# Ext.Links
 - Angular API:
 @[https://angular.io/api?type=package]
 - Github Repo:
 @[https://github.com/angular/angular]
 ────────────────────────────────────────────────────────────────────────────────
-● What's new
+# What's new
 •  Angular 11
   @[https://www.infoq.com/news/2020/11/angular-11/]
   @[https://blog.angular.io/version-11-of-angular-now-available-74721b7952f7]
@@ -49,7 +49,7 @@
 [[}]]
 
 [[{stack.angular.101]]
-● Architecture #[angular_summary]
+# Architecture #[angular_summary]
 @[https://angular.io/guide/architecture]
   VIEW : "screen element" on browser, mobile, ...
 
@@ -280,7 +280,7 @@ User click → (intercepted by) → Router  → (reacts by) → showing/hiding v
 [[}]]
 
 [[{stack.angular.101,01_PM.WiP]]
-● Responsive App
+# Responsive App
   Observables and event processing
 @[https://angular.io/guide/observables]
 
@@ -446,7 +446,7 @@ User click → (intercepted by) → Router  → (reacts by) → showing/hiding v
 [[}]]
 
 [[{stack.angular]]
-● PrimeNG Library
+# PrimeNG Library
 @[https://www.primefaces.org/primeng/#/]
 • See also other "top" Frameworks:
 @[https://www.ngdevelop.tech/best-angular-ui-component-libraries/]
@@ -483,8 +483,8 @@ User click → (intercepted by) → Router  → (reacts by) → showing/hiding v
 @[https://www.youtube.com/watch?v=4Wk4RgYN9ZQ&list=PLEXcOZ7ShIgAnxrnPgiOpIz1uPKZNQ9ZJ]
 [[}]]
 
-[[{stack.angular.101,mobile.pwa,code.async,data_management.cache,02_doc_has.comparative,performance.cache,devops,01_PM.TODO]]
-● Service Workers  @ma #[angular_service_worker]
+[[{stack.angular.101,mobile.pwa,arch.async,data_mng.cache,02_doc_has.comparative,performance.cache,devops,01_PM.TODO]]
+# Service Workers  @ma #[angular_service_worker]
 @[https://angular.io/guide/service-worker-intro]
 • See general introduction to Service workers at #[service_workers_summary]
 • The Angular service worker's (v5.0+) design goal:
@@ -514,8 +514,8 @@ User click → (intercepted by) → Router  → (reacts by) → showing/hiding v
   @[https://angular.io/guide/service-worker-devops]
 [[}]]
 
-[[{]]stack.angular.forms,mobile.pwa,qa.error_control,code.low_code,01_PM.BACKLOG" >
-● Interactive Forms
+[[{stack.angular.forms,mobile.pwa,20_qa.error_control,01_PM.low_code,01_PM.BACKLOG]]
+# Interactive Forms
 @[https://angular.io/guide/forms]
 Support complex data entry scenarios with HTML-based validation and dirty checking.
 
@@ -756,32 +756,32 @@ Ex: two required fields (css:left border when OK, red otherwise)
 [[$div}]]
 
 [[{$div]]
-● Dev.cycle
+# Dev.cycle
 [[{stack.angular,01_PM.BACKLOG]]
-● JIT Compilation
+# JIT Compilation
 @[https://angular.io/guide/aot-compiler]
 - Angular provides just-in-time (JIT) compilation for the
   development environment, and ahead-of-time (AOT) compilation
   for the production environment.
 ────────────────────────────────────────────────────────────────────────────────
-● Testing platform
+# Testing platform
 @[https://angular.io/guide/testing]
 - Run unit tests on your application parts as they interact with the Angular framework.
 ────────────────────────────────────────────────────────────────────────────────
-● Internationalization
+# Internationalization
 @[https://angular.io/guide/i18n]
 - Make your app available in multiple languages
   with Angular's internationalization (i18n) tools.
 ────────────────────────────────────────────────────────────────────────────────
-● Security guidelines
+# Security guidelines
 @[https://angular.io/guide/security]
 - Learn about Angular's built-in protections against common
   web-app vulnerabilities and attacks such as cross-site scripting attacks.
 [[}]]
 
-● Setup, build, deploy config
+# Setup, build, deploy config
 [[{]]stack.angular.101," bgorange>
-● ng CLI reference
+# ng CLI reference
 @[https://angular.io/cli]
 - Used to:
   - create projects,
@@ -958,7 +958,7 @@ $ $ ng build              my-app      -c production
                    Don't use it unless you need to maintain a old software.
    test.ts         main entry point for unit tests .
    package.json    (strict mode only)
-                   Not used by package managers, it tell tools⅋bundlers whether
+                   Not used by package managers, it tell tools&bundlers whether
                    the code under this directory is free of non-local side-effects.
 
   APPLICATION-SPECIFIC CONFIG FILES
@@ -977,7 +977,7 @@ $ $ ng build              my-app      -c production
 [[}]]
 
 [[{stack.angular,security.aaa,use_case.identity.openid,standards.identity]]
-● NG+Keycloak AAA #[keycloak_angular_openid]
+# NG+Keycloak AAA #[keycloak_angular_openid]
 @[https://medium.com/keycloak/secure-angular-app-with-keycloak-63ec934e5093]
 
  • Core principle behind OpenID-Connect:
@@ -1064,7 +1064,7 @@ $ $ ng build              my-app      -c production
 
 
 [[{stack.angular,02_doc_has.resource,01_PM.WiP]]
-● Recipes
+# Recipes
   INIT SERVICE ON PAGE LOAD
   let window: any;
   @Injectable()

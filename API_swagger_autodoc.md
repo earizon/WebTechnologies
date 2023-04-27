@@ -67,8 +67,8 @@ project structure:
          }
        }
 
-    // swaggerAutogen(outputFile, endpointsFiles) // alt 1. Just generate code
-       swaggerAutogen(outputFile, endpointsFiles) // alt 2. Auto gen code,
+    // swaggerAutogen(outputFile, endpointsFiles, doc) // alt 1. Just generate code
+       swaggerAutogen(outputFile, endpointsFiles, doc) // alt 2. Auto gen code,
        .then(() => {                                        then launch server
          require('./index.js')
        })

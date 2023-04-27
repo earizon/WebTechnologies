@@ -1,5 +1,5 @@
-● JS Alternatives [[{javascript.alternatives]]
-● KotlinJS [[{kotlin,dev_lang.reason,20_qa,02_doc_has.comparative]]
+# JS Alternatives [[dev_lang.js.alternatives]]
+# KotlinJS [[{dev_lang.kotlin,dev_lang.reason,20_qa,02_doc_has.comparative]]
 • Kotlin modern language features and first-class support for Javascript compilation
   makes of it an ideal alternative to Javascript.
 • Kotlin support integration with:
@@ -16,14 +16,14 @@
 [[}]]
 
 
-● J2CL [[{]]
+# J2CL [[{]]
 • Java to Javascript transpiler by Goole.
 • Production ready and actively use in Google's products.
 @[https://github.com/google/j2cl]
 @[https://www.infoq.com/news/2019/05/j2cl-java-javascript-transpiler/]
 [[}]]
 
-● Elm (Haskell like) [[{]]
+# Elm (Haskell like) [[{]]
 • See also:
 @[https://www.infoq.com/articles/functional-UI-introduction-no-framework/]
 @[https://www.infoq.com/news/2021/10/elm-lessons-learnt-production/]
@@ -85,7 +85,7 @@ generated code.
 •  JavaScript Interoperability
 [[}]]
 
-● Reason (OCalm) [[{]]
+# Reason (OCalm) [[{]]
 @[https://reasonml.github.io/]
 • By Facebook.
 • " Reason lets you write simple, fast and quality type safe code
@@ -96,7 +96,7 @@ generated code.
 • See also: ReasonReact
 [[}]]
 
-● PureScript (Haskell like) [[{01_PM.TODO.NOW]]
+# PureScript (Haskell like) [[{01_PM.TODO.NOW]]
   - Interesting lecture:
     https://why.cardano.org/en/science-and-engineering/why-haskell/
 
@@ -128,7 +128,7 @@ generated code.
 [[}]]
 
 
-● Erlscripten (Erlang) [[{]]
+# Erlscripten (Erlang) [[{]]
 @[https://blog.aeternity.com/erlscripten-92c815786987]
 • Erlang:
   · language+framework most reliable choice to build highly
@@ -144,7 +144,7 @@ generated code.
   Erlang → (Erlscripten) → PureScript → (transpiler) → Javascript
 [[}]]
 
-● WebScript [[{20_qa,code.low_code,01_PM.TODO.now]]
+# WebScript [[{20_qa,01_PM.low_code,01_PM.TODO.now]]
 • "WARN": Low maintenance (v0.2) (Maybe not really needed).
 HTML
 =====================================================
@@ -168,4 +168,4 @@ div.class`card-image`(
   language.
 [[}]]
 
-[[javascript.alternatives}]]
+[[dev_lang.js.alternatives}]]

@@ -1,5 +1,5 @@
-[[{Javascript]]
-● Javascript Summary [[{101]]
+[[{dev_lang.js]]
+# Javascript Summary [[{101]]
 - State Of JS: @[https://stateofjs.com/] lib/frameworks widely adopted, satisfaction ratings, ...
 -@[https://developer.mozilla.org/en-US/]
 -@[https://eloquentjavascript.net/]
@@ -8,7 +8,7 @@
 @[http://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects]
 
 
-● const Let vs Var [[{101,20_qa.inmutability]]
+# const Let vs Var [[{101,20_qa.inmutability]]
   const VAL1 = ...;  <·· Preferred when possible, "inmutable"
   let   var1 = ...;  <·· Preferred. Variable scope limited to block/statement/expression
   var   var2 = ...;  <·· Discouraged. Variable global to function (even if defined inside block)
@@ -21,9 +21,9 @@
   @[https://facebook.github.io/immutable-js/] [[{01_PM.TODO}]]
 [[}]]
 
-● Array(.prototype)                                        [[{data_structure.lists,data_structure.arrays]]
+# Array(.prototype)                                        [[{data_structure.lists,data_structure.arrays]]
   const list01 = [1,2,3,4,1]
-  const list02 = list01.map(n => n * 2);                                        [[{functional_code}]]
+  const list02 = list01.map(n => n * 2);                                        [[{arch.functional}]]
   list01.length                 5
   1 in l                        true
   list01.indexOf(1)             <· 0 (-1 if not found)
@@ -37,7 +37,7 @@
   list01.reverse()                                  l = [5,4,2,1]
   list01.  shift()              <· 5 (1st element)   l =   [4,2,1]
   list01.unshift(5)             <· 4 (new length)    l = [5,4,2,1]
-  list01.slice(start[,end])     <· return new "slice" of original array          [[{strings]]
+  list01.slice(start[,end])     <· return new "slice" of original array          [[{dev_lang.js.strings]]
                                    (Works also for strings)                      [[}]]
   list01.sort()                 <· sort in place
   list01.sort(sortFuncion)      <· sort in place using custom function
@@ -60,7 +60,7 @@
      (elI, idx) => { ...} )        or removed list01 while looping over collection
 [[data_structure.lists,data_structure.arrays}]]
 
-●  Merge map/Object: [[data_structure.dictionary,data_structure.map,01_PM.TODO]]
+#  Merge map/Object: [[data_structure.dictionary,data_structure.map,01_PM.TODO]]
 
   const dict01 = {key1:1, key2:2}
   Object.keys(dict01).forEach(     ● WALKING OVER DICTIONARIES/Objects/MAPS
@@ -71,7 +71,7 @@
                                                      Object.assign would also work
 [[data_structure.dictionary,data_structure.map}]]
 ················································································
-● Dates and times                                                               [[{date_time]]
+# Dates and times                                                               [[{dev_lang.js.date_time]]
   const date2 = new Date('1995-12-17T03:24:00')        ←  GMT
   console.log(date1 === date2)                         ← false
   console.log(date1 - date2)                           ← 0
@@ -79,7 +79,7 @@
 [[}]]
 
 
-● Strings                                                                       [[{strings]]
+# Strings                                                                       [[{dev_lang.js.strings]]
   - String object are immutable.                                                [[{20_qa.inmutability]]
   - methods do NOT alter the original String, but return new ones.              [[}]]
   - String addition is really fast, using internal lists:
@@ -115,9 +115,9 @@
   valueOf()                  <·· Returns primitive value of the String.
 
   String.fromCharCode()      <·· Converts Unicode -> characters
-[[strings}]]
+[[dev_lang.js.strings}]]
 
-● JS "OOP" [[{javascript.OOP,101]]
+# JS "OOP" [[{dev_lang.js.OOP,101]]
 
   function Message(sbj, rec, con){ <··· STEP 1) Create a function-"class"
     this.subject   = sbj;               <···    using 'this.member' to assign members
@@ -161,7 +161,7 @@
     ...                                        <·· New dog functionality for '.talk'
   }
 
-• JS NAMESPACES:
+## JS NAMESPACES:
     var com = com || {};
     com.apress = com.apress || {};
     com.apress.chapterone = com.apress.chapterone || {};
@@ -170,9 +170,9 @@
     the usage of a message object will now need to respect the namespace as follows:
 
     var mymessage = new com.apress.chapterone.message(...);
-[[javascript.OOP}]]
+[[dev_lang.js.OOP}]]
 
-● promises/async/await Summary [[{javascript.async,101]]
+# promises/async/await Summary [[{dev_lang.js.async,101]]
 
   warn!!! :                                                           [[{20_qa.error_control]]
   Promises can not throw since that would force
@@ -195,7 +195,7 @@
   }
   await start();                        <·· 3) Wait for execution completion.
 
-• async/await explained
+## async/await explained
 @[https://2ality.com/2016/10/asynchronous-iteration.html]
   by Domenic Denicola and Kevin Smith.
 
@@ -250,7 +250,7 @@
                                     }
 
 
-• ECMAScript 2018 for-await-of:
+## ECMAScript 2018 for-await-of:
   - Syntax converts each iterated value via Promise.resolve() to a Promise,
     which it then awaits, allowing to be used with sync/async iterables. e.g:
 
@@ -281,7 +281,7 @@
      }     // exceptions. Promise.reject     ^ : wrap code: async doesn't work
            // used as replacement.               at script|module top level
 
-• ASYNC GENERATORS:
+## ASYNC GENERATORS:
   async function*                        // ← '*' turns fun. into (a)sync generator
   createAsyncIterable(syncIterable) {    // ← Converts
     for (const elem of syncIterable) {   //   ←  sync iterable to
@@ -320,18 +320,18 @@
   • It works on browsers and (NodeJS) server code.
   [[}]]
 
-[[javascript.async}]]
+[[dev_lang.js.async}]]
 
-● Debugging 101 [[{javascript.101.debugging,troubleshooting.debugging,code.async]]
+# Debugging 101 [[{dev_lang.js.101.debugging,troubleshooting.debugging,arch.async]]
 
-• Debug/Play with ajax requests (Firefox only?)
+## Debug/Play with ajax requests (Firefox only?)
   → Go to inspector → network tab → RightClick on request
     → choose Edit and Resend: Now you can change anything
       you want: header, params, ... and resend.
 
-• "debugger" keyword: pause in code just when console is open
+## "debugger" keyword: pause in code just when console is open
 
-• dump object to string: JSON.stringify(myJS_object)
+## dump object to string: JSON.stringify(myJS_object)
   To avoid cicular dependencies problems redefine stringify like:
   REF: @[https://stackoverflow.com/questions/11616630/how-can-i-print-a-circular-structure-in-a-json-like-format]
   JSON.stringifySec = function (circ) {
@@ -352,13 +352,13 @@
   circ.circ = circ;
   JSON.stringifySec (circ)          // ← Ussage
 
-• Print the calling function in the called function:
+## Print the calling function in the called function:
   var f1 = function(...){
      console.warn( "Called from:" +
        arguments.callee.caller.toString() );
       ...
   }
-• Quickly access elements in the console:
+## Quickly access elements in the console:
    $('css-selector’) ← return first match of CSS selector
   $$(‘css-selector’) ← return all   matches
 
@@ -432,13 +432,13 @@
 
   fn0().catch(console.error)      ← Dump stack here !!!
 
-• TODO:
+## TODO:
   https://stackoverflow.com/questions/7697038/more-than-10-lines-in-a-node-js-stack-error
   https://github.com/mattinsler/longjohn
   ###################
   # advanced tricks #
   ###################
-• REF:@[https://raygun.io/blog/2015/06/useful-javascript-debugging-tips-you-didnt-know/]
+## REF:@[https://raygun.io/blog/2015/06/useful-javascript-debugging-tips-you-didnt-know/]
   console.table(animals);      ← Display object as tables in the console: (Chrome only?)
 
   this.funcZ = function(){
@@ -453,7 +453,7 @@
   debug(car.functY)            ← Quick find a function to debug.
                                  (not to be confused with console.debug)
 
-• Ignore (black list) Script while debugging
+## Ignore (black list) Script while debugging
   CHROME:                                                      FIREFOX:
   · Alt 1. inspector → source → Right click                    Inspector → Debugger → Mark scriptto black list →
     the file to black list and choose black box script.        Click on the eye in the very bottom left corner.
@@ -462,7 +462,7 @@
     popup to blackbox, for example, the entire vendor folder.
     https://developer.chrome.com/devtools/docs/blackboxing
 
-• SOURCE MAPPING
+## SOURCE MAPPING
   REF: @[http://blog.getsentry.com/2015/10/29/debuggable-javascript-with-source-maps.html]
   • source maps : JS's version of debug symbols:
   • Include with:
@@ -478,20 +478,20 @@
       names: ["src", "maps", "are"], // variable/method names found in your code
       mappings: "AAgBC,SAAQ,CAAEA"   // base64Enc VLQ values source code mappings
     }
-[[javascript.101.debugging}]]
+[[dev_lang.js.101.debugging}]]
 
-● StoryBook.js [[{javascript.101,stack.angular,stack.react,stack.vue,code.low_code,20_qa.testing,01_PM.TODO]]
+# StoryBook.js [[{dev_lang.js.101,stack.angular,stack.react,stack.vue,01_PM.low_code,20_qa.testing,01_PM.TODO]]
 https://storybook.js.org/ !!!!
 robust UIs: sandbox to build UI components in isolation so you can
 develop hard-to-reach states and edge cases.
 for React, Angular, Vue, ...
 [[}]]
 
-● YSlow Profiler [[{javascript.101,performance.profiling.yslow,20_qa,troubleshooting.performance]]
-• home page: @[http://yslow.org]
-• YSlow analyzes web pages and why they're slow
+# YSlow Profiler [[{dev_lang.js.101,performance.profiling.yslow,20_qa,troubleshooting.performance]]
+## home page: @[http://yslow.org]
+## YSlow analyzes web pages and why they're slow
   based on Yahoo!'s rules for high performance web sites
-• Feature highlights:
+## Feature highlights:
   ✓ Grades web page based on one of three predefined ruleset
     or a user-defined ruleset
   ✓ It offers suggestions for improving the page's performance
@@ -499,7 +499,7 @@ for React, Angular, Vue, ...
   ✓ Displays statistics about the page;
   ✓ Provides tools for performance analysis, including Smush.it™
     and JSLint.
-• Check for next best-patterns/rules :
+## Check for next best-patterns/rules :
   ✓ Minimize HTTP Requests
   ✓ Use a Content Delivery Network
   ✓ Add an Expires or a Cache-Control Header
@@ -524,21 +524,21 @@ for React, Angular, Vue, ...
   ❌ Avoid Filters
   ❌ Do Not Scale Images in HTML
 ───────────────────────────────────────────────────────────────────────
-● Mozilla Perf.Tool
-• REF: @[https://developer.mozilla.org/en-US/docs/Tools/Performance]
-• Performance tool gives insights into a site's general responsiveness,
+# Mozilla Perf.Tool
+## REF: @[https://developer.mozilla.org/en-US/docs/Tools/Performance]
+## Performance tool gives insights into a site's general responsiveness,
   JS and layout performance.
-• It allows to create a recording(profile), of a site over a period of time.
+## It allows to create a recording(profile), of a site over a period of time.
   The tool then shows you an overview of the things the browser was doing
   to render the page/s and a graph of the frame rate over the profile.
 [[}]]
 
-● Trusted Web Code [[{javascript,devops.security,01_PM.TODO]]
+# Trusted Web Code [[{dev_lang.js,devops.security,01_PM.TODO]]
 @[https://www.infoq.com/articles/encryption-defense-native-browser-apps/]
-• Trusted code: first-line-of-defense for browser security.
+## Trusted code: first-line-of-defense for browser security.
   Reusing libraries makes web development faster at the cost
   of increasing the risk of introducing malicious code.
-• There are also under-used code-delivery settings that instruct the
+## There are also under-used code-delivery settings that instruct the
   browser to take extra precautions since they reduce the flexibility
   of the development and integration process.
   the security they provide is worth the work, whether your application
@@ -565,14 +565,14 @@ for React, Angular, Vue, ...
   - hashes
   - "other" encryption components.
 
-• Being directly implemented into (trusted) browser and taking
+## Being directly implemented into (trusted) browser and taking
   advantage of local native execution (and even hardware acceleration)
   they are much safer than js code.
     WARN:  They do NOT prevent certain attacks, like
   just sending an unencrypted copy of the data to the "bad guys".
 [[}]]
 
-● JSDOC.app [[{20_qa.documentation,01_PM.TODO]]
+# JSDOC.app [[{20_qa.documentation,01_PM.TODO]]
   https://jsdoc.app/
 
  /**
@@ -605,18 +605,35 @@ for React, Angular, Vue, ...
    $ jsdoc book.js   # generate doc.
 [[20_qa.documentation}]]
 
-·········|10·······|20·······|30·······|40·······|50·······|60·······|70········
-● TODO/Non-Classified        [[{01_PM.TODO]]
-• https://json2html.com/started/
-  transform (server) JSON to html.
 
-• ES6 in depth
+# TODO/Non-Classified        [[{01_PM.TODO,]]
+## json2html  [[{data_mng.JSON,IO.JSON,01_PM.low_code]]
+  https://json2html.com/started/
+  [JSON data, js template ] ··>|json2html| ···> html.
+  Build lightning fast, interactive client side templates using nothing but javascript.
+[[}]]
+
+## ES6 in depth [[{]]
 @[https://hacks.mozilla.org/category/es6-in-depth/]
 
-• es6 design Patterns
+## es6 design Patterns
 @[https://github.com/loredanacirstea/js-design-patterns] !!!
 @[http://loredanacirstea.github.io/es6-design-patterns/]
+[[}]]
+
+# Signia: New Incremental Computing Lib Delivers Better UX for Single-Page Apps
+  https://www.infoq.com/news/2023/03/incremental-computing-signia/
+
+  React: introduced the "virtual DOM".  It WORKS WELL FOR SMALL SYSTEMS but
+         causes serious performance issues as the UI scales up.
+         React has a number of techniques for bypassing full tree diffs,
+         which is pragmatic but again, makes it harder to form a clean mental model.
+
+  - Some developers may resort to reactive data libraries (e.g., jotai, recoil, zustand)
+    to reduce the amount of unnecessary computation performed by the framework.
+  - They may alternatively resort to UI frameworks that already embed similar reactive
+    data capabilities and perform less unnecessary computations by design.
 [[01_PM.TODO}]]
 
 
-[[javascript}]]
+[[dev_lang.js}]]

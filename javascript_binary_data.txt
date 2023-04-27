@@ -1,4 +1,4 @@
-● Binary Data [[{dev_lang.js,performance,multimedia,data_management,01_PM.BACKLOG]]
+# Binary Data [[{dev_lang.js,performance,multimedia,data_mng,01_PM.BACKLOG]]
 @[https://github.com/jDataView]
 - jBinary High-level API for working with binary data.
 - jDataView. DataView. Extended. Anywhere.

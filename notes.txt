@@ -1,4 +1,4 @@
-●  Apropos:
+#  Apropos:
 - Visit next Web site for a great experience:
   https://earizon.github.io/txt_world_domination/viewer.html?payload=../WebTechnologies/notes.txt
 
@@ -8,1095 +8,68 @@
   Your commits and pull-request will be immortalized
   in the Pantheon of the Unicode Gods.
 ────────────────────────────────────────────────────────────────────────────────
-
-
-● External Links
-- The size of the World Wide Web (The Internet)
+# External Links [[{]]
+* The size of the World Wide Web (The Internet)
 @[https://www.worldwidewebsize.com/]
-- HTML Spec:
+* HTML Spec:
 @[https://html.spec.whatwg.org/]
-- how well does your browser support HTML5?
+* how well does your browser support HTML5?
 @[http://html5test.com/]
-- webplatform. Your Web, Documented.
--@[https://webplatform.github.io/]
+* webplatform. Your Web, Documented.
+ @[https://webplatform.github.io/]
   The latest information on how to use the technology
   that runs the web — HTML, CSS, JavaScript and more.  WebPlatform.org is a
   work in progress. We could use your help in making it better. Join us.
-- Great blog about CSS design and  HTML5
+* Great blog about CSS design and  HTML5
 @[http://www.smashingmagazine.com/]
+[[}]]
+
+# HTTP Made Really Easy [[{protocol.http.101,01_PM.TODO]]
+@[https://www.jmarshall.com/easy/http/]
+[[}]]
+
+# Awesome Search Engines (Others that Google)  [[{]]
+  by Dr. AngShuMan Ghosh
+  https://www.linkedin.com/feed/update/activity:6898851104516296704 by
+
+Search engines that specialize in books, science, and other smart information.
+* @[https://www.refseek.com]     search engine for academic resources. More than a billion sources
+* @[https://www.worldcat.org]    search the content of 20,000 global libraries.
+* @[https://https://link.springer.com] -10M+ scientific documents: books, articles,
+* @[https://www.bioline.org.br]  library of published bioscientific journals
+* @[https://http://repec.org]    Volunteers from 102 countries collected nearly 4 million publications
+* @[https://www.science.gov]     U.S. government search engine for more than 2200 scientific sites.
+* @[https://www.pdfdrive.com]    largest website for free download of PDF books. 225M+ titles.
+* @[https://www.base-search.net] one of the most powerful search engines for academic research texts.
+                                 100M+ scientific articles, 70% of which are free.
+[[}]]
+
+# W3C Consortium  [[{]]
+- W3C stands for Wide Web Consortium (W3C)
+- mission: lead the Web to its full potential by creating technical
+           standards and guidelines to ensure that the Web remains open,
+           accessible, and interoperable for everyone around the
+           globe.
+- W3C is jointly hosted by :
+  - the MIT Computer Science and AI Lab (MIT CSAIL)
+    in the United States:
+  @[https://www.csail.mit.edu/]
+- European Research Consortium for Informatics and Mathematics</a>
+  (ERCIM) headquartered in France
+  @[https://www.ercim.eu/]
+
+- Keio University Japan
+@[https://www.keio.ac.jp/]
+
+- Beihang University in China.
+@[http://ev.buaa.edu.cn/]
+[[}]]
 
 
 [[{$div]]
-● AAA
-[[{security.aaa,02_doc_has.resource]]
-● External Links
-• @[/Architecture/architecture_map.html?topics=oauth]
-• @[/Architecture/architecture_map.html?topics=aaa]
-[[}]]
-
-[[{security.aaa,use_case.identity,01_PM.TODO]]
-● Web Authentication API
-• This API enables users to avoid text-based passwords for websites
-  and instead uses a local device with a biometric check or private PIN
-  to generate a secure cryptographic identifier.
-• Firefox adopted in in 2018
-@[https://www.infoq.com/news/2018/05/firefox-web-authentication-api]
-[[}]]
-
-● W3C Credentials API [[{security.aaa,use_case.identity,api_management,security,standards]]
-@[https://w3c-ccg.github.io/credential-handler-api/]
-• Credential Management Level 1 describes an imperative API enabling
-  a website to request a user's credentials from a user agent, and to
-  help the user agent correctly store user credentials for future use.
-• User agents implementing that API prompt the user to select a way to
-  handle a credential request, after which the user agent returns a
-  credential to the originating site. This specification defines
-  capabilities that enable third-party Web applications to handle
-  credential requests and storage.
-[[}]]
-
-[[$div}]]
-
-[[{$div]]
-● Data Visualization
-[[{use_case.data_visualization.real_time,]]
-● SVG Summary #[svg_summary]
-<svg xmlns="http://www.w3.org/2000/svg" ← xmlns not necesary inside html
-   viewBox="0 0 256 256"                 ← left_x up_y width height
-   preserveAspectRatio="xMidYMid"        ← Optional uniform scaling:
-                                           xMidYMid aligning to the middle.
-                                           xMinYMin aligning to the top-left.
-                                           xMaxYMax aligning to the bottom-right.
-                                           (think of viewBox having 9 different
-                                            anchor points)
-   transform="scale(1,-1)" >             ← Make y coordinate work bottom-to-top.
-
-┌ <g stroke="orange" class="..."         ← group: Apply default attribute to children
-│    fill="orange"                       ← fill: shape color (name|#hex|rgb()|rgba())
-│    opacity=".5"  >
-│  <circle cx="100" cy="100" r="100" />
-│  <ellipse cx="100" cy="100" id=".."    ← id can also be used as in html
-│           rx="100" ry="50" />
-│  <rect x="0"      y="0"
-│        width="10" height="4"
-│        rx="5" ry="5"                   ← Optional. rx/ry: Radio x/y
-│        stroke="orange"                 ← Adds line around outside-shape/along-path.
-│        stroke-width="10"
-│        stroke-opacity=".5"
-│        stroke-linecap="round"          ← control stroke-end shape: butt, round, square.
-│        stroke-linejoin="bevel"         ← control corner-style: miter, round, bevel.
-│        stroke-miterlimit="4"           ← control two-different-stroke
-│                                          corners "meeting" at a point
-│   />                                     (avoid pointy triangle)
-│
-│  <polygon points="0,0 10,0 0,10" />    ← Polygon (triagle in this case)
-│  <line x1="0" y1="0" x2="3" y2="5"     ← x1/y1: start, x2/y2: end
-│        stroke-dasharray="4,6"  />      ← create dashed lines for strokes
-│                                          4,6: "4-pixel-dash then 6-pixel-space"
-│  <polyline points="0,0 1,2 2,1 3,3"/>  ← multipoint x1/y1 x2/y2 x3/y3 ... line.
-│  <path d="M1,1 Q2,2 3,1" />            ← multiple anchors with handles.
-└ </g>                                      Generally written by a program (vs by hand)
-
-  <text x="10" y="10"                    ← x,y: anchor point
-        text-anchor="middle"             ← alignment: start  | middle  | end
-        textLength="900"                 ← Space out letters to fill width.
-    Lorem Ipsum...
-    <tspan fill="limegreen"              ← tspan used to surround words inside <text>
-           dx="5" dy="-3">
-       ... some text ...
-     </tspan>
-   </text>
-
-   <a xlink:href="https://...">          ← Add hyperlink
-     <text>Dinosaurs!</text>
-   </a>
-   <image xlink:href="..." />
-
-   <symbol id="icon01" viewBox="...">    ← defining Reusable symbol
-     <rect .../>
-   </symbol>
-   <use xlink:href="#icon01" />          ← Using it later on.
-
- ┌ <defs>                                ← section to create shapes that won't be
- │                                         visible until used in other places like
- │                                         gradients, paths for text, masks, etc.
- │
- │   <linearGradient  id="grad01" >      ← GRADIENTS
- │     <stop offset="0%"   stop-color="  .." />
- │     <stop offset="100%" stop-color="  .." />
- │   </linearGradient>
- │   <mask  id="mask01"  >                  MASKING
- │     <image width=... height=...        ← Mask Image SHOULD be black-and-white
- │       xlink:href="..." />                (black:transparent, white: show)
- │   </mask>
- │
- │   <pattern  id="texture01"               TEXTURING ⅋ PATTERNS
- │      width=... height=...
- │      patternUnits="userSpaceOnUse">
- │    <image xlink:href="..." ... />
- │   </pattern>
- │   <filter id="blur01">                   FILTER
- │     <feGaussianBlur
- │          in="SourceGraphic"
- │          stdDeviation="5" />
- │   </filter>
- └ </defs>
-
-   <rect fill="url(#texture01)" ...       ← Apply texture to shape / text
-                                            Alt. fill="url(#grad01)" (Apply gradient)
-         filter="url(#blur01)"            ← Apply filter  to shape / text
-         mask="url(#mask01) />            ← Apply mask    to shape / text
-</svg>
-[[}]]
-
-[[{data_management.data_visualization,use_case.data_visualization.real_time,stack.react,01_PM.BACKLOG]]
-● Perspective #[perspective_summary]
-@[https://github.com/jpmorganchase/perspective]
-@[https://perspective.finos.org/]
-• interactive visualization for large, real-time datasets
-  and customizable analytics.
-• JS engine, runs on any modern browser.
-• Integrates with Python and JupyterLab .
-• fast, memory efficient streaming query engine,
-  written in C++ and compiled for both WebAssembly and Python,
-  with read/write/stream/virtual support for Apache Arrow.
-[[}]]
-
-[[{use_case.data_visualization.real_time,data_management.data_visualization,02_doc_has.comparative,]]
-● D3.js
-• External resouces:
-@[https://d3js.org/]
-@[https://github.com/d3/d3]
-@[https://www.youtube.com/watch?v=_8V5o2UHG0E&t=894s]
-• White-paper summary:
- @[http://idl.cs.washington.edu/files/2011-D3-InfoVis.pdf]
-  · ...based on CSS these libraries (jQuery) share the concept
-    of a selection:
-    identify a set ofe lements using simple predicates, then
-    apply a series of operators that mutate the selected elements.
-  · For data visualization, document transformers must handle the
-    cre-ation and deletion of elements, not just the styling of existing
-    nodes.This is impossible with CSS, and tedious with jQuery.
-  · D3 alternatives, like Processing and Raphaël are tedious for     [comparative]
-    complex tasks (no convenient abstractions).
-  • selection  : D3's atomic operand:  filter over document's elements.
-  • Operators  : Act on selections, modifying content.
-  • Data joins : bind input data to elements, enabling functional
-                operators that depend on data, and producing
-                enter and exit subselections for the creation and
-                destruction of elements in correspondence with data.
-  • event      : Special operators responding to user input and
-    handlers     enable interaction.
-  • helper     : simplify common tasks:
-    modules      ✓ data-processing utilities such as next/cross operators,
-                   CSV parser, date/number formating, ...
-                 ✓ layouts:
-                 ✓ ...
-
-
-  const x = (d, i) => { return i*25 },  ← scale fun. for position encoding
-        y = (d, i) => { return 10 -d }
-
-  const svg = d3
-        .select("body")                 ← Add SVG container to body
-        .append("svg:svg")
-        .data([ [1, 2, 3, 2, 1, 0.5] ]) ← bind data (array of arbitrary values)
-                                            Data is then passed to functional operators
-                                            as first argument by convention along with
-                                            numeric index (i). By default Nth element
-                                            is binded to Nth data (ordered by index).
-                                              "key" function can override the def.behaviour.
-                                            *
-                                           data can also be used to reorder( sort )and/or
-                                           cull ( filter ) DOM elements.
-
-  svg.append("svg:path")                ← Add path element for the area
-     .attr("class", "area")
-     .attr("d",
-           d3.svg
-             .area().x(x).y0(14).y1(y))
-
-  svg.append("svg:path")                ← Add path element to emphasize
-     .attr("class", "line")                the top line.
-     .attr("d" ,
-           d3.svg.line().x(x).y(y))
-
-  const g = svg.selectAll("g")          ← Add containers for reference values.
-        .data(d3.range(0,2, .5))          select || selectAll accept CSS selector
-        .enter()                          syntax?.
-                                          selects can be chained,
-                                            ex: selectAll("p").select("b")
-        .append("svg:g")                ← insert(),append() ops. add new elements to   DOM
-                                          remove            ops. del.    elements from DOM
-                                          transition(..)  same syntax than style/attr but
-                                             interpolating from current to final value
-                                             gradually over time.
-
-  g.append("svg:line")                  ← Add reference lines.
-   .attr("class", (d) => {"rule"})        ← operator acting on selection and
-   .attr("x2",160)                          wrapping W3C DOM API,
-   .attr("y1", y)                           := .attr(...) | .style(...) | .property(...)
-   .attr("y2", y)                              .html(...) | .text(...)  |
-                                               .each(...) (general extension point operator)
-                                            and expressed either as constants or functions.
-
-  g.append("svg:text")                  ← (g) Add reference labels.
-   .attr("x",164)
-   .attr("y",y)
-   .attr("dy", ".3em")
-   .text(d3.format(",.1"))
-
-  *                     ┌─┐┌─┐┌─┐┌─┐┌─┐┌─┐┌─┐┌─┐┌─┐┌─┐  NOTE: Data is sticky: Once bound
-       e  e  e  e  e  e │u││u││u││u││u││ ││ ││ ││ ││ │        to nodes, it is available
-                        └─┘└─┘└─┘└─┘└─┘└─┘└─┘└─┘└─┘└─┘        in next re-selection with
-       └───────┬──────┘ └──────┬──────┘└──────┬──────┘        no need for .data(...) operator
-       entering data    updated data    exit nodes with
-       data with no     bounded to      no matching data
-       matching nodes.  matching nodes  allowed to be
-       insert will bind                 removed.
-       new nodes to the
-       data.
-
-
-• used as "kernel" library for other high level ones
-  e.g.: @[#vega_lite_summary]
-
-• Extracted from @[https://observablehq.com/@d3/learn-d3]
- • D3 stands for "Data Driven Documents".
- • D3 allows to bind arbitrary data to a Document Object Model (DOM),
-   and then apply data-driven transformations to the document.
-   e.g:
-    INPUT        BIND TO
-    ========     =======
-    number[] --→ D3.js ─┬→ Interactive SVG chart
-                        ├→ HTML table
-                        ├·····→
-
-  •  Step learning path : 30+ modules , 1000s of methods.
-[[}]]
-
-[[{use_case.data_visualization.real_time,data_management.data_visualization,01_PM.TODO]]
-● https://mafs.dev/
-  Math components for React apps.
-
-● Vega Lite!!! @ma #[vega_lite_summary]
-@[https://vega.github.io/vega-lite/]
-@[https://vega.github.io/vega-lite/examples/]
-• HIGH-LEVEL GRAMMAR OF INTERACTIVE GRAPHICS with declarative JSON syntax.
-  by University of Washington Interactive Data Lab
-• visualizations for data analysis and presentation.
-• Used by:
-  Tableau , Google, Microsoft, Airbnb, Los Angeles Times, CERN,
-  Carnegie Mellon University, Berkeley University, ...
-• Extracted from: https://vega.github.io/vega/about/vega-and-d3/
-  ... D3 is intentionally a lower-level library (than Vega) ...
-  a "visualization kernel" rather than a "toolkit" or "framework"
-  ... intended as a supporting layer for higher-level visualization
-  tools. Vega is one such tool, and Vega uses D3 heavily within its
-  implementation: vega lite → vega → d3.js
-
-• HOWTO: STEP 1) HTML SETUP
-@[https://vega.github.io/vega-lite/tutorials/getting_started.html]
- ┌──────────────────────────────────────────────────────────────────────────┐
- │ <!DOCTYPE html>                                                          │
- │ <html>                                                                   │
- │ <head>                                                                   │
- │   ...                                                                    │
- │   <script src="https://cdn.jsdelivr.net/npm/vega@5.20.2"      ></script> │
- │   <script src="https://cdn.jsdelivr.net/npm/vega-lite@5.1.0"  ></script> │
- │   <script src="https://cdn.jsdelivr.net/npm/vega-embed@6.17.0"></script> │
- │                                                                          │
- │   <style media="screen">                                                 │
- │     .vega-actions a {       /* Add space between Vega-Embed links */     │
- │       margin-right: 5px;                                                 │
- │     }                                                                    │
- │   </style>                                                               │
- │ </head>                                                                  │
- │ <body>                                                                   │
- │   ...                                                                    │
- │   <div id="vis" ></div>     <!-- visualization container -->             │
- │                                                                          │
- │   <script>                                                               │
- │     var vlSpec = {                                                       │
- │       $schema: 'https://vega.github.io/schema/vega-lite/v5.json',        │
- │       data     : { values: [ ... ] },                                    │
- │       mark     : 'bar',                                                  │
- │       encoding : { ... }                                                 │
- │     }                                                                    │
- │                                                                          │
- │     vegaEmbed( '#vis' , vlSpec); // Embed visualization in "div"         │
- │   </script>                                                              │
- │ </body>                                                                  │
- │ </html>                                                                  │
- └──────────────────────────────────────────────────────────────────────────┘
-
-• HOWTO: STEP 2) DATA and Visualization SETUP
-@[https://vega.github.io/vega-lite/tutorials/getting_started.html]
-  TABULAR DATA SET │ EQUIVALENT VEGA-LITE
-                   │ JSON ARRAY + RENDER PROP
-  ================ │ ========================
- var. a    var. b  │ {
-  cate- vs nume-   │   "data" : {          ← "data" prop defines data source for chart
-gorical    rical   │     "values" : [         Other data sources type supported
-      C ←→ 2  · · ·│· · · {"a": "C", "b": 2}, ┐  e.g: "data": {"url": ".../data/myData.csv"}
-      C ←→ 7  · · ·│· · · {"a": "C", "b": 7}, ┤  ← each value (row) will be rendered
-      C ←→ 4  · · ·│· · · {"a": "C", "b": 4}, ┤    as a1visual mark
-      D ←→ 1  · · ·│· · · {"a": "D", "b": 1}, ┤
-      ...
-      E ←→ 7  · · ·│· · · {"a": "E", "b": 7}  ┘
-                   │           ]
-                   │   },
-      vega-lite  ┌ →   "mark": "point",    ← mark key indicates how to render data
-          chart  │ │                         mark properties := position, size, color
-  visualization ─┤ │                         vega-lite will render one point per "data" object
-     properties  │ │
-                 └ →   "encoding": {       ← Without encoding output marks will overlap.
-                   │      "x": {               ← encode "x-channel" to ("row") data fields.
-     vega-lite     │        "field": "a",        ("a" in this case)
-     chart         │        "type" : "nominal"   := "quantitative" | "temporal" | "ordinal" | "nominal"  *
-  visualization    │      },
-                   │      "y": {           ← "x" alone will already render "a" distribution.
-                   │        "field": "b",    "y" to compare "var a" vs "var b"
-                   │        "type" : "quantitative"
-                   │        "title": "b's average"   ← optional.
-                   │        "aggregate": "average"   ← optional := "aggregate" | "average"
-                   │      }                                           ^
-                   │   }                                          "mark" : "bar"
-                   │ }
-                     *  @[https://vega.github.io/vega-lite/docs/encoding.html#type]
-                    TIP: Vega-Lite will auto. add axis-with-labels for different-categories + axis title.
-
-• EXPLORING DATA EXAMPLES
-@[https://vega.github.io/vega-lite/tutorials/explore.html]
-
-  QUANTITATIVE CONTINUOUS            SAME QUANTITATIVE VAR DISCRETIZED
-  VAR DISTRIBUTION ALONG X AXIS      AS BAR HISTOGRAM ALONG X/Y AXES
-  =============================      ===============================
-
-  {                                  {
-    "data": ...                        "data": ...
-    "mark": "tick",                    "mark": "bar",
-    "encoding": {                      "encoding": {
-      "x": {                             "x": {
-         "field": "precipitation",         "field": "precipitation"
-         "type" : "quantitative"           "bin"  : true,  ← bin == discretize cont.var.
-      }                                  },                 (bin quantitative by default)
-                                         "y": {
-                                           "aggregate": "count"
-                                         }
-    }                                  }
-  }                                  }
-
-  MEAN PRECIPITATION VS (month) DATE
-  ==================================
-  {
-    "data": ...
-    "mark": "line",
-    "encoding": {
-      "x": {
-        "field"    : "date"
-        "timeUnit" : "month",  ← : yearmonth will compare same month
-      },                           in different years
-      "y": {
-        "field"    : "precipitation"
-        "aggregate": "mean",
-      }
-    }
-  }
-
-  WEATHER TYPE OVER MONTH STACKED (aggregate) BAR
-  ==============================================
-  {
-    "data": ...
-    "mark": "bar" ,
-    "encoding": {
-      "x": {
-        "timeUnit"  : "month",
-        "field"     : "date",
-        "type"      : "ordinal"
-      },
-      "y": {
-        "aggregate": "count",   ←···· we need to add "color" prop.
-        "type"     : "quantitative"   to indicate stack visualization
-      },                                ·
-      "color": {                        ·
-        "field": "weather",     ←······─┘
-        "type": "nominal",
-        "scale": {   ← Optional. Customize default category colors
-          "domain": ["sun", "fog" , "drizzle", "rain", "snow"],
-          "range":  ["#ea2","#c77", "#aec7e8", "#1b4", "#946"]
-        }
-      }
-    }
-  }
-
-
-• CALCULATED FIELD HOW-TO
-  =======================
-  {
-    "data": ...
-    "transform": [
-      {
-        "calculate" : "datum.temp_max - datum.temp_min",
-        "as"        : "temp_range"
-      }
-    ],
-    "mark": ...
-    "encoding": {
-      ...
-      "y": {
-        "field": "temp_range"
-        ...
-      }
-    }
-  }
-[[}]]
-
-[[{stack.react,use_case.data_visualization,data_management.data_visualization,01_PM.BACKLOG]]
-● Visx
-• @[https://www.infoq.com/news/2020/12/airbnb-visx-data-visualization/]
-  Airbnb Releases Visx, a Set of Low-Level Primitives for Interactive
-  Visualizations with React components that can be composed into interactive
-  visualizations.
-• Builds on D3 primitives, React component model, DOM handling.
-• data visualization solution   easy to learn without sacrificing
-  expressiveness.
-  " ...  After 3 years of development, 2.5 years of production use
-    at Airbnb, and a rewrite in TypeScript we are excited to announce
-    the official 1.0 release of visx (formerly vx). ..."
-[[}]]
-
-[[{use_case.data_visualization,data_management.data_visualization,]]
-● JointJS #[jointjs_summary]
-@[http://www.jointjs.com/tutorial]
-@[http://www.jointjs.com/demos/umlcd]
-• JointJS
-
-  INPUT                        PROCESSING              OUTPUT
-  =====                        ==========              ======
-  GRAPH MODEL:          ···→   attach graph to   ···→   rendered view
-  · N joint.dia.Element's      joint.dia.Paper
-      (or descendants)
-  · M joint.dia.Link's
-      ^^^^^^^^^^^^^^^^
-      cell := Element or Link
-
-- Joint.JS  "Hello World!:
-  <script src="joint.js"></script>
-  <script>
-    const graph01 = new joint.dia.Graph()    ← Represent a diagram.
-
-    const paper      = new joint.dia.Paper({
-        el: $('#myholder'),                  ← paper container
-        width: 600, height: 200, gridSize: 1 ← CSS data
-        model: graph01,                      ← attached graph
-    })
-    paper.scale(.5);
-    paper.$el.css('pointer-events', 'none');
-
-    graph01.on('all',                        ← .on(...) D3 operator reacting to input events
-                                               On D3, callback receives data and index as
-                                               1st arg.  TODO:Q: Is the same for vega-lite?
-      function(eventName, cell)              ← Event handling based on the Backbone MVC
-      { ... })                                 See all events triggered by any model in the
-                                               graph.
-
-
-
-    const rect01 =                           ← Basic shapes in JointJS:
-      new joint.shapes.basic.Rect({            ✓ joint.shapes.basic.Rect
-        position: { x: 100, y: 30 })           ✓ joint.shapes.basic.Circle
-                                               ✓ joint.shapes.basic.Text
-                                               ✓ joint.shapes.basic.Image
-
-    rect01.attr({                            ← Shape styling
-      rect: { rx: 5, ry: 5,
-              fill      : '#2C3E50',
-              'stroke-width': 2,
-              stroke    : 'black' },
-      text: { text      : 'my label',
-              fill      : ...,
-              'font-size': 18, ... }
-    })
-
-    rect01.on('change:position',             ← bind event to shape
-      (element) => {
-        ... element.id
-        ... element.get('position')
-      })
-
-    link.set('vertices',                     ← Set vertices on a link
-      [ { x: 300, y: 60 },
-        { x: 400, y: 60 },
-        { x: 400, y: 20 }
-      ])
-  link.set('smooth', true)                   ← Avoid sharp break at vertice
-                                               (Use interpolated curve)
-[[}]]
-
-[[{use_case.data_visualization,data_management.data_visualization,01_PM.TODO]]
-● JS Pivot Tables
-See also Vega-Lite pivot charts @[#vega_lite_summary]
-@[https://github.com/search?q=pivot+table]
-@[https://pivottable.js.org/examples/]
-@[https://github.com/nicolaskruchten/pivottable]
-@[https://www.flexmonster.com/demos/pivot-table-js/]
-[[}]]
-
-[[{performance.data_visualization,use_case.data_visualization.real_time,data_management.data_visualization,01_PM.BACKLOG]]
-● Complex Model Real Time Render
-@[https://www.infoq.com/presentations/autodesk-forge-viewer/]
-Shwetha Nagaraja & Federico Rocha explore in detail some of the most
-interesting heavily-optimized techniques and strategies that Autodesk
-Forge Viewer introduces for viewing extremely large 2D and 3D models
-in the browser in real-time. These include progressive rendering to
-reduce time to first pixel, geometry consolidation to reduce draw
-overhead.
-[[}]]
-
-[[$div}]]
-
-[[{$div]]
-[[{multimedia,01_PM.BACKLOG]]
-● Multimedia
-- http://www.w3.org/2010/05/video/mediaevents.html
-
-- http://stackoverflow.com/questions/14317179/display-a-video-from-a-blob-javascript
-  var reader = new FileReader();
-  reader.readAsDataURL(vid);
-
-  function display(vid){
-      var video = document.getElementById("video");
-      video.src = window.URL.createObjectURL(vid);
-
-  }
-
-- http://html5doctor.com/video-canvas-magic/
-  http://html5doctor.com/demos/video-canvas-magic/demo2.html
-  https://developer.mozilla.org/en-US/docs/Web/HTML/Manipulating_video_using_canvas
-
-- Video &amp; MediaSource:
-  https://dvcs.w3.org/hg/html-media/raw-file/tip/media-source/media-source.html
- During playback, the media element pulls segment data out of the source
-buffers, demultiplexes it if necessary, and enqueues it into track buffers so
-it will get decoded and displayed. buffered describes the time ranges that
-are covered by media segments in the source buffer.
-  Once a new SourceBuffer has been created, it expects an initialization
-segment to be appended first. This first segment indicates the number and
-type of streams contained in the media segments that follow. This allows the
-media element to configure the necessary decoders and output devices
-
-  A MediaSource object can be attached to a media element by assigning a
-MediaSource object URL to the media element src  attribute or the src
-attribute of a <source> inside a media  element. MediaSource object URLs are
-created by passing a MediaSource  object to window.URL.createObjectURL().
-Initialization segments are an optimization. They allow a byte stream format
-to avoid duplication of information in Media Segments that is the same for
-many Media Segments. Byte stream format specifications need not specify
-Initialization Segment formats, however. They may instead  require that such
-information is duplicated in every Media Segment.
-
-
-   | http://updates.html5rocks.com/2011/11/Stream-video-using-the-MediaSource-API
-   |*//SUMMARY:
-   | video.src = video.webkitMediaSourceURL;
-   | ...
-   | video.webkitSourceAppend(new Uint8Array(...));
-   | if (endOfStreamDetected) {
-   |     video.webkitSourceEndOfStream(HTMLMediaElement.EOS_NO_ERROR);
-   | }
-   |
-   |*//FULL CODE:*
-   | const chunkSize = Math.ceil(file.size / 5 /*number of Chunks */); // file is a video file
-   | var video = document.querySelector('video');
-   |     video.src = video.webkitMediaSourceURL;
-   |     video.addEventListener('webkitsourceopen', function(e) {
-   |         for (var i = 0; i < NUM_CHUNKS; ++i) {
-   |             var startByte = chunkSize * i;
-   |             var chunk = file.slice(startByte, startByte + chunkSize); // get slice
-   |             var reader = new FileReader();
-   |             reader.onload = (function(idx) {
-   |                 return function(e) {
-   |                     video.webkitSourceAppend(new Uint8Array(e.target.result)); // appending chunk:
-   |                     if (idx == NUM_CHUNKS - 1) {
-   |                       video.webkitSourceEndOfStream(HTMLMediaElement.EOS_NO_ERROR);
-   |                     // appending chunk:
-   |                     }
-   |                 };
-   |             })(i);
-   |             reader.readAsArrayBuffer(chunk);
-   |         }
-   |     }, false);
-   |
-   | splits video into chunks, then "stream" to a <video> tag by
-   | appending each chunk to the element using the MediaSource API.
-   |
-   | If you're interested in learning more about the API, see the specification.
-   |
-   | Support: Currently, the MediaSource API is only available in Chrome Dev Channel 17+ with the
-   |  --enable-media-source flag set or enabled via about:flags.
-   |
-   | CONST chunkSize = Math.ceil(file.size / 5 /*number of Chunks */); // file is a video file
-
-
-● Web-Audio Components [TODO]
-@[https://github.com/web-audio-components]
-
-• External Resources:
-· JS Oscillator:
-@[https://tonejs.github.io/examples/oscillator]
-[[}]]
-
-[[{multimedia.webrtc,01_PM.TODO]]
-● WebRTC: Peer-to-peer media streaming
-@[http://www.html5rocks.com/en/tutorials/getusermedia/intro/]
-@[http://gingertech.net/2014/01/08/use-deck-js-as-a-remote-presentation-tool/]
-[[}]]
-
-[[{multimedia,01_PM.BACKLOG]]
-● Kurento Media Server (KMS)
-@[https://doc-kurento.readthedocs.io/en/latest/]
-• multimedia server  to develop advanced video applications
-  for WebRTC platforms.
-• FaceOverlayFilter is a simple Computer Vision example that
-  detects people's faces on the video streams, to add an overlay
-  image on top of them.
-[[}]]
-
-[[{multimedia.video.hls,multimedia.video.dash,01_PM.BACKLOG]]
-● shaka-player
-@[https://github.com/google/shaka-player]
-• JS media player library with support for adaptative video streams
-  (video resolution and bandwith adapted on "real-time" to the available
-  network and client/resources) supporting DASH and HLS protocols.
-  and MSE-EME player.
-• 5.5K stars on Github
-[[}]]
-
-
-
-[[$div}]]
-
-
-[[{$div]]
-    ● Server side Tech
-[[{$div]]
-● API Management
-[[{qa.api_management,api_management.101,standards.api_management,use_case.crm,use_case.erp,security.aaa,use_case.payments,use_case.monetization,standards,security.privacy,use_case.b2b]]
-#[openapi_summary]
-● OpenAPI Spec 3.x
-@[https://swagger.io/specification/]
-• language-agnostic RESTful APIs interface definition for computers and humans .
-• can also be used as documentation.
-• External Resources:
-  · Collection of OpenAPI Tools: @[https://github.com/OpenAPITools]
-    · OpenAPI-diff:
-      @[https://github.com/quen2404/openapi-diff]
-  · OpenAPI topics @ github:
-    @[https://github.com/topics/openapi]
-    · ...
-
-
-Ex OpenAPi Definition:
-   | openapi: '3.0.3'
-   |
-   | info:
-   |   title: 'MyRESTService'
-   |   description: MyRESTService API Document
-   |   version: '0.0.1'
-   |
-   | servers: [ { url: https://www.mycompany.com/ } ]
-   |
-   | paths:
-   |   '/api/v1/module1/service1':
-   |     put:
-   |       summary: ...
-   |       description: >
-   |         This is a multi-line markup description
-   |          * bullet1
-   |          * bullet2
-   |       tags: [ MyModule1, Service1, ... ]   ← Orthogonal topics
-   |
-   |       requestBody:
-   |         $ref: '#/components/requestBodies/entity01'
-   |       parameters:
-   |         - name: SecuritySchemes
-   |           in  : header       ← :=  header ← HEAD / GET / PUT / POST
-   |                                  | query  ←        GET / PUT / POST
-   |                                  | body   ←              PUT / POST
-   |           description: |
-   |             Set Access Token
-   |             Format: "Bearer"+[space]+[jwt]
-   |           schema:
-   |             $ref: "#/components/schemas/entity01"
-   |           required: true
-   |
-   |         - name: queryParam1
-   |           in  : query
-   |           required: true
-   |           schema:
-   |             type: string    ← boolean | number | ...
-   |                               { type: string, enum: [asc, desc] }
-   |         - name: ...
-   |
-   |       responses:
-   |         '200': { description: 'OK' }
-   |         '400': { description: 'KO' }
-   |
-   |   '/api/v1/module1/service1':
-   |     get:
-   |       summary: ...
-   |       ...
-   |       responses:
-   |         '200':
-   |           description: 'OK'
-   |           content:
-   |             application/json:
-   |               schema:
-   |                 $ref: '#/components/schemas/entity01'
-   |         ...
-   |
-   | components:
-   |   schemas:
-   |     entity01:
-   |       type: object
-   |       properties:
-   |         blNo           : { type: string }
-   |         senderCompanyId: { type: string }
-   |         version        : { type: number }
-   |
-   |   requestBodies:
-   |     entity01:
-   |       content:
-   |         "application/json":
-   |           schema:
-   |             $ref: '#/components/schemas/entity01'
-
-────────────────────────────────────────────────────────────────────────────────
-
-● TOP Open APIs
-REF: @[https://projects.tmforum.org/wiki/display/API/Open+API+Table]
-• Account Management API
-     standardized mechanism for management of billing and settlement
-   accounts, as well as for financial accounting (account receivable)
-   either in B2B or B2B2C contexts.
-• Appointment API
-  standardized APIs to book appointment, including:
-  ✓ parameterized searching for free slots
-  ✓ nature and place of appointment.
-  ✓ ...
-
-• Customer Management API
-  standardized API for customer and customer account management
-  (creation, update, retrieval, deletion and notification of events).
-
-• Partnership Type Management API
-  Standardized API for CRUD operations on partnership types.
-   It is one of the APIs involved in an onboarding process .
-   ✓ Identifies type of partnership among parties
-     (allowed role types list, e.g: [ Buyer, Seller, Developer].
-• Party Management API :
-
-  Standardized API for CRUD party management.
-  Party := individual | organization
-
-• Party Role Management API
- standardized API for general CRUD party roles and notification of events.
-
-• Product Catalog Management API
-  standardized API for adding partners' products to existing Catalog.
-  It brings the capability for Service Providers to directly
-  feed partners systems with the technical description of the products they
-  propose to them.
-
-• Product Inventory Management API
-  standardized API for CRUD (representation of)product inventory management
-  and product lifecycle event notification.
-
-• Product Offering Qualification API :
-  One of Pre-Ordering Management API Family.
-
-• Product Ordering API :
-  standardized API for placing a product order.
-  simple set of operations to interact with CRM/Order negotiation systems
-  in a consistent manner.
-
-• Quote Management API :
-  one of the Pre-Ordering Management APIs.
-
-• Shopping Cart API :
-  standardized API for shopping-carts CRUD and events management.
-  used for the temporary selection and reservation of product
-  offerings in e-commerce and retail purchase.
-
-• Trouble Ticket API :
-  standardized API to Trouble Ticket Management Systems CRUD among
-  partners as result of an issue or problem identified by a customer
-  or another system.
-  Examples of Trouble Ticket API clients include CRM applications,
-  network management or fault management systems, or other trouble
-  ticket management systems (e.g. B2B).
-
-• Agreement Management API :
-  standardized API for managing agreements, especially in the context
-  of partnerships between partners.
-
-• Communication API :
-  create+send communications, notifications, and instructions to
-  Parties, Individuals, Organizations or Users.
-
-• Entity Catalog Management API :
-  The entity catalog is intended to provide any SID entity to consumers via a
-  catalog, with its specification and policy providing governance over its
-  content. The API provides management of the entity specifications and their
-  associations thru CRUD operations.
-
-• Federated Identity API :                                                      [aaa]
-  management of principals of any kind (persons, objects, …) and their
-  access to resources in an open environment which can span across different
-  enterprise boundaries. It relies on authentication, authorization and consent
-  mechanisms to protect privacy with a simple and easy user experience.
-  Different parties can provide identity services
-  (operators, social networks, GSMA, …).
-
-• Geographic Address Management API :
-  Standardized client interface to an (worldwide) Address management system,
-  validating and searching for geographic address data:
-  1) searching an area as a start (city, town ...)
-  2) zooming on the streets of this area
-  3) listing all the street segments (numbers) in a street.
-
-• Geographic Location Management API :
-  Provides the information of a geographic region of the entity (customer,
-  equipment, address).
-
-• Geographic Site Management API :
-  CRUD ops to manage sites that can be associated with customers, accounts,
-  service delivery or other entities.
-
-• Loyalty Management API :                                   [monetization]
-  Supports the management of loyalty program specifications, loyalty program
-  members, their associated products and loyalty accounts with loyalty balances
-  https://www.tmforum.org/resources/specification/tmf658-loyalty-management-api-rest-specification-r17-0-1/
-
-• Partnership Type Management API :
-  Standardized mechanisms for creating partnership types. It is one of the APIs
-  involved in an onboarding process.
-
-• Party Interaction Management API :
-  A User Interaction captures information about past interactions in order to
-  reuse it in future ones. This allows agents to serve users better by knowing
-  the steps they went through. It also allows customers to see better the
-  actions they have performed and how they interacted with us.
-
-• Party Management API :
-  Provides a standardized API for party CRUD management.
-
-• Party Role Management API
-  Provides a standardized API for general party roles CRUD management.
-
-• Payment Management API :                                                      [payments]
-  standardized client interface to Payment Systems for notifying about
-  performed payments or refunds.
-  Examples of Payment API originators (clients) include:
-  Web servers, mobile app servers, Contact center dashboards or retail
-  store systems.
-
-• Payment Methods API :                                                         [payments]
-  This API supports the frequently-used payment methods for the customer to
-  choose and pay the usage, including voucher card, coupon, and money transfer.
-
-• Prepay Balance Management API                                                 [payments]
-  REST API for Balance Management. It includes the model definition as well as
-  all available operations for prepay balance management. Prepaid subscribers
-  pay fees before using services. Therefore, the subscribers must have
-  sufficient balances. Operators can provide multiple recharge channels for
-  subscribers. Subscribers can pass credit between different subscriptions,
-  therefore transferring the balance from one account to another.
-
-• Privacy Management API :                                                      [privacy]
-  The Privacy management API provides standardized mechanisms for privacy
-  profile types, privacy profiles and privacy agreements such as creation,
-  update, retrieval, deletion and notification of events..
-
-• Product Catalog Management API :
-  standardized API for rapidly adding partners' products to an existing
-  Catalog. It brings the capability for Service Providers to directly
-  feed partners systems with the technical description of the products they
-  propose to them.
-
-• Product Inventory Management API :
-  standardized API for CRUD of representation-of-product in inventory.
-
-• Product Offering Qualification API :
-  One of Pre-Ordering Management API Family, providing Product Offering
-  commercial eligibility.
-
-• Product Ordering API :
-  standardized API for placing a product order interacting with CRM/
-  Order negotiation systems in a consistent manner.
-
-• Quote Management API :                                                       [payments]
-  One of the Pre-Ordering Management APIs allowing to place a customer
-  quote with all of the necessary quote parameters.
-
-• Resource Catalog Management API :
-  API spec allowing the management of the entire lifecycle of the
-  Resource Catalog elements and the consultation of resource catalog
-  elements during several processes such as ordering process.
-
-• Resource Function Activation and Configuration API :
-  This API introduces Resource Function which is used to represent a Network
-  Service as well as a Network Function. The Network Service and Network
-  Function class definitions and associations in TR244 (which, in turn, builds
-  on concepts from the SID addenda on Logical Resource and Service) are
-  utilized to define the Resource Function
-
-• Trouble Ticket API :
-  standardized client interface to Trouble Ticket Management Systems
-  for creating, tracking and managing trouble tickets among partners as a
-  result of an issue or problem identified by a customer or another system.
-  API clients include CRM applications, network management or fault
-  management systems, or other trouble ticket management systems (e.g. B2B).
-
-• Usage Consumption Management API :                                            [monetization]
-  API allowing real-time view of the balance of the various buckets
-  (SMS, Voice, Data for example) that a user consumes with each of his devices
-  and the usages done out of the bucket.  Usage report retrieves the data
-  related to these balances.
-   This API should also allow performing a direct top-up on the balance of
-  a prepaid bucket with voucher references or with a given credit value after
-  a payment done by a credit card or with a credit value transfer.
-
-• Usage Management API :
-   Provides standardized mechanism for collection-of-usages CRUD management.
-  E.g: It allows a service provider to
-       1) retrieve usage generated by a partner service platform in order to rate it
-       2) provide rated usage to a partner for consumption follow up purposes.
-
-• User Roles⅋Permissions API :
-  user role : entity that defines a set of privileges covering various functions
-              and/or manageable assets.
-              (session) User are assigned a given role then it is actually allocated
-              all the privileges defined for that role type and the corresponding
-              permissions are created for that user.
-
-[[}]]
-
-
-[[{api_management,standards,code.async,01_PM.TODO]]
-● Open Data Protocol
-@[https://www.odata.org/]
-• ISO/IEC approved, OASIS standard
-• It defines   set of best practices for building and consuming
-  RESTful APIs to focus on business logic without worrying
-  about different approaches to define request/response headers,
-  status codes, HTTP methods, URL conventions, media types,
-  payload formats, query options, etc.
-• OData provides guidance for:
-  · tracking changes
-  · defining functions/actions for reusable procedures
-  · sending asynchronous/batch requests.                           [async]
-
-• OData RESTful APIs are easy to consume.
-  - OData metadata, a machine-readable description of the
-    data model of the APIs, enables the creation of powerful
-    generic client proxies and tools.
-
-• OData Tools include:
-  - Visual Studio Code for OData Extension:
-    - adds rich support for the OData query language
-  - XOData
-    - generic online OData API/Service visualizer and explorer.
-      It assists in rapid prototyping, verification, testing,
-      and documentation of OData APIs. With XOData Chrome App
-      it's also possible to explore OData Services deployed
-      locally or on private networks.
-
-[[}]]
-
-
-
-
-[[{code.async,standards.api_management,api_management.101,qa,01_PM.TODO]]
-● asyncapi.org/ #[asyncapi_summary]
-@[https://www.asyncapi.org/]
-• Low level standard (vs OpenAPI high-level/business oriented)
-  to architect future event-driven architectures.
-• Open source tools to easily build and maintain your event-driven
-  architecture. All powered by the AsyncAPI specification, the industry
-  standard for defining asynchronous APIs.
-• Compatible with OpenAPI Spec, allowing to re-use schema definitions.
-
-See comparative with OpenAPI and CloudEvents at:
-@[https://www.asyncapi.com/blog/async_standards_compare]
-
-• Extracted from ebay anouncement to adopt AsyncAPI:
-@[https://www.infoq.com/news/2021/05/ebay-adopts-asyncapi/]
-    One of the critical AsyncAPI features that eBay's team has found
-  particularly useful is   clean separation between channels,
-  operations, and servers.
-  · A channel represents an event stream
-  · An operation describes a publish or subscribe process.
-  · A server facilitates the message transfer (i.e., the message bus).
-  This separation allows a complete representation of producers, consumers,
-  and message schemas, resulting in a standardized model of a
-  message-driven ecosystem.
-[[}]]
-
-[[{code.low_code,api_management,qa.testing,01_PM.TODO]]
-● Mirage: Fast Prototyping
-@[https://miragejs.com]
-
-• Mirage JS is an API mocking library that lets you build, test and
-  share a complete working JavaScript application without having to
-  rely on any backend services.
-────────────────────────────────────────────────────────────────────────────────
-● WireMock
-• HTTP-based simulator to mock APIs for fast, robust and comprehensive testing.
-• Fix the problem of testing APIs that do NOT yet exists or is imcomplete.
-• test edge cases/failure modes that real API won't reliably produce.
-• It can reduce build time from hours to minutes.
-[[}]]
-
-[[{api_management.apigee,01_PM.TODO]]
-● APIgee: x-Cloud API Mng
-- The Cross-Cloud API Management Platform
-  https://cloud.google.com/apigee/
-[[}]]
-
-[[$div}]]
-
-
-
-[[{$div]]
-[[{stack.deno,qa,security,01_PM.TODO]]
-● Deno (NodeJS +++)
-• extracted from
-@[https://www.infoq.com/news/2020/06/deno-1-ready-production/]
-  Deno Is Ready for Production  @ma
-  • Deno: secure runtime for JS, TS and WebAssembly on V8 engine.
-  • created by the original developer of Node.js, Ryan Dahl, to
-    address what he called "10 things I regret about Node.js".
-  • Notable differences for application developers:
-    • single binary application (vs Node.js modular binaries).
-    • Avoid complex dependency management solutions like the NPM.
-      Developers declare dependencies in source code using direct URLs.
-      • Already 500+ third-party Deno modules available.
-      (   not compatible with NPM packages written for Node.js , but
-        porting must be easy).
-    • Deno runtime is secure by default. If application needs to      [security]
-      access the file system or network, the developer needs to
-      declare it explicitly.
-[[}]]
-
-[[$div}]]
-[[$div}]]
-
-[[{$div]]
-● MONETIZATION @mb
+# MONETIZATION @mb
 [[{use_case.monetization,use_case.payments,01_PM.BACKLOG]]
-● Web Monetization
+# Web Monetization
 @[https://webmonetization.org/]
 • JS browser API to allows the creation of a payment
   stream from the user agent to the website.
@@ -1124,7 +97,7 @@ See comparative with OpenAPI and CloudEvents at:
 [[}]]
 
 [[{use_case.monetization,use_case.payments,01_PM.BACKLOG]]
-● Coil
+# Coil
 @[https://medium.com/coil/coil-building-a-new-business-model-for-the-web-d33124358b6?utm_source=singlepagebookproject]
 
 Innovating on Web Monetization: Coil and Firefox Reality
@@ -1136,7 +109,7 @@ Ilp: coilhq/coil-wordpress-plugin: Coil's Wordpress Web Monetization Plugin
 [[}]]
 
 [[{use_case.monetization,standards.finance,01_PM.BACKLOG]]
-● OpenRTB
+# OpenRTB
 Real-time Bidding (RTB) is a way of transacting media that allows an
 individual ad impression to be put up for bid in real-time. This is
 done through a programmatic on-the-spot auction, which is similar to
@@ -1155,15 +128,15 @@ advertising solutions.
 [[$div}]]
 
 [[{$div]]
-● Advanced Libs
-[[{data_management.text_search,performance,01_PM.TODO]]
-● Stork: Wasm in-browser Full-text Search!!!
+# Advanced Libs
+[[{data_mng.text_search,performance,01_PM.TODO]]
+# Stork: Wasm in-browser Full-text Search!!!
 @[https://www.infoq.com/news/2020/03/stork-wasm-rust-text-search/]
 Stork, a Rust/Wasm-Based Fast Full-Text Search for the JAMStack
 [[}]]
 
-[[{dev_lang.js,data_management.text_parsing,01_PM.BACKLOG]]
-● JiSON: context-free
+[[{dev_lang.js,data_mng.text_parsing,01_PM.BACKLOG]]
+# JiSON: context-free
 @[http://zaach.github.io/jison/docs/]
 Jison takes a context-free grammar as input and outputs a JavaScript
 file capable of parsing the language described by that grammar.
@@ -1172,8 +145,8 @@ reject, or perform actions based on the input. If you’re familiar
 with Bison or Yacc, or other clones, you’re almost ready to roll.
 [[}]]
 
-[[{data_management.text_input,dev_lang.js,01_PM.BACKLOG]]
-● HTML Editors (in HTML)
+[[{data_mng.text_input,dev_lang.js,01_PM.BACKLOG]]
+# HTML Editors (in HTML)
 • Monaco Editor(used by VSCode,Che...)
   • Blazeling fast web-editor (Used by VSCode, Che, ...)
   @[https://code.visualstudio.com/docs/editor/editingevolved]
@@ -1182,9 +155,9 @@ with Bison or Yacc, or other clones, you’re almost ready to roll.
 [[}]]
 
 
-● IA Tools
+# IA Tools
 [[{IA.cognitive,01_PM.BACKLOG]]
-● trackingjs Face detection
+# trackingjs Face detection
 @[https://trackingjs.com]
 • computer vision algorithms into the browser environment.
 • Enables real-time color tracking, face detection and much more.
@@ -1193,13 +166,13 @@ with Bison or Yacc, or other clones, you’re almost ready to roll.
 [[}]]
 
 [[{IA]]
-● Tensorflow.org
+# Tensorflow.org
 Tensorflow using JS + WebGL
 @[https://js.tensorflow.org/]
 [[}]]
 
 [[{IA.cognitive,01_PM.BACKLOG]]
-● Face⅋Speech Recog.
+# Face&Speech Recog.
 @[https://dzone.com/articles/tutorial-how-to-build-a-pwa-with-face-and-speechrecognition?edition=636291]
 • Face detection API:
   face recognition in the browser:
@@ -1216,10 +189,10 @@ $ $ git clone https://github.com/petereijgermans11/progressive-web-app
 [[}]]
 [[$div}]]
 
-● SEO [[{use_case.SEO]]
+# SEO [[{use_case.SEO]]
 
 [[{use_case.seo,use_case.monetization,standards,01_PM.WiP]]
-● SEO Summary #[seo_sitemap_schema.org_summary]
+# SEO Summary #[seo_sitemap_schema.org_summary]
 • SEO stands for  Search Engine Optimization .
 
   ############################
@@ -1308,10 +281,10 @@ $ $ curl https://${searchengine}/ping?sitemap=http://www.example.com/sitemap.gz
   all URLs (including Sitemap hosting URL) must be URL-escaped
   by the web server on which they are located.
 
-  https.../üm.php⅋q=name
-  https.../%FCm.php⅋q=name         ← Server using ISO-8859-1
-  https.../%C3%BCm.php⅋q=name      ← Server using UTF-8
-  https.../%C3%BCm.php⅋amp;q=name  ← entity escaped URL
+  https.../üm.php&q=name
+  https.../%FCm.php&q=name         ← Server using ISO-8859-1
+  https.../%C3%BCm.php&q=name      ← Server using UTF-8
+  https.../%C3%BCm.php&amp;q=name  ← entity escaped URL
 
 • Sitemap index  needed when using more than one Sitemap file.
 
@@ -1431,8 +404,8 @@ $ $ curl https://${searchengine}/ping?sitemap=http://www.example.com/sitemap.gz
     site-wide monitoring and testing for rich results.
 
 [[}]]
-[[{standards.data_management,01_PM.TODO]]
-● JSON-LD #[json-ld_summary]
+[[{standards.data_mng,01_PM.TODO]]
+# JSON-LD #[json-ld_summary]
 @[https://json-ld.org/]                                                   [TODO]
 • JSON-based format used to serialize Linked Data primarily targeting
    Web environments in order to build interoperable Web services, and
@@ -1448,7 +421,7 @@ $ $ curl https://${searchengine}/ping?sitemap=http://www.example.com/sitemap.gz
 [[{$div]]
     ● Non-classified / Radar
 [[{protocol.http/3,performance.http/3]]
-● HTTP/3  #[http3_summary]
+# HTTP/3  #[http3_summary]
 @[https://www.infoq.com/news/2020/01/http-3-status/]
 • HTTP/2 introduced the concept of first-class streams embedded
   in the same TCP connection enabling multiplexing simultaneous
@@ -1462,8 +435,8 @@ $ $ curl https://${searchengine}/ping?sitemap=http://www.example.com/sitemap.gz
   HTTP/2 issues.
 [[}]]
 
-[[{dev_lang.js,code.async,code.low_code,security,data_management,01_PM.TODO]]
-● axios
+[[{dev_lang.js,arch.async,01_PM.low_code,security,data_mng,01_PM.TODO]]
+# axios
 @[https://www.npmjs.com/package/axios]
 Promise based HTTP client for the browser and node.js
 Features
@@ -1478,7 +451,7 @@ Features
 • Automatic transforms for JSON data.
 • Client side support for protecting against XSRF                     [security]
 --------------------------------------------
-● https://hyperfetch.bettertyped.com/docs/Getting%20Started/Overview
+# https://hyperfetch.bettertyped.com/docs/Getting%20Started/Overview
   Hyper Fetch is a library for a very wide range of uses - it provides
   the logic necessary to perform requests, caching, queuing, offline
   support, presistence possibilities of the queued requests and cache.
@@ -1493,7 +466,7 @@ Features
 [[}]]
 
 [[{mobile,performance.cache,01_PM.TODO]]
-● PouchDB
+# PouchDB
 https://pouchdb.com/ (46KB gzipped)
  "...PouchDB is an open-source JavaScript database inspired by
    Apache CouchDB that is designed to run well within the browser.
@@ -1511,8 +484,8 @@ https://pouchdb.com/ (46KB gzipped)
    db.replicate.to('http://example.com/mydb');
 [[}]]
 
-[[{low_code,security.aaa,security.oauth,stack.nodejs,01_PM.todo]]
-● PassportJS.org     @ma
+[[{01_PM.low_code,security.aaa,security.oauth,stack.nodejs,01_PM.todo]]
+# PassportJS.org     @ma
 @[http://www.passportjs.org/packages/]
 Simple, unobtrusive authentication middleware for Node.js and Express.
 
@@ -1523,7 +496,7 @@ passport.authenticate('twitter'); // 'facebook' 'google' 'linkedin' 'github'
 [[}]]
 
 [[{01_PM.TODO]]
-● Pino JSON logger
+# Pino JSON logger
 @[https://github.com/pinojs/pino]
 • Compatible with Fastify , Express , Hapi , Restify , Koa , Node core http , Nest
 
@@ -1536,7 +509,7 @@ passport.authenticate('twitter'); // 'facebook' 'google' 'linkedin' 'github'
 [[}]]
 
 [[{use_case.monetization,use_case.seo,01_PM.backlog]]
-● matomo.org
+# matomo.org
 @[https://matomo.org/]
 • Google Analytics that preserves customer's privacy.
 [[}]]

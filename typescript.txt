@@ -1,6 +1,6 @@
-typescript Summary [[{typescript]]
+typescript Summary [[{dev_lang.ts]]
 
-● Use 'let' for variables, const for constants.
+# Use 'let' for variables, const for constants.
 
   const isDone: boolean = false;    const isDone = false;      ● BASIC TYPES
   const lines : number = 42;        const lines  = 42;
@@ -13,9 +13,20 @@ typescript Summary [[{typescript]]
   const name  : JSON   = ...       <··· JSON type
   let   addr? : string | string[], <··· type string Or string[]
 
-● [[{collections]]
-  const list1: number[]      = [1, 2, 3];  <··· generic array.
-  const list1: Array<number> = [1, 2, 3];  <··· typed array.
+# Data Structures
+  const list1: number[]      = [1, 2, 3];  <··· generic array.  [[{data_structure.arrays]]
+  const list1: Array<number> = [1, 2, 3];  <··· typed array definition
+  const moreNumbers: ReadonlyArray<number>
+                                = numbers; <··· Inmutable array definition: [[{20_QA.inmutability}]]
+        moreNumbers[5] = 5;                <··· Error
+        moreNumbers.push(5);               <··· Error
+        moreNumbers.length = 3;            <··· Error
+        numbers = moreNumbers; // Error, missing mutating methods
+for (const val of list)   { ... }          <··· iterate over array values. alt 1
+for (const key in object) { ... }          <··· iterate over object keys.
+   [[}]]
+
+
 
   enum eColor { Red, Green, Blue };         <··· enum declaration.
   const c: eColor = eColor.Green;
@@ -110,13 +121,6 @@ let tuple = pairToTuple({ item1: "hello", item2: "world" });
 let multiline = `Hi ${name},              <·· (multiline) template string
 , how are you?`;
 
-let numbers: Array<number> = [0, 1, 2, 3, 4];     <··· Array definition
-let moreNumbers: ReadonlyArray<number> = numbers; <··· Inmutable array definition:
-                                                       moreNumbers[5] = 5;  // Error
-                                                       moreNumbers.push(5); // Error
-                                                       moreNumbers.length = 3; // Error
-                                                       numbers = moreNumbers; // Error, missing mutating methods
-
 type State =                       <··· Tagged Union Types
   | { type: "loading" }
   | { type: "success", value: number }
@@ -139,11 +143,7 @@ const order3: Order = "A small Espresso";           <··· Error!!!
 // Iterators and Generators
 // for..of statement
 // iterate over the list of values on the object being iterated
-
-for (const val of list)   { ... } <··· iterate over array values. alt 1
-for (const key in object) { ... } <··· iterate over object keys.
-
-● Debugging TypeSCript in Firefox DevTools:
+# Debugging TypeSCript in Firefox DevTools:
 @[https://hacks.mozilla.org/2019/09/debugging-typescript-in-firefox-devtools/]
   debugging TypeScript is done through a source-map,
   created by the TS compiler.
@@ -158,4 +158,4 @@ It also allows to map generated variables to the original variable and scope.
 
 -> to see the original variables (used in the original TypeScript code)
    "click" on the Map checkbox (in Firefox debugger).
-[[typescript}]]
+[[dev_lang.ts}]]

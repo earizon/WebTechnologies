@@ -1,6 +1,6 @@
-● Concurrency with Service Workers [[{javascript,mobile.pwa,02_doc_has.comparative,performance.service_workers,qa,code.low_code,devops,01_PM.WiP]]
+# Concurrency with Service Workers [[{dev_lang.js,mobile.pwa,02_doc_has.comparative,performance.service_workers,20_qa,01_PM.low_code,devops,01_PM.WiP]]
  #[service_workers_summary]
-● Web Workers
+# Web Workers
 • See also #[service_workers]
 
 • Not to be confuse with web workers:                 [comparative]
@@ -20,7 +20,7 @@
 • preserved after closing the tab/window.
 • When a browser loads the web page/app, service workers loads first.
   •@[https://serviceworke.rs/]
-    Service Worker Cookbook:collection of working, practical examples       [qa]
+    Service Worker Cookbook:collection of working, practical examples       [[{20_qa]]
     of using service workers in modern web apps.
     - Network or cache: try fetch from network, fallback to cache.
     - Cache only:
@@ -40,7 +40,9 @@
     - Message Relay, Fetch Remote Resources, Live Flowchart,
       Offline Fallback, Offline Status, JSON Cache, Local Download,
       Virtual Server, API Analytics, Load balancer, Dependency Injection,
-      Request Deferrer, Cache then Network, Render Store
+      Request Deferrer, Cache then Network, Render Store                  [[}]]
+
+
   • @[https://www.infoq.com/news/2019/08/postMessage-performance-study/]
       Surma, Web Advocate at Google, recently published a study on the
     performance of postMessage, the method used by web workers to
@@ -53,18 +55,19 @@
   • probably the most powerful API added to the web platform recently.
   • allows to do anything with each request/response received by a browser.
     (cancel requests, re-route, modify/cache responses, ...)
-  Workbox library                                                     [low_code]
+  Workbox library                                                     [[{01_PM.low_code]]
 @[https://developers.google.com/web/tools/workbox/]
   • rapidly integrate common Service Worker functionality like
     precaching, runtime caching, request routing, background sync, and more.
   • Fully async, compatible with XHR and localStorage.
+[[}]]
 
 • External resources:
   • @[https://developer.mozilla.org/en-US/docs/Web/API/Service_Worker_API]    [TODO]
   • @[https://developers.google.com/web/fundamentals/primers/service-workers/]TODO]
 [[}]]
 
-● Prog.WApps Summary [[{standards,qa.usability,mobile]] #[progressive_wapps_summary]
+# Progressive WebApps Summary [[{standards,20_qa.usability,mobile]] #[]
 @[https://developer.mozilla.org/en-US/Apps]
 • apps built using standard Web technologies, working in any modern Web browser.
 • Compared to standard web apps/sites:

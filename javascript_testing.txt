@@ -1,4 +1,4 @@
-● Mock Service Worker MSW (REST/GraphQL Testing) [[{qa.testing,code.low_code,01_PM.TODO]]
+# Mock Service Worker MSW (REST/GraphQL Testing) [[{20_qa.testing,01_PM.low_code,01_PM.TODO]]
 @[https://www.infoq.com/news/2020/11/msw-mocking-graphql-rest-api/]
 • test UI components webapps without actual back-end, setting up mock server,
   or stubbing native http/https/fetch implementations.
@@ -14,7 +14,7 @@
   modify the component code or stubbing native http/https/fetch implementations.
 [[}]]
 
-● Mocha API-REST/Functional Testing[[{qa.testing,02_doc_has.comparative]]
+# Mocha API-REST/Functional Testing[[{20_qa.testing,02_doc_has.comparative]]
 @[https://mochajs.org/]
 • Easy testing of async services / REST APIs / ...
   better than Jasmine                                  [comparative]
@@ -60,7 +60,7 @@
 
 
 
-● Selenium (Web test Automation) [[{qa.testing,code.low_code,security.aaa]]
+# Selenium (Web test Automation) [[{20_qa.testing,01_PM.low_code,security.aaa]]
 • External Resources:
   ·@[http://docs.seleniumhq.org/]
   ·@[http://docs.seleniumhq.org/projects/ide/]
@@ -143,7 +143,7 @@
 [[}]]
 
 
-● Fiddler Proxy [[{qa.testing,troubleshooting]]
+# Fiddler Proxy [[{20_qa.testing,troubleshooting]]
 @[www.telerik.com/fiddler]
 • Allows to replace remote html/css/AJAX responses with local/mocked ones.
   Very useful when deploying to remote server can be "slow" due
