@@ -259,3 +259,20 @@ function Button01(props) {           <- Define a custom function component  'But
       )
     }
 
+# TODO  [[{PM.TODO]]
+
+## preactjs/preact-cli PWA in 30 seconds!! [[{]]
+https://github.com/preactjs/preact-cli 
+[[}]]
+
+## Preact Joins the Crowd and Bakes in Reactivity Primitives with New Signals API [[{]]
+https://www.infoq.com/news/2022/09/preact-new-signals-reactive-api/
+[[}]]
+
+
+## milloon vs react vs preact [[{]]
+https://millionjs.org/docs
+[[}]]
+
+
+[[PM.TODO}]]

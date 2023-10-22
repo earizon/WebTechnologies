@@ -70,6 +70,41 @@
   const mergedObj = {...dict01, ...dict02};  // <··· Merge map/Object:
                                                      Object.assign would also work
 [[data_structure.dictionary,data_structure.map}]]
+
+# Browser Script load vs (Node.JS)CommonJS "require" vs ESM "import" [[{]]
+   ┌───────────┬──────────────────────────┬─────────────────────────────────────┐
+   │           │ Export Functions         │ Import like                         │
+   │           │ in myLib.js like..       │                                     │
+   ├───────────┼──────────────────────────┼─────────────────────────────────────┤
+   │Standard   │ window.myFunct = ...     │ <script src="./myLib.js" ></script> │
+   │Browser JS │ ("injected to "window")  │                                     │
+   ├───────────┼──────────────────────────┼─────────────────────────────────────┤
+   │Node JS    │ exports.myFunct = ...    │ require("./myLib.js")               │
+   │CommonJS   │ (exports replace window) │ └──┬──┘                             │
+   │           │                          │ PROBLEM: require is synchronous,    │
+   │           │                          │ it  doesn't work on browsers.       │
+   │           │                          │ "SOLUTION": "webpack", "browserify" │
+   │           │                          │ introduce "transpilations" to allow │
+   │           │                          │ require(...) work on browsers too.  │
+   ├───────────┼──────────────────────────┼─────────────────────────────────────┤
+   │ ECMA      │ export const myFunct =.. │ import { myFunct } from "utils.js"  │
+   │ Script    │                          │ PROBLEM: doesn't allow for sync load│
+   │ Modul(ESM)│                          │                                     │
+   │           │                          │ Node.js can use it by using .mjs    │
+   │           │                          │ file extension, the package.json    │
+   │           │                          │ "type" field or "--input-type"      │
+   │           │                          │ Otherwise CommonJS is still used.   │
+   │           │                          │                                     │
+   └───────────┴──────────────────────────┴─────────────────────────────────────┘
+[[}]]
+
+
+# You Don't Know JS [[{]]
+https://github.com/getify/You-Dont-Know-JS
+
+This is a series of books diving deep into the core mechanisms of the
+JavaScript language.
+[[}]]
 ················································································
 # Dates and times                                                               [[{dev_lang.js.date_time]]
   const date2 = new Date('1995-12-17T03:24:00')        ←  GMT
@@ -322,6 +357,21 @@
 
 [[dev_lang.js.async}]]
 
+# Hyper Fetch Request+cache+queue+offline support [[{]]
+https://hyperfetch.bettertyped.com/docs/Getting%20Started/Overview
+  Hyper Fetch is a library for a very wide range of uses - it provides
+  the logic necessary to perform requests, caching, queuing, offline
+  support, presistence possibilities of the queued requests and cache.
+  By offering the above solutions, we have the ambition to become one
+  of the greatest fetching tools - this is certainly not our last word.
+  Motivation
+  The idea for Hyper Fetch came from our observation and leading many
+  projects in the Reactjs environment. There are many great fetch
+  libraries and api - like axios, fetch, swr, react-query but the logic
+  that they provide is detached from each other - hooks from the
+  fetchers.
+[[}]]
+
 # Debugging 101 [[{dev_lang.js.101.debugging,troubleshooting.debugging,arch.async]]
 
 ## Debug/Play with ajax requests (Firefox only?)
@@ -480,6 +530,65 @@
     }
 [[dev_lang.js.101.debugging}]]
 
+## Mintmproxy Swiss-Army Knife Proxy for HTTP SSL/TLS  [[{01_PM.TODO]]
+@[https://docs.mitmproxy.org/stable/]
+https://github.com/tldr-pages/tldr/blob/master/pages/common/mitmproxy.md
+
+* Set of tools that provide an interactive, SSL/TLS-capable
+  intercepting proxy for HTTP/1, HTTP/2, and WebSockets.
+
+* A Python API allows to write powerful addons to automatically
+  modify messages, redirect traffic, visualize messages, or
+  implement custom commands.
+
+* Powerful Ecosystem:
+  * mitmproxy/examples/contrib
+  * mitmproxy2swagger, automatically convert  mitmproxy captures to
+    OpenAPI 3.0 specifications.
+  * kubetap: kubectl plugin to interactively proxy Kubernetes Services.
+
+* https://docs.mitmproxy.org/stable/overview-tools/#mitmdump
+  https://github.com/tldr-pages/tldr/blob/master/pages/common/mitmdump.md
+  mitmdump is the command-line companion to mitmproxy. It provides
+  tcpdump-like functionality to let you view, record, and
+  programmatically transform HTTP traffic. See the --help flag output
+  for complete documentation.
+
+### Example use. Inject headers transparently:
+(extracted from ebsi_wct/README.txt @ https://github.com/walt-id/waltid-ssikit.git)
+
+ trace EBSI WCT calls and inject conformance headers:
+
+  1. Get Bearer Token from:
+   `https://app-pilot.ebsi.eu/users-onboarding/`
+   and save to: wct_bearer_token
+
+  $ ./mitmdump -s mitm-save.py -H \
+     "/Conformance/286dc8c9-15ce-4f4b-a32b-8ce5a5b7c4f5" \
+     -m reverse:https://api.conformance.intebsi.xyz -p 8080
+
+  NOTE: mitm-save.py:
+  ```
+  from mitmproxy.net.http.http1.assemble
+       import assemble_request,assemble_response
+
+  f = open('output.txt', 'w')
+
+  def response(flow):
+      f.write('\n')
+      f.write(assemble_request(flow.request).decode('utf-8'))
+      f.write('\n')
+      f.write('\n')
+      f.write(assemble_response(flow.response).decode('utf-8', 'replace'))
+      f.write('\n')
+      f.flush()
+  ```
+
+
+   Run WCTTest against mitm reverse proxy, by setting:
+   `EBSI_WCT_ENV="http://localhost:8080"`
+[[}]]
+
 # StoryBook.js [[{dev_lang.js.101,stack.angular,stack.react,stack.vue,01_PM.low_code,20_qa.testing,01_PM.TODO]]
 https://storybook.js.org/ !!!!
 robust UIs: sandbox to build UI components in isolation so you can
@@ -634,6 +743,218 @@ for React, Angular, Vue, ...
   - They may alternatively resort to UI frameworks that already embed similar reactive
     data capabilities and perform less unnecessary computations by design.
 [[01_PM.TODO}]]
+
+# Stork: Wasm in-browser Full-text Search!!!  [[{data_mng.text_search,performance,01_PM.TODO]]
+@[https://www.infoq.com/news/2020/03/stork-wasm-rust-text-search/]
+Stork, a Rust/Wasm-Based Fast Full-Text Search for the JAMStack
+[[}]]
+
+# HTML Editors (in HTML) [[{data_mng.text_input,dev_lang.js,01_PM.BACKLOG]]
+* Monaco Editor(used by VSCode,Che...)
+  • Blazeling fast web-editor (Used by VSCode, Che, ...)
+  @[https://code.visualstudio.com/docs/editor/editingevolved]
+* Quill.js WySiWyG Editor
+@[https://www.scalablepath.com/blog/using-quill-js-build-wysiwyg-editor-website/]
+[[}]]
+
+
+# Tensorflow on WebGL [[{IA]]
+Tensorflow using JS + WebGL
+@[https://js.tensorflow.org/]
+[[}]]
+
+# Face&Speech Recog.  [[{IA.cognitive,01_PM.BACKLOG]]
+@[https://dzone.com/articles/tutorial-how-to-build-a-pwa-with-face-and-speechrecognition?edition=636291]
+* Face detection API:
+  face recognition in the browser:
+@[https://justadudewhohacks.github.io/face-api.js/docs/index.html]
+* Web speech API:
+  enables "Speech to text" in the app.
+@[https://developer.mozilla.org/en-US/docs/Web/API/Web_Speech_API/Using_the_Web_Speech_API]
+
+  (above APIs can only work when enabling
+  "Experimental Web Platform features" in the
+  browser via the url: chrome://flags
+
+$ $ git clone https://github.com/petereijgermans11/progressive-web-app
+[[}]]
+
+[[{dev_lang.js,arch.async,01_PM.low_code,security,data_mng,01_PM.TODO]]
+# axios
+@[https://www.npmjs.com/package/axios]
+Promise based HTTP client for the browser and node.js
+Features
+* Make XMLHttpRequests from the browser and
+*      http  requests  from node.js
+* Supports the Promise API
+* Intercept request and response
+* Transform request and response data
+  (See service workers @[#service_workers_summary]
+   for advanced/complementary alternative)
+* Cancel requests.
+* Automatic transforms for JSON data.
+* Client side support for protecting against XSRF                     [security]
+--------------------------------------------
+# https://hyperfetch.bettertyped.com/docs/Getting%20Started/Overview
+  Hyper Fetch is a library for a very wide range of uses - it provides
+  the logic necessary to perform requests, caching, queuing, offline
+  support, presistence possibilities of the queued requests and cache.
+  By offering the above solutions, we have the ambition to become one
+  of the greatest fetching tools - this is certainly not our last word.
+  Motivation
+  The idea for Hyper Fetch came from our observation and leading many
+  projects in the Reactjs environment. There are many great fetch
+  libraries and api - like axios, fetch, swr, react-query but the logic
+  that they provide is detached from each other - hooks from the
+  fetchers.
+[[}]]
+
+[[{mobile,performance.cache,01_PM.TODO]]
+# PouchDB
+https://pouchdb.com/ (46KB gzipped)
+ "...PouchDB is an open-source JavaScript database inspired by
+   Apache CouchDB that is designed to run well within the browser.
+   PouchDB was created to help web developers build applications that
+   work as well offline as they do online.
+   It enables applications to store data locally while offline, then
+   synchronize it with CouchDB and compatible servers when the
+   application is back online, keeping the user's data in sync no matter
+   where they next login..."
+   var db = new PouchDB('dbname');
+   db.put({ _id: 'dave@gmail.com', name: 'David', age: 69 });
+   db.changes().on('change', function() {
+     console.log('Ch-Ch-Changes');
+   });
+   db.replicate.to('http://example.com/mydb');
+[[}]]
+
+[[{IA.cognitive,01_PM.BACKLOG]]
+# trackingjs Face detection
+@[https://trackingjs.com]
+* computer vision algorithms into the browser environment.
+* Enables real-time color tracking, face detection and much more.
+* lightweight core (~7 KB)
+* intuitive interface.
+[[}]]
+
+[[{20_qa,frontend,20_qa.best_patterns,01_PM.TODO]]
+## ROCA:  simple best practices for decent Web apps
+https://roca-style.org/
+https://github.com/innoq/ROCA
+[[}]]
+
+## Ace html editor [[{01_PM.TODO]]
+https://stackoverflow.com/questions/15485153/enable-vim-mode-in-gist-ace-editor
+ace vim mode:
+https://stackoverflow.com/questions/15485153/enable-vim-mode-in-gist-ace-editor
+https://ace.c9.io/#nav=production
+[[}]]
+
+
+## ArrayBuffer+WebWorkers Optimization [[{]]
+In order to enable repeated transfer of large amounts of data between Web
+Workers [WEBWORKERS], ArrayBuffer implements the Transferable interface [HTML
+]. This section defines the behavior of ArrayBuffers and views under the
+structured cloning [HTML] and transfer algorithms.
+[[}]]
+
+## FlowType: Find type-inference bugs:  [[{qa.101]]
+- https://flowtype.org
+  Flow uses type inference to find bugs even without type annotations. It
+  precisely tracks the types of variables as they flow through your program.
+
+  Flow is designed for JavaScript programmers. It understands common JavaScript
+  idioms and very dynamic code.
+
+  Flow incrementally rechecks your changes as you work, preserving the fast
+  feedback cycle of developing plain JavaScript.
+[[}]]
+
+# jsdiff native text diff generator [[{dev_lang.js.strings]]
+  https://github.com/kpdecker/jsdiff
+  JS
+[[}]]
+
+## JS Decorators [[{dev_lang.js,01_PM.TODO]]
+@[https://medium.com/google-developers/exploring-es7-decorators-76ecb65fb841]
+[[}]]
+
+## Gtk+ to JS [[{01_PM.TODO]]
+@[https://www.rollapp.com/]
+GTK+ apps ported to Javascript (HTML5)
+[[}]]
+
+## Native ES Modules [[{01_PM.TODO.now]]
+https://developer.mozilla.org/en-US/docs/Web/JavaScript/Guide/Modules
+[[}]]
+
+## es5, babel, es6 performance  WARN,WARN,WARN!!!: [[{]]
+- Some JS constructions can be 2 order of magnitude faster/slower
+  according to:
+@[http://incaseofstairs.com/six-speed/]
+  In case of trouble check the link above.
+[[}]]
+
+## Modules best-patterns [[{]]
+/* eslint prefer-const: "off" */
+async function myMainFunction () {
+  ...
+}
+
+/* We recommend this pattern to be able to use
+ * async/await everywhere and properly handle
+ * errors. */
+if (require.main === module) {
+  myMainFunction()
+    .then(() => process.exit(0))
+    .catch(error => {
+      console.error(error)
+      process.exit(1)
+    })
+}
+exports.myMainFunction = myMainFunction
+[[}]]
+
+# LavaMoat [[{security.101]]
+https://github.com/LavaMoat/LavaMoat
+ set of tools for securing JavaScript projects against a category of
+attacks called software supply chain attacks.
+(Used for example, by MetaMask wallet plugin)
+[[}]]
+
+# closure-compiler: transpiles JS to a better JS [[{qa.101]]
+https://github.com/google/closure-compiler
+[[}]]
+
+## DOMPurify sanitizes HTML and prevents XSS attacks.  [[{security]]
+https://github.com/cure53/DOMPurify
+DOMPurify with string full of dirty HTML and it will return a string
+(unless configured otherwise) with clean HTML. DOMPurify will strip
+out everything that contains dangerous HTML and thereby prevent XSS
+attacks and other nastiness. It's also damn bloody fast. We use the
+technologies the browser provides and turn them into an XSS filter.
+The faster your browser, the faster DOMPurify will be. e.g.:
+   import DOMPurify from 'dompurify';
+   var clean = DOMPurify.sanitize(dirty);
+[[}]]
+
+## script integrity (digest) attribute [[{security.101]]
+web  pages  can  use  a  feature  called  subresource  integrity
+that  allows  the  inclusion  of  a digest in the import tag:
+<script src="https://code.jquery.com/jquery-2.1.4.min.js"
+         integrity="sha256-8WqyJLuWKRBVhxXIL1jBDD7SDxU936oZkCnxQbWwJVw="></script>
+This is exactly the same scenario we talked about in the introduction of this chapter.
+Once the JavaScript file is retrieved, the browser hashes it (using SHA-256) and veri-
+fies that it corresponds to the digest that was hardcoded in the page. If it checks out,
+the JavaScript file gets executed as its integrity has been verified.
+[[}]]
+
+## 2k chat component in your apps [[{]]
+https://github.com/Sanix-Darker/tidi
+[[}]]
+
+
+
 
 
 [[dev_lang.js}]]

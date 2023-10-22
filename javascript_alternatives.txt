@@ -1,30 +1,30 @@
 # JS Alternatives [[dev_lang.js.alternatives]]
 # KotlinJS [[{dev_lang.kotlin,dev_lang.reason,20_qa,02_doc_has.comparative]]
-• Kotlin modern language features and first-class support for Javascript compilation
+* Kotlin modern language features and first-class support for Javascript compilation
   makes of it an ideal alternative to Javascript.
-• Kotlin support integration with:
+* Kotlin support integration with:
   (@[https://kotlinlang.org/docs/js-modules.html])
-  • Unified Module Definitions (UMD): compatible with both AMD and CommonJS.
+  * Unified Module Definitions (UMD): compatible with both AMD and CommonJS.
     UMD modules are also able to be executed without being imported
     or when no module system is present. This is the default option for
     the browser and nodejs targets.
-  • Asynchronous Module Definitions (AMD), which is in particular
+  * Asynchronous Module Definitions (AMD), which is in particular
     used by the RequireJS library.
-  • CommonJS, widely used by Node.js/npm (require function and module.exports object)
-  • Plain. Don't compile for any module system. You can access a module by its
+  * CommonJS, widely used by Node.js/npm (require function and module.exports object)
+  * Plain. Don't compile for any module system. You can access a module by its
     name in the global scope.
 [[}]]
 
 
 # J2CL [[{]]
-• Java to Javascript transpiler by Goole.
-• Production ready and actively use in Google's products.
+* Java to Javascript transpiler by Goole.
+* Production ready and actively use in Google's products.
 @[https://github.com/google/j2cl]
 @[https://www.infoq.com/news/2019/05/j2cl-java-javascript-transpiler/]
 [[}]]
 
 # Elm (Haskell like) [[{]]
-• See also:
+* See also:
 @[https://www.infoq.com/articles/functional-UI-introduction-no-framework/]
 @[https://www.infoq.com/news/2021/10/elm-lessons-learnt-production/]
   The Elm architecture is the core of Functional UI techniques that
@@ -40,12 +40,12 @@ compiler can just figure it out. This works across the entire
 ecosystem. Using one function from a massive package with tons of
 dependencies? No problem. You just get that one function in the
 generated code.
-• Why not use Elm:
+* Why not use Elm:
 @[https://lukeplant.me.uk/blog/posts/why-im-leaving-elm/#technical-limitations]
   · Post recomends alternatives like:
     - https://rescript-lang.org/
     - https://github.com/darklang/philip2
-•  No Runtime Exceptions
+* No Runtime Exceptions
     Elm uses type inference to detect corner cases and give friendly
     hints.
      NoRedInk switched to Elm about two years ago, and 250k+ lines
@@ -62,9 +62,9 @@ generated code.
                  Int
       Hint: Use Maybe.  withDefault  to handle possible errors.
 
-•  Great Performance
+*  Great Performance
 
-•  Enforced Semantic Versioning
+*  Enforced Semantic Versioning
    ✓ Breaking APIs force new major version automatically.
      thanks to its "ML" type system:
      No surprises in PATCH releases
@@ -79,21 +79,21 @@ generated code.
          - parseValue : Value → Result String Node
          + parseValue : Value → Result Error Node
 
-•  Small Assets  (faster page loads)
-   Use --optimize flag, compiler do the rest. (no config needed)
+* Small Assets  (faster page loads)
+  Use --optimize flag, compiler do the rest. (no config needed)
 
-•  JavaScript Interoperability
+* JavaScript Interoperability
 [[}]]
 
 # Reason (OCalm) [[{]]
 @[https://reasonml.github.io/]
-• By Facebook.
-• " Reason lets you write simple, fast and quality type safe code
+* By Facebook.
+* " Reason lets you write simple, fast and quality type safe code
     while leveraging both the JavaScript and OCaml ecosystems."
-• See (excellent) comparative Elm vs Reason
+* See (excellent) comparative Elm vs Reason
 @[https://stackoverflow.com/questions/51015850/reasonml-vs-elm]
 
-• See also: ReasonReact
+* See also: ReasonReact
 [[}]]
 
 # PureScript (Haskell like) [[{01_PM.TODO.NOW]]
@@ -101,8 +101,8 @@ generated code.
     https://why.cardano.org/en/science-and-engineering/why-haskell/
 
 @[https://www.purescript.org/]
-• strongly-typed functional programming language transpiling to JS.
-• Benefits
+* strongly-typed functional programming language transpiling to JS.
+* Benefits
   transpile to readable JS
   reuse existing JS code easily
   extensive collection of libraries for web applications/servers/...
@@ -130,7 +130,7 @@ generated code.
 
 # Erlscripten (Erlang) [[{]]
 @[https://blog.aeternity.com/erlscripten-92c815786987]
-• Erlang:
+* Erlang:
   · language+framework most reliable choice to build highly
     stable applications
   · A normal Erlang app is built out of hundreds of small Erlang
@@ -145,7 +145,7 @@ generated code.
 [[}]]
 
 # WebScript [[{20_qa,01_PM.low_code,01_PM.TODO.now]]
-• "WARN": Low maintenance (v0.2) (Maybe not really needed).
+* "WARN": Low maintenance (v0.2) (Maybe not really needed).
 HTML
 =====================================================
 <div class="card-image">
@@ -159,7 +159,7 @@ div.class`card-image`(
   img.src`images/sample-1.jpg`.alt`Sample Image`,  ← JS standard Tagged template syntax for string arguments.
   span.class`card-title`("Card Title") )             == img.src("images/sample-1.jpg").alt("Sample Image")
 
-• Webscript is vanilla Javascript (vs HTML templating language)
+* Webscript is vanilla Javascript (vs HTML templating language)
   with the full power of Javascript without thtemplate language  limitations.
 
   Webscript is not an HTML templating language. Webscript uses

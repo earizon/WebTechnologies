@@ -158,4 +158,29 @@ It also allows to map generated variables to the original variable and scope.
 
 -> to see the original variables (used in the original TypeScript code)
    "click" on the Map checkbox (in Firefox debugger).
+
+
+## Typscript Maps [[{01_PM.TODO]]
+https://www.techgeeknext.com/angular/angular-typescript-map
+[[}]]
+
+# What's new [[{]]
+https://betterprogramming.pub/whats-new-in-typescript-4-5-57d6b88b1e72
+
+Experimental ECMAScript Module Support in Node.js
+⚠️ Available only under nightly releases and subject to future changes
+
+The module foundation of Node.js has been CommonJS. As there is a
+shift for polymorphic apps the urge of supporting ECMAScript modules
+has grown. For the past years, Node.js has been working to support
+those. From the Node 12 version onwards the support for the ES
+Modules is widely available.
+
+There are now two new module config settings: nodenext and node12.
+
+{
+  "compilerOptions": { "module": "nodenext" }
+}
+[[}]]
+
 [[dev_lang.ts}]]

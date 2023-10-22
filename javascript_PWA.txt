@@ -1,24 +1,24 @@
 # Concurrency with Service Workers [[{dev_lang.js,mobile.pwa,02_doc_has.comparative,performance.service_workers,20_qa,01_PM.low_code,devops,01_PM.WiP]]
  #[service_workers_summary]
 # Web Workers
-• See also #[service_workers]
+* See also #[service_workers]
 
-• Not to be confuse with web workers:                 [comparative]
+* Not to be confuse with web workers:                 [comparative]
   · Service-Workers  handle net.requests/cache/push notifications,...
   · Web-Worker : Mimics multithreading, allowing intensive scripts
     to be run in the background.
-• See also Service Workers in Angular #[angular_service_worker]
+* See also Service Workers in Angular #[angular_service_worker]
 
-• JS module providing web apps reliability and performance on par
+* JS module providing web apps reliability and performance on par
   with natively-installed code.
-• Service workers function as a network proxy managing cache.
-• intercept outgoing HTTP requests (data, HTML, even index.html),
+* Service workers function as a network proxy managing cache.
+* intercept outgoing HTTP requests (data, HTML, even index.html),
   and choose how to respond to them:
   • If properly designed, it can completely satisfy the app load
     without the need for the network.
-• S.Workers do NOT rely on server-specified caching headers .
-• preserved after closing the tab/window.
-• When a browser loads the web page/app, service workers loads first.
+* S.Workers do NOT rely on server-specified caching headers .
+* preserved after closing the tab/window.
+* When a browser loads the web page/app, service workers loads first.
   •@[https://serviceworke.rs/]
     Service Worker Cookbook:collection of working, practical examples       [[{20_qa]]
     of using service workers in modern web apps.
@@ -62,20 +62,20 @@
   • Fully async, compatible with XHR and localStorage.
 [[}]]
 
-• External resources:
+* External resources:
   • @[https://developer.mozilla.org/en-US/docs/Web/API/Service_Worker_API]    [TODO]
   • @[https://developers.google.com/web/fundamentals/primers/service-workers/]TODO]
 [[}]]
 
 # Progressive WebApps Summary [[{standards,20_qa.usability,mobile]] #[]
 @[https://developer.mozilla.org/en-US/Apps]
-• apps built using standard Web technologies, working in any modern Web browser.
-• Compared to standard web apps/sites:
+* apps built using standard Web technologies, working in any modern Web browser.
+* Compared to standard web apps/sites:
   · Apps are installed by a user, they are self-contained and don't always
     require the chrome of a browser window.
   · can be built to run offline.
-• Example of Progressive web apps include Gmail, Twitter or Etherpad.
-• Integrate within desktop and mobiles OSes, by allowing to access them through
+* Example of Progressive web apps include Gmail, Twitter or Etherpad.
+* Integrate within desktop and mobiles OSes, by allowing to access them through
   "start" or desktop icons and run in background pooling/pushing data from/to
   remote servers while the browser is "closed".
 
@@ -85,7 +85,7 @@
   SUMMARY FROM
 @[https://medium.com/james-johnson/a-simple-progressive-web-app-tutorial-f9708e5f2605]
   by James Johnson
-• PWA layout:
+* PWA layout:
   Hello-PWA/
   ├─ index.html    ← ✓ Hard code initial content to avoid empty-page when offline
   │                    or using old / non-PWA compliant browsers.
@@ -111,7 +111,7 @@
                      152x152 px, 192x192 px, 256x256 px and 512x512px needed
                      for compliance with Windows, Mac, iPhone and Android.
 
-• ┌─ e.g. Hellow-PWA/index.html:───────────────────
+* ┌─ e.g. Hellow-PWA/index.html:───────────────────
   │ <!doctype html>
   │ <html lang="en">
   │ <head>
@@ -144,7 +144,7 @@
   │ </body>                                    Really needed?
   │ </html>
   └────────────────────────────────────────────────
-• ┌─ e.g. Hellow-PWA/css/style.css:────────────────
+* ┌─ e.g. Hellow-PWA/css/style.css:────────────────
   │ body { font-family: sans-serif; }
   │
   │ html,
@@ -167,7 +167,7 @@
          like (OOSS) Google’s Lighthouse.
 
 
-• ┌─ e.g. Hellow-PWA/sw.js:    ────────────────
+* ┌─ e.g. Hellow-PWA/sw.js:    ────────────────
   │ const cacheName = 'hello-pwa';
   │ const filesToCache = [
   │   '/'             ,
@@ -202,7 +202,7 @@
   └────────────────────────────────────────────
 
 
-• ┌─ e.g. Hellow-PWA/js/main.js ────────────────
+* ┌─ e.g. Hellow-PWA/js/main.js ────────────────
   │ window.onload = () => {
   │   'use strict';
   │     if (! 'serviceWorker' in navigator) {
@@ -216,7 +216,7 @@
   └─────────────────────────────────────────────
 
 
-• ┌─ e.g. Hellow-PWA/manifest.json ─────────────
+* ┌─ e.g. Hellow-PWA/manifest.json ─────────────
   │ {
   │   "name": "Hello World",                 ← Used at install time
   │   "short_name": "Hello",                 ← Used in app icon

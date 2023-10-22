@@ -8,7 +8,19 @@
 @[https://github.com/angular/angular]
 ────────────────────────────────────────────────────────────────────────────────
 # What's new
-•  Angular 11
+
+## Angular 13
+   https://www.infoq.com/news/2021/11/introducing-angular-13/
+
+# Angular v12 [[{]]
+ Transitions to Ivy Rendering Engine
+https://www.infoq.com/news/2021/05/angular-12-ivy-default/
+...The Protractor end-to-end test framework will no longer be
+included in new projects. The team reports working with alternative
+popular solutions (e.g., Cypress, WebdriverIO, TestCafe)...
+[[}]]
+
+##  Angular 11
   @[https://www.infoq.com/news/2020/11/angular-11/]
   @[https://blog.angular.io/version-11-of-angular-now-available-74721b7952f7]
   - Hot Module Replacement implementation:
@@ -35,7 +47,7 @@
     WARN : for more complex updates, use the interactive update guide
            provided by the Angular team.
 
-•  Angular 9
+##  Angular 9
 @[https://www.infoq.com/news/2020/02/angular-9-ivy-rendering-engine/]
   • Ivy Compiler:
     Smaller bundle sizes, improved build times, and better debugging
@@ -44,7 +56,7 @@
       Ivy uses tree shaking, allowing it to include only the parts of
     Angular needed for the current application.
 
-•  Angular 5
+##  Angular 5
  Service worker implementation shipping by default.
 [[}]]
 
@@ -448,10 +460,10 @@ User click → (intercepted by) → Router  → (reacts by) → showing/hiding v
 [[{stack.angular]]
 # PrimeNG Library
 @[https://www.primefaces.org/primeng/#/]
-• See also other "top" Frameworks:
+## See also other "top" Frameworks:
 @[https://www.ngdevelop.tech/best-angular-ui-component-libraries/]
 
-•  PRE-SETUP
+##  PRE-SETUP
  $ $ npm install primeng --save
  $ $ npm install primeicons --save
  $ $ npm install @angular/animations --save   (opt)
@@ -465,13 +477,13 @@ User click → (intercepted by) → Router  → (reacts by) → showing/hiding v
   +     "primeicons": "^4.0.0"
         ...
     }
-• 95% of code is native with no 3rd party dependencies
-• UI component library configured as ng-modules. e.g:
+## 95% of code is native with no 3rd party dependencies
+## UI component library configured as ng-modules. e.g:
   import {AccordionModule} from 'primeng/accordion'; //accordion and accordion tab
   import {MenuItem}        from 'primeng/api';       //api
-• Lot of free themes out-of-the-box.
+## Lot of free themes out-of-the-box.
 
-• Ex. config. for required styles:
+## Ex. config. for required styles:
     "styles": [
       "node_modules/primeng/resources/themes/saga-blue/theme.css",
       "node_modules/primeng/resources/primeng.min.css",
@@ -479,15 +491,15 @@ User click → (intercepted by) → Router  → (reacts by) → showing/hiding v
       ...
     ],
     ...
-• See also: PrimeNG Video Tutorial:
+## See also: PrimeNG Video Tutorial:
 @[https://www.youtube.com/watch?v=4Wk4RgYN9ZQ&list=PLEXcOZ7ShIgAnxrnPgiOpIz1uPKZNQ9ZJ]
 [[}]]
 
 [[{stack.angular.101,mobile.pwa,arch.async,data_mng.cache,02_doc_has.comparative,performance.cache,devops,01_PM.TODO]]
 # Service Workers  @ma #[angular_service_worker]
 @[https://angular.io/guide/service-worker-intro]
-• See general introduction to Service workers at #[service_workers_summary]
-• The Angular service worker's (v5.0+) design goal:
+## See general introduction to Service workers at #[service_workers_summary]
+## The Angular service worker's (v5.0+) design goal:
   • Caching app as one unit. The running app will use the               [devops]
     same version of all files (vs randomnly receiving cached
     files from a newer incompatible version).
@@ -499,7 +511,7 @@ User click → (intercepted by) → Router  → (reacts by) → showing/hiding v
     background update.
   • TheB manifest is generated from "ngsw-config.json" .                [devops]
 
-• NG Service how-to:
+## NG Service how-to:
   • Include  NgModule ????                                                [TODO]
   • Registering NG Service Worker with the browser:
     •  WARN:  PWApp must be accessed over HTTPS, not HTTP.
@@ -1002,7 +1014,7 @@ $ $ ng build              my-app      -c production
      │Alice│          │NG-App │          │Keycloak│
      └─────┘          └───────┘          └────────┘
 
-•  PRESETUP
+##  PRESETUP
   → Keycloak
     → Client Config
       → Add Client :
@@ -1015,7 +1027,7 @@ $ $ ng build              my-app      -c production
   → Adding official keycloak js adapter
     $ $ npm i keycloak-js --save
 
-• Modify Angular app and next code to main.ts
+## Modify Angular app and next code to main.ts
   let initOptions = { //keycloak init options
     url    : 'https://0.0.0.0:8445/auth',
     realm  : 'keycloak-demo',
@@ -1094,6 +1106,61 @@ $ $ ng build              my-app      -c production
   }
 
 [[}]]
+
+# non-classified/TODO: [[{PM.TODO]]
+## web tech: Reactive Angular Library NgRx v10
+   Adds Component Local State Management Package
+https://www.infoq.com/news/2020/10/ngrx-component-store-local-state/ 
+
+## ng-select native angular Select: [[{]]
+Gallery: https://ng-select.github.io/ng-select#
+Github: https://github.com/ng-select/ng-select
+[[}]]
+
+## ng-zorro: component lib (8.5K likes)
+https://github.com/NG-ZORRO/ng-zorro-antd
+Gallery: https://ng.ant.design/components/
+
+## Angular Best Patterns [[{qa.best_patterns]]
+https://itnext.io/clean-code-checklist-in-angular-%EF%B8%8F-10d4db877f74 
+Don’t use nested subscriptionsThere may be situations where you
+need to consume data from multiple observable streams. In those
+cases, you should generally try to avoid socalled nested
+subscriptions. Nested subscriptions becomes hard to understand and
+may introduce unexpected side effects. We should instead use
+chainable methods like switchMap, forkJoin and combineLatest to
+condense our code.This will help us avoid writing code like
+this:this.returnsObservable1(...)
+ .subscribe(
+ success => {
+   this.returnsObservable2(...)
+   .subscribe(
+     success => {
+       this.returnsObservable3(...)
+       .subscribe(
+         success => { ... }
+       })
+   )
+ },
+
+And hopefully more like this:
+this.returnsObservable1(...)
+ .pipe(
+ flatMap(success => this.returnObservable2(...),
+ flatMap(success => this.returnObservable3(...)
+ )
+ .subscribe(success => {...});+Quick tip!
+There may be confusion around when to use the appropriate operators
+when dealing with multiple streams. I recommend checking out this
+article for some clarity on this topic.
+[[}]]
+
+
+## DevTools Released with Component Explorer and Profiler [[{]]
+https://www.infoq.com/news/2021/05/angular-devtools-profiler/
+[[}]]
+
+[[PM.TODO}]]
 
 
 [[angular}]]

@@ -1,21 +1,9 @@
-#  Apropos:
-- Visit next Web site for a great experience:
-  https://earizon.github.io/txt_world_domination/viewer.html?payload=../WebTechnologies/CSS.txt
-
-- If you want to contribute to great gistory of this
-  document you can take the next flight to:
+## Apropos:
+  Content is versioned in git.  commits, issues and pull-requests welcome!
 @[https://www.github.com/earizon/WebTechnologies]
-  Your commits and pull-request will be immortalized
-  in the Pantheon of the Unicode Gods.
-────────────────────────────────────────────────────────────────────────────────
-
-TODO:
-- @[https://jvns.ca/blog/2018/11/01/tailwind--write-css-without-the-css/]
-- @[https://css-tricks.com/learning-to-learn/]
-
 
 # CSS Selectors #[css_selector_summary]
-• BY COORDINATE:
+## BY COORDINATE:
   selector           Example          Example description
   --------           -------          ------- -----------
   .class             .intro           match 1+ element/s by class="intro"
@@ -37,7 +25,7 @@ TODO:
   [attribute$=value] a[href$="pdf"]   match <a> elements when href  val. ends   with .pdf
   :active            a:active         Selects the active link
 
-• BY RELATIVE COORDINATE:
+## BY RELATIVE COORDINATE:
   selector           Example          Example description
   --------           -------          ------- -----------
   :first-of-type     p:first-of-type  match <p> element  when <p> is 1st  element of parent
@@ -60,7 +48,7 @@ TODO:
   ::first-letter     p::first-letter  match first-letter of <p> elements
   ::first-line       p::first-line    match first-line   of <p> elements
 
-• BY STATUS:  (INPUT ELEMENTS)
+## BY STATUS:  (INPUT ELEMENTS)
   selector           Example          Example description
   --------           -------          ------- -----------
   :checked           input:checked    match checked <input> element
@@ -76,20 +64,20 @@ TODO:
   :out-of-range    input:out-of-range match input elements with a value outside a specified range
   :focus             input:focus      match the input element which has focus
 
-• LINKS:
+## LINKS:
   ::selection        ::selection     match portion of an element selected by a user
   :target            #news:target    match current active #news element
                                      (clicked on a URL containing that anchor name)
   :visited           a:visited       match all visited links
   :link              a:link          match all unvisited links
 
-• OTHERS:
+## OTHERS:
   :hover             a:hover         match links on mouse over
   :lang(language)    p:lang(it)      match every <p> element with lang attribute "it"
 
 ────────────────────────────────────────────────────────────────────────────────
 # CSS variables
-• CSS variables (also called CSS custom properties) let express dynamic
+* CSS variables (also called CSS custom properties) let express dynamic
   relations among CSS properties.
   · Declared by prefixing their names with --. e.g. --background
   · Its value can be reused in other CSS declarations using the var() function.
@@ -98,10 +86,10 @@ TODO:
     and allowing developers to express custom algorithms
     closer to a Turing-complete language like JavaScript.
   · They are scoped to the element(s) they are declared on.
-• CSS becomes more maintainable, easier to understand, paremeterize and change.
-• Can also be used with 'calc'. E.g.:
+* CSS becomes more maintainable, easier to understand, paremeterize and change.
+* Can also be used with 'calc'. E.g.:
   width: calc(var(--variable-width) + 20px);
-• Ex:
+* Ex:
   :root {
     --first-color: #16f;
     --second-color: #ff7;
@@ -125,19 +113,19 @@ TODO:
     background-color: var(--first-color);
     color: var(--second-color);
   }
-• Extracted from
+* Extracted from
   REF:@[https://www.infoq.com/news/2020/06/css-variables-design-systems/]
   """ Tolinski concluded with the following advice:
       Frameworks require overhead of both kb and onboarding.
     ... Write only what you need, use variables as the backbone. """
-────────────────────────────────────────────────────────────────────────────────
+
 # calc(ulated)
-•   WARN : css calc(ulated) can slow down rendering according to some sources.
-• E.g. extracted from @[https://developer.mozilla.org/en-US/docs/Web/CSS/calc()]
+*   WARN : css calc(ulated) can slow down rendering according to some sources.
+* E.g. extracted from @[https://developer.mozilla.org/en-US/docs/Web/CSS/calc()]
   width: calc(10px + 100px);
   width: calc(2em * 5);
   width: calc(var(--variable-width) + 20px);
-• box-sizing as potential alternative to css calc :
+* box-sizing as potential alternative to css calc :
 @[http://stackoverflow.com/questions/16034397/css-calc-alternative]
 
   box-sizing     Description
@@ -154,9 +142,9 @@ TODO:
                  (Read about initial)
 
   • inherit      · Inherits property from parent element.
-────────────────────────────────────────────────────────────────────────────────
+
 # CSS Layout
-• Layout mode:
+## Layout mode:
   algorithm that determines position+size of boxes based on
   how they interact with sibling and ancestor boxes:
 @[https://developer.mozilla.org/en-US/docs/Web/CSS/Layout_mode]
@@ -214,9 +202,8 @@ TODO:
 # Responsive 101 #[html_responsive_summary] [[{dev_lang.css.101,mobile,20_QA.responsive]]
 There are two main aspects to consider when adapting a web "page"
 to be used on mobiles and desktops (and TVs, ...)
-• #################################
-  # ASPECT 1) USER INPUT HARDWARE #
-  #################################
+
+## ASPECT 1) USER INPUT HARDWARE
   · This is the main difference between mobiles and desktops.
   · Desktop users can profit from a mouse with accurate movement
     over the screen, while mobile users must use coarse finger "touchs".
@@ -251,9 +238,7 @@ to be used on mobiles and desktops (and TVs, ...)
   · mobile "multi-touch" (zoom-in/out) effects probably will require input sliders
     (<input type="range" ...>) on desktops.
 
-• #########################
-  # ASPECT 2) SCREEN SIZE #
-  #########################
+## ASPECT 2) SCREEN SIZE
   The styling to apply depending on the screen size is more subject to interpretations.
   • meta-header viewport (mobile only):
     <meta name="viewport"
@@ -326,7 +311,7 @@ to be used on mobiles and desktops (and TVs, ...)
 [[{dev_lang.css,01_PM.low_code,20_QA,01_PM.TODO]]
 # Tailwindcss
 @[https://tailwindcss.com/]
-• “Best practices” don’t actually work.
+* “Best practices” don’t actually work.
 """ I’ve written a few thousand words on why traditional
   “semantic class names” are the reason CSS is hard to maintain,
   but the truth is you’re never going to believe me until you
@@ -334,8 +319,7 @@ to be used on mobiles and desktops (and TVs, ...)
   give it a chance, I really think you'll wonder how you ever worked
   with CSS any other way."""
 
-────────────────────────────────────────────────────────────────────────────────
-# RunCSS @ma
+# TailwindCSS RunCSS [[{PM.TODO.now]]
 @[https://github.com/mudgen/runcss] by Nick Mudge (@[http://www.perfectabstractions.com/])
 • RunCSS is a runtime version of TailwindCSS. It has no build. RunCSS
   provides all the same CSS utility class names that we know and love
@@ -360,6 +344,7 @@ to be used on mobiles and desktops (and TVs, ...)
   execution to generate CSS at runtime. The necessary CSS for each
   class name is generated one time as it is encountered. CSS is only
   generated for class names that are actually used.
+[[}]]
 [[}]]
 
 
@@ -452,7 +437,7 @@ REF: @[http://flexbox.malven.co/] by @[https://malven.co/]
 # CSS Grid #[css_grid_summary]
 REF: @[http://grid.malven.co/] by @[https://malven.co/]
 
-• CSSgrid generator: online visual Grid design tool.
+## CSSgrid generator: online visual Grid design tool.
  @[https://cssgrid-generator.netlify.app/]
 
    [TODO] beatify with ascii-art visual hints (like original page)  [TODO]
@@ -558,7 +543,7 @@ REF: @[http://grid.malven.co/] by @[https://malven.co/]
 # CSS Cont.
 [[{dev_lang.css.101]]
 # CSS3 Animations #[css_animations_summary]
-• Animations allows to gradually change an element's CSS properties from
+## Animations allows to gradually change an element's CSS properties from
   initial style/value to final one.
 
 @keyframes animation01 {            ← STEP 1) Define key frames describing
@@ -596,12 +581,12 @@ div {                               ← Animation will apply to all div's
                                                           lst.keyframe after  end
 }
 
-• External references:
+## External references:
   · Advanced CCS3 animations using SVG can be
   @[http://css3.bradshawenterprises.com/cfimg/]
 ────────────────────────────────────────────────────────────────────────────────
 # Profiling
-• Problem Context :
+* Problem Context :
   Performance issue when adding CSS-based animation (dropped frames)
     : Are there any tools to debug/profile the issue?
     :
@@ -629,11 +614,11 @@ div {                               ← Animation will apply to all div's
 [[{dev_lang.css,01_PM.TODO]]
 # CSS Logical Props.
 @[https://developer.mozilla.org/en-US/docs/Web/CSS/CSS_Logical_Properties]
-• CSS Logical Properties and Values CSS modules introduces
+* CSS Logical Properties and Values CSS modules introduces
   logical properties and values that provide the ability to
   control layout through logical, rather than physical,
   direction and dimension mappings.
-• The module also defines logical properties and values for properties
+* The module also defines logical properties and values for properties
   previously defined in CSS 2.1. Logical properties define
   direction‐relative equivalents of their corresponding physical
   properties.
@@ -641,17 +626,16 @@ div {                               ← Animation will apply to all div's
 
 
 
-[[{]]dev_lang.css.101," >
-# CSS Background
-• background-color: red;
+# CSS Background [[{dev_lang.css.101]]
+* background-color: red;
 
-• Image background attributes:
+* Image background attributes:
   background-image   : url(image);
   background-repeat  : repeat | no-repeat | repeat-x  | repeat-y
   background-position: top | center | bottom
   background-size    : 100px | 90% | cover | contains
 
-• Gradient:
+* Gradient:
   p1: coordinates gradient start
       TODO: Firefox(top|left|right|down)
       Webkit: % horizontal/vertical
@@ -661,13 +645,13 @@ div {                               ← Animation will apply to all div's
   (-webkit|moz)-gradient(linear, p1, p2, from(c1), to(c2));
   linear-gradient(p1, c1, c2) no-repeat;
 
-• Gradient Vertical:
+* Gradient Vertical:
   background: -moz-linear-gradient(top, red, blue);
   background: -webkit-gradient(linear, 0%, 0%, 0%, 100%, from(red), to(blue));
-• Gradient Horizontal
+* Gradient Horizontal
   background: -moz-linear-gradient(left, red, blue);
   background: -webkit-gradient(linear, 0%, 0%, 100%, 0%, from(red), to(blue));
-• Gradient Radial
+* Gradient Radial
   background: -webkit-gradient(radial, p1, r1, p2, r2, from(c1), to(c2));
 [[}]]
 
@@ -733,11 +717,11 @@ h1, h2, h3, h4, h5 {
   ...
 }
 Extra typography resources include
-• modularscale
+* modularscale
   https://www.modularscale.com/
-• Figma typography recommendations
+* Figma typography recommendations
   https://www.figma.com/best-practices/typography-systems-in-figma/
-• vertical-rhythm-reset
+* vertical-rhythm-reset
   http://jhildenbiddle.github.io/vertical-rhythm-reset/sassdoc/
 [[}]]
 
@@ -752,27 +736,26 @@ Icon Gallery:
 [[}]]
 # Others
 [[{dev_lang.css,20_QA.accesibility,]]
-# Colors-for-all
+## Colors-for-all
 @[https://github.com/AmadeusITGroup/Colors-for-All]
-• Tool enabling to easily check color contrasts and WCAG
+* Tool enabling to easily check color contrasts and WCAG
   compliance (AA or AAA levels as defined by W3C) between specific
   colors in one shot !
-• online application available for UX/UI designers or any other
+* online application available for UX/UI designers or any other
   people involved in digital accessibility.
 [[}]]
 [[{dev_lang.js,20_QA.responsive,performance,01_PM.TODO]]
-# Resize_Observer_API
+## Resize_Observer_API
 See also: @[https://en.wikipedia.org/wiki/Responsive_web_design]
 @[https://developer.mozilla.org/en-US/docs/Web/API/Resize_Observer_API]
-• The Resize Observer API provides a performant mechanism by which code
+* The Resize Observer API provides a performant mechanism by which code
   can monitor an element for changes to its size, with notifications
   being delivered to the observer each time the size changes.
 [[}]]
-[[{]]dev_lang.css," >
-# Apply Masks to images
+# Apply Masks to images [[{dev_lang.css]]
 @[http://www.html5rocks.com/en/tutorials/masking/adobe/]
 
-• Clipping an image:
+## Clipping an image:
 
   <svg>                           ← STEP 1: Define SVG clip
     <defs>
@@ -787,8 +770,7 @@ See also: @[https://en.wikipedia.org/wiki/Responsive_web_design]
     clip-path: url(#clipping01 );  ← with a clip-path property
   }
 
-
-• Animated Clipping:
+## Animated Clipping:
   @keyframes animation01 {       ← STEP 1: Define animation
     0% {
       clip-path: polygon(...);
@@ -803,6 +785,39 @@ See also: @[https://en.wikipedia.org/wiki/Responsive_web_design]
     animate: animation01 3s;     ← STEP 3: Apply animation to CSS
   }
 [[}]]
+
+## Awesome CSS Border Animation Examples [[{]]
+  https://www.sliderrevolution.com/resources/css-border-animation/
+[[}]]
+
+# unocss: instant on-demand atomic CSS engine [[{]]
+ https://github.com/antfu/unocss
+[[}]]
+
+# Google Fonts  [[{]]
+* añade iconos en estilo Material Design a su colección libre y gratuita
+https://www.microsiervos.com/archivo/arte-y-diseno/iconos-google-fonts-material-design.html
+[[}]]
+
+## Código CSS anidado [[{]]
+la W3C aprueba un borrador que introduciría en el lenguaje CSS nativo esta funcionalidad
+https://www.genbeta.com/desarrollo/codigo-css-anidado-w3c-aprueba-borrador-que-introduciria-lenguaje-css-nativo-esta-funcionalidad
+[[}]]
+
+## anLunn/Hover: collection of CSS3 powered hover effects  [[{]]
+https://github.com/IanLunn/Hover
+to be applied to links, buttons, logos, SVG, featured images and so
+on. Easily apply to your own elements, modify or just use for
+inspiration. Available in CSS, Sass, and LESS.
+[[}]]
+
+## TailWind
+@[https://jvns.ca/blog/2018/11/01/tailwind--write-css-without-the-css/]
+
+## CSS tricks
+@[https://css-tricks.com/learning-to-learn/]
+
+
 
 
 [[$div}]]

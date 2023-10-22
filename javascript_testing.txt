@@ -1,42 +1,42 @@
 # Mock Service Worker MSW (REST/GraphQL Testing) [[{20_qa.testing,01_PM.low_code,01_PM.TODO]]
 @[https://www.infoq.com/news/2020/11/msw-mocking-graphql-rest-api/]
-• test UI components webapps without actual back-end, setting up mock server,
+* test UI components webapps without actual back-end, setting up mock server,
   or stubbing native http/https/fetch implementations.
-• test  as much as possible in the same conditions and in the same way
+* test  as much as possible in the same conditions and in the same way
   as a real user would.
-• User actions are exercised on an actual rendered component,
+* User actions are exercised on an actual rendered component,
   they may trigger real effects (e.g., remote data fetching, API calls)
   that need to be mocked or stubbed.
-• having tests passing against an altered version of a native fetch
+* having tests passing against an altered version of a native fetch
   browser method does not completely guarantee that the same tests
   will pass against the unaltered version of fetch.
-• MSW allows developers to mock Rest and GraphQL APIs without having to
+* MSW allows developers to mock Rest and GraphQL APIs without having to
   modify the component code or stubbing native http/https/fetch implementations.
 [[}]]
 
 # Mocha API-REST/Functional Testing[[{20_qa.testing,02_doc_has.comparative]]
 @[https://mochajs.org/]
-• Easy testing of async services / REST APIs / ...
+* Easy testing of async services / REST APIs / ...
   better than Jasmine                                  [comparative]
-• JS based, runs in browser and NodeJS.
-• tests run async service serially, allowing for
+* JS based, runs in browser and NodeJS.
+* tests run async service serially, allowing for
   accurate reporting, mapping uncaught exceptions
   to the correct test
-• install:
+* install:
   $ npm install -g mocha
-• Commonly used with "Chai" library as assertion library
+* Commonly used with "Chai" library as assertion library
   (assert, expect, should), installed per project like:
   $ npm install --save-dev chai
-• Commonly used with "Supertest" SuperAgent extension library as
+* Commonly used with "Supertest" SuperAgent extension library as
   HTTP AJAX test library. , installed per project like:
   $ npm install --save-dev supertest
-• Ussage summary:
+* Ussage summary:
   $ mocha ← execute tests with default conf. (defaults + mocha.opts)
   $ mocha directory_with_tests ← Run tests at location
   $ mocha --grep {{^regex$}}   ← Run tests matching pattern
   $ mocha --watch              ← Run tests once, the on JS file change
   $ mocha --reporter $reporter ← Run tests with specific reporter
-• Test how-to summary:
+* Test how-to summary:
   · mkdir test
   · vim test/test01.js
     iconst request = require('supertest');
@@ -51,27 +51,24 @@
           .expect('[{"name":"ej","age":26},{"name":"jh","age":28}]')
       })
     })
-• See official doc for info about hooks (before, after, afterEach)
+* See official doc for info about hooks (before, after, afterEach)
   Retry Tests, Timeouts, Diffs, ...
-• Official examples at:
+* Official examples at:
 @[https://github.com/mochajs/mocha-examples/tree/master/packages]
   selenium, rxjs, react-webpack,programmatic-usage
 [[}]]
 
-
-
 # Selenium (Web test Automation) [[{20_qa.testing,01_PM.low_code,security.aaa]]
-• External Resources:
+* External Resources:
   ·@[http://docs.seleniumhq.org/]
   ·@[http://docs.seleniumhq.org/projects/ide/]
   ·@[http://code.tutsplus.com/tutorials/headless-functional-testing-with-selenium-and-phantomjs--net-30545]
   ·@[http://stackoverflow.com/search?q=selenium]
 
-• Automate browser execution applying test on expected elements,
-  URL, events ....
-• Oldest and most widely adopted End-to-End automation framework.
-• Can orchestrate tests in any major browser.
-• Example test:
+* Automate browser execution applying test on expected elements, URL, events ....
+* Oldest and most widely adopted End-to-End automation framework.
+* Can orchestrate tests in any major browser.
+* Example test:
   const {Builder, By, Key, until} = require('selenium-webdriver');       [code_snippet]
 
   (async function example() {
@@ -101,11 +98,11 @@
      ✓ link text           ✓ css
      ✓ partial link text   ✓ xpath
 
-• Selenium IDE: Firefox/Chrome extension to automatically record/save/replay tests
+* Selenium IDE: Firefox/Chrome extension to automatically record/save/replay tests
   @[https://examples.javacodegeeks.com/enterprise-java/selenium/selenium-ide-commands-example/]
   @[https://www.youtube.com/watch?v=ZG3VFDMaAlk]
 
-• Alternatives to Selenium include:
+* Alternatives to Selenium include:
   ✓ Cypress :  JS centric framework, probably more friendly to web developers. [TODO]
     · No need for "wait" commands in test scripts.
       Cypress waits automatically for commands and assertions.
@@ -145,12 +142,23 @@
 
 # Fiddler Proxy [[{20_qa.testing,troubleshooting]]
 @[www.telerik.com/fiddler]
-• Allows to replace remote html/css/AJAX responses with local/mocked ones.
+* Allows to replace remote html/css/AJAX responses with local/mocked ones.
   Very useful when deploying to remote server can be "slow" due
   to CI constrains.
-• Allows to see the "total page weight" HTTP caching and compression
+* Allows to see the "total page weight" HTTP caching and compression
   at a glance
-• Tutorial: http://www.youtube.com/watch?v=TP_5JYatlNQ [Video]
+* Tutorial: http://www.youtube.com/watch?v=TP_5JYatlNQ [Video]
 [[}]]
+
+# qawolf [[{20_qa.testing,01_PM.low_code,01_PM.TODO]]
+- run Browser GUI functional testing 10x faster.
+@[https://www.qawolf.com/]
+[[}]]
+
+ qawolf [[{20_qa.testing,01_PM.low_code,01_PM.TODO]]
+- run Browser GUI functional testing 10x faster.
+@[https://www.qawolf.com/]
+[[}]]
+
 
 

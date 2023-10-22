@@ -1,6 +1,6 @@
 # React Summary #[react_summary] [[{stack.react.101]]
   REF: @[https://reactjs.org/docs/]
-• React as declarative "source-of-trust":
+## React as declarative "source-of-trust":
 
               Designed for                    Type
     · HTML····document structure  ··········· Declarative
@@ -11,7 +11,7 @@
             It allows to define document structure based on
             data stored in a single place/source-of-true.
 
-• Bootstrap new React App: @[https://github.com/facebook/create-react-app] [[{]]
+## Bootstrap new React App: @[https://github.com/facebook/create-react-app] [[{]]
   $ npx create-react-app my-app  # Alt 1 (preinstalled with npm 5.2+)
   $ npm init react-app my-app    # Alt 2
   $ yarn create react-app my-app # Alt 3
@@ -91,7 +91,7 @@
 
 # STATE MANAGEMENT: [[{]]
 
-• Sharing global Inmutable (after initialization) objects: [[{20_QA.INMUTABILITY]]
+## Sharing global Inmutable (after initialization) objects: [[{20_QA.INMUTABILITY]]
   REF: https://stackoverflow.com/questions/34351804/how-to-declare-a-global-variable-in-react
 
   Standard ECMAScript 'import' is the simplest way to share inmutable objects.
@@ -333,7 +333,7 @@ API:  Class.contextType Context.Consumer Context.displayName
 
 # BASIC REACT Hooks API Reference  (16.8+) [[{react.hooks]]
   REF: @[https://reactjs.org/docs/hooks-reference.html#additional-hooks]
-• const [state, setState] = useState(initialState);
+  const [state, setState] = useState(initialState);
 
   function Counter({initialCount}) {
     const [count, setCount] = useState(initialCount);   <···  @initial-render: returned state == value passed as the first argument (initialState)
@@ -359,7 +359,7 @@ API:  Class.contextType Context.Consumer Context.displayName
 
   NOTE: useReducer(....) is better suited for managing state objects containing multiple sub-values.
 
-• useEffect(didUpdateFun);
+## useEffect(didUpdateFun);
   By default, Mutations, subscriptions, timers, logging, and other side effects are
   NOT allowed inside the main body of a function component (react "RENDER PHASE").
   didUpdateFun will run after the render is committed to the screen.
@@ -400,13 +400,13 @@ API:  Class.contextType Context.Consumer Context.displayName
   );                                           that the effect depends on.
                                                Pass [] to execute just once.
 
-• const value = useContext(MyContext);
+  const value = useContext(MyContext);
   Current returned context is determined by the value 'prop' of the nearest <MyContext.Provider>
   "above" the calling component in the tree.
 
   When nearest <MyContext.Provider> updates, this Hook will trigger
 
-• const [state, dispatchFun] = useReducer(reducerFun, initialArg, initFun);  // alternative to useState
+  const [state, dispatchFun] = useReducer(reducerFun, initialArg, initFun);  // alternative to useState
                 ·         ·    ^^^^^^^^^^ ·        ·  ·        ·  └─────┴─··· alt1: initial state will be set
                 ·         ·    !!!!!!!!!! ·        ·  ·        ·                    "lazily" to initFun(initArg)
                 ·         ·               ·        ·  └────────┴─············ alt2: non-lazy  initial state
@@ -838,6 +838,16 @@ See also:
    @[https://medium.com/@tribou/react-and-flux-a-docker-development-workflow-469957f3bbf0]
     [[}]]
 
-• batching is enabled for all updates by default in React 18+ (previously only updates in event handlers)
+## batching is enabled for all updates by default in React 18+ (previously only updates in event handlers)
   except for user-initiated "input" events
 [[stack.react}]]
+
+# React v17.0  [[{]]
+https://reactjs.org/blog/2020/10/20/react-v17.html#changes-to-event-delegation
+
+ Under the hood, React 17 changes the way event delegation works by
+attaching event handlers to the root DOM container where React is
+rendered instead of at the document level. While this change enables
+different React versions to coexist, it also introduces the chance of
+backward incompatibility for some apps.
+[[}]]

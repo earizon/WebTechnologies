@@ -1,0 +1,565 @@
+[[{$div]]
+# MONETIZATION @mb
+[[{use_case.monetization,use_case.payments,01_PM.BACKLOG]]
+# Web Monetization
+@[https://webmonetization.org/]
+* JS browser API to allows the creation of a payment
+  stream from the user agent to the website.
+* Proposed W3C standard at the Web Platform Incubator
+  Community Group.
+* SETUP HOW-TO:
+  1) Set up a web monetized receiver for receiving payments.
+     Most of the times this include signing with some payment
+     services, but a crypto-wallet owned by the user could be
+     an alternative solution.
+     The wallet must support the Interledger protocol ILP.        [protocol]
+     account.
+
+  2) Fetch the  payment-pointer  from the ILP wallet. e.g.:
+     $wallet.example.com/alice
+
+  3) Create <meta> tag telling Monetization providers how to pay. e.g.:
+     <meta name="monetization"                   ← name is always monetization
+           content="$wallet.example.com/alice">
+
+  4) Add <meta> tag from step 3 to the <head> of each page to be monetized.
+
+[[}]]
+
+## Unknown Unknown: [[{]]
+https://searchengineland.com/redirects-good-bad-conditional-14539
+Redirects: Good, Bad & Conditional
+* you’ll want to employ redirects so as not to squander any link
+  juice (PageRank) that your site has acquired.
+
+* There are multiple ways of redirecting, and it’s important you get it right:
+  - WRONG: 302 "temporary redirect": it  does not transfer link "juice" to the new URL.
+    triggers "PageRank dilution" where the votes (links) are spread across the various
+    versions instead of all aggregating to the one single, definitive, “canonical” URL.
+    - This can happen when tracking codes are appended to a URL (e.g., “?source=SMXad”).
+      Example duplicate copies:
+      - essential parameters are not always ordered in a consistent manner:
+        e.g. “?subsection=5&section=2” and “?section=2&subsection=5”
+      - Parameters are used as flags but the setting does not substantively
+        change the content.
+        e.g. “?photos=ON” versus “?photos=OFF”
+      - when multiple domains or subdomains respond to the request with the same
+        content but no redirect.
+             jcpenney.com/jcp/default.aspx
+        www1.jcpenney.com/jcp/default.asp
+                  jcp.com/jcp/default.asp
+      In all the above cases, 301 redirects pointing to the canonical URL would save the day.
+  - WRIGHT: 301 "permanent redirect"
+
+  Single redirect “rule” with “pattern matching”:
+  Example with Apache web server:
+
+  # Changing domain names
+  RewriteCond %{HTTP_HOST} tiredoldbrand\.com$ [NC]
+  RewriteRule ^(.*)$ https://www.newbrand.com/$1 [R=301,QSA,L]
+
+  # Removing tracking parameter (but tracked URL still registers in the analytics). Assumes no other parameters.
+  RewriteCond %{QUERY_STRING} ^source=
+  RewriteRule ^(.*)$ $1 [R=301,L]
+
+  # Reordering parameters
+  RewriteCond %{QUERY_STRING} ^subsection=([0-9]+)&section=([0-9]+)$
+  RewriteRule ^(.*)$ $1?section=%2&subsection=%1 [R=301,L]
+
+  # Redirecting the non-www subdomain to www
+  RewriteCond %{HTTP_HOST} ^example\.com$ [NC]
+  RewriteRule ^(.*)$ https://www.example.com/$1 [R=301,QSA,L]
+
+  Sometimes it’s not possible to pattern match and a lookup table is required.
+  This can be accomplished easily by creating a text file and referencing it
+  using the “RewriteMap” directive.
+  # Search-and-replace on the query string part of the URL, using my own Perl script
+  RewriteMap scriptmap prg:/usr/local/bin/searchandreplacescript
+  RewriteCond %{QUERY_STRING} ^(.+)$
+  RewriteRule ^(.+)$ $1?${scriptmap:%1} [R=301,L]
+
+* conditional redirect: It could get you in big trouble with Google, being banned.
+  It refers to serving a 301 redirect selectively to search engine spiders like Googlebot.
+  serving up different content to humans than to spiders.
+
+[[}]]
+
+[[{use_case.monetization,use_case.payments,01_PM.BACKLOG]]
+# Coil
+@[https://medium.com/coil/coil-building-a-new-business-model-for-the-web-d33124358b6?utm_source=singlepagebookproject]
+
+Innovating on Web Monetization: Coil and Firefox Reality
+https://hacks.mozilla.org/2020/03/web-monetization-coil-and-firefox-reality/
+
+
+Ilp: coilhq/coil-wordpress-plugin: Coil's Wordpress Web Monetization Plugin
+@[https://github.com/coilhq/coil-wordpress-plugin]
+[[}]]
+
+[[{use_case.monetization,standards.finance,01_PM.BACKLOG]]
+# OpenRTB
+Real-time Bidding (RTB) is a way of transacting media that allows an
+individual ad impression to be put up for bid in real-time. This is
+done through a programmatic on-the-spot auction, which is similar to
+how financial markets operate. RTB allows for Addressable
+Advertising; the ability to serve ads to consumers directly based on
+their demographic, psychographic, or behavioral attributes.
+
+The Real-Time Bidding (RTB) Project, formerly known as the OpenRTB
+Consortium, assembled technology leaders from both the Supply and
+Demand sides in November 2010 to develop a new API specification for
+companies interested in an open protocol for the automated trading of
+digital media across a broader range of platforms, devices, and
+advertising solutions.
+[[}]]
+
+[[$div}]]
+# Google Lighthouse [[{20_qa.testing,standards,mobile.pwa,20_qa.accesibility,01_PM.TODO]]
+@[https://developers.google.com/web/tools/lighthouse/]
+* OOSS Automated tool, searching to improve quality of web pages.
+* Can test any site (public or requiring authentication).
+* Audits performance, accesibility, PWA, SEO, ...
+* Can be roon on Chrome Devtools, command line, or Node module.
+
+  E.g. ussage extracted from
+  https://medium.com/james-johnson/a-simple-progressive-web-app-tutorial-f9708e5f2605
+  """... Make sure "Progressive Web App" option is checked. You can
+  uncheck the others for now. Then click on the “run tests” button.
+  After a minute or two Lighthouse should give you a score and list of
+  audits that the app passed or failed. The app should score around 45
+  at this point. If everything was coded properly, you’ll notice that
+  most of the tests it passes are related to the requirements we
+  outlined at the beginning..."
+[[}]]
+
+# Consumer Subscription Software [[{]]
+1. The building blocks
+
+Subscription  Marketing        Messaging          Payment        Reporting&
+management    Management       Infrastructure     Processing     Analitics
+------------  --------------   --------------     -----------    ----------
+              ActiveCampaing   8x8                adyen          DOMO
+ChatMogui     AdRoll           CM                 Bitpay         Firebase
+Recurly       Asana            Marchex            TSYS           Looker
+ARIA          O?drip           Nextiva            EVO            Piano
+Chargify      Hootsuite        RingC entral       Flagship       Salesforce
+Cledars       HubSpot          Plivo              Payline        Vena
+PP            Marketing 360    Snedbird           Paysafe        Apptopia
+Recharge      Sendinblue       Telnyx             Square         Jira
+Zwarg         Unbounce         Twilio + zipaship  BlueSnap       Mixpanel
+Substack      Wrike            ...                CardConnect    Qlik
+RevenueCar    Campains                            DUE            SAP
+....          ...                                 FINIX          ...
+                                                  Klarna
+                                                  PayPal
+                                                  SlimPay
+                                                  Stripe
+[[}]]
+
+# matomo.org [[{use_case.monetization,use_case.seo,01_PM.backlog]]
+@[https://matomo.org/]
+* Google Analytics that preserves customer's privacy.
+[[}]]
+
+
+
+
+[[{use_case.seo,use_case.monetization,standards,01_PM.WiP]]
+# SEO Summary #[seo_sitemap_schema.org_summary]
+* SEO stands for  Search Engine Optimization .
+
+  ############################
+  # SEO rules for WHOLE site #
+  ############################
+  1) Create 1 or more *sitemap.xml
+
+  2) Create 1 robot.txt
+
+  3) Use HTTPS (vs HTTP)
+
+  ############################
+  # SEO rules for html pages #
+  ###########################
+  ✓  Use Rich Structured Data to provide indexing metadata.
+     For special content (charts, images, media, ...) it is
+     specially important. e.g, use schema.org/VideoObject
+     to index videos inside pages.
+
+  ✓  Add primary keywords to:
+     • Title Tag / Meta Description
+     • URL
+     • H1, H2 Headings.
+     • anchor text of internal links
+
+  ✓  Add secondary keywords to:
+     • Subheadings
+     • Alternative text
+  ✓  Make page/site mobile friendly
+  ✓  Remove broken links
+
+  NOTE: Page load speed does NOT affect SEO indexing, but it can affect
+        final users, that will "skip over" slow sites.
+
+  #############################
+  # Sitemap Protocol standard #
+  #############################
+@[https://www.sitemaps.org/protocol.html]
+* Sitemaps standard, proposed by Google, helps search engines
+  (crawlers and indexers) to inform about URLs metadata
+  for a given Web Resource (URL).
+  <?xml version="1.0" encoding="UTF-8"?> ← Max. size: 50MB
+  <urlset
+      xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+     <url>                               ← one entry per URL. 50.000 urls per XML
+        <loc>http://www.foo.com/</loc>   ← non-optional. All loc in
+                                           XML must match same host
+        <lastmod>2005-01-01</lastmod>    ← Complements If-Modified-Since (304)
+                                           HTTP response header (from servers)
+        <changefreq>monthly</changefreq> ← Aproximate hint to search engine
+                                           := always | hourly | daily | weekly
+                                           | monthly | yearly | never
+                                           always : dynamic  content
+                                           never  : archived content
+         <priority>0.8</priority>        ← 0.0-to-1.0: relative to other site's URLs
+                                           (defaults to 0.5)
+     </url>
+  </urlset>
+  NOTE: additional metadata about alternate language versions, video, image,
+        or news-specific pages can be included                            [TODO]
+
+* sitemaps can be "pushed" directly to different search engines         [devops]
+  to trigger fast-indexation (vs waiting for hours/days/weeks for passive
+  indexing by web crawlers). e.g, Google Search Console  allows to
+  manually submit one or more XML sitemaps for a given domain an see
+  indexation results. Also via "PUSH" HTTP request like:
+
+
+$ $ curl https://${searchengine}/ping?sitemap=http://www.example.com/sitemap.gz
+  (via curl, wget, ..., returning HTTP 200 if every works "OK")
+
+
+
+  • Asking Google to re-crawl a site:
+  @[https://developers.google.com/search/docs/advanced/crawling/ask-google-to-recrawl]
+    · There is a quota for submitting individual URLs:
+      Alt 1) only for 'owners' Search Console property
+             → URL Inspection tool
+               → Inspect the URL
+                 → Select "Request indexing".
+
+      Alt 2) Submit a sitemap ("many" URLs)
+
+* About URL encodings:
+  all URLs (including Sitemap hosting URL) must be URL-escaped
+  by the web server on which they are located.
+
+  https.../üm.php&q=name
+  https.../%FCm.php&q=name         ← Server using ISO-8859-1
+  https.../%C3%BCm.php&q=name      ← Server using UTF-8
+  https.../%C3%BCm.php&amp;q=name  ← entity escaped URL
+
+* Sitemap index  needed when using more than one Sitemap file.
+  <?xml version="1.0" encoding="UTF-8"?>             ← Obligatory when using 2+
+  <sitemapindex                                        sitemaps
+    xmlns=
+      "http://www.sitemaps.org/schemas/sitemap/0.9">
+     <sitemap>
+        <loc>http://foo.com/sitemap1.xml.gz</loc>    ← foo.com must match loc. of
+        <lastmod>2004-10-01T18:23:17+00:00</lastmod>   sitemapindex.
+     </sitemap>
+     <sitemap>
+        <loc>http://foo.com/sitemap2.xml.gz</loc>
+        <lastmod>2005-01-01</lastmod>
+     </sitemap>
+  </sitemapindex>
+
+  Alternatively or in parallel sitemaps can be specified in robots.txt like:
+  Sitemap: http://www.example.com/sitemap-host1.xml
+  Sitemap: http://www.example.com/sitemap-host2.xml.gz
+
+  ###########
+  # DONT's: #
+  ###########
+  • Don't forget a "robots.txt" to skip content, define Sitemaps.
+  • Don't block a page in robots.txt and include it in an XML sitemap.
+
+  ########################################
+  # robots.txt Robots Exclusion Protocol #
+  ########################################
+    TIP: Must be all lower-case,
+    placed at URL "root"
+   ┌(/var/www/html)/robots.txt ─┐
+   │User-agent: *               ← "*" is an acronym for "any robot".
+   │Disallow: /cgi-bin/         │ Any other globing or regular expression in
+   │Disallow: /tmp/             │ User-agent or Dissallow: is NOT allowed.
+   │Disallow: /~joe/            │ e.g.:  Disallow: /tmp/*.gif is incorrect
+*1→│                            │
+   │User-agent: BadBot          ← To entiry server from BadBot robot:
+   │Disallow: /                 │
+*1→│                            │
+   │User-agent: Google          ← allow full access to Google robot
+   │Disallow:                   │
+*1→│                            │
+*2→│Sitemap: sitemap01.xml      ← e.g: URL category sitemap
+   │Sitemap: sitemap02.xml      ← e.g: URL subcategory sitemap
+   │Sitemap: sitemap.cgi        ← Dinamically generated XML sitemap
+   └────────────────────────────┘
+
+*1: white-lines used to separate different registries.
+   (one for "*", another one for BadBot, and a 3rd one
+    for Google in our example)
+
+*2: Different search engines "control pannels" allows to push
+    the sitemap directly (vs waiting for random crawling)
+
+* NOTE: difference between html <meta name=robots> and /robots.txt :
+  • /robots.txt : ignore page, do not even read html headers.
+    · /robots.txt file is controlled by web-server/site administrator.
+
+  • <meta name="robots" content="noindex,follow"
+    · ignore links inside this page.
+    · Can be controlled by page-author, overriding
+      defaults in robots.txt.
+
+* External Resources:
+  • A curated list of SEO (Search Engine Optimization) links.
+   @[https://github.com/teles/awesome-seo]
+
+
+  ########################
+  # Schema.org:          #
+  # Rich Structured Data #
+  # for Search Engines   #
+  ########################
+ Ref: @[https://www.infoq.com/news/2021/02/seo-structured-data-rich-snippet/]
+* Add semantic support to html.
+* Used by  10+ million sites  to markup web pages and email messages.
+* activity community maintaining and promoting schemas for structured data .
+* While OpenAPI standard @[#openapi_summary] allows to   [comparative]
+  design APIs (requests from client to servers) to  simplify
+  implementation of client mobile/web applications,
+  schema.org allows to simplify the translation, by search engines/indexers,
+  of html-markup to structure-data , relationships and actions .
+* Extensible vocabulary.
+* Google Search Gallery lists 30 rich snippet categories                [TODO]
+  with their use cases and specific user interface
+  (articles, books, how-to, recipes, products, job postings,
+   events, ...):
+  · Each category has a dedicated user interface designed
+    to facilitate the search user’s next steps.
+    e.g: A news article may be featured in "Top stories"
+
+  <head>
+    <title>...</title>
+    ...
+    <script type="application/ld+json">  ← Google's recommended
+    {                                       format (vs microdata|rdf)
+      "@context": "https://schema.org/",  @[#json-ld_summary]
+      "@type": "Recipe",
+      "name": "Party Coffee Cake",
+      "author": {
+        "@type": "Person",
+        "name": "Mary Stone"
+      },
+      "datePublished": "2018-03-10",
+      "description": "...",
+      "prepTime": "PT20M"
+    }
+    </script>
+    ...
+  </head>
+
+* SCHEMA.ORG TOOLS:
+  • @[https://search.google.com/test/rich-results]
+  • Google/Bing/Yandex/... Search Consoles:
+    site-wide monitoring and testing for rich results.
+
+[[}]]
+
+## (VISA) CyberSource [[{use_case.monetization,01_PM.TODO]]
+http://apps.cybersource.com/
+http://www.cybersource.co.uk/
+- Payer Authentication Services Implementation Guide
+  http://apps.cybersource.com/library/documentation/dev_guides/Payer_Authentication_IG/html/
+  http://apps.cybersource.com/library/documentation/dev_guides/Payer_Authentication_IG/html/soap_api.htm#SOAP_API_13869_81718
+- http://apps.cybersource.com/library/documentation/dev_guides/Request_Token/Request_Token.pdf
+- http://apps.cybersource.com/library/documentation/dev_guides/Payer_Authentication_IG/html/soap_api.htm#SOAP_API_13869_56393
+- Appendix A:
+  http://apps.cybersource.com/library/documentation/dev_guides/Payer_Authentication_IG/html/app_fraud.htm#app_fraud_13689_45251
+- CyberSource Credit Card Services Implementation Guide:
+  http://apps.cybersource.com/library/documentation/dev_guides/CC_Svcs_IG/html/
+- CyberSource Global Payment Service Planning and User’s Guide
+  http://apps.cybersource.com/library/documentation/dev_guides/GP_Planning_Guide/html/
+- http://apps.cybersource.com/library/documentation/dev_guides/CC_Svcs_IG/html/services_so.htm#services_SO_6779_33471
+- Authorize.Net implementation guides and documentation for the
+  Simple Integration Method (SIM) and the Advanced Integration Method (AIM)
+  http://developer.authorize.net/guides/
+
+- Cybersource Technical Resources
+  http://www.cybersource.com/support_center/implementation/downloads/silent_order_post/
+- Payer Authentication Services Implementation Guide
+  http://apps.cybersource.com/library/documentation/dev_guides/Payer_Authentication_IG/html/
+[[}]]
+
+
+# theemack/expressCart [[{use_case.monetization]]
+*  fully functioning Node.js shopping cart with Stripe,
+   PayPal and Authorize.net payments.
+   https://github.com/theemack/expressCart
+[[}]]
+
+# Ahrefs Search engine (2021-06) [[{]]
+Monetization: Si el buscador de Ahrefs funciona, es el mayor ataque al modelo de negocio de Google en los últimos 10 años
+https://www.xataka.com/empresas-y-economia/buscador-ahrefs-funciona-mayor-ataque-al-modelo-negocio-google-ultimos-10-anos
+
+* Desarrollado por Ahrefs, empresa conocida por sus herramientas SEO.
+* El buscador dará el 90% de sus ingresos a quienes crean el contenido
+  del que se alimenta el buscador.
+  (Contra 0% de Google)
+* Dmitry Gerasimenko, fundador y CEO de Ahrefs
+  """
+   Google gana 100.000 millones de dólares ... eso significaría
+   90.000 millones de dólares anuales a creadores de contenido
+
+  El imperio creado por Google convierte todo ello en un círculo
+  vicioso: los creadores de contenido casi "trabajan para Google" y
+  luchan por obtener mejor posicionamiento en su buscador: saben que
+  estar entre los primeros resultados de búsqueda puede marcar la
+  diferencia entre ganar dinero o acabar sin ingresos.
+  """
+[[}]]
+
+
+# Web Analytics made simple  [[{]]
+  https://github.com/ihucos/counter.dev
+* Counting unique users is achieved with a combination of relying on
+  sessionStorage facilities, the browser's cache mechanism and
+  inspecting the referrer. Using this technique considerably reduces
+  the complexity and load on the server while improving data privacy at
+  the cost of knowing less about users. We can't and don't want to be
+  able to connect single page views to an user identity.
+[[}]]
+
+
+# Awesome Web Monetization [[{]]
+https://github.com/thomasbnt/awesome-web-monetization
+  Web Monetization is a web service that allows you to send money
+directly in your browser. This is a JavaScript browser API that
+allows the creation of a payment stream from the user agent to the
+website
+[[}]]
+
+
+# LinkDropHQ [[{]]
+ Deliver NFTs to anyone with links, emails and QR codes
+ https://github.com/LinkdropHQ/
+[[}]]
+
+## Lens Protocol For Social Networks [[{use_case.monetization,use_case.social_network]]
+  https://lens.xyz/
+  Building a social network is hard.  Lens Protocol makes it easy
+[[}]]
+
+## Buy Me A Coffee [[{use_case.monetization]]
+https://www.buymeacoffee.com/tecmint Buymeacoffee
+[[}]]
+
+## Gumproad El precio lo decides tú [[{use_case.monetization]]
+ (modalidad paga-lo-que-quieras)
+  https://www.microsiervos.com/archivo/matematicas/matemapolis-ciudad-matematica-lola-morales.html 
+  Matemápolis es una ilustración de Lola Morales profesora de
+matemáticas e ilustradora, que reúne en un póster tamaño A2 ni
+más ni menos que 200 personas y objetos matemáticos. 200 horas de
+trabajo por auténtico «amor al arte» que se pueden comprar como
+PDF en Gumroad para imprimir a todo color. El precio lo decides tú
+(está en la modalidad paga-lo-que-quieras) y el PDF que se recibe
+son 77 MB; también hay versiones en TIFF y JPEG.
+[[}]]
+
+## Open Payments [[{use_case.Monetization]]
+  https://github.com/interledger/open-payments
+[[}]]
+
+## ecommerce activity [[{use_case.monetization,e-commerce]]
+  https://www.linkedin.com/posts/pkriaris_software-economics-ecommerce-activity-6983651754118660096-nQKK 
+ by Panagiotis Kriaris (Banking,Payments,Innovation,FinTech)
+software has not only been disrupting entire industries from the
+ground up but is now becoming a distribution channel in its own
+right, creating new business models that impact the end-to-end value
+chain. Let’s take a look. Some facts to begin with: — Consumers
+are increasingly willing to pay for niche services without, however,
+the burden of high upfront costs — Companies across industries
+based on traditional transactional models or using licensing are
+looking for a pivot for their monetization base and are particularly
+attracted by the #economics of subscription business models — The
+global subscription #ecommerce market size is expected to reach
+$904.28 billion in 2026, growing at over 60% annually on average
+(source: Business Research Company) Consumer Subscription Software
+(CSS) is where consumer demand meets software delivery and is based
+on a tectonic shift away from ownership and towards access. Think of
+the thousands of apps that we are using today (and the dozens on an
+average mobile device) and you soon realize that we are no longer
+paying for ownership but rather for access. From streaming movies or
+music to reading magazines or newspapers the concept is the same: an
+all-you-can-eat “buffet” model, which is – in its most
+successful variations – subscription-based. Recurring revenue,
+premium content, mass customization through the efficient use of
+#data and an ecosystem approach are some of the key ingredients of
+CSS. GP. Bullhound was estimating already in 2020 that the total
+addressable market (TAM) for CSS alone would reach $150 billion by
+the end of 2022. Software companies are typically valued based on
+forward revenue multiples, which means that the total value of the
+business is a factor of the company’s future revenue. The higher
+the multiple, the bigger the potential because it means that they
+have a high-margin, high-growth set-up. Comparing the forward revenue
+multiple of CSS companies with that of SaaS companies, provides a
+good glimpse of the CSS potential. Even in an environment of falling
+valuations and record macro-uncertainty, CSS companies trade two or
+three times lower (depending on the data and comparison methodology)
+than SaaS ones. Closing the gap is part of the opportunity. However,
+building a successful CSS company requires the combination of several
+building blocks – from messaging #infrastructure to payment
+processing to reporting and #analytics – tightly knitted together
+in an ecosystem set-up. The recipe is up for grabs but not everyone
+will make it.
+[[}]]
+
+## https://opencollective.com  [[{use_case.monetization]]
+  Open Collective is a legal and financial toolbox for grassroots
+  groups. It’s a fundraising + legal status + money management
+  platform for your community. What do you want to do?
+[[}]]
+
+## Angular / React for SEOs [[{]]
+https://dzone.com/articles/angular-vs-react-seo-the-basics-of-what-you-need-t?edition=676393
+
+Angular SEO Issues
+
+Angular is a robust framework capable of making powerful applications, but it isn’t without its drawbacks. Here are some of the SEO issues you might encounter when working with Angular:
+
+    Real DOM: Angular renders JavaScript in a real DOM environment. Google looks at the initial HTML parse before it looks at the content executed in JavaScript.
+    Deep Links: The deep links created in Angular web applications are hard to get indexed. There are ways to do it but they’re difficult and time-consuming
+    Inconsistent URLs: Requests for new content are populated with asynchronous JavaScript and AJAX calls. The fact that no new page is loaded that the address in the URL bar doesn’t match the content on the screen.
+
+React SEO Issues
+
+React is the most popular JavaScript framework and React-based apps come with some nifty performance enhancements which are nice to have from an SEO standpoint. However, you can expect some of the following issues when working with react:
+
+    Long delays: Google indexes most web pages with a two-wave indexing system: crawl, and index. With SPA’s built with React, the process is slower and more complex.
+    Limited Crawling Budget: JavaScript pages take longer for Googlebot to fetch and parse. If it takes too long for Google to render your page, it will simply leave without indexing your content.
+    Lack of Dynamic SEO Tags: When it comes to React SPAs, there’s a good chance that your SEO meta-tags like you title tags and meta-descriptions won’t be set correctly and won’t make it through the indexing process
+[[}]]
+
+## GitHub Sponsoring  [[{]]
+https://github.com/sponsors
+[[}]]
+
+## Banchan.Art [[{]]
+Banchan Art is a website focused on providing a user-friendly space
+for artists for managing their clients, commissions, and invoices,
+and for patrons to discover artists to commission art from.
+
+It's created, owned, and maintained with love and solidarity by
+Banchan Art LLC.
+[[}]]
+

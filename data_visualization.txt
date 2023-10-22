@@ -93,22 +93,22 @@
 # Perspective #[perspective_summary]
 @[https://github.com/jpmorganchase/perspective]
 @[https://perspective.finos.org/]
-• interactive visualization for large, real-time datasets
+* interactive visualization for large, real-time datasets
   and customizable analytics.
-• JS engine, runs on any modern browser.
-• Integrates with Python and JupyterLab .
-• fast, memory efficient streaming query engine,
+* JS engine, runs on any modern browser.
+* Integrates with Python and JupyterLab .
+* fast, memory efficient streaming query engine,
   written in C++ and compiled for both WebAssembly and Python,
   with read/write/stream/virtual support for Apache Arrow.
 [[}]]
 
 [[{data_mng.visualization.real_time,data_mng.visualization,02_doc_has.comparative,]]
 # D3.js
-• External resouces:
+* External resouces:
 @[https://d3js.org/]
 @[https://github.com/d3/d3]
 @[https://www.youtube.com/watch?v=_8V5o2UHG0E&t=894s]
-• White-paper summary:
+* White-paper summary:
  @[http://idl.cs.washington.edu/files/2011-D3-InfoVis.pdf]
   · ...based on CSS these libraries (jQuery) share the concept
     of a selection:
@@ -198,10 +198,10 @@
        data.
 
 
-• used as "kernel" library for other high level ones
+* used as "kernel" library for other high level ones
   e.g.: @[#vega_lite_summary]
 
-• Extracted from @[https://observablehq.com/@d3/learn-d3]
+* Extracted from @[https://observablehq.com/@d3/learn-d3]
  • D3 stands for "Data Driven Documents".
  • D3 allows to bind arbitrary data to a Document Object Model (DOM),
    and then apply data-driven transformations to the document.
@@ -222,20 +222,20 @@
 # Vega Lite!!! @ma #[vega_lite_summary]
 @[https://vega.github.io/vega-lite/]
 @[https://vega.github.io/vega-lite/examples/]
-• HIGH-LEVEL GRAMMAR OF INTERACTIVE GRAPHICS with declarative JSON syntax.
+* HIGH-LEVEL GRAMMAR OF INTERACTIVE GRAPHICS with declarative JSON syntax.
   by University of Washington Interactive Data Lab
-• visualizations for data analysis and presentation.
-• Used by:
+* visualizations for data analysis and presentation.
+* Used by:
   Tableau , Google, Microsoft, Airbnb, Los Angeles Times, CERN,
   Carnegie Mellon University, Berkeley University, ...
-• Extracted from: https://vega.github.io/vega/about/vega-and-d3/
+* Extracted from: https://vega.github.io/vega/about/vega-and-d3/
   ... D3 is intentionally a lower-level library (than Vega) ...
   a "visualization kernel" rather than a "toolkit" or "framework"
   ... intended as a supporting layer for higher-level visualization
   tools. Vega is one such tool, and Vega uses D3 heavily within its
   implementation: vega lite → vega → d3.js
 
-• HOWTO: STEP 1) HTML SETUP
+* HOWTO: STEP 1) HTML SETUP
 @[https://vega.github.io/vega-lite/tutorials/getting_started.html]
  ┌──────────────────────────────────────────────────────────────────────────┐
  │ <!DOCTYPE html>                                                          │
@@ -270,7 +270,7 @@
  │ </html>                                                                  │
  └──────────────────────────────────────────────────────────────────────────┘
 
-• HOWTO: STEP 2) DATA and Visualization SETUP
+* HOWTO: STEP 2) DATA and Visualization SETUP
 @[https://vega.github.io/vega-lite/tutorials/getting_started.html]
   TABULAR DATA SET │ EQUIVALENT VEGA-LITE
                    │ JSON ARRAY + RENDER PROP
@@ -306,7 +306,7 @@ gorical    rical   │     "values" : [         Other data sources type supporte
                      *  @[https://vega.github.io/vega-lite/docs/encoding.html#type]
                     TIP: Vega-Lite will auto. add axis-with-labels for different-categories + axis title.
 
-• EXPLORING DATA EXAMPLES
+* EXPLORING DATA EXAMPLES
 @[https://vega.github.io/vega-lite/tutorials/explore.html]
 
   QUANTITATIVE CONTINUOUS            SAME QUANTITATIVE VAR DISCRETIZED
@@ -371,7 +371,7 @@ gorical    rical   │     "values" : [         Other data sources type supporte
   }
 
 
-• CALCULATED FIELD HOW-TO
+* CALCULATED FIELD HOW-TO
   =======================
   {
     "data": ...
@@ -397,7 +397,7 @@ gorical    rical   │     "values" : [         Other data sources type supporte
 # JointJS #[jointjs_summary]
 @[http://www.jointjs.com/tutorial]
 @[http://www.jointjs.com/demos/umlcd]
-• JointJS
+* JointJS
 
   INPUT                        PROCESSING              OUTPUT
   =====                        ==========              ======
@@ -483,12 +483,12 @@ overhead.
 
 [[{stack.react,data_mng.visualization,data_mng.visualization,01_PM.BACKLOG]]
 # Visx
-• @[https://www.infoq.com/news/2020/12/airbnb-visx-data-visualization/]
+* @[https://www.infoq.com/news/2020/12/airbnb-visx-data-visualization/]
   Airbnb Releases Visx, a Set of Low-Level Primitives for Interactive
   Visualizations with React components that can be composed into interactive
   visualizations.
-• Builds on D3 primitives, React component model, DOM handling.
-• data visualization solution   easy to learn without sacrificing
+* Builds on D3 primitives, React component model, DOM handling.
+* data visualization solution   easy to learn without sacrificing
   expressiveness.
   " ...  After 3 years of development, 2.5 years of production use
     at Airbnb, and a rewrite in TypeScript we are excited to announce

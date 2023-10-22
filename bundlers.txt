@@ -170,3 +170,152 @@ $ $ npm  --save-dev typescript ts-loader         ← Typescript support. (requir
 * Rome formatter aims at feature parity with Prettier, the de-facto
   standard for code formatting in the front-end community.
 [[dev_lang.js.rome}]]
+
+# TODO: [[{PM.TODO]]
+## Profile webpack "builds".
+  https://www.npmjs.com/package/speed-measure-webpack-plugin
+
+## Webpack optimization options.
+https://webpack.js.org/configuration/optimization/
+
+## squoosh WebPack: Scale images from 1.4MB to 80Kbs with "same" quality !!! [[{]]
+   https://squoosh.app/
+
+   Smaller images mean faster load times. Squoosh can reduce file size
+   and maintain high quality.
+https://github.com/bcheidemann/squoosh-webpack-plugin
+[[}]]
+
+# Vite 4 (Babel replaced with 20x faster SWC(Rust) [[{]]
+  2022-12-17
+  https://www.infoq.com/news/2022/12/vite-4-faster-swc/
+- 5 months after Vite 3.0 motivated by the breaking upgrade
+  from Rollup 2.0 to 3.0.
+- Vite 4.0 adds support for SWC (Rust), 20x than Babel.
+- Vite: framework-agnostic build tool and already supported
+  by Storybook, Astro, Nuxt, SvelteKit, Solid Start, Hydrogen,
+  Laravel, Qwik City, and more.
+    For React two plugins are available with different tradeoffs:
+- Next,JS recently released v13 including Turbopack, a new,
+  still-in-alpha, Rust-based replacement to Webpack that claimed
+  to be orders of magnitude faster than Vite. Study of that claim
+  associated most of the speed improvements to the use by Turbopack
+  of SWC, a Rust-based bundler that is still in alpha.
+  """
+   SWC is now a mature replacement for Babel, especially in
+  the context of React projects
+   SWC's React Fast Refresh implementation is a lot faster than Babel,
+  """
+[[}]]
+
+# SWC Transpiler 20x faster than Babel [[{dev_lang.js.swc]]
+- Rust based.
+
+  $ pnpm i -D @swc/cli @swc/core  # install
+  $ npx swc ./file.js
+    -o output.js                  # file ouput (STDOUT by default)
+  $  npx swc ./indir -d outdir/ \ # transpile full directory
+    --config-file ...   \         # opt. def.  ./.swcrc
+                                  # use --no-swcrc to ignore .swcrc
+    --env-name="test' \           # 'env' to use when loading configs and plugins.
+                                  #  Def. to $SWC_ENV ··> $NODE_ENV ··> development
+    --ignore **/*.test.js         # opt. List of glob paths to skip
+    --only **/*.js                # opt. Include only files in only list
+    --watch                       # opt. automatically recompile on changes.
+                                  # (PRESETUP: $ npm i -D chokidar)
+    --quiet                       # Suppress compilation output.
+    --source-maps=true            # opt: true|false|inline|both
+    --source-map-target input.map.js #
+    -source-file-name             # opt. Set sources[0] on returned source map
+    --source-root                 # opt. root from which all sources are relative.
+    --copy-files                  # opt. When compiling a directory, copy over non-compilable files.
+    --include-dotfiles            # opt.
+    --config module.moduleId=Hi   # Override config in ./.swcrc
+    --sync                        # opt.  Invoke swc synchronously. Useful for debugging.
+    --log-watch-compilation       # Log message when watched file is successfully compiled.
+    --extensions ...              # Use specific extension
+
+### @swc/wasm-web
+   synchronously transform code inside the browser using WebAssembly.
+
+### @swc/jest
+   faster replacement for ts-jest
+
+### swc-loader: Use swc will webpack
+    (jsc.transform.react.development option automatically set)
+
+  $ pnpm i -D @swc/core swc-loader
+
+  $ edit webpack.config.js
+  module: {
+    rules: [
+      {
+        test: /\.m?js$/,
+        exclude: /(node_modules)/,
+ +      use: {
+ +        loader: "swc-loader"
+ +        options: {       ┐  needed only when
+ +          parseMap: true ├─ used with
+ +        }                ┘  babel-loader
+ +      }
+      }
+    ]
+  }
+
+
+  module: {
+    rules: [
+      {
+        test: /\.m?js$/,
+        exclude: /(node_modules)/,
+        use: {
+          loader: "swc-loader",
+        }
+      }
+    ]
+  }
+
+## Bundling with swcpack (under construction)
+* bundles JavaScript or TypeScript files into one.
+* This feature is currently named spack(spack.config.js)
+  It will be renamed to swcpack(swcpack.config.js) in v2.
+
+  $ editor spack.config.js # <·· config bundling.
+  + const { config } = require("@swc/core/spack");
+  +
+  + module.exports = config({
+  +   entry: {
+  +     web: __dirname + "/src/web.ts",
+  +     android: __dirname + "/src/android.ts",
+  +   },
+  +   output: {
+  +     path: __dirname + "/lib",
+  +   },
+  +   module: {},
+  + });
+
+  $ npx spack              # <·· execute bundling.
+
+  INPUT                        OUTPUT
+  -------------------------    -------------------------
+  lib.js
+  console.log("loading A");    console.log("loading A");
+  export function a() {        function a() {
+    console.log("use!");         console.log("use!");
+  }                            }
+                               a();
+  app.js
+  import { a } from "./a";
+  a();
+
+* naming collisions between multiple files are automatically handled.
+
+* Tree Shaking: Just like other modern bundlers, SWC can remove unused exports.
+  It also removed dead code.
+
+* CommonJS (NodeJS) Support bundling to more compact output than webpack.
+
+[[dev_lang.js.swc}]]
+
+[[PM.TODO}]]
+

@@ -1,3 +1,15 @@
+# npm install package: Fix "thousands of vulnerabilities found"  [[{qa.101]]
+- Generate new package-lock.json:
+  $ npm i --package-lock-only
+- Generate package.json from package-lock.json:
+https://stackoverflow.com/questions/50038891/create-package-json-from-package-lock-json
+
+  - Remove/rename node_modules.
+  - Remove package-lock.json
+  - $ npm install              <- Probably it will update to bugleess free deps.
+  - $ npm i --package-lock-only
+[[}]]
+
 # NodeJS summary #[nodejs_summary]
 @[https://nodejs.org]
   - VP8 based JS engine with Server API extensions for subprocesses, TTY, TCP servers, ...
@@ -39,7 +51,7 @@
   Update: 2023-04: pnpm improves over npm by using a "content addressable FS" so that
           repeated packages are not duplicated on disk.
 
-• npm project layout
+## npm project layout
   ./package.json       ← JSON file with dev/pro. package dependendies
   ./node_modules       ← Installed packages (Add to   .gitignore , do not commit).
   ./package-lock.json  ← npm v5+: It describes the exact tree that was generated,
@@ -98,12 +110,16 @@
   2) Remove package-lock.json
   3) $ npm install          <- Probably it will update to bugleess free deps.
   4) $ npm i --package-lock-only <- Generate new package-lock.json
+
+## npm-shrinkwrap [[{PM.TODO]]
+https://docs.npmjs.com/cli/v6/commands/npm-shrinkwrap
+[[}]]
 [[}]]
 
 
 [[{stack.nodejs,02_doc_has.resource,20_qa.billion_dolar_mistake,performance.js_engine,troubleshooting,security.tls,dev_lang.js]]
 # NodeJS What's new
-• Node 14+
+## Node 14+
   ·  Optional chaining operator '?.'                                            [[{20_qa.billion_dolar_mistake]]
      skip manual null validation when fetching property located deep
      within a chain of connected objects. e.g.:
@@ -124,13 +140,13 @@
 
      let safe_name = nullableEntry ?? "n/a" ← Recomended fallback op. (vs || )   [[}]]
 
-• Node 12: 2019-10   LTS version!!!
+## Node 12: 2019-10   LTS version!!!
 @[https://medium.com/@nodejs/introducing-node-js-12-76c41a1b3f3f]
-• 30% faster startup generating code cache for built-in libraries
+## 30% faster startup generating code cache for built-in libraries
   in advance at build time, and embed it in the binary.
-• better default heap limits based on available mem vs using defaults.
+## better default heap limits based on available mem vs using defaults.
   Particularly useful when processing large data-sets.     [performance]
-• new features:
+## new features:
   ✓ diagnostic report                                      [troubleshooting]
     generate report on demand on certain events
     (production crashes, slow performance, memory leaks,
@@ -142,7 +158,7 @@
     Useful to debug memory problems. More info at:
     https://github.com/nodejs/node/pull/27133
     https://github.com/nodejs/node/pull/26501
-• updates to V8(v 7.4) brings:
+## updates to V8(v 7.4) brings:
   · Async stack traces:
     https://v8.dev/blog/v8-release-72#async-stack-traces
   · Faster calls with arguments mismatch
@@ -152,25 +168,25 @@
   · Faster javascript parsing:
     https://v8.dev/blog/v8-release-72#javascript-parsing
 
-• Hello TLS 1.3 introduces and defaults to TLS 1.3        [TLS]
-• Native Modules Easier to implement include better support
+## Hello TLS 1.3 introduces and defaults to TLS 1.3        [TLS]
+## Native Modules Easier to implement include better support
   in Worker threads, and N-API .
   https://nodejs.org/api/n-api.html#n_api_n_api
-• Workers Threads no longer experimental. More info at:
+## Workers Threads no longer experimental. More info at:
 @[https://medium.com/@Trott/using-worker-threads-in-node-js-80494136dbb6]
-• Experimental ES6 Module Support                         [es6]
+## Experimental ES6 Module Support                         [es6]
 [[}]]
 [[{stack.nodejs,01_PM.low_code,01_PM.BACKLOG]]
 # oclif
 @[https://oclif.io/]
-• Open (console) command line interface Framework to create
+## Open (console) command line interface Framework to create
   friendly cli tools.
 [[}]]
 
 
 [[{stack.deno,20_qa,security,01_PM.TODO]]
 # Deno (NodeJS +++)
-• extracted from
+## extracted from
 @[https://www.infoq.com/news/2020/06/deno-1-ready-production/]
   Deno Is Ready for Production  @ma
   • Deno: secure runtime for JS, TS and WebAssembly on V8 engine.
@@ -198,4 +214,123 @@
     custom package versions or ranges inside your dependencies through
     the resolutions field in your package.json file. Normally, this would
     require manual edits in the yarn.lock file.
+[[}]]
+
+# JiSON: context-free Grammar parser [[{dev_lang.js,data_mng.text_parsing,01_PM.BACKLOG]]
+@[http://zaach.github.io/jison/docs/]
+Jison takes a context-free grammar as input and outputs a JavaScript
+file capable of parsing the language described by that grammar.
+You can  then use the generated script to parse inputs and accept,
+reject, or perform actions based on the input. If you’re familiar
+with Bison or Yacc, or other clones, you’re almost ready to roll.
+[[}]]
+
+[[{01_PM.TODO]]
+# Pino JSON logger
+@[https://github.com/pinojs/pino]
+* Compatible with Fastify , Express , Hapi , Restify , Koa , Node core http , Nest
+
+* code. example:
+ const logParent = require('pino')()
+ const logChild  = logParent.child({ childProp: 'property' })
+
+ logParent.info('hello world!') // {"level":30,"time":15...,"msg":"hello ...","pid":XXX,"hostname":"Davids-MBP-3.fritz.box"}
+ logChild .info('hello child!') // {"level":30,"time":15...,"msg":"hello ...","pid":XXX,"hostname":"Davids-MBP-3.fritz.box","childProp":"property"}
+[[}]]
+
+[[{01_PM.low_code,security.aaa,security.oauth,stack.nodejs,01_PM.todo]]
+# PassportJS.org     @ma
+@[http://www.passportjs.org/packages/]
+Simple, unobtrusive authentication middleware for Node.js and Express.
+
+passport.authenticate('twitter'); // 'facebook' 'google' 'linkedin' 'github'
+
+* A comprehensive set of (500+) strategies support authentication using
+   username/password, Facebook, Twitter, JWT, ...
+[[}]]
+
+
+# NPM v7 [[{]]
+https://github.blog/2020-10-13-presenting-v7-0-0-of-the-npm-cli/
+[[}]]
+
+# Ink 3: Interactive Terminal Apps [[{]]
+https://www.infoq.com/news/2020/08/ink3-hooks-devtool-terminal-apps/?itm_source=infoq
+
+Ink, the React renderer for interactive command-line apps, recently announced version 3 with new built-in hooks which enable better focus and stream management (e.g. stdin) in the terminal. Developers can leverage the React development tools to inspect the output of an Ink app. Ink 3 also features updated components that allow for better styling of CLIs, built-in error handler and log interception, and other performance and stability improvements.
+[[}]]
+
+## Shrunk node_modules (from 700MB to 104MB) [[{QA]]
+  https://tsh.io/blog/reduce-node-modules-for-better-performance/
+[[}]]
+
+# trax: state management for TS  [[{angular,redux]]
+https://github.com/AmadeusITGroup/trax
+[[}]]
+
+# ncc:  [[{01_PM.low_code,01_PM.TODO]]
+Compile Node.js App into a single file. Supports
+TypeScript, binary addons and dynamic requires. More information:
+https://github.com/vercel/ncc.
+[[}]]
+
+## npx == [[{stack.nodejs,01_PM.TODO]]
+  "run once npm install"
+https://medium.com/@maybekatz/introducing-npx-an-npm-package-runner-55f7d4bd282b
+
+Those of you upgrading npm to its latest version, npm@5.2.0, might notice
+that it installs a new binary alongside the usual npm: npx.
+
+Have you ever run into a situation where you want to try some CLI tool, but it
+’s annoying to have to install a global just to run it once? npx is great for
+that, too. Calling npx <command> when <command> isn’t already in your $PATH
+will automatically install a package with that name from the npm registry for
+you, and invoke it. When it’s done, the installed package won’t be anywhere
+in your globals, so you won’t have to worry about pollution in the long-term.
+[[}]]
+
+## refererence architecture
+https://github.com/nodeshift/nodejs-reference-architecture
+
+## deno: secure JS and TS runtime [[{]]
+https://github.com/denoland/deno
+[[}]]
+
+## Snippets collection [[{]]
+https://github.com/topics/snippets-collection
+[[}]]
+
+## Lerna: manage 1 MONOREPO ···> N npm packages,[[{]]
+@[https://github.com/lerna/lerna]
+Splitting up large codebases into separate independently versioned
+packages is extremely useful for code sharing. However, making
+changes across many repositories is messy and difficult to track, and
+testing across repositories becomes complicated very quickly.
+
+To solve these (and many other) problems, some projects will organize
+their codebases into multi-package repositories (sometimes called
+monorepos). Projects like Babel, React, Angular, Ember, Meteor, Jest,
+and many others develop all of their packages within a single
+repository.
+
+Lerna is a tool that optimizes the workflow around managing
+multi-package repositories with git and npm.
+Lerna can also reduce the time and space requirements for numerous
+copies of packages in development and build environments - normally a
+downside of dividing a project into many separate NPM packages. See
+the hoist documentation for details.
+[[}]]
+
+## npm: How to update  each dependency to latest version
+https://stackoverflow.com/questions/16073603/how-to-update-each-dependency-in-package-json-to-the-latest-version
+
+## Timequeue: A queue with custom concurrency and time limits.  [[{]]
+https://github.com/fent/timequeue.js
+Inspired by async/queue, but also with variable number of arguments
+in the worker, events, and with optional time limits.
+[[}]]
+
+
+## AJV:The fastest JSON validator for Node.js&browser [[{DATA_MNG.json,io.json]]
+https://github.com/ajv-validator/ajv
 [[}]]

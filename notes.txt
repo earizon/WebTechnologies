@@ -1,14 +1,8 @@
-#  Apropos:
-- Visit next Web site for a great experience:
-  https://earizon.github.io/txt_world_domination/viewer.html?payload=../WebTechnologies/notes.txt
-
-- If you want to contribute to great gistory of this
-  document you can take the next flight to:
+## Apropos:
+  Content is versioned in git.  commits, issues and pull-requests welcome!
 @[https://www.github.com/earizon/WebTechnologies]
-  Your commits and pull-request will be immortalized
-  in the Pantheon of the Unicode Gods.
-────────────────────────────────────────────────────────────────────────────────
-# External Links [[{]]
+
+## External Links [[{]]
 * The size of the World Wide Web (The Internet)
 @[https://www.worldwidewebsize.com/]
 * HTML Spec:
@@ -22,10 +16,8 @@
   work in progress. We could use your help in making it better. Join us.
 * Great blog about CSS design and  HTML5
 @[http://www.smashingmagazine.com/]
-[[}]]
-
-# HTTP Made Really Easy [[{protocol.http.101,01_PM.TODO]]
-@[https://www.jmarshall.com/easy/http/]
+* Map of GitHub:
+ @[ https://anvaka.github.io/map-of-github/#2/0/0
 [[}]]
 
 # Awesome Search Engines (Others that Google)  [[{]]
@@ -42,6 +34,10 @@ Search engines that specialize in books, science, and other smart information.
 * @[https://www.pdfdrive.com]    largest website for free download of PDF books. 225M+ titles.
 * @[https://www.base-search.net] one of the most powerful search engines for academic research texts.
                                  100M+ scientific articles, 70% of which are free.
+[[}]]
+
+# Open Web Search – Promoting EU's Independence in Web Search [[{101]]
+https://openwebsearch.eu/the-project/
 [[}]]
 
 # W3C Consortium  [[{]]
@@ -65,453 +61,167 @@ Search engines that specialize in books, science, and other smart information.
 @[http://ev.buaa.edu.cn/]
 [[}]]
 
-
-[[{$div]]
-# MONETIZATION @mb
-[[{use_case.monetization,use_case.payments,01_PM.BACKLOG]]
-# Web Monetization
-@[https://webmonetization.org/]
-• JS browser API to allows the creation of a payment
-  stream from the user agent to the website.
-
-• Proposed W3C standard at the Web Platform Incubator
-  Community Group.
-
-• SETUP HOW-TO:
-  1) Set up a web monetized receiver for receiving payments.
-     Most of the times this include signing with some payment
-     services, but a crypto-wallet owned by the user could be
-     an alternative solution.
-     The wallet must support the Interledger protocol ILP.        [protocol]
-     account.
-
-  2) Fetch the  payment-pointer  from the ILP wallet. e.g.:
-     $wallet.example.com/alice
-
-  3) Create <meta> tag telling Monetization providers how to pay. e.g.:
-     <meta name="monetization"                   ← name is always monetization
-           content="$wallet.example.com/alice">
-
-  4) Add <meta> tag from step 3 to the <head> of each page to be monetized.
-
-[[}]]
-
-[[{use_case.monetization,use_case.payments,01_PM.BACKLOG]]
-# Coil
-@[https://medium.com/coil/coil-building-a-new-business-model-for-the-web-d33124358b6?utm_source=singlepagebookproject]
-
-Innovating on Web Monetization: Coil and Firefox Reality
-https://hacks.mozilla.org/2020/03/web-monetization-coil-and-firefox-reality/
-
-
-Ilp: coilhq/coil-wordpress-plugin: Coil's Wordpress Web Monetization Plugin
-@[https://github.com/coilhq/coil-wordpress-plugin]
-[[}]]
-
-[[{use_case.monetization,standards.finance,01_PM.BACKLOG]]
-# OpenRTB
-Real-time Bidding (RTB) is a way of transacting media that allows an
-individual ad impression to be put up for bid in real-time. This is
-done through a programmatic on-the-spot auction, which is similar to
-how financial markets operate. RTB allows for Addressable
-Advertising; the ability to serve ads to consumers directly based on
-their demographic, psychographic, or behavioral attributes.
-
-The Real-Time Bidding (RTB) Project, formerly known as the OpenRTB
-Consortium, assembled technology leaders from both the Supply and
-Demand sides in November 2010 to develop a new API specification for
-companies interested in an open protocol for the automated trading of
-digital media across a broader range of platforms, devices, and
-advertising solutions.
-[[}]]
-
-[[$div}]]
-
-[[{$div]]
-# Advanced Libs
-[[{data_mng.text_search,performance,01_PM.TODO]]
-# Stork: Wasm in-browser Full-text Search!!!
-@[https://www.infoq.com/news/2020/03/stork-wasm-rust-text-search/]
-Stork, a Rust/Wasm-Based Fast Full-Text Search for the JAMStack
-[[}]]
-
-[[{dev_lang.js,data_mng.text_parsing,01_PM.BACKLOG]]
-# JiSON: context-free
-@[http://zaach.github.io/jison/docs/]
-Jison takes a context-free grammar as input and outputs a JavaScript
-file capable of parsing the language described by that grammar.
-You can  then use the generated script to parse inputs and accept,
-reject, or perform actions based on the input. If you’re familiar
-with Bison or Yacc, or other clones, you’re almost ready to roll.
-[[}]]
-
-[[{data_mng.text_input,dev_lang.js,01_PM.BACKLOG]]
-# HTML Editors (in HTML)
-• Monaco Editor(used by VSCode,Che...)
-  • Blazeling fast web-editor (Used by VSCode, Che, ...)
-  @[https://code.visualstudio.com/docs/editor/editingevolved]
-• Quill.js WySiWyG Editor
-@[https://www.scalablepath.com/blog/using-quill-js-build-wysiwyg-editor-website/]
+# HTTP Made Really Easy [[{protocol.http.101,01_PM.TODO.now]]
+@[https://www.jmarshall.com/easy/http/]
 [[}]]
 
 
-# IA Tools
-[[{IA.cognitive,01_PM.BACKLOG]]
-# trackingjs Face detection
-@[https://trackingjs.com]
-• computer vision algorithms into the browser environment.
-• Enables real-time color tracking, face detection and much more.
-• lightweight core (~7 KB)
-• intuitive interface.
-[[}]]
 
-[[{IA]]
-# Tensorflow.org
-Tensorflow using JS + WebGL
-@[https://js.tensorflow.org/]
-[[}]]
-
-[[{IA.cognitive,01_PM.BACKLOG]]
-# Face&Speech Recog.
-@[https://dzone.com/articles/tutorial-how-to-build-a-pwa-with-face-and-speechrecognition?edition=636291]
-• Face detection API:
-  face recognition in the browser:
-@[https://justadudewhohacks.github.io/face-api.js/docs/index.html]
-• Web speech API:
-  enables "Speech to text" in the app.
-@[https://developer.mozilla.org/en-US/docs/Web/API/Web_Speech_API/Using_the_Web_Speech_API]
-
-  (above APIs can only work when enabling
-  "Experimental Web Platform features" in the
-  browser via the url: chrome://flags
-
-$ $ git clone https://github.com/petereijgermans11/progressive-web-app
-[[}]]
-[[$div}]]
-
-# SEO [[{use_case.SEO]]
-
-[[{use_case.seo,use_case.monetization,standards,01_PM.WiP]]
-# SEO Summary #[seo_sitemap_schema.org_summary]
-• SEO stands for  Search Engine Optimization .
-
-  ############################
-  # SEO rules for WHOLE site #
-  ############################
-  1) Create 1 or more *sitemap.xml
-
-  2) Create 1 robot.txt
-
-  3) Use HTTPS (vs HTTP)
-
-  ############################
-  # SEO rules for html pages #
-  ###########################
-  ✓  Use Rich Structured Data to provide indexing metadata.
-     For special content (charts, images, media, ...) it is
-     specially important. e.g, use schema.org/VideoObject
-     to index videos inside pages.
-
-  ✓  Add primary keywords to:
-     • Title Tag / Meta Description
-     • URL
-     • H1, H2 Headings.
-     • anchor text of internal links
-
-  ✓  Add secondary keywords to:
-     • Subheadings
-     • Alternative text
-  ✓  Make page/site mobile friendly
-  ✓  Remove broken links
-
-  NOTE: Page load speed does NOT affect SEO indexing, but it can affect
-        final users, that will "skip over" slow sites.
-
-  #############################
-  # Sitemap Protocol standard #
-  #############################
-@[https://www.sitemaps.org/protocol.html]
-• Sitemaps standard, proposed by Google, helps search engines
-  (crawlers and indexers) to inform about URLs metadata
-  for a given Web Resource (URL).
-  <?xml version="1.0" encoding="UTF-8"?> ← Max. size: 50MB
-  <urlset
-      xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
-     <url>                               ← one entry per URL. 50.000 urls per XML
-        <loc>http://www.foo.com/</loc>   ← non-optional. All loc in
-                                           XML must match same host
-        <lastmod>2005-01-01</lastmod>    ← Complements If-Modified-Since (304)
-                                           HTTP response header (from servers)
-        <changefreq>monthly</changefreq> ← Aproximate hint to search engine
-                                           := always | hourly | daily | weekly
-                                           | monthly | yearly | never
-                                           always : dynamic  content
-                                           never  : archived content
-         <priority>0.8</priority>        ← 0.0-to-1.0: relative to other site's URLs
-                                           (defaults to 0.5)
-     </url>
-  </urlset>
-  NOTE: additional metadata about alternate language versions, video, image,
-        or news-specific pages can be included                            [TODO]
-
-• sitemaps can be "pushed" directly to different search engines         [devops]
-  to trigger fast-indexation (vs waiting for hours/days/weeks for passive
-  indexing by web crawlers). e.g, Google Search Console  allows to
-  manually submit one or more XML sitemaps for a given domain an see
-  indexation results. Also via "PUSH" HTTP request like:
-
-
-$ $ curl https://${searchengine}/ping?sitemap=http://www.example.com/sitemap.gz
-  (via curl, wget, ..., returning HTTP 200 if every works "OK")
-
-
-
-  • Asking Google to re-crawl a site:
-  @[https://developers.google.com/search/docs/advanced/crawling/ask-google-to-recrawl]
-    · There is a quota for submitting individual URLs:
-      Alt 1) only for 'owners' Search Console property
-             → URL Inspection tool
-               → Inspect the URL
-                 → Select "Request indexing".
-
-      Alt 2) Submit a sitemap ("many" URLs)
-
-
-• About URL encodings:
-  all URLs (including Sitemap hosting URL) must be URL-escaped
-  by the web server on which they are located.
-
-  https.../üm.php&q=name
-  https.../%FCm.php&q=name         ← Server using ISO-8859-1
-  https.../%C3%BCm.php&q=name      ← Server using UTF-8
-  https.../%C3%BCm.php&amp;q=name  ← entity escaped URL
-
-• Sitemap index  needed when using more than one Sitemap file.
-
-  <?xml version="1.0" encoding="UTF-8"?>             ← Obligatory when using 2+
-  <sitemapindex                                        sitemaps
-    xmlns=
-      "http://www.sitemaps.org/schemas/sitemap/0.9">
-     <sitemap>
-        <loc>http://foo.com/sitemap1.xml.gz</loc>    ← foo.com must match loc. of
-        <lastmod>2004-10-01T18:23:17+00:00</lastmod>   sitemapindex.
-     </sitemap>
-     <sitemap>
-        <loc>http://foo.com/sitemap2.xml.gz</loc>
-        <lastmod>2005-01-01</lastmod>
-     </sitemap>
-  </sitemapindex>
-
-  Alternatively or in parallel sitemaps can be specified in robots.txt like:
-  Sitemap: http://www.example.com/sitemap-host1.xml
-  Sitemap: http://www.example.com/sitemap-host2.xml.gz
-
-  ###########
-  # DONT's: #
-  ###########
-  • Don't forget a "robots.txt" to skip content, define Sitemaps.
-  • Don't block a page in robots.txt and include it in an XML sitemap.
-
-  ########################################
-  # robots.txt Robots Exclusion Protocol #
-  ########################################
-    TIP: Must be all lower-case,
-    placed at URL "root"
-   ┌(/var/www/html)/robots.txt ─┐
-   │User-agent: *               ← "*" is an acronym for "any robot".
-   │Disallow: /cgi-bin/         │ Any other globing or regular expression in
-   │Disallow: /tmp/             │ User-agent or Dissallow: is NOT allowed.
-   │Disallow: /~joe/            │ e.g.:  Disallow: /tmp/*.gif is incorrect
-*1→│                            │
-   │User-agent: BadBot          ← To entiry server from BadBot robot:
-   │Disallow: /                 │
-*1→│                            │
-   │User-agent: Google          ← allow full access to Google robot
-   │Disallow:                   │
-*1→│                            │
-*2→│Sitemap: sitemap01.xml      ← e.g: URL category sitemap
-   │Sitemap: sitemap02.xml      ← e.g: URL subcategory sitemap
-   │Sitemap: sitemap.cgi        ← Dinamically generated XML sitemap
-   └────────────────────────────┘
-
-*1: white-lines used to separate different registries.
-   (one for "*", another one for BadBot, and a 3rd one
-    for Google in our example)
-
-*2: Different search engines "control pannels" allows to push
-    the sitemap directly (vs waiting for random crawling)
-
-• NOTE: difference between html <meta name=robots> and /robots.txt :
-  • /robots.txt : ignore page, do not even read html headers.
-    · /robots.txt file is controlled by web-server/site administrator.
-
-  • <meta name="robots" content="noindex,follow"
-    · ignore links inside this page.
-    · Can be controlled by page-author, overriding
-      defaults in robots.txt.
-
-• External Resources:
-  • A curated list of SEO (Search Engine Optimization) links.
-   @[https://github.com/teles/awesome-seo]
-
-
-  ########################
-  # Schema.org:          #
-  # Rich Structured Data #
-  # for Search Engines   #
-  ########################
- Ref: @[https://www.infoq.com/news/2021/02/seo-structured-data-rich-snippet/]
-• Add semantic support to html.
-• Used by  10+ million sites  to markup web pages and email messages.
-• activity community maintaining and promoting schemas for structured data .
-• While OpenAPI standard @[#openapi_summary] allows to   [comparative]
-  design APIs (requests from client to servers) to  simplify
-  implementation of client mobile/web applications,
-  schema.org allows to simplify the translation, by search engines/indexers,
-  of html-markup to structure-data , relationships and actions .
-• Extensible vocabulary.
-•  Google Search Gallery lists 30 rich snippet categories                [TODO]
-  with their use cases and specific user interface
-  (articles, books, how-to, recipes, products, job postings,
-   events, ...):
-  · Each category has a dedicated user interface designed
-    to facilitate the search user’s next steps.
-    e.g: A news article may be featured in "Top stories"
-
-  <head>
-    <title>...</title>
-    ...
-    <script type="application/ld+json">  ← Google's recommended
-    {                                       format (vs microdata|rdf)
-      "@context": "https://schema.org/",  @[#json-ld_summary]
-      "@type": "Recipe",
-      "name": "Party Coffee Cake",
-      "author": {
-        "@type": "Person",
-        "name": "Mary Stone"
-      },
-      "datePublished": "2018-03-10",
-      "description": "...",
-      "prepTime": "PT20M"
-    }
-    </script>
-    ...
-  </head>
-
-• SCHEMA.ORG TOOLS:
-  • @[https://search.google.com/test/rich-results]
-  • Google/Bing/Yandex/... Search Consoles:
-    site-wide monitoring and testing for rich results.
-
-[[}]]
 [[{standards.data_mng,01_PM.TODO]]
 # JSON-LD #[json-ld_summary]
 @[https://json-ld.org/]                                                   [TODO]
-• JSON-based format used to serialize Linked Data primarily targeting
+* JSON-based format used to serialize Linked Data primarily targeting
    Web environments in order to build interoperable Web services, and
    to store Linked Data in JSON-based storage engines.
-• Provides smooth upgrade path from JSON to JSON-LD.
+* Provides smooth upgrade path from JSON to JSON-LD.
+
+## Linked Data Proofs 1.0
+  @[https://w3c-ccg.github.io/ld-proofs/]
+    This specification describes a mechanism for ensuring the
+  authenticity and integrity of Linked Data documents using
+  mathematical proofs.
+
+[[}]]
+
+# XML Standard Schemas Classification: [[{data_structure,DATA_MNG.xml,standards,xml,01_PM.TODO]]
+@[https://schemas.liquid-technologies.com/]
+- Agriculture
+- Authoring
+  - National Information Exchange Model (NEIM)
+    partnership of the U.S. Department of Justice and the Department
+    of Homeland Security. It is designed to develop, disseminate and
+    support enterprise-wide information exchange standards and processes
+    that can enable jurisdictions to effectively share critical
+    information in emergency situations, as well as support the
+    day-to-day operations of agencies throughout the nation.
+ -  TTAF - Timed Text (TT) Authoring Format 1.0
+    Distribution Format Exchange Profile (DFXP) 1.0
+      The timed text authoring format is a content type that represents
+    timed text media for the purpose of interchange among authoring systems.
+      Timed text is textual information that is intrinsically or
+    extrinsically associated with timing information.
+- Automotive
+- Business
+  • B2MML - Business To Manufacturing Markup Language
+  • CIDX - Chemical Industry Data Exchange
+  • CML - Chemical Markup Language
+  • ebXML Electronic Business using eXtensible Markup Language
+    modular suite of specifications that enables enterprises
+    to exchange business messages, conduct trading relationships,
+    communicate data in common terms and define and register
+    business processes.
+  • FpML® - Financial products Markup Language (FpML®)
+    @[../Architecture/financial_architecture#fpml_summary]
+  • HR-XML - HR-XML - Human Resources XML
+    enable e-business and the automation of human
+    resources-related data exchanges.
+  • Mail.XML - Mail.XML - Mailingºsupply chainº
+  • OASIS UBL - OASIS Universal Business Language
+  • Common XML library of business documents
+    (purchase orders, invoices, etc.)
+  • OASIS WSBPEL - Web Services Business Process Execution Language
+  • Open Travel - Open Travel (OTA)
+    community where companies in theºelectronic distribution supply chainº
+  • papiNet - e-business standard for the paper and forest industry
+              involved inºsupply chain processesº.
+  • PMXML - Project Management XML Schema
+  • PSLX - Planning and Scheduling Language
+           standard for production planning and scheduling.
+  • RETS - Real Estate Transaction Standard (RETS)
+  • RIXML - Research Information Markup Language
+            by consortium of buy/sell-side firms and vendors to
+            define an open standard for categorizing, tagging and
+            distributing global investment research.
+  • StratML - Strategy Markup Language
+    XML template and vocabulary for strategic plans, performance
+    plans and performance reports in alignment with policies and
+    standards enabling the sharing, referencing, indexing, discovery
+    linking, reuse and analysis of the elements of strategic plans
+    including goal and objective statements.
+  • XBRL - eXtensible Business Reporting Language
+    electronic language which is revolutionising business reporting
+    around the world.
+     It enables business and financial data to be communicated and
+    processed automatically by computer software, providing major
+    benefits in speed and efficiency, cost savings and improved
+    accuracy to all involved in supplying or using financial data.
+- Chemical
+- Document
+- Financial
+- Geographical
+- Google
+- Goverment
+- Graphics
+- Insurance
+- Liquid-Technologies
+- Manufacturing
+- Medical (hl7,..?)
+- Microsoft
+- News
+- OASIS
+- Open GIS
+- Publishing
+- Retail
+- Schema
+- Scientific
+- Security
+- Tax
+- Travel
+- W3C
+- Web
+- Web\Web Services
+- XML Document
+[[}]]
+
+# OnlyOffice Workspace Proffesional OOSS Office Suite [[{]]
+  https://www.onlyoffice.com/
+  https://github.com/ONLYOFFICE
+* It competes (and wins) with Google Drive and Office 365.
+* It offers lot of functionality that will never be present
+  in Google Drive or Office 365 just because Google and
+  Microsoft will loose money by offering it, like the
+  possibility to work offline with any light file format
+  or integrate with different video call systems.
+* Run a  private cloud office
+* View, edit, shared and collaborate on docs, sheets, slides
+  with character and paragraph-level co-editing modes
+* Build fillable forms and fill them in online
+* Read PDFs and export/import to/from PDF
+* Convert docs to Markdown and HTML
+* Turn textbooks into e-books
+* Generate texts with the AI helper
+* Compare and review docs and track changes
+* Leave comments and mentions
+* Communicate via built-in chat or Telegram
+* Make audio and video calls with Zoom, Jitsi or Rainbow
+* Compliance with international security standards
+* Three levels of encryption: at rest, in transit, end-to-end
+* Secure access and monitoring tools
+
+
+## ONLYOFFICE DocSpace:
+* Create rooms within your secure DocSpace, invite people,
+  view, edit, and collaborate on all kinds of documents
+  from any desktop or mobile device.
 [[}]]
 
 
-
-[[use_case.SEO}]]
-────────────────────────────────────────────────────────────────────────────────
-
-[[{$div]]
-    ● Non-classified / Radar
-[[{protocol.http/3,performance.http/3]]
-# HTTP/3  #[http3_summary]
+## HTTP/3  #[http3_summary] [[{protocol.http/3,performance.http/3]]
 @[https://www.infoq.com/news/2020/01/http-3-status/]
-• HTTP/2 introduced the concept of first-class streams embedded
+* HTTP/2 introduced the concept of first-class streams embedded
   in the same TCP connection enabling multiplexing simultaneous
   request-response exchanges.
-• HTTP/2 major flaw: when packet loss increases, performance
+* HTTP/2 major flaw: when packet loss increases, performance
   degrades due to dependency on TCP packet retransmission
   (HOL blocking):
     When packet loss surpasses a given threshold it's slower than
     HTTP/1 multiple parallel TCP connections.
-• QUIC (HTTP/3 or HTTP over UPD) has first-class streams. solving
+* QUIC (HTTP/3 or HTTP over UPD) has first-class streams. solving
   HTTP/2 issues.
 [[}]]
 
-[[{dev_lang.js,arch.async,01_PM.low_code,security,data_mng,01_PM.TODO]]
-# axios
-@[https://www.npmjs.com/package/axios]
-Promise based HTTP client for the browser and node.js
-Features
-• Make XMLHttpRequests from the browser and
-•      http  requests  from node.js
-• Supports the Promise API
-• Intercept request and response
-• Transform request and response data
-  (See service workers @[#service_workers_summary]
-   for advanced/complementary alternative)
-• Cancel requests.
-• Automatic transforms for JSON data.
-• Client side support for protecting against XSRF                     [security]
---------------------------------------------
-# https://hyperfetch.bettertyped.com/docs/Getting%20Started/Overview
-  Hyper Fetch is a library for a very wide range of uses - it provides
-  the logic necessary to perform requests, caching, queuing, offline
-  support, presistence possibilities of the queued requests and cache.
-  By offering the above solutions, we have the ambition to become one
-  of the greatest fetching tools - this is certainly not our last word.
-  Motivation
-  The idea for Hyper Fetch came from our observation and leading many
-  projects in the Reactjs environment. There are many great fetch
-  libraries and api - like axios, fetch, swr, react-query but the logic
-  that they provide is detached from each other - hooks from the
-  fetchers.
+
+# HTML Tips   [[{]]
+https://markodenic.com/html-tips/
 [[}]]
 
-[[{mobile,performance.cache,01_PM.TODO]]
-# PouchDB
-https://pouchdb.com/ (46KB gzipped)
- "...PouchDB is an open-source JavaScript database inspired by
-   Apache CouchDB that is designed to run well within the browser.
-   PouchDB was created to help web developers build applications that
-   work as well offline as they do online.
-   It enables applications to store data locally while offline, then
-   synchronize it with CouchDB and compatible servers when the
-   application is back online, keeping the user's data in sync no matter
-   where they next login..."
-   var db = new PouchDB('dbname');
-   db.put({ _id: 'dave@gmail.com', name: 'David', age: 69 });
-   db.changes().on('change', function() {
-     console.log('Ch-Ch-Changes');
-   });
-   db.replicate.to('http://example.com/mydb');
-[[}]]
-
-[[{01_PM.low_code,security.aaa,security.oauth,stack.nodejs,01_PM.todo]]
-# PassportJS.org     @ma
-@[http://www.passportjs.org/packages/]
-Simple, unobtrusive authentication middleware for Node.js and Express.
-
-passport.authenticate('twitter'); // 'facebook' 'google' 'linkedin' 'github'
-
-• A comprehensive set of (500+) strategies support authentication using
-   username/password, Facebook, Twitter, JWT, ...
-[[}]]
-
-[[{01_PM.TODO]]
-# Pino JSON logger
-@[https://github.com/pinojs/pino]
-• Compatible with Fastify , Express , Hapi , Restify , Koa , Node core http , Nest
-
-• code. example:
- const logParent = require('pino')()
- const logChild  = logParent.child({ childProp: 'property' })
-
- logParent.info('hello world!') // {"level":30,"time":15...,"msg":"hello ...","pid":XXX,"hostname":"Davids-MBP-3.fritz.box"}
- logChild .info('hello child!') // {"level":30,"time":15...,"msg":"hello ...","pid":XXX,"hostname":"Davids-MBP-3.fritz.box","childProp":"property"}
-[[}]]
-
-[[{use_case.monetization,use_case.seo,01_PM.backlog]]
-# matomo.org
-@[https://matomo.org/]
-• Google Analytics that preserves customer's privacy.
-[[}]]
-
-[[$div}]]
