@@ -1,0 +1,57 @@
+[[{data_mng.session,arch.async,]]
+
+# HTTP State Management Mechanism ("Cookies")
+* <https://www.rfc-editor.org/rfc/rfc6265>
+* (Obsoletes: 2965)
+* KEY-POINT: Do not store information in cookies, but only a "session identifier".  [[{SECURITY.101}]]
+  
+* ```
+  |Server as S
+  |UserAgent as C (client)
+  |S -> C: Set-Cookie: SID=31d4d96e407aad42; 
+  |                    └──────────┬───────┘ 
+  |                     Cookie (name,value) pairs
+  |                     (returned back by the user agent)
+  |                    ┌────┴────┐
+  |        Set-Cookie: lang=en-US; Path=/; scope=... ;
+  |        Set-Cookie: ...         └───────┬───────┘ 
+  |           ...      ·           Cookie attributes
+  |        └────┬────┘ ·          (not returned back by user-agent)
+  |        HTTP Header ·                   ·
+  |        ┌───────────┴───────────────────┘
+  |        Cookie attributes include:
+  |        Domain=example.com; <·· (Sub)domain list to send cookies back
+  |        Secure;             <·· Limit to secure channels (as seen by
+  |                                the user-agent)
+  |        HttpOnly            <·· Limit to HTTP request
+  |        scope=..., 
+  |        Expires=Wed, 09 Jun 2021 10:18:14 GMT 
+  |        └──┬──┘
+  |        if not set cookie expires after 
+  |        user-agent("browser") restart.
+  |        It is also used with a date in the past to reset the cookie.
+  |        Max-Age=... (Similar to expire, it represent a timeout in secs)
+  |
+  |        expected servers to return the cookie to, URI schemes
+  |        where it is applicable)
+  |        allow to pass (name,value) to a user agent.  
+  |C -> C: Stores/updates the cookie (with its attributes)
+  |       l The user agent stores the following fields about each cookie:
+  |       (name,value), expiry-time, domain, path, creation-time, 
+  |       last-access-time, persistent-flag, host-only-flag,
+  |       secure-only-flag, and http-only-flag.
+  |       General-use user agents SHOULD provide: 
+  |       -  4096+bytes per cookie (sum of name+value+attributes).
+  |       -  At least 50 cookies per domain.
+  |       -  At least 3000 cookies total.
+  |C -> C: Ignore cookies?
+  |alt no:
+  |C -> S: Cookie: SID=31d4d96e407aad42; lang=en-US
+  |                └──────────┬───────┘  └───┬────┘ 
+  |                     Cookie (name,value) pairs
+  |        Authorization: Bearer ...
+  |        └─────┬─────┘ 
+  |        HTTP Header 
+  |alt yes: do nothing
+  ```
+[[data_mng.session}]]
