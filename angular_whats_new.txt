@@ -1,0 +1,56 @@
+## Angular What's new
+
+### Angular 13
+* <https://www.infoq.com/news/2021/11/introducing-angular-13/>
+
+### Angular v12 
+* Transitions to Ivy Rendering Engine
+* <https://www.infoq.com/news/2021/05/angular-12-ivy-default/>
+* ...The Protractor end-to-end test framework will no longer be
+  included in new projects. The team reports working with alternative
+  popular solutions (e.g., Cypress, WebdriverIO, TestCafe)...
+
+###  Angular 11
+* <https://www.infoq.com/news/2020/11/angular-11/>
+* <https://blog.angular.io/version-11-of-angular-now-available-74721b7952f7>
+* Hot Module Replacement implementation:
+  ```
+  $ ng serve --hmr   ← It can be initialized with --hmr flag.
+                       NG app will not need full page refresh on code changes:
+                       Instead, latest changes to code/style/templates will be
+                       updated directly while preserving the current state of
+                       the application.
+  ```
+
+* Build process speed boost by upgrading to TypeScript 4.0
+  and through improving the ngcc update process.
+
+* developers can now opt-in to the experimental Webpack 5 support
+  (faster builds with persistent disk caching and smaller bundle sizes
+   using improved tree-shaking).  To enable it:
+   "resolutions": { "webpack": "5.4.0" }  ← Add to package.json
+
+* NG language service (popular add-on offers autocomplete, type checking, etc...)
+  is being transitioned to the new Ivy engine, offering improved support for
+  generic types.
+
+* For simple upgrade of projects:
+  ```
+  $ ng update @angular/cli @angular/core
+  ```
+  WARN : for more complex updates, use the interactive update guide
+         provided by the Angular team.
+
+##  Angular 9
+* <https://www.infoq.com/news/2020/02/angular-9-ivy-rendering-engine/>
+* Ivy Compiler:
+  Smaller bundle sizes, improved build times, and better debugging
+  thanks to the release of the much anticipated Ivy rendering engine
+  that has been in development by Google since 2018.
+   Ivy uses tree shaking, allowing it to include only the parts of
+  Angular needed for the current application.
+
+##  Angular 5
+ Service worker implementation shipping by default.
+[[}]]
+

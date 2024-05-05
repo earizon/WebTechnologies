@@ -1,0 +1,101 @@
+[[{stack.angular,security.aaa,use_case.identity.openid,standards.identity]]
+
+## Angular/Keycloak Integration
+* <https://medium.com/keycloak/secure-angular-app-with-keycloak-63ec934e5093>
+
+* Core principle behind OpenID-Connect:
+  Delegation complex authentication/authorization of remote users (and hackers
+  trying to impersonate as users) to some central authentication and authorization
+  server.
+* Complex in practice means seting up multifactor authentication, onboarding 
+  of users, onboaring of trusted apps, mapping of users to roles (that can be
+  different in different apps).
+
+  ```
+     ┌─────┐          ┌───────┐          ┌────────┐
+     │Alice│          │NG-App │          │Keycloak│
+     └──┬──┘          └───┬───┘          └───┬────┘
+        │  Can I see      │                  │
+        │   this page?    │  Can Alice see   │
+        │────────────────>│   that page?     │
+        │                 │─────────────────>│
+        │ Please, enter (login) credentials? │
+        │<───────────────────────────────────│
+        │ crendentials (password, token, ...)│
+        │───────────────────────────────────>│
+        │                 │   OK, Alice      │
+        │                 │    can see it    │
+        │   page content  │<─────────────────│
+        │<────────────────│                  │
+     ┌──┴──┐          ┌───┴───┐          ┌───┴────┐
+     │Alice│          │NG-App │          │Keycloak│
+     └─────┘          └───────┘          └────────┘
+  ```
+
+###  PRESETUP
+1. ```
+   | → Keycloak
+   |   → Client Config
+   |     → Add Client :
+   |        Client ID      : angular-test-app
+   |        Client protocol: openid-connect
+   |        Root URL       : https://myapp.mydomain.com ← or dev URL
+   |                                                      (http://localhost:4200)
+   ```
+2. Create new angular app if needed:
+   ```
+   | $ ng new angular-keycloak
+   ```
+3. Adding official keycloak js adapter
+   ```
+   | $ npm i keycloak-js --save
+   ```
+
+### Use:
+1. Modify Angular app and next code to main.ts
+   ```
+   | let initOptions = { //keycloak init options
+   |   url    : 'https://0.0.0.0:8445/auth',
+   |   realm  : 'keycloak-demo',
+   |   clientId: 'angular-test-app'
+   | }
+   | let keycloak = Keycloak(initOptions);
+   |
+   | keycloak
+   |   .init({ onLoad: "login-required" })        //← page load will redirect to
+   |   .success((auth) => {                       //  keycloak Auth. page
+   |     if (!auth) {
+   |       window.location.reload();
+   |       return
+   |     }
+   |     console.log("successful authentication. Bootstrapping now");
+   |
+   |     platformBrowserDynamic()
+   |       .bootstrapModule(AppModule)            // ← boostrap module
+   |       .catch(err => console.error(err));
+   |
+   |     localStorage.setItem
+   |       ( "ang-token"        ,  keycloak .token);       // Access token
+   |     localStorage.setItem
+   |       ( "ang-refresh-token",  keycloak .refreshToken) // Refresh token
+   |
+   |     setTimeout( refreshToken, 60000 /* 1 min*/ )      // May just each hour/day
+   |   })
+   | .error(() => { console.error("Authenticated Failed"); });
+   |
+   | function refreshToken = () => {
+   |   keycloak .updateToken(70)
+   |   .success( (bRefreshed) => {
+   |     if (bRefreshed) { /* OK */ return ; }
+   |     console.warn('Token not refreshed, valid for '
+   |       + Math.round(
+   |           keycloak .tokenParsed.exp
+   |         + keycloak .timeSkew
+   |         - new Date().getTime() / 1000) + ' seconds');
+   |   })
+   |  .error(() => { console.error('Failed token refresh'); });
+   | }
+   ```
+
+[[}]]
+

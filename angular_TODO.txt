@@ -1,0 +1,75 @@
+# TODO/Non Classified Angular
+## JIT Compilation
+[[{angular.101,01_PM.TODO]]
+* <https://angular.io/guide/aot-compiler>
+* Angular provides just-in-time (JIT) compilation for the
+  development environment, and ahead-of-time (AOT) compilation
+  for the production environment.
+
+## Testing platform
+* <https://angular.io/guide/testing>
+  Run unit tests on your application parts as they interact with the Angular framework.
+
+## Internationalization:
+* <https://angular.io/guide/i18n>
+
+## Security guidelines
+* <https://angular.io/guide/security>
+  Learn about Angular's built-in protections against common
+  web-app vulnerabilities and attacks such as cross-site scripting attacks.
+
+
+## Reactive Angular Library NgRx v10
+* Adds Component Local State Management Package
+<https://www.infoq.com/news/2020/10/ngrx-component-store-local-state/>
+
+## ng-select native angular Select:
+* Gallery: <https://ng-select.github.io/ng-select#>
+* Github: <https://github.com/ng-select/ng-select>
+
+## ng-zorro: component lib (8.5K likes)
+* <https://github.com/NG-ZORRO/ng-zorro-antd>
+* Gallery: <https://ng.ant.design/components/>
+
+## Angular Best Patterns [[{qa.best_patterns]]
+
+* <https://itnext.io/clean-code-checklist-in-angular-%EF%B8%8F-10d4db877f74>
+* Don’t use nested subscriptions:<br/>
+    There may be situations where you need to consume data from 
+  multiple observable streams. In those cases, you should generally try 
+  to avoid socalled nested subscriptions. Nested subscriptions becomes 
+  hard to understand and may introduce unexpected side effects. We 
+  should instead use chainable methods like switchMap, forkJoin and 
+  combineLatest to condense our code.This will help us avoid writing 
+  code like this:
+  ```
+  | this.returnsObservable1(...)
+  |  .subscribe(
+  |  success => {
+  |    this.returnsObservable2(...)
+  |    .subscribe(
+  |      success => {
+  |        this.returnsObservable3(...)
+  |        .subscribe(
+  |          success => { ... }
+  |        })
+  |    )
+  |  },
+  ```
+  And hopefully more like this:
+  ```
+  | this.returnsObservable1(...)
+  |  .pipe(
+  |  flatMap(success => this.returnObservable2(...),
+  |  flatMap(success => this.returnObservable3(...)
+  |  )
+  |  .subscribe(success => {...});+Quick tip!
+  ```
+* There may be confusion around when to use the appropriate operators 
+when dealing with multiple streams. I recommend checking out this 
+article for some clarity on this topic.
+[[}]]
+
+## DevTools Released with Component Explorer and Profiler [[{]]
+* <https://www.infoq.com/news/2021/05/angular-devtools-profiler/>
+[[}]]

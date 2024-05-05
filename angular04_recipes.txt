@@ -1,0 +1,31 @@
+# Angular Recipes
+
+* Init service on page load:
+
+  ```
+  | let window: any;
+  | @Injectable()
+  | export class MyService01 {
+  |   constructor() {
+  |     window.addEventListener('load' , function (event) { ...  });
+  |   }
+  | }
+  |
+  | RX Observables:  (TODO:Explain)
+  | import {Subject} from 'rxjs';
+  | @Injectable()
+  | export class MyService01 {
+  |   public accountsObservable = new Subject<string[]  ();
+  |   ...
+  |   this.accountsObservable.next(accs); // <·· Inject new events
+  |                                       //   (Will be delivered to observers)
+  | @Component({ ...  })
+  | export class MyComponent01 {
+  |   watchAccount() {
+  |     this.myService01.accountsObservable
+  |       .subscribe(function(account_l) { // <·· Subscribe
+  |       ...                              // <·· Update component / GUI
+  |     });
+  |   }
+  | }
+  ```

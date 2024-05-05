@@ -1,0 +1,205 @@
+[[{angular.101]]
+# Angular Development cycle
+(Setup, build, deploy config)
+
+## ng CLI reference
+<https://angular.io/cli>
+* Used to:
+  * create projects,
+  * generate app. and library code.
+  * testing, bundling, deployment.
+  * ...
+
+* PRE-SETUP:
+  ```
+  $ npm install -g @angular/cli
+  ```
+* BASIC WORKFLOW
+  ```
+  | $ ng new my-first-project\  ←  create, build, and serve (Wait ~ 1 minute to complete)
+  |  --strict                   ←  Opt.  <https://angular.io/guide/strict-mode>   Forbids "any" type
+  | CREATE ...                  ←  initial app created goes to root project folder
+  | CREATE ...                  ←  Additional apps/library go to ./projects/
+  |
+  | $ cd my-first-project          new, basic project
+  | $ ng serve                  ←  Automatic rebuilds on edit!!!
+  |                                Test server listening at:
+  |                                http://localhost:4200/
+  ```
+
+* App Layout :
+  * A new app contains:
+  ```
+  | - source files for root module
+  |   - root component + root template.
+  | - /src folder:  contains
+  |   - logic
+  |   - data
+  |   - assets.
+  ```
+  within a project folder, use a command similar to the next one 
+  to components,services, pipe code, directives, ...  (or do it manually)
+  ```
+  | $ ng generate ...  to add new
+  ```
+
+* Workspace and project configuration
+  ```
+  | WORKSPACE 1 <··> 1+ Project
+  |                     └──┬──┘
+  |                   application or
+  |                   shareable lib
+  | ${WORKSPACE}
+  | └ ./angular.json ← workspace per-project defaults for "ng" command
+  |                    like custorm target defaults, ...
+  |                    Edit it manually or through $ $ng config ...
+  ```
+
+* ng syntax:
+  ```
+  | $ ng commandNameOrAlias requiredArg --opt1 --boolOpt2 --noBoolOpt3
+  |                                     └─────────────┬──────────────┘
+  |                    NOTE: opt.names in angular.json are "camelCase".
+  |                          opt.names in ng command   are "camelCase" or
+  |                                                        "dash-case".
+  | 
+  | $ ng generate  "artifact or library to be generated"
+  | $ ng add       "artifact or library to be added"
+  |      └──┬───┘  └──────────────────────────────────┘
+  |         │       each artifact/library defines its
+  |         │       own options in a schematic.
+  |    ┌────┴─────────────────────────────────────────────────────────┐
+  |    - add
+  |    - analytics  https://angular.io/cli/usage-analytics-gathering.
+  |    - build      output to dist/
+  |    - config
+  |    - deploy
+  |    - doc        Opens Official Angular documentation in browser,
+  |                 and searches for a given keyword.
+  |    - e2e        Builds and serves an Angular app, then runs
+  |                 end-to-end tests using Protractor
+  |    - generate   Generates/modifies files based on a schematic.
+  |    - help
+  |    - new
+  |    - run        Runs an Architect target with an optional custom builder
+  |                 configuration defined in your project.
+  |    - serve
+  |    - test
+  |    - update     Updates app and dependencies.
+  |                 See <https://update.angular.io/>
+  |    - version
+  | 
+  |    - xi18n      Extracts i18n messages from source code.
+  | Ex:
+  | $ ng build              my-app      -c production
+  |                         ^^^^^^
+  |                         generated artifact can also be
+  |                         indicated with --name "my-app"
+  ```
+
+* Workspace, Project Layout
+* REF: <https://angular.io/guide/file-structure>
+  ```
+  |  ${WORKSPACE}/
+  |  .editorconfig
+  |  .gitignore
+  |  README.md
+  |  angular.json
+  |  package.json       (npm package dependencies)
+  |  package-lock.json  (version information for all npm packages installed)
+  |                     (yarn.lock in case o using yarn)
+  |  src/               src for root-level  main application project ¹
+  |  node_modules/
+  |  tsconfig.json      "Solution Style" TypeScript config file. Used by
+  |                     code editors and TS's language server to inprove dev. experience.
+  |                     NOT used by compilers . See detailied info about "noImplicitAny",
+  |                     "suppressImplicitAnyIndexErrors", ... at
+  |                    <https://angular.io/guide/typescript-configuration>
+  |  tsconfig.base.json base TypeScript config for all (sub)projects in W.S.
+  |  tslint.json        Default TSLint config  for all (sub)projects in W.S.
+  |  ./projects/        ← Only for (git SCM)  monorepo . Recommended for:
+  |  └ my-lib01/src       - shareable libraries
+  |    └ src/lib              library project's logic and data(components,services,
+  |    ·                      modules, directives and pipes)
+  |    └ src/test.ts          main unit-test entry point (normally defaults are OK)
+  |    └ src/public-api.ts    Specifies all files exported from library.
+  |    └ karma.conf.js
+  |    └ ng-package.json      Config file used by  ng-packagr  at build time.
+  |    └ package.json         npm package dependencies required by library.
+  |    └ tsconfig.lib.json    Lib-custom TypeScript configuration.
+  |    └ tsconfig.spec.json   TypeScript configuration for the tests.
+  |    └ tslint.json
+  | 
+  |  └ py-app02/src       - enterprises using "monorepo" approach.
+  |    └ ...               In monorepos all developers in all dev.groups
+  |    └ e2e/              can see all changes from other devs./dev.groups
+  |      ...               Git becomes the "source-of-true" .
+  |                        All projects will share similar parent config.
+  |                        Add new one as:
+  |                      $ $ ng generate application projectXX (--strict)
+  |  e2e/                 End-to-end test files  corresponding to root-level
+  |  ·                    app, along with test-specific configuration files.
+  |  ·  protractor.conf.js  (test-tool config)
+  |  ·  tsconfig.json       (extends tsconfig.json from workspace)
+  |  · src/
+  |    ·  app.e2e-spec.ts   (end-to-end tests for my-app)
+  |    ·  app.po.ts
+  | 
+  | 
+  |¹ src/ Directory Layout:
+  | 
+  |   app/            Angular components, templates, styles, logic and data
+  |   · app.component.ts     : app root component logic ("AppComponent").
+  |   ·                        Its view becomes root of view-hierarchy
+  |   ·                        └──┬───┘
+  |   · app.component.html   : ←──┘
+  |   · app.component.css    :
+  |   · app.component.spec.ts: unit test for root AppComponent.
+  |   · app.module.ts        : Defines the root module named "AppModule",
+  |                            telling Angular how to assemble the whole app.
+  |                            As you add more components to the app, they must
+  |                            be declared here.
+  |
+  |   assets/         images, ... to be copied as-is
+  |   environments/   build config options for a given target
+  |                   By default:
+  |                   - unnamed standard development
+  |                   - production ("prod")
+  |                   - (custom ones can be defined, like acceptance, ...)
+  |   favicon.ico
+  |   index.html      CLI automatically adds all JavaScript and CSS files
+  |                   when building your app, so you typically there is no
+  |                   need to add any script/link tags manually.
+  |   main.ts         App entry point
+  |                   Compiles the application with the JIT compiler and
+  |                   bootstraps the application's root module (AppModule) to
+  |                   run in the browser.
+  |                   - AOT compiler can also be used by appending by using
+  |                   $ $ ng build|serve .... --aot
+  |   polyfills.ts    Polyfill scripts for browser support.
+  |   styles.sass     Lists CSS files supplying styles for a project.
+  |                   (sass extension can vary depending on defaults for project)
+  |                   WARN:!!! sass is in deprecated state. It requires npm packages
+  |                   with lot of dependencies (including gcc/python2/...) when
+  |                   "npm" installing.
+  |                   Don't use it unless you need to maintain a old software.
+  |   test.ts         main entry point for unit tests .
+  |   package.json    (strict mode only)
+  |                   Not used by package managers, it tell tools&bundlers whether
+  |                   the code under this directory is free of non-local side-effects.
+  |
+  |  APPLICATION-SPECIFIC CONFIG FILES
+  |  .browserslistrc   :  Config sharing of target browsers and Node.js versions
+  |                       among various front-end tools. More info at:
+  |                     <https://github.com/browserslist/browserslist>
+  |  karma.conf.js     : App-specific Karma configuration.
+  |  tsconfig.app.json : App-specific TypeScript configuration,
+  |                      (TypeScript, ng template compiler options, ...)  [[{01_PM.TODO}]]
+  |                      <!--  ^^^^
+  |                      https://angular.io/guide/typescript-configuration
+  |                      https://angular.io/guide/angular-compiler-options
+  |                      -->
+  |  tsconfig.spec.json: TypeScript config. for the app. tests.
+  |  tslint.json       : App-specific TSLint config.
+  ```
+[[angular.101}]]

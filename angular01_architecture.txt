@@ -1,0 +1,234 @@
+# Angular Architecture [[{angular.101]]
+* REF: <https://angular.io/guide/architecture>
+
+* VIEW: "screen element" on browser, mobile, ...
+* COMPOMENT: 
+  * Typescript Class with ng-decorator.
+  * Defines N views, arranged hierarchically.
+    The (optional)  Router service  defines navigation paths
+    among them.
+  * At least one  root component  is needed by App, connecting a
+    component hierarchy with the page document object model (DOM).
+  *  Service  (providers) are injected (@Injectable() decorator) to provide
+    needed non-visual functionality.
+  * When a component is instantiated, it's associated directly with
+    the (root) host view.
+  * Generate with cli like:
+    ```
+    | $ ng generate component "compName"
+  * ```
+
+  ```
+  |                           DATA
+  |   TEMPLATE  == HTML +    BINDING     + DIRECTIVES
+  |                          MARKUP      <https://angular.io/guide/built-in-directives>
+  |                          └─┬──┘        └───┬────┘
+  |               ┌────────────┘               └ There can be:
+  |   FRONTEND    │                     ANGULAR  ├─ Component directives (the most common)
+  |    DOM        │                    COMPONENT │
+  |    └┬┘ ┌──────┴─────────────────┐  └───┬───┘ ├─ Attribute Directives:
+  |     │                                  │     │  - [ngClass]="JS expression"
+  |     ←················  {{value}} ···· ←┤     │  - [ngStyle]="JS expression"
+  |     │                                  │     │  - NgModel two way data binding:
+  |     │                                  │     │
+  |     ←·······  [property]="value" ···· ←┤     │    PRE-SETUP: add FormsModule to @"X".module.ts
+  |     │                                  │     │    imports:[...,FormsModule]
+  |     │                                  │     │
+  |     ├─··→·  (click)="handler" ·········→     │    <input [(ngModel)]="model.field01" id="field01">
+  |     │                                  │     │
+  |     │                                  │     │
+  |     ←····  [(ng-model)]=comp.varName ··→     └─ Structural directives: add/remove elements
+  |     │                                  │
+  |           -----------------------               NgIf, NgFor, NgSwitch:
+  |      Two way binding (forms mainly). Ex:      <app-item *ngIf="isActive" [item]="item" ..>
+  |      <input [(ngModel)]="hero.name">
+  |                                               <div *ngFor="let I of items">{{I.name}}</div>
+  | ☞  All data bindings are processed once
+  |    for each JS event cycle from app           <div [ngSwitch]="e.index">
+  |    root component through tree children.        <comp1 *ngSwitchCase="'1'" [item]="ddbb[1]"></comp1>
+  |                                                 ...
+  |                                                 <comp1 *ngSwitchDefault    [item]="ddbb[0]"></comp1>
+  |                                               </div>
+
+  e.g.: <input type="text" [(ngModel)]="inputIdentity" (change)="userInputFromUICallback()">
+
+    TEMPLATE    : template ·> evaluate  ·> resolve ·> modify
+    EVALUATION    input      directives   binding     HTML DOM
+                                          syntax
+  ```
+
+* TEMPLATE PIPES  (data transformation)
+  * Ex: date data → pipe → locale-date
+  * Predefined Pipes (<https://angular.io/api?type=pipe>):<br/>
+    Async , Currency , Date , Decimal, I18n(Plural|Select), JSON,
+    KeyValue, (Lower|Upper)Case , Percent , Slice , TitleCase
+  ```
+  | User click → (intercepted by) → Router  → (reacts by) → showing/hiding view hierarchies.
+  |                                                         ( lazy load    └───────┬──────┘
+  |                                                          of related modules)   │
+  |        ┌····································  hierarchical structure is key ···┘
+  |        │                                      to how Angular detects/reacts
+  |        │                                      to changes in the DOM|app data.
+  |    ┌───┴─────┐
+  | ┌→ view root   ←→ NgModule1.rootComponent ┐ ← boostrapping module  (ex. app.module.ts)
+  | ·   └- view1   ←→ NgModule1.component1    ├ A view hierarchy can include
+  | ·   └- view2   ←→ NgModule2.rootComponent │ views from components in the
+  | ·     └- view3 ←→ NgModule2.component3    ┘ same or different NgModule
+  | ·                 └───┬───┘ └───┬───┘
+  | ·                     |     <https://angular.io/guide/architecture-components>
+  | ·                     |     - (typescript) app logic controling a view
+  | ·                     |       through an properties+methods API.
+  | ·                     |     -
+  | ·  <https://angular.io/guide/architecture-modules>
+  | ·  -  container|scope for a set of (component list, Service list, ...)
+  | ·  -  compilation context  for components:
+  | ·  -  orthogonal app-domain|workflow|capabilities set.
+  | ·  -  can depend on other (imported) NgModules
+  | ·
+  | └→ Ex Module: app.module.ts:
+  |    import {  NgModule  }      from '@angular/core';             ← JS input
+  |    import {  BrowserModule  } from '@angular/platform-browser'; ← JS input
+  |    @NgModule ({                         ← Decorator function.
+  |      imports :     [   BrowserModule  ],
+  |      providers :   [ Logger ],         ← Creators of services that this NgModule
+  |                                          contributes to.  (providers at component
+  |                                          level can also be specified , which is
+  |                                          often preferred).
+  |                                          A service declared here also ensures that it
+  |                                          will be available as a singleton instance to
+  |                                          any other component/service.
+  | 
+  |      declarations: [ AppComponent ],   ← components|directives|pipes declared
+  | 
+  |      exports:      [ AppComponent ],   ← (opt) Subset of declarations accesible
+  |                                          by templates in other NgModules
+  | 
+  |      bootstrap:    [ AppComponent ]    ← (Only root module): main app view
+  |    })
+  |    export class AppModule { }          ← JS export (vs NgModule export)
+  ```
+* Component Example:
+  ```
+  | file: src/app/hero-list.component.ts
+  |   @Component ({
+  |     selector   : 'app-hero-list',               ← associated html tag name
+  |┌→   templateUrl: './hero-list.component.html',  ← seteable property programatically
+  |·┌   providers:    [HeroService]                 ← required Service prov. array
+  |·· })                                              Size must match constructor arg. size
+  |··
+  |·· export class HeroListComponent implements  OnInit  {
+  |··   heroes      : Hero[]; ← data app property. Note: Many components wrap all
+  |··   selectedHero: Hero;   ← data app property        data in a model dict to make code
+  |··                                                    more readable.
+  |·└   constructor   (private service:HeroService)  ← service will be injected
+  |·    { ...}                                         Must match @Component.providers
+  |·
+  |·     @Input() hero : Hero;   // ← @Input() marks field as input, bounding it
+  |·     @Input() power: string; //   to template DOM prop. Used to comunicate data
+  |·                             //   among parent←→children components.
+  |·                                <https://angular.io/guide/inputs-outputs>
+  |·     ...
+  |·     ngOnChanges(change_map: SimpleChanges) { // <https://angular.io/api/core/OnChanges>
+  |·                 └───────────┬───────────┘
+  |·     /*  lifecycle hook called when data-bound properties change.
+  |·      *  Implemented by NgModel, FormControl*, Max/MinLenghtValidator, ...
+  |·      *  maps each changed property to a SimpleChange
+  |·      *  instance with (current,previous) values. */
+  |·       for (let key in change_map) {
+  |·         let chng = change_map[key];
+  |·         let cur  = JSON.stringify(chng. currentValue);
+  |·         let prev = JSON.stringify(chng.previousValue);
+  |·         .log('PropName: ${key}: Val: ${cur}, previous ${prev}');
+  |·       }
+  |·     }
+  |·
+  |·
+  |·    ngOnInit()  {                               ←·lifeCycle hook
+  |·      this.  heroes  = this.service.getHeroes();  See also detailed examples at:
+  |·    }                                       <https://angular.io/guide/lifecycle-hooks>
+  |·    selectHero(hero: Hero) { this.selectedHero = hero; }              │
+  |·  } └─────────┬──────────┘                                            │
+  |·              └─────────────────────────────────────────┐             │
+  |·                                                        │             │
+  |└→ Ex template: src/app/hero─list.component.html         │             │
+  |   <h2>Hero List</h2>                                    │             │
+  |   Pick a hero from list:                                │             │
+  |   <ul>                                          ┌───────┴──────┐      │
+  |     <li  *ngFor ="let hero of   heroes "  (click) ="selectHero(hero)">│
+  |         {{hero.name | UpperCase}}                                     │
+  |     </li>                                                             │
+  |   </ul>                                                               │
+  |                                                                       │
+  |    <app-hero-detail            ← another component                    │
+  |      *ngIf ="selectedHero"                                            │
+  |      [hero] ="selectedHero">                                          │
+  |    </app-hero-detail>                                                 │
+  |    <on-changes [hero]="hero" [power]="power"></on-changes>            │
+  |                                                                       │
+  |           ┌───────────────────────────────────────────────────────────┘
+  |   ┌───────┴───────────┐
+  |   Main Life-cycle Hooks  for Component(or Directive in general):
+  |   HOOK                                 PURPOSE AND TIMING
+  |   ────                                 ──────────────────
+  |   ngOnChanges(changes: SimpleChanges)  (re)sets data-bound input properties.
+  |   ngOnInit()                           Initialize component after first display
+  |                                        with data-bound properties and sets the
+  |                                        directive/component's input properties.
+  |   ngDoCheck()                          Detect and act upon changes that Angular
+  |                                        can't or won't detect on its own.
+  |   ngAfterContentInit()                 Respond after Angular projects external content
+  |                                        into the component's view
+  |   ngAfterContentChecked()              ...
+  |   ngAfterViewInit()                    ...
+  |   ngAfterViewChecked()                 ...
+  |   ngOnDestroy()                        tap into Cleanup just before Angular destroy
+  |                                        Use it to Unsubscribe Observables and detach
+  |   Other hooks:                         event handlers to avoid memory leaks.
+  |   - Angular sub-systems
+  |   - 3rd party libraries may add new hooks.
+  ```
+
+* Service Example:
+  ```
+  | file: src/app/logger.service.ts
+  | $ $ ng generate service ...
+  |   Service:  "Do one thing and do it right" (root/module/component)singleton .
+  |   - Injected in components through constructors.
+  |   @Injectable()
+  |   export class Logger {
+  |     log  (msg: any) { console.log  (msg); }
+  |     error(msg: any) { console.error(msg); }
+  |     warn (msg: any) { console.warn (msg); }
+  |   }
+  ```
+  * Note on Services injection procedure:
+    * Angular will create 1+providers for each service(or function|value).
+    * The provider can be part of the service's own metadata, to make
+      it available everywhere, or it can be registered with an specific
+      module|component using the respective decorator
+      `(@Injectable(), @NgModule() or @Component())`
+      * NOTE: If the providers is in @Injectable() decorator, Angular
+        will optimize the app by removing it, if it's not used.
+
+  * Service SCOPE:
+  ```
+  | ┌──────────┬─────────────────────────────────┬──────────────────────────────
+  | │ LEVEL    │ Scope                           │ Declaration
+  | ├──────────┼─────────────────────────────────┼──────────────────────────────
+  | │ ROOT     │ single instance injected in all │ @Injectable(
+  | │ (app)    │ app─components (Default)        │    {providedIn: 'root'})
+  | │          │                                 │ (@ service01.service.ts)
+  | ├──────────┼─────────────────────────────────┼──────────────────────────────
+  | │ NgModule │ single instance injected in all │ @NgModule( ...
+  | │          │ module─components               │ { providers:
+  | │          │                                 │     [ service01, service02 ]
+  | │          │                                 │ })
+  | ├──────────┼─────────────────────────────────┼──────────────────────────────
+  | │ Component│ new service instance created for│ @Component({
+  | │          │ each new component              │   selector   : '...'
+  | │          │                                 │  ,templateUrl: '...component.html'
+  | │          │                                 │  ,providers  : [ service01 ]
+  | │          │                                 │ })
+  | └──────────┴─────────────────────────────────┴──────────────────────────────
+  ```
+[[}]]

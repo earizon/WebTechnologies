@@ -1,0 +1,486 @@
+## Angular Responsive App [[{angular.101,01_PM.WiP]]
+
+* Observables and event processing REF: 
+  <https://angular.io/guide/observables>
+
+* similar (but not identical) to the publish/subscribe design pattern.
+  * In the observer pattern:<br/>
+    * "subject" object  maintains a list o its dependents (observers)
+    * "subject" automatically notifies dependent observers of state changes.
+
+  ```
+  | Component01 ·>  +Observable: Observable is a function that
+  |                  function    executes only when a consumer subscribes
+  |
+  | Component02 ·> Component02 : create Component02.Observer01
+  | Component02 ·>  Obs.funct  : subscribe (Component02.Observer01)
+  |                 └───┬───┘
+  | ┌─────────────────┬─┘
+  | Observable function execution "loop":
+  |    Observable ·> Observer01: event (keystroke, HTTP response,
+  |    function                         timer,  ...)
+  ```
+* Setup and teardown logic is handled by the observable function .
+  application code in Component02 only needs to worry about
+  subscribing to consume values, and when done, unsubscribing
+  It doesn't change whether the code was sync or async.
+
+* Unicast example:
+  ```
+  | const   observable01  =
+  |      new Observable(
+  |    /*
+  |     * This code creates a new independent execution for each
+  |     * subscribed observer creating a relation
+  |     *      Execution 1 ←→ 1 Subscriber
+  |     * (vs) Execution 1 ←→ N Subscriber  ("Multicast")
+  |     */
+  |        (observer) {  ← function to execute at ".subscribe(...)
+  |        const {nextCallback, errorCallback} = observer;
+  |        let watchId = navigator.geolocation
+  |             .watchPosition(nextCallback, errorCallback);
+  |        return {
+  |          unsubscribe() {       // ← ☞ Freing resources is
+  |            navigator.geolocation.   responsability of Observable
+  |              clearWatch(watchId);
+  |          }
+  |        };
+  |      } );
+  |
+  |   const   subscription01  = O observable01 .subscribe(
+  |   {
+  |     next(position) { console.log(position);       },
+  |     error(msg)     { console.log('Error: ', msg); },
+  |   });
+  |   ...
+  |   setTimeout(() => { observable01.unsubscribe(); }, 10000);
+  ```
+
+ * Multicast example:<br/>
+   **TIP**: multicasting tools simplify next code by allowing
+            to convert any existing observable to "multicast".
+
+  ```
+  |    // Emit one value/second until end-of-array.
+  |┌·→ function executor(observer, arr, idx) { ←┐
+  ||     return setTimeout(() => {              |
+  ||       observer.next(arr[idx]);             |
+  ||       if (idx === arr.length - 1) {        |
+  ||         observer.complete();               |
+  ||       } else {                             |
+  ||         executor(observer, arr, ++idx); ···┘
+  ||       }
+  ||     }, 1000);
+  ||   }
+  ||
+  ||   /*
+  ||    * multicastSequenceSubscriber wraps the executor
+  ||    * keeping state of subcribers.
+  ||    */
+  ||   function multicastSequenceSubscriber() {
+  ||     const seq = [1, 2, 3];
+  ||     const   observers  = [];  // ← Keep track o subscribers
+  ||     // Still a single timeoutId because there will only ever be one
+  ||     // set of values being generated, multicasted to each subscriber
+  ||     let timeoutId;
+  ||
+  ||     // Return the subscriber function (runs when subscribe()
+  ||     // function is invoked)
+  ||     return (observer) => {
+  ||       observers .push(observer);
+  ||       if (  observers .length === 1) {
+  ||       //  ^^^^^^^^^^^^^^^^^^^^^^
+  ||       // start executor at 1st subcription only
+  |└··       timeoutId = executor({
+  |            next(val) {
+  |                observers .forEach(obs => obs.next(val));
+  |            },
+  |            complete() {
+  |                observers .forEach(obs => obs.complete());
+  |            }
+  |          }, seq, 0);
+  |        }
+  |
+  |        return {
+  |          unsubscribe() {
+  |            observers.splice(observers.indexOf(observer), 1);
+  |            if (observers.length === 0) {
+  |              clearTimeout(timeoutId);
+  |            }
+  |          }
+  |        };
+  |      };
+  |    }
+  |
+  |    const mcastObservble01 = new Observable(multicastSequenceSubscriber());
+  |
+  |    setTimeout(() => {
+  |      multicastSequence .subscribe ({
+  |        next (num) { console.log('1st subscribe: ' + num);  },
+  |        complete() { console.log('1st sequence finished.'); }
+  |      });
+  |    },    0 /*← Subscribe "now"*/ );
+  |
+  |    setTimeout(() => {
+  |      multicastSequence .subscribe ({
+  |        next (num) { console.log('2nd subscribe: ' + num); },
+  |        complete() { console.log('2nd sequence finished.'); }
+  |      });
+  |    }, 1500 /*← Subscribe after 1st event */ );
+  |
+  |    Console will show:
+  |    (second 1) → 1st subscribe: 1
+  |    (second 2) → 1st subscribe: 2
+  |      "        → 2nd subscribe: 2
+  |    (second 3) → 1st subscribe: 3
+  |      "        → 1st sequence finished
+  |      "        → 2nd subscribe: 3
+  |      "        → 2nd sequence finished
+  ```
+
+* EX USING REACTIVE RX.JS:
+
+  ```
+  | ┌─ Observable Service (EVENT EMITTER) ────  ┌─ Observer Component (EVENT CONSUMER) ─────
+  | │ import {Subject} from 'rxjs';             │ import { Component } from '@angular/core';
+  | │ // npm i -s rxjs@v6.5.3                   │ import { ServiceX} from ...
+  | │                                           │
+  | │ @Injectable()                             │ @Component({
+  | │ export class ServiceX {                   │    selector: ...
+  | │   ...                                     │    templateUrl: ...
+  | │   public infoObservable =                 │    providers: ...
+  | │     new Subject<string[]>();              │    styleUrls: ...
+  | │                                           │ })
+  | │   private async refreshInfo() {           │ export class Comp01 implements OnInit {
+  | │      ...                                  │
+  | │      const info = await getRemoteInfo()   │   constructor(
+  | │      this.infoObservable .next(info);     │     private myService : ServiceX ) {
+  | │   }                                       │     ...
+  | │ }                                         │   }
+  | └─────────────────────────────────────────  │
+  |                                             │   ngOnInit() {
+  |                                             │     this.myService.
+  |                                             │       .infoObservable.subscribe(
+  |                                             │        ( info ) => { /* "consume info */ }
+  |                                             │     )
+  |                                             │   }
+  |                                             └───────────────────────────────────────────
+  ```
+[[}]]
+
+## PrimeNG Library [[{angular.PrimeNG]]
+* <https://www.primefaces.org/primeng/#/>
+* See also other "top" Frameworks:
+  <https://www.ngdevelop.tech/best-angular-ui-component-libraries/>
+
+*  PRE-SETUP
+   ```
+   | $ npm install primeng --save
+   | $ npm install primeicons --save
+   | $ npm install @angular/animations --save   (opt)
+   |       ^
+   |  Or manually add dependencies to package.json add like :
+   |  ...
+   |  "dependencies": {
+   |      ...
+   |+     "primeng": "^10.0.0",         
+   |+     "primeicons": "^4.0.0"
+   |      ...
+   |  }
+   ```
+* 95% of code is native with no 3rd party dependencies
+* UI component library configured as ng-modules. e.g:
+  import {AccordionModule} from 'primeng/accordion'; //accordion and accordion tab
+  import {MenuItem}        from 'primeng/api';       //api
+* Lot of free themes out-of-the-box.
+* Ex. config. for required styles:
+  ```
+  | "styles": [
+  |   "node_modules/primeng/resources/themes/saga-blue/theme.css",
+  |   "node_modules/primeng/resources/primeng.min.css",
+  |   "node_modules/primeicons/primeicons.css",
+  |   ...
+  | ],
+  | ...
+  ```
+* See also: PrimeNG Video Tutorial:
+  <https://www.youtube.com/watch?v=4Wk4RgYN9ZQ&list=PLEXcOZ7ShIgAnxrnPgiOpIz1uPKZNQ9ZJ>
+[[}]]
+
+
+[[{angular.101,mobile.pwa,arch.async,data_mng.cache,02_doc_has.comparative,performance.cache,01_PM.TODO.NOW]]
+## Service Workers  #[angular_service_worker]
+* <https://angular.io/guide/service-worker-intro>
+* See general introduction to Service workers at #[service_workers_summary]
+* The Angular service worker's (v5.0+) design goal:
+  * Caching app as one unit. The running app will use the
+    same version of all files (vs randomnly receiving cached
+    files from a newer incompatible version).  [[{angular.Devops}]]]
+  * Refreshing will show latest fully cached version.
+    with updates executing in background.  [[{angular.Devops}]]]
+  * NG service will load the PWA manifest file from the server
+    describing the resource to cache.  When an update to the
+    PWA is deployed, manifest data changes triggering the
+    background update.
+  * TheB manifest is generated from "ngsw-config.json". [[{angular.Devops}]]]
+
+## NG Service how-to:
+* Include  NgModule ????  [TODO].
+* Registering NG Service Worker with the browser:
+  * WARN:  PWApp must be accessed over HTTPS, not HTTP.
+    Otherwise, registration will fail to avoid
+    tampering. (security meassure since Service Workers
+    are "quite powerful").<br/>
+    Exception: localhost is allowed for developers.
+* See Service Worker config at:
+  <https://angular.io/guide/service-worker-config> [TODO]
+* See Service Worker production ready at: [[{angular.DevOps}]]
+  <https://angular.io/guide/service-worker-devops>
+[[}]]
+
+[[{angular.forms,mobile.pwa,20_qa.error_control,01_PM.low_code,01_PM.BACKLOG]]
+## Interactive Angular Forms
+
+* <https://angular.io/guide/forms>
+* Support complex data entry scenarios with HTML-based validation and dirty checking.
+* template-driven interactive form how-to
+  * Requested features:
+  * from with control elements bound to data properties
+  * input data integrity validation with two-way data binding.
+
+
+### design approaches.
+* Alt 1: write templates using:
+  ```
+  |   NG template syntax
+  | + form-specific directives
+  | + "best-pattern".
+  ```
+  Suitable for small or simple forms.
+
+* Alt 2: Use reactive(==model-driven) approach
+  1. lay out the controls creatively, binding to the data in your object model.
+  1. Set input validation rules and output display validation errors.
+  1. conditionally enable controls.
+  1. trigger built-in visual feedback,
+  1. ...
+
+####  Alt 1: template-driven form:;
+* Next directives defined in  FormsModule  are used:.
+  * NgModel : reconcilites
+    ```
+    "form element"  <··> data model value changes
+    ```
+    * used also to respond to user input (input validation, error handling).
+  * NgForm : 
+    * creates top-level  FormGroup  instance bined to <form> DOM.
+    * track aggregated form value and validation status.
+    * active by default on all <form> tags at "FormsModule" import
+      (it has a selector matching the <form> element).
+  * NgModelGroup : create+bind  FormGroup  instance  ←→ DOM element.
+* STEPS:
+  1. Define a sample data model.
+  1. Include FormsModule,... "stuff".
+  1. Bind form-controls ←→ data properties with  ngModel
+     * Examine how ngModel reports control states using CSS classes.
+     * Name controls to make them accessible to ngModel.
+  1. Track input validity/control status with  ngModel
+     * Add custom CSS to provide visual feedback on the status.
+     * Show and hide validation-error messages.
+  1. Respond to a native HTML button-click event by adding to the model data.
+  1. Handle form submission using form  ngSubmit  output property.
+     * Disable the Submit button until the form is valid.
+     * After submit, swap out the finished form for different content on the page.
+  * Ex: two required fields (css:left border when OK, red otherwise) with 
+    initial default values.
+    ```
+    | file: src/app/hero.ts: (Model)
+    |
+    | export class Hero {
+    |   constructor(
+    |     public id: number,
+    |     public name: string,
+    |     public power: string,
+    |     public alterEgo?: string
+    |   ) {  }
+    | }
+    ```
+    
+    ```
+    | file: src/app/hero-form/hero-form.component.ts: (v1) (layout, details)
+    |
+    | import { Component } from '@angular/core';
+    | import { Hero } from '../hero';
+    |
+    | @Component({
+    |   selector: 'app-hero-form', ·············· ← drop form in parent template using  <app-hero-form>
+    |   templateUrl: './hero-form.component.html',
+    |   styleUrls: ['./hero-form.component.css']
+    | })
+    | export class HeroFormComponent {
+    |
+    |   powers = ['Really Smart', 'Super Flexible',
+    |             'Super Hot', 'Weather Changer'];
+    |
+    |   model = new Hero(18, 'Dr IQ', this.powers[0], 'Chuck Overstreet');
+    |
+    |   submitted = false;
+    |
+    |   onSubmit() { this.submitted = true; }
+    |
+    |   // TODO: Remove this when we're done
+    |   get diagnostic() { return JSON.stringify(this.model); }
+    | }
+    ```
+    
+    ```
+    | file: src/app/app.module.ts:
+    | import { NgModule } from '@angular/core';
+    | import { BrowserModule } from '@angular/platform-browser';
+    | import { FormsModule } from '@angular/forms';              ← enable Forms feature
+    |
+    | import { AppComponent } from './app.component';
+    | import { HeroFormComponent } from './hero-form/hero-form.component';
+    |
+    | @NgModule({
+    |   imports     : [ BrowserModule, FormsModule ],
+    |   declarations: [ AppComponent, HeroFormComponent ],
+    |   providers   : [],
+    |   bootstrap   : [ AppComponent ]
+    | })
+    | export class AppModule { }
+    ```
+    
+    ```
+    | file: src/app/app.component.html:
+    | <app-hero-form></app-hero-form>  ← display at root component's template.
+    ```
+    
+    ```
+    | file: src/styles.css:
+    | (Twitter Bootstrap style classes: container/form-group/form-control/btn)
+    | @import url('https://unpkg.com/bootstrap@3.3.7/dist/css/bootstrap.min.css');
+    ```
+
+    ```
+    | file: src/app/hero-form/hero-form.component.html
+    | <style> .no-style .ng-valid   { border-left: 1px  solid #CCC } ; ...  </style>
+    | 
+    | <div class="container">
+    |   <div [hidden]="submitted">  ←  main form visible by default since submitted init to  false
+    | 
+    |     <form (ngSubmit)="onSubmit()" #heroForm="ngForm">
+    |                                   └───┬────────────┘
+    |                                       └──── Access overall form status
+    |                                             #heroForm : tpl ref.var is now a ref. to
+    |                                                         NgForm directive inst.governing form
+    |                                                         as a whole.
+    |       <div class="form-group">
+    |         <label for="name">Name</label>
+    |         <input type="text" class="form-control" id="name"
+    |                                                 └───┬──┘
+    |                                                     └──────────── (standard HTML). used by <label> to match
+    |                required
+    |                [(ngModel)]="model.name"
+    |                └──────────┬───────────┘
+    |                           └──────────── two-way data binding. model.name server to display and debug that
+    |                                         model is really being updated when user changes input.
+    |                                         NG sets special CSS classes on (NgModel) control elements to
+    |                                         reflect the state.
+    |                                         ┌─────────────────────────────────┬────────────┬─────────────┐
+    |                                         │State                            │ Class      │ Class       │
+    |                                         │                                 │ if true    │ if false    │
+    |                                         ├─────────────────────────────────┼────────────┼─────────────┤
+    |                                         │The control has been visited.    │ ng─touched │ ng─untouched│
+    |                                         ├─────────────────────────────────┼────────────┼─────────────┤
+    |                                         │The control's value has changed  │ ng─dirty   │ ng─pristine │
+    |                                         ├─────────────────────────────────┼────────────┼─────────────┤
+    |                                         │The control's value is valid.    │ ng─valid   │ ng─invalid  │
+    |                                         └─────────────────────────────────┴────────────┴─────────────┘
+    | 
+    |                name="name"
+    |                └───┬─────┘
+    |                    └──────────── [(ngModel)] on an element requires also the name attribute for that element, used by NG
+    |                                  to register such element with the NgForm directive attached to parent form element.
+    | 
+    |                #name="ngModel">
+    |                └───┬─────┘
+    |                    └──────────── tpl reference variable that you can use to access the input
+    |                                  box's Angular control from within the template.
+    |                                  It is set to "ngModel" because that is the value of the NgModel.exportAs property.
+    |                                  This property tells Angular how to link a reference variable to a directive.
+    | 
+    |                     ┌─────────── Show or hide the error message by binding properties
+    |                     │            of the name control to the message <div> element's hidden property
+    |              ┌──────┴─────────────────────────────┐
+    |         <div [hidden]="name.valid || name.pristine" class="alert alert-danger">Name is required</div>
+    |       </div>                              └──┬───┘
+    |                                              └──  pristine == user hasn't changed the value since it was displayed.
+    | 
+    |       <div class="form-group">
+    |         <label for="alterEgo">Alter Ego</label>
+    |         <input type="text" class="form-control" id="alterEgo"
+    |                [(ngModel)]="model.alterEgo" name="alterEgo">
+    |       </div>
+    | 
+    |       <div class="form-group">
+    |         <label for="power">Hero Power</label>
+    |         <select class="form-control" id="power"
+    |                 required
+    |                 [(ngModel)]="model.power" name="power"
+    |                 #power="ngModel">
+    |           <option *ngFor="let pow of powers" [value]="pow">{{pow}}</option>
+    |         </select>
+    |         <div [hidden]="power.valid || power.pristine" class="alert alert-danger">
+    |           Power is required
+    |         </div>
+    |       </div>
+    | 
+    |       <button type="submit" class="btn btn-success" [disabled]="!heroForm.form.valid">Submit</button>
+    |                                                     └─ automatically hiddes if ─────┘
+    |                                                        form is invalid
+    | 
+    |       <button type="button" class="btn btn-default" (click)="newHero(); heroForm.reset()">New Hero</button>
+    |       <i>with</i> reset
+    | 
+    |       &nbsp;&nbsp;
+    |       <button type="button" class="btn btn-default" (click)="newHero()">New Hero</button>
+    |       <i>without</i> reset
+    | 
+    |      <!-- NOT SHOWN IN DOCS -->
+    |       <div>
+    |         <hr>
+    |         Name via form.controls = {{showFormControls(heroForm)}}
+    |       </div>
+    |      <!-- - -->
+    |     </form>
+    |   </div>
+    | 
+    |   <div [hidden]="!submitted">
+    |       <div class="col-xs-3">Name      </div> <div class="col-xs-9">{{ model.name }}</div>
+    |       <div class="col-xs-3">Alter Ego </div> <div class="col-xs-9">{{ model.alterEgo }}</div>
+    |       <div class="col-xs-3">Power     </div> <div class="col-xs-9">{{ model.power }}</div>
+    |     <button class="btn btn-primary" (click)="submitted=false">Edit</button>
+    |   </div>
+    | </div>
+    ```
+  * customizing CSS :
+    ```
+    | file: src/assets/forms.css:
+    | .ng-valid[required], .ng-valid.required  {
+    |   border-left: 5px solid #42A948; /* green */
+    | }
+    |
+    | .ng-invalid:not(form)  {
+    |   border-left: 5px solid #a94442; /* red */
+    | }
+    ```
+    
+    ```
+    | file: src/index.html (styles)
+    |   <head>
+    |   ...
+    |   <link rel='stylesheet' type='text/css' href='...' />
+    ```
+    but it does trigger a form-submit event because of its type (type="submit").
+[[angular.forms}]]
