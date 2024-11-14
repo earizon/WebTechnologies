@@ -2,7 +2,7 @@
 # MONETIZATION @mb
 [[{use_case.monetization,use_case.payments,01_PM.BACKLOG]]
 # Web Monetization
-@[https://webmonetization.org/]
+<https://webmonetization.org/>
 * JS browser API to allows the creation of a payment
   stream from the user agent to the website.
 * Proposed W3C standard at the Web Platform Incubator
@@ -86,14 +86,14 @@ Redirects: Good, Bad & Conditional
 
 [[{use_case.monetization,use_case.payments,01_PM.BACKLOG]]
 # Coil
-@[https://medium.com/coil/coil-building-a-new-business-model-for-the-web-d33124358b6?utm_source=singlepagebookproject]
+<https://medium.com/coil/coil-building-a-new-business-model-for-the-web-d33124358b6?utm_source=singlepagebookproject>
 
 Innovating on Web Monetization: Coil and Firefox Reality
 https://hacks.mozilla.org/2020/03/web-monetization-coil-and-firefox-reality/
 
 
 Ilp: coilhq/coil-wordpress-plugin: Coil's Wordpress Web Monetization Plugin
-@[https://github.com/coilhq/coil-wordpress-plugin]
+<https://github.com/coilhq/coil-wordpress-plugin>
 [[}]]
 
 [[{use_case.monetization,standards.finance,01_PM.BACKLOG]]
@@ -115,7 +115,7 @@ advertising solutions.
 
 [[$div}]]
 # Google Lighthouse [[{20_qa.testing,standards,mobile.pwa,20_qa.accesibility,01_PM.TODO]]
-@[https://developers.google.com/web/tools/lighthouse/]
+<https://developers.google.com/web/tools/lighthouse/>
 * OOSS Automated tool, searching to improve quality of web pages.
 * Can test any site (public or requiring authentication).
 * Audits performance, accesibility, PWA, SEO, ...
@@ -157,7 +157,7 @@ RevenueCar    Campains                            DUE            SAP
 [[}]]
 
 # matomo.org [[{use_case.monetization,use_case.seo,01_PM.backlog]]
-@[https://matomo.org/]
+<https://matomo.org/>
 * Google Analytics that preserves customer's privacy.
 [[}]]
 
@@ -203,7 +203,7 @@ RevenueCar    Campains                            DUE            SAP
   #############################
   # Sitemap Protocol standard #
   #############################
-@[https://www.sitemaps.org/protocol.html]
+<https://www.sitemaps.org/protocol.html>
 * Sitemaps standard, proposed by Google, helps search engines
   (crawlers and indexers) to inform about URLs metadata
   for a given Web Resource (URL).
@@ -240,7 +240,7 @@ $ $ curl https://${searchengine}/ping?sitemap=http://www.example.com/sitemap.gz
 
 
   • Asking Google to re-crawl a site:
-  @[https://developers.google.com/search/docs/advanced/crawling/ask-google-to-recrawl]
+  <https://developers.google.com/search/docs/advanced/crawling/ask-google-to-recrawl>
     · There is a quota for submitting individual URLs:
       Alt 1) only for 'owners' Search Console property
              → URL Inspection tool
@@ -323,7 +323,7 @@ $ $ curl https://${searchengine}/ping?sitemap=http://www.example.com/sitemap.gz
 
 * External Resources:
   • A curated list of SEO (Search Engine Optimization) links.
-   @[https://github.com/teles/awesome-seo]
+   <https://github.com/teles/awesome-seo>
 
 
   ########################
@@ -331,11 +331,11 @@ $ $ curl https://${searchengine}/ping?sitemap=http://www.example.com/sitemap.gz
   # Rich Structured Data #
   # for Search Engines   #
   ########################
- Ref: @[https://www.infoq.com/news/2021/02/seo-structured-data-rich-snippet/]
+ Ref: <https://www.infoq.com/news/2021/02/seo-structured-data-rich-snippet/>
 * Add semantic support to html.
 * Used by  10+ million sites  to markup web pages and email messages.
 * activity community maintaining and promoting schemas for structured data .
-* While OpenAPI standard @[#openapi_summary] allows to   [comparative]
+* While OpenAPI standard <#openapi_summary> allows to   [comparative]
   design APIs (requests from client to servers) to  simplify
   implementation of client mobile/web applications,
   schema.org allows to simplify the translation, by search engines/indexers,
@@ -354,7 +354,7 @@ $ $ curl https://${searchengine}/ping?sitemap=http://www.example.com/sitemap.gz
     ...
     <script type="application/ld+json">  ← Google's recommended
     {                                       format (vs microdata|rdf)
-      "@context": "https://schema.org/",  @[#json-ld_summary]
+      "@context": "https://schema.org/",  <#json-ld_summary>
       "@type": "Recipe",
       "name": "Party Coffee Cake",
       "author": {
@@ -370,7 +370,7 @@ $ $ curl https://${searchengine}/ping?sitemap=http://www.example.com/sitemap.gz
   </head>
 
 * SCHEMA.ORG TOOLS:
-  • @[https://search.google.com/test/rich-results]
+  • <https://search.google.com/test/rich-results>
   • Google/Bing/Yandex/... Search Consoles:
     site-wide monitoring and testing for rich results.
 

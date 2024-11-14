@@ -12,10 +12,10 @@
   full-stack features like integration with the Angular CLI, router
   support, code generation, webpack and more. [[}]]
 # NativeScript
-@[https://docs.nativescript.org/]
+<https://docs.nativescript.org/>
 
   External Resources
-@[https://github.com/alexziskind1/nativescript-oauth2] [AAA]
-@[https://github.com/jbristowe/awesome-nativescript] !!!
-@[https://nativescript.org/blog/adding-analytics-to-your-nativescript-app/]
+<https://github.com/alexziskind1/nativescript-oauth2> [AAA]
+<https://github.com/jbristowe/awesome-nativescript> !!!
+<https://nativescript.org/blog/adding-analytics-to-your-nativescript-app/>
 [[}]]

@@ -1,6 +1,6 @@
 ## Apropos:
   Content is versioned in git.  commits, issues and pull-requests welcome!
-@[https://www.github.com/earizon/WebTechnologies]
+<https://www.github.com/earizon/WebTechnologies>
 
 # CSS Selectors #[css_selector_summary]
 ## BY COORDINATE:
@@ -114,19 +114,19 @@
     color: var(--second-color);
   }
 * Extracted from
-  REF:@[https://www.infoq.com/news/2020/06/css-variables-design-systems/]
+  REF:<https://www.infoq.com/news/2020/06/css-variables-design-systems/>
   """ Tolinski concluded with the following advice:
       Frameworks require overhead of both kb and onboarding.
     ... Write only what you need, use variables as the backbone. """
 
 # calc(ulated)
 *   WARN : css calc(ulated) can slow down rendering according to some sources.
-* E.g. extracted from @[https://developer.mozilla.org/en-US/docs/Web/CSS/calc()]
+* E.g. extracted from <https://developer.mozilla.org/en-US/docs/Web/CSS/calc()>
   width: calc(10px + 100px);
   width: calc(2em * 5);
   width: calc(var(--variable-width) + 20px);
 * box-sizing as potential alternative to css calc :
-@[http://stackoverflow.com/questions/16034397/css-calc-alternative]
+<http://stackoverflow.com/questions/16034397/css-calc-alternative>
 
   box-sizing     Description
   related Prop.
@@ -147,7 +147,7 @@
 ## Layout mode:
   algorithm that determines position+size of boxes based on
   how they interact with sibling and ancestor boxes:
-@[https://developer.mozilla.org/en-US/docs/Web/CSS/Layout_mode]
+<https://developer.mozilla.org/en-US/docs/Web/CSS/Layout_mode>
   · Normal flow : (default) includes:
     · block  layout: lay out boxes (paragraphs,...)
     · inline layout: lay out inline items (text,...).
@@ -163,7 +163,7 @@
 
 
 → Step 1: Define "display" property
-· @[https://developer.mozilla.org/en-US/docs/Web/CSS/display]
+· <https://developer.mozilla.org/en-US/docs/Web/CSS/display>
 ·   sets
 ·   - outer layout respect siblings (block or inline)
 ·   - inner layout of      children (flow-root,flow,flex,grid,table)
@@ -187,13 +187,13 @@
 ·     inline table        inline-table
 ·
 └·→ Step 2: Define float:= left | right | none  | inline-start | inline-end
-  · @[https://developer.mozilla.org/en-US/docs/Web/CSS/float]
+  · <https://developer.mozilla.org/en-US/docs/Web/CSS/float>
   ·   It implies the use of a block layout , modifying if needed the
   ·   computed value of display values if needed.
   ·   It defines element's placement relative to parent container .
   ·
   └·→ Step 3: Define clear:= left | right | both | none
-      @[https://developer.mozilla.org/en-US/docs/Web/CSS/clear]
+      <https://developer.mozilla.org/en-US/docs/Web/CSS/clear>
         It allows to control vertical placement relative to  sibling floating elements .
         It defines whether current element must be moved below (cleared)
         sibling floating elements to its right/left.
@@ -310,7 +310,7 @@ to be used on mobiles and desktops (and TVs, ...)
 
 [[{dev_lang.css,01_PM.low_code,20_QA,01_PM.TODO]]
 # Tailwindcss
-@[https://tailwindcss.com/]
+<https://tailwindcss.com/>
 * “Best practices” don’t actually work.
 """ I’ve written a few thousand words on why traditional
   “semantic class names” are the reason CSS is hard to maintain,
@@ -320,7 +320,7 @@ to be used on mobiles and desktops (and TVs, ...)
   with CSS any other way."""
 
 # TailwindCSS RunCSS [[{PM.TODO.now]]
-@[https://github.com/mudgen/runcss] by Nick Mudge (@[http://www.perfectabstractions.com/])
+<https://github.com/mudgen/runcss> by Nick Mudge (<http://www.perfectabstractions.com/>)
 • RunCSS is a runtime version of TailwindCSS. It has no build. RunCSS
   provides all the same CSS utility class names that we know and love
   from TailwindCSS.
@@ -350,7 +350,7 @@ to be used on mobiles and desktops (and TVs, ...)
 
 [[{dev_lang.css.101]]
 # CSS Flex/Grid #[css_flex_summary]
-REF: @[http://flexbox.malven.co/] by @[https://malven.co/]
+REF: <http://flexbox.malven.co/> by <https://malven.co/>
   ELEMENT FLEX PROPERTIES RELATIVE TO ***PARENT CONTAINER***
 
   • display:= how current element behaves with  siblings
@@ -435,10 +435,10 @@ REF: @[http://flexbox.malven.co/] by @[https://malven.co/]
 
 [[{dev_lang.css.101,01_PM.WiP]]
 # CSS Grid #[css_grid_summary]
-REF: @[http://grid.malven.co/] by @[https://malven.co/]
+REF: <http://grid.malven.co/> by <https://malven.co/>
 
 ## CSSgrid generator: online visual Grid design tool.
- @[https://cssgrid-generator.netlify.app/]
+ <https://cssgrid-generator.netlify.app/>
 
    [TODO] beatify with ascii-art visual hints (like original page)  [TODO]
   ELEMENT GRID PROPERTIES RELATIVE TO ***PARENT CONTAINER***
@@ -583,7 +583,7 @@ div {                               ← Animation will apply to all div's
 
 ## External references:
   · Advanced CCS3 animations using SVG can be
-  @[http://css3.bradshawenterprises.com/cfimg/]
+  <http://css3.bradshawenterprises.com/cfimg/>
 ────────────────────────────────────────────────────────────────────────────────
 # Profiling
 * Problem Context :
@@ -613,7 +613,7 @@ div {                               ← Animation will apply to all div's
 
 [[{dev_lang.css,01_PM.TODO]]
 # CSS Logical Props.
-@[https://developer.mozilla.org/en-US/docs/Web/CSS/CSS_Logical_Properties]
+<https://developer.mozilla.org/en-US/docs/Web/CSS/CSS_Logical_Properties>
 * CSS Logical Properties and Values CSS modules introduces
   logical properties and values that provide the ability to
   control layout through logical, rather than physical,
@@ -698,7 +698,7 @@ h1 { font-family: 'MyFontFamilyName'; }
 # "fonts for pros"
 https://type-scale.com/
 CSS :
-From: @[https://www.infoq.com/news/2020/06/css-variables-design-systems/]
+From: <https://www.infoq.com/news/2020/06/css-variables-design-systems/>
 Typography-wise, Tolinski recommended leveraging existing tools to
 visualize fonts and their scale ratio. An example of code
 auto-generated for copy-pasting purposes by type-scale.com is as
@@ -728,16 +728,16 @@ Extra typography resources include
 [[{dev_lang.css,02_doc_has.resource]]
 # Art Gallery
 Icon Gallery:
-@[https://github.com/NitruxSA/nitrux-icons]
-@[http://tiheum.deviantart.com/art/Faience-icon-theme-255099649]
-@[http://tiheum.deviantart.com/art/Faenza-Icons-173323228]
-@[http://0rax0.deviantart.com/art/Uniform-Icon-Theme-453054609]
-@[http://gnome-look.org/content/show.php/Dalisha?content=166286]
+<https://github.com/NitruxSA/nitrux-icons>
+<http://tiheum.deviantart.com/art/Faience-icon-theme-255099649>
+<http://tiheum.deviantart.com/art/Faenza-Icons-173323228>
+<http://0rax0.deviantart.com/art/Uniform-Icon-Theme-453054609>
+<http://gnome-look.org/content/show.php/Dalisha?content=166286>
 [[}]]
 # Others
 [[{dev_lang.css,20_QA.accesibility,]]
 ## Colors-for-all
-@[https://github.com/AmadeusITGroup/Colors-for-All]
+<https://github.com/AmadeusITGroup/Colors-for-All>
 * Tool enabling to easily check color contrasts and WCAG
   compliance (AA or AAA levels as defined by W3C) between specific
   colors in one shot !
@@ -746,14 +746,14 @@ Icon Gallery:
 [[}]]
 [[{dev_lang.js,20_QA.responsive,performance,01_PM.TODO]]
 ## Resize_Observer_API
-See also: @[https://en.wikipedia.org/wiki/Responsive_web_design]
-@[https://developer.mozilla.org/en-US/docs/Web/API/Resize_Observer_API]
+See also: <https://en.wikipedia.org/wiki/Responsive_web_design>
+<https://developer.mozilla.org/en-US/docs/Web/API/Resize_Observer_API>
 * The Resize Observer API provides a performant mechanism by which code
   can monitor an element for changes to its size, with notifications
   being delivered to the observer each time the size changes.
 [[}]]
 # Apply Masks to images [[{dev_lang.css]]
-@[http://www.html5rocks.com/en/tutorials/masking/adobe/]
+<http://www.html5rocks.com/en/tutorials/masking/adobe/>
 
 ## Clipping an image:
 
@@ -812,10 +812,10 @@ inspiration. Available in CSS, Sass, and LESS.
 [[}]]
 
 ## TailWind
-@[https://jvns.ca/blog/2018/11/01/tailwind--write-css-without-the-css/]
+<https://jvns.ca/blog/2018/11/01/tailwind--write-css-without-the-css/>
 
 ## CSS tricks
-@[https://css-tricks.com/learning-to-learn/]
+<https://css-tricks.com/learning-to-learn/>
 
 
 

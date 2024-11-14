@@ -1,8 +1,8 @@
 # gRPC
 [[{protocol.grpc,dev_lang.java,arch.async,20_qa,api_management]]
 # Summary #[grpc_summary]
-@[https://grpc.io/]
-@[https://en.wikipedia.org/wiki/GRPC]
+<https://grpc.io/>
+<https://en.wikipedia.org/wiki/GRPC>
 - Cloud Native Foundation project (initial develop:Google)
 - High performance, cross-platform/language RPC framework.
 - HTTP/2 for transport and Protocol Buffers for interface
@@ -21,7 +21,7 @@
   STEP 2) Install Node/Python/Go/... tools:
 
   grpcurl :
-@[https://github.com/fullstorydev/grpcurl]
+<https://github.com/fullstorydev/grpcurl>
   • cURL for gRPC!!!!.  CLI tool for interacting with gRPC servers.
   • accept JSON encoding as input, much more friendly (than binary)
     for humans/scripts.
@@ -73,7 +73,7 @@ $  {{my.custom.server.Service/Method}}
    file1.proto
 
   COMPILING JAVA SCRIPT EXAMPLE
-@[https://github.com/grpc/grpc-java/blob/master/README.md]
+<https://github.com/grpc/grpc-java/blob/master/README.md>
   - Gradle protobuf conf:
     apply plugin: 'java'
     apply plugin: 'com.google.protobuf'
@@ -103,7 +103,7 @@ $  {{my.custom.server.Service/Method}}
     }
 
   gRPC PROTOBUF EXCEPTION HANDLING             [20_qa]
-C⅋P FROM @[http://stackoverflow.com/questions/38810657/exception-handling-in-grpc]
+C⅋P FROM <http://stackoverflow.com/questions/38810657/exception-handling-in-grpc>
 Context: server written in Java, client written in PHP.
 Q: How can client catch exceptions from server?
 A: For handled exceptions, call responseObserver.onError().
@@ -117,7 +117,7 @@ A: For handled exceptions, call responseObserver.onError().
 
 ────────────────────────────────────────────────────────────────────────────────
 # grpc ecosystem
-@[https://github.com/grpc-ecosystem]
+<https://github.com/grpc-ecosystem>
 RPC Ecosystem that complements gRPC
 · grpc-gateway      : gRPC to JSON proxy generator following the gRPC HTTP spec
 · go-grpc-prometheus: Prometheus monitoring for your gRPC Go servers.
@@ -280,14 +280,14 @@ RPC Ecosystem that complements gRPC
  └─────────┴───────────────────────────────────────────────────┴────────────────────────────────────────────
 
   gRPC ecosystem :                                                              [TODO]
--@[https://github.com/grpc-ecosystem]
+-<https://github.com/grpc-ecosystem>
 
 
 
   NODEJS SERVER IMPLEMENTATION SUMMARY
 
 -  SERVER INITIALIZATION
-@[https://github.com/grpc/grpc/blob/master/examples/node/static_codegen/route_guide/]
+<https://github.com/grpc/grpc/blob/master/examples/node/static_codegen/route_guide/>
 
   var routeServer = new grpc.Server();
   routeServer.addService(services.RouteGuideService, {
@@ -399,8 +399,17 @@ RPC Ecosystem that complements gRPC
 [[{protocol.grpc,02_doc_has.comparative,01_PM.BACKLOG]]
 # Rsocket (gRPC alt)
 Rsocket authors claim that it's better than gRPC:
-- @[https://github.com/rsocket/rsocket/blob/master/Motivations.md]
-- @[https://medium.com/netifi/rpc-thunder-dome-3103e2449957]
+- <https://github.com/rsocket/rsocket/blob/master/Motivations.md>
+- <https://medium.com/netifi/rpc-thunder-dome-3103e2449957>
 [[}]]
+
+
+## The gRPC "Standard Library" 
+
+... did you know that the gRPC project actually defines several 
+standard gRPC services that are generally applicable. In this talk, 
+you will learn about gRPC's reflection, health, channelz, and status 
+protos and how you can use them to get more out of your gRPC-based 
+system.
 
 [[$div}]]

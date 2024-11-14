@@ -1,5 +1,5 @@
 # Preact
-@[https://github.com/preactjs/preact]
+<https://github.com/preactjs/preact>
 
 Fast 3kB alternative to React with the same modern API.
 

@@ -3,7 +3,7 @@
 * Kotlin modern language features and first-class support for Javascript compilation
   makes of it an ideal alternative to Javascript.
 * Kotlin support integration with:
-  (@[https://kotlinlang.org/docs/js-modules.html])
+  (<https://kotlinlang.org/docs/js-modules.html>)
   * Unified Module Definitions (UMD): compatible with both AMD and CommonJS.
     UMD modules are also able to be executed without being imported
     or when no module system is present. This is the default option for
@@ -19,21 +19,21 @@
 # J2CL [[{]]
 * Java to Javascript transpiler by Goole.
 * Production ready and actively use in Google's products.
-@[https://github.com/google/j2cl]
-@[https://www.infoq.com/news/2019/05/j2cl-java-javascript-transpiler/]
+<https://github.com/google/j2cl>
+<https://www.infoq.com/news/2019/05/j2cl-java-javascript-transpiler/>
 [[}]]
 
 # Elm (Haskell like) [[{]]
 * See also:
-@[https://www.infoq.com/articles/functional-UI-introduction-no-framework/]
-@[https://www.infoq.com/news/2021/10/elm-lessons-learnt-production/]
+<https://www.infoq.com/articles/functional-UI-introduction-no-framework/>
+<https://www.infoq.com/news/2021/10/elm-lessons-learnt-production/>
   The Elm architecture is the core of Functional UI techniques that
 have crossed over to non-functional languages. The Elm architecture
 has been transposed to Rust/Wasm (e.g., yew), JavaScript (e.g., 1KB
 ferp, AppRun), TypeScript (e.g., elm-ts) and has inspired many other
 languages and libraries (e.g., Redux, SwitfUI, Dark). The Rakuten
 article provides the following illustration of the Elm architecture.
-@[https://elm-lang.org/news/small-assets-without-the-headache]
+<https://elm-lang.org/news/small-assets-without-the-headache>
 If you use a package with hundreds of functions, like elm/html, it
 automatically gets trimmed down to the 10 you actually use. The
 compiler can just figure it out. This works across the entire
@@ -41,7 +41,7 @@ ecosystem. Using one function from a massive package with tons of
 dependencies? No problem. You just get that one function in the
 generated code.
 * Why not use Elm:
-@[https://lukeplant.me.uk/blog/posts/why-im-leaving-elm/#technical-limitations]
+<https://lukeplant.me.uk/blog/posts/why-im-leaving-elm/#technical-limitations>
   · Post recomends alternatives like:
     - https://rescript-lang.org/
     - https://github.com/darklang/philip2
@@ -86,12 +86,12 @@ generated code.
 [[}]]
 
 # Reason (OCalm) [[{]]
-@[https://reasonml.github.io/]
+<https://reasonml.github.io/>
 * By Facebook.
 * " Reason lets you write simple, fast and quality type safe code
     while leveraging both the JavaScript and OCaml ecosystems."
 * See (excellent) comparative Elm vs Reason
-@[https://stackoverflow.com/questions/51015850/reasonml-vs-elm]
+<https://stackoverflow.com/questions/51015850/reasonml-vs-elm>
 
 * See also: ReasonReact
 [[}]]
@@ -100,7 +100,7 @@ generated code.
   - Interesting lecture:
     https://why.cardano.org/en/science-and-engineering/why-haskell/
 
-@[https://www.purescript.org/]
+<https://www.purescript.org/>
 * strongly-typed functional programming language transpiling to JS.
 * Benefits
   transpile to readable JS
@@ -129,7 +129,7 @@ generated code.
 
 
 # Erlscripten (Erlang) [[{]]
-@[https://blog.aeternity.com/erlscripten-92c815786987]
+<https://blog.aeternity.com/erlscripten-92c815786987>
 * Erlang:
   · language+framework most reliable choice to build highly
     stable applications

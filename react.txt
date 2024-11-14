@@ -1,5 +1,5 @@
 # React Summary #[react_summary] [[{stack.react.101]]
-  REF: @[https://reactjs.org/docs/]
+  REF: <https://reactjs.org/docs/>
 ## React as declarative "source-of-trust":
 
               Designed for                    Type
@@ -11,7 +11,7 @@
             It allows to define document structure based on
             data stored in a single place/source-of-true.
 
-## Bootstrap new React App: @[https://github.com/facebook/create-react-app] [[{]]
+## Bootstrap new React App: <https://github.com/facebook/create-react-app> [[{]]
   $ npx create-react-app my-app  # Alt 1 (preinstalled with npm 5.2+)
   $ npm init react-app my-app    # Alt 2
   $ yarn create react-app my-app # Alt 3
@@ -332,7 +332,7 @@ API:  Class.contextType Context.Consumer Context.displayName
 [[react.context}]]
 
 # BASIC REACT Hooks API Reference  (16.8+) [[{react.hooks]]
-  REF: @[https://reactjs.org/docs/hooks-reference.html#additional-hooks]
+  REF: <https://reactjs.org/docs/hooks-reference.html#additional-hooks>
   const [state, setState] = useState(initialState);
 
   function Counter({initialCount}) {
@@ -446,7 +446,7 @@ API:  Class.contextType Context.Consumer Context.displayName
   }
 
 - TODO:                                                               [[{01_PM.TODO]]
-  - Additional Hooks @[https://reactjs.org/docs/hooks-reference.html#additional-hooks]
+  - Additional Hooks <https://reactjs.org/docs/hooks-reference.html#additional-hooks>
     useReducer useCallback useMemo useRef useImperativeHandle
     useLayoutEffect useDebugValue useDeferredValue useTransition useId
 
@@ -487,7 +487,7 @@ API:  Class.contextType Context.Consumer Context.displayName
 [[20_qa.best_patterns}]]
 
 # Formik Forms [[{stack.react,01_PM.low_code,20_qa,01_PM.BACKLOG]]
-@[https://formik.org/]
+<https://formik.org/>
 - orchestrate validation and submission: values/errors/visited fields
 - focus on business logic.
 - Intuitive: plain React state and props.
@@ -502,7 +502,7 @@ API:  Class.contextType Context.Consumer Context.displayName
 
 # React Suspense [[{stack.react.redux,02_doc_has.comparative,01_PM.BACKLOG]]
  (alt. to Redux)
-@[https://www.infoq.com/news/2018/12/react-suspense-redux-alternative]
+<https://www.infoq.com/news/2018/12/react-suspense-redux-alternative>
 
 "If your primary use-case for Redux is using it as a client-side cache of
 server-side data, then Suspense could replace your redux usage. I’d consider
@@ -510,7 +510,7 @@ it because you’d have simpler code and the ability to tame all those spinners.
 [[}]]
 
 # React Native [[{react,mobile.native,mobile.android,mobile.iOS,01_PM.BACKLOG]]
-@[https://reactnative.dev/]
+<https://reactnative.dev/>
 - Replaces web components by native Android/iOS/... ones.
 
   import React from 'react';          // ← needed fro JSX
@@ -576,7 +576,7 @@ it because you’d have simpler code and the ability to tame all those spinners.
  ------------------------------------------------------------
 
 See also:
-@[https://github.com/tldr-pages/tldr/blob/master/pages/common/ignite.md]
+<https://github.com/tldr-pages/tldr/blob/master/pages/common/ignite.md>
 - A CLI for React Native boilerplates, plugins, generators, and more.
   More information: https://infinite.red/ignite.
 
@@ -584,7 +584,7 @@ See also:
 
 # Redux summary #[redux_summary]                                      [[{react.redux]]
   Official redux template :
-@[https://github.com/reduxjs/cra-template-redux]
+<https://github.com/reduxjs/cra-template-redux>
     - already configured with a standard Redux application structure,
       using Redux Toolkit to create the Redux store and logic, and
       React-Redux to connect together the Redux store and the React components.
@@ -596,7 +596,7 @@ See also:
   WARN :... if you’re just learning React, don’t make Redux your
         first choice.
 
-@[https://redux.js.org/tutorials/essentials/part-1-overview-concepts]
+<https://redux.js.org/tutorials/essentials/part-1-overview-concepts>
 
 - Redux: pattern + library for managing and updating application state,
   using events called "actions".
@@ -687,7 +687,7 @@ See also:
     - collection of reducer logic and actions for a single app feature
       (typically defined in a single file).
     - name comes from splitting up root-state into multiple "slices".
-    - Example from @[https://github.com/reduxjs/cra-template-redux]
+    - Example from <https://github.com/reduxjs/cra-template-redux>
       (features/counter/counterSlice.js)
       import { createSlice } from '@reduxjs/toolkit'
 
@@ -709,7 +709,7 @@ See also:
       export const { increment, decrement, incrementByAmount } = counterSlice.actions
 
 - Example app: counter allowing to add or subtract from a number as we click buttons.
-@[https://redux.js.org/tutorials/essentials/part-2-app-structure]
+<https://redux.js.org/tutorials/essentials/part-2-app-structure>
 
   File layout:
   /src
@@ -814,7 +814,7 @@ See also:
          )
 
   Advanced Redux use-cases:
-@[https://medium.com/@dan_abramov/you-might-not-need-redux-be46360cf367]
+<https://medium.com/@dan_abramov/you-might-not-need-redux-be46360cf367>
   - Persist state to a local storage and then boot up from it, out of the box.
   - Pre-fill state on the server, send it to the client in HTML, and
     boot up from it, out of the box.
@@ -834,11 +834,14 @@ See also:
     Provide alternative UIs while reusing most of the business logic.
 [[react.redux}]]
 
-# - React+Flux Docker Dev Workflow [[{react.redux,devops,01_PM.TODO]]
-   @[https://medium.com/@tribou/react-and-flux-a-docker-development-workflow-469957f3bbf0]
-    [[}]]
+[[{react.redux,devops,01_PM.TODO]]
+# React+Flux Docker Dev Workflow 
+* <https://medium.com/@tribou/react-and-flux-a-docker-development-workflow-469957f3bbf0>
+[[react.redux}]]
 
-## batching is enabled for all updates by default in React 18+ (previously only updates in event handlers)
+## batching enabled for all updates 
+
+* Enabled by default in React 18+ (previously only updates in event handlers),
   except for user-initiated "input" events
 [[stack.react}]]
 
@@ -850,4 +853,11 @@ attaching event handlers to the root DOM container where React is
 rendered instead of at the document level. While this change enables
 different React versions to coexist, it also introduces the chance of
 backward incompatibility for some apps.
+
 [[}]]
+
+# React TODO
+
+## react tabs: 
+* <https://www.npmjs.com/package/react-tabs>
+* Used for example, by Redoc (HTML OpenAPI viewer)

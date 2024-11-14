@@ -11,7 +11,7 @@ https://stackoverflow.com/questions/50038891/create-package-json-from-package-lo
 [[}]]
 
 # NodeJS summary #[nodejs_summary]
-@[https://nodejs.org]
+<https://nodejs.org>
   - VP8 based JS engine with Server API extensions for subprocesses, TTY, TCP servers, ...
 
 - NodeJS Version Manager Installer (nvm) [[{stack.nodejs.101,devops.101]]
@@ -26,7 +26,7 @@ https://stackoverflow.com/questions/50038891/create-package-json-from-package-lo
 
 - Node on Windows:
   $ npm install --global windows-build-tools
-  @[https://www.npmjs.com/package/windows-build-tools]
+  <https://www.npmjs.com/package/windows-build-tools>
 
  $ node                    ← Start interactive shell (REPL loop)
  $ node path_to_file.js    ← Run JS file
@@ -141,7 +141,7 @@ https://docs.npmjs.com/cli/v6/commands/npm-shrinkwrap
      let safe_name = nullableEntry ?? "n/a" ← Recomended fallback op. (vs || )   [[}]]
 
 ## Node 12: 2019-10   LTS version!!!
-@[https://medium.com/@nodejs/introducing-node-js-12-76c41a1b3f3f]
+<https://medium.com/@nodejs/introducing-node-js-12-76c41a1b3f3f>
 ## 30% faster startup generating code cache for built-in libraries
   in advance at build time, and embed it in the binary.
 ## better default heap limits based on available mem vs using defaults.
@@ -173,12 +173,12 @@ https://docs.npmjs.com/cli/v6/commands/npm-shrinkwrap
   in Worker threads, and N-API .
   https://nodejs.org/api/n-api.html#n_api_n_api
 ## Workers Threads no longer experimental. More info at:
-@[https://medium.com/@Trott/using-worker-threads-in-node-js-80494136dbb6]
+<https://medium.com/@Trott/using-worker-threads-in-node-js-80494136dbb6>
 ## Experimental ES6 Module Support                         [es6]
 [[}]]
 [[{stack.nodejs,01_PM.low_code,01_PM.BACKLOG]]
 # oclif
-@[https://oclif.io/]
+<https://oclif.io/>
 ## Open (console) command line interface Framework to create
   friendly cli tools.
 [[}]]
@@ -187,7 +187,7 @@ https://docs.npmjs.com/cli/v6/commands/npm-shrinkwrap
 [[{stack.deno,20_qa,security,01_PM.TODO]]
 # Deno (NodeJS +++)
 ## extracted from
-@[https://www.infoq.com/news/2020/06/deno-1-ready-production/]
+<https://www.infoq.com/news/2020/06/deno-1-ready-production/>
   Deno Is Ready for Production  @ma
   • Deno: secure runtime for JS, TS and WebAssembly on V8 engine.
   • created by the original developer of Node.js, Ryan Dahl, to
@@ -217,7 +217,7 @@ https://docs.npmjs.com/cli/v6/commands/npm-shrinkwrap
 [[}]]
 
 # JiSON: context-free Grammar parser [[{dev_lang.js,data_mng.text_parsing,01_PM.BACKLOG]]
-@[http://zaach.github.io/jison/docs/]
+<http://zaach.github.io/jison/docs/>
 Jison takes a context-free grammar as input and outputs a JavaScript
 file capable of parsing the language described by that grammar.
 You can  then use the generated script to parse inputs and accept,
@@ -227,7 +227,7 @@ with Bison or Yacc, or other clones, you’re almost ready to roll.
 
 [[{01_PM.TODO]]
 # Pino JSON logger
-@[https://github.com/pinojs/pino]
+<https://github.com/pinojs/pino>
 * Compatible with Fastify , Express , Hapi , Restify , Koa , Node core http , Nest
 
 * code. example:
@@ -240,7 +240,7 @@ with Bison or Yacc, or other clones, you’re almost ready to roll.
 
 [[{01_PM.low_code,security.aaa,security.oauth,stack.nodejs,01_PM.todo]]
 # PassportJS.org     @ma
-@[http://www.passportjs.org/packages/]
+<http://www.passportjs.org/packages/>
 Simple, unobtrusive authentication middleware for Node.js and Express.
 
 passport.authenticate('twitter'); // 'facebook' 'google' 'linkedin' 'github'
@@ -301,7 +301,7 @@ https://github.com/topics/snippets-collection
 [[}]]
 
 ## Lerna: manage 1 MONOREPO ···> N npm packages,[[{]]
-@[https://github.com/lerna/lerna]
+<https://github.com/lerna/lerna>
 Splitting up large codebases into separate independently versioned
 packages is extremely useful for code sharing. However, making
 changes across many repositories is messy and difficult to track, and

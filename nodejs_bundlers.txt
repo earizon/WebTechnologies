@@ -37,7 +37,7 @@ $ $ npm  --save-dev typescript ts-loader         ← Typescript support. (requir
 │       filename: ...              <········ Set output file name. e.g.: '[name].[contentHash].bundle.js'
 │       import  : ...              <········ RUNTIME mods loaded upon startup  (afte build and packaging)
 │       library: ...               <········ Lib.options to bundle a lib. More info at:
-│                                         │@[https://webpack.js.org/configuration/output/#outputlibrary]
+│                                         │<https://webpack.js.org/configuration/output/#outputlibrary>
 │       runtime: ...               <········ If set, a new runtime chunk will be created (incompatible with dependOn)
 │       publicPath: ...            <········ Public external URL address for output files
 │     }                                   │
@@ -97,7 +97,7 @@ $ $ npm  --save-dev typescript ts-loader         ← Typescript support. (requir
                                                  version upgrades.
                                                  TIP: Don't use JS for module/lib development.
                                                  More info at:
-                              @[https://formidable.com/blog/2018/finding-webpack-duplicates-with-inspectpack-plugin/]
+                              <https://formidable.com/blog/2018/finding-webpack-duplicates-with-inspectpack-plugin/>
 
 ### WebPack ussage (once configured)
 ```bash
@@ -114,7 +114,7 @@ $ $ npm  --save-dev typescript ts-loader         ← Typescript support. (requir
 ```
 
 ## What's new [[{]]
-@[https://www.infoq.com/news/2020/10/webpack-5/]
+<https://www.infoq.com/news/2020/10/webpack-5/>
 ## Webpack 5.0:
   rethinks some core architectural decisions focusing on:
   ✓ Improved performance (persistent and long-term) caching
@@ -130,7 +130,7 @@ $ $ npm  --save-dev typescript ts-loader         ← Typescript support. (requir
 [[dev_lang.js.webpack}]]
 
 # Esbuild (x100 faster) [[{dev_lang.js.esbuild]]
-@[https://www.infoq.com/news/2020/06/esbuild-faster-go-js-bundler/]
+<https://www.infoq.com/news/2020/06/esbuild-faster-go-js-bundler/>
 * written in golang and multi-core as base.
 * Extreme speed without needing a cache (up to 100x faster)
 * Support fo JS/TypeScript/JSX built-in

@@ -1,186 +1,286 @@
-typescript Summary [[{dev_lang.ts]]
+# typescript Summary 
 
-# Use 'let' for variables, const for constants.
+## TypeScript Compiler: 
 
-  const isDone: boolean = false;    const isDone = false;      ● BASIC TYPES
-  const lines : number = 42;        const lines  = 42;
-  const name  : string = "Anders";  const name   = "Anders";
-  let   domObj: any    = form01;
-              ^^^^^^^^^^                         ^
-              EXPLICIT                          TYPE
-            TYPE DECLARATION                  INFERRED
+* Install:
+  ```
+  | $ node -v # <·· check OK
+  | $ npm install typescript  # -g to install globally.
+  |
+  | $ cat hello.ts
+  | const hello = "Hello World!"  
+  | console.log(hello);
+  | 
+  | $ npx tsc hello.ts  # (or just $ tsc hello.ts when installed globally)
+  |                     # transpiles output to hello.js
+  | $ node hello.js
+  ```
+* Options:
+  ```
+  | (Full info at https://aka.ms/tsc)
+  | 
+  | $ tsc                   # <·· Compiles current project using default ./tsconfig.json 
+  |                               (change with --project ./path/to/tsconfig.json)
+  |                               --target ??? : Set target output.  One of:
+  |                                              es3, es5*, es6/es2015, es2016, es2017, 
+  |                                              es2018, es2019, es2020, es2021, es2022, 
+  |                                              esnext
+  |                               --module es6   Set module code generated. One of:
+  |                                              none, commonjs, amd, umd, system, es6/es2015,
+  |                                              es2020, es2022, esnext, node16, nodenext
+  |                                              See also: --esModuleInterop flag.
+  | $ tsc hello.ts          # <·· Compiles WARN: ignoring tsconfig.json
+  | $ tsc --build           # <·· Build composite project. 
+  | $ tsc --init            # <·· Creates tsconfig.json with recommended settings
+  | $ tsc --help --all      # <·· Show all possible compiler options
+  | $ tsc --noEmit          # <·· Compiles current project with additional settings.
+  | $ tsc --showConfig      # --showCOnfig
+  | 
+  | Other flags:
+  | --watch                Watch for changes.
+  | --pretty               Enable color and formatting in tsc output  (true by default)
+  | --declaration          Generate .d.ts files from TypeScript&JavaScript files.
+  |                        defaults to true if composite is set, otherwise false
+  | --declarationMap       Create sourcemaps for d.ts files.
+  | --emitDeclarationOnly  Only output d.ts files and NOT JavaScript files.
+  | --sourceMap            Create source map files for emitted JavaScript files.
+  | --target              
+  | default: undefined
+  | --lib                  Specify a set of bundled library declaration files that
+  |                        describe the target runtime environment.  one or more of:
+  |                        es5, es6/es2015, es7/es2016, es2017, es2018, es2019, es2020, es2021, 
+  |                        es2022, es2023, esnext, dom, dom.iterable, webworker, 
+  |                        webworker.importscripts, webworker.iterable, scripthost, es2015.core, 
+  |                        es2015.collection, es2015.generator, es2015.iterable, es2015.promise, 
+  |                        es2015.proxy, es2015.reflect, es2015.symbol, es2015.symbol.wellknown, 
+  |                        es2016.array.include, es2017.date, es2017.object, 
+  |                        es2017.sharedmemory, es2017.string, es2017.intl, es2017.typedarrays, 
+  |                        es2018.asyncgenerator, es2018.asynciterable/esnext.asynciterable, 
+  |                        es2018.intl, es2018.promise, es2018.regexp, es2019.array, 
+  |                        es2019.object, es2019.string, es2019.symbol/esnext.symbol, 
+  |                        es2019.intl, es2020.bigint/esnext.bigint, es2020.date, 
+  |                        es2020.promise, es2020.sharedmemory, es2020.string, 
+  |                        es2020.symbol.wellknown, es2020.intl, es2020.number, 
+  |                        es2021.promise/esnext.promise, es2021.string, 
+  |                        es2021.weakref/esnext.weakref, es2021.intl, es2022.array, 
+  |                        es2022.error, es2022.intl, es2022.object, es2022.sharedmemory, 
+  |                        es2022.string/esnext.string, es2022.regexp, 
+  |                        es2023.array/esnext.array, es2023.collection/esnext.collection, 
+  |                        esnext.intl, esnext.disposable, esnext.decorators, decorators, 
+  |                        decorators.legacy
+  |                        default: undefined
+  | --allowJs              Allow JavaScript files in source.
+  | --checkJs              Enable error reporting in type-checked JavaScript files.
+  | --jsx                  Set JSX code to be generated. One of
+  |                        preserve, react, react-native, react-jsx, react-jsxdev
+  | --outFile              Specify a file that bundles all outputs into one JavaScript file. [[{DevOps}]]
+  |                        If 'declaration' is true, also designates a file that bundles all 
+  |                        .d.ts output.
+  | --removeComments       Disable emitting comments. 
+  | --noEmit
+  | --strict               Enable all strict type-checking options.
+  | --types                Specify type package names to be included without being referenced in a source file.
+  | --esModuleInterop      Emit additional JavaScript to ease support for importing CommonJS modules. 
+  |                        This enables 'allowSyntheticDefaultImports' for type compatibility.
+  ```
 
-  const name  : JSON   = ...       <··· JSON type
-  let   addr? : string | string[], <··· type string Or string[]
+  ```
+  | const isDone: boolean = false;             <··  BASIC TYPES
+  | const lines : number = 42;      
+  | const name  : string = "Anders";
+  | let   domObj: any    = form01;
+  |               └─────┴─········· EXPLICIT TYPE DECLARATION (inferred supported)
+  |       └────┴─·················· Case sensitive
+  | └───┴─························· 'let' for variables, const for constants.
+  |
+  | const name  : JSON   = ...                 <··· JSON type
+  | const addr? : string | string[],           <··· type string Or string[]
+  |
+  | const multiline = `Hi ${name},              <·· (multiline) template string
+  | , how are you?`;
+  ```
 
-# Data Structures
-  const list1: number[]      = [1, 2, 3];  <··· generic array.  [[{data_structure.arrays]]
-  const list1: Array<number> = [1, 2, 3];  <··· typed array definition
-  const moreNumbers: ReadonlyArray<number>
-                                = numbers; <··· Inmutable array definition: [[{20_QA.inmutability}]]
-        moreNumbers[5] = 5;                <··· Error
-        moreNumbers.push(5);               <··· Error
-        moreNumbers.length = 3;            <··· Error
-        numbers = moreNumbers; // Error, missing mutating methods
-for (const val of list)   { ... }          <··· iterate over array values. alt 1
-for (const key in object) { ... }          <··· iterate over object keys.
-   [[}]]
+## Data Structures
+  ```
+  [[{data_structure.arrays}]]
+  | const list1: number[]      = [1, 2, 3];  <··· generic array.  
+  | const list1: Array<number> = [1, 2, 3];  <··· typed array definition
+  | const moreNumbers: ReadonlyArray<number>
+  |                               = numbers; <··· Inmutable array definition: [[{20_QA.inmutability}]]
+  |       moreNumbers[5] = 5;                <··· Error
+  |       moreNumbers.push(5);               <··· Error
+  |       moreNumbers.length = 3;            <··· Error
+  |       numbers = moreNumbers; // Error, missing mutating methods
+  | for (const val of list)   { ... }          <··· iterate over array values. alt 1
+  | for (const key in object) { ... }          <··· iterate over object keys.
+  ```
+## Enums:
+  ```
+  | enum eColor { Red, Green, Blue };
+  | const c: eColor = eColor.Green;
+  | console.log(eColor[c]); // "Green"
+  ```
+## Functions:
+  ```
+  | function fun1(): void { ... }            <··· Function with no return value
+  |
+  | const f1 =
+      function (i: number = 0): number { return i * i; } 
+  |                       · ·   └────┴─··  return type (can be inferred)
+  |                       └─┴─··········· Optional input def. value
+  ```
+## Interfaces:
 
+  ```
+  | interface IPerson {            <··· any object with the properties will be compliant
+  |   readonly name: string;            <··· readonly (TS 3.1+) (except in constructor)
+  |   readonly age?: number;            <··· '?' optional prop. (discouraged)
+  |   move(): void;                           │
+  | }                                         │
+  | const p1 : IPerson ┌───────┬──────────────┘
+  |   = { name: "Bobby", age: 42, move: () => { } };
+  ```
+  ```
+  | interface ISearchFunc {        <··· FUNCTION-TYPE Interface
+  |   (source: string, subString: string): boolean; 
+  | } └────── input types ──────────────┘  └─────┴─ Out.types
+  | 
+  | const mySearch: ISearchFunc
+  |        = (src: string, sub: string) : boolean
+  |          => { return src.search(sub) != -1; }
+  ```
 
+## Classes
+  ```
+  | class Point implements IPerson, IEngine {  <··· Class definition.
+  |   // IPerson interface implementation 
+  |   name: string
+  |   age?: string
+  |   move() {}
+  |   // IEngine interface implementation
+  |   static origin = new Point(0, 0);         <·· Static member Point:origin
+  |   x: number;                               <··· members Public by default.
+  | 
+  |   constructor( 
+  |            x: number,          <·· 'public'/'private' will generate
+  |     public y: number                related boiler plate code.
+  |         name: string
+  |   ) {
+  |     this.x = x;
+  |     this.name = name;
+  |   }
+  | 
+  |   dist(): number {
+  |     return Math.sqrt(this.x * this.x + this.y * this.y);
+  |   }
+  | }
+  | 
+  | const p1 = new Point(10, 20), p2 = new Point(25, 10);
+  ```
+  ```
+  | class Point3D extends Point { <··· Inheritance (¡¡DISCOURAGED!!)
+  |   constructor(x: number, y: number, public z: number = 0) {
+  |     super(x, y); // <··· Calling super class constructor
+  |                          at constructor start is  mandatory
+  |     ...
+  |   }
+  | 
+  |   dist(): number {  <···· Overload parent function
+  |     let d = super.dist();
+  |     return Math.sqrt(d * d + this.z * this.z);
+  |   }
+  | }
+  ```
 
-  enum eColor { Red, Green, Blue };         <··· enum declaration.
-  const c: eColor = eColor.Green;
-  console.log(eColor[c]); // "Green"
+## Namespace 
+* Also called "modules" in old TS versions (but not related to EcmaScript,... modules)
+  ```
+  | namespace Geometry {
+  | 
+  |   export class Square {
+  |     constructor(public sideLength: number = 0) {
+  |     }
+  |     area() {
+  |       return Math.pow(this.sideLength, 2);
+  |     }
+  |   }
+  | }
+  | let s1 = new Geometry.Square(5);
+  | import G = Geometry;       <·· Local alias for namespace
+  | let s2 = new G.Square(10); <·· Namespace usssage.
+  ```
 
-  function fun1(): void { ... }            <··· Function with no return value
+## Generics
+  ```
+  | class Tuple<T1, T2> {      <·· Can be used in classes/interfaces/functions
+  |   constructor(public item1: T1, public item2: T2) {
+  |   }
+  | }
+  | let pairToTuple = function <T>(p: Pair<T>) {
+  |   return new Tuple(p.item1, p.item2);
+  | };
+  | let tuple = pairToTuple({ item1: "hello", item2: "world" });
+  ```
 
-let f1 = function (i: number): number    { return i * i; } <·· return type ': number' can be inferred.
-                                                               Use (i: number = 0) to provide default value.
-let f2 =          (i: number): number => { return i * i; } <·· return type ': number' can be inferred.
+## Tagged Union Types
+  ```
+  | type State = 
+  |   | { type: "loading" }
+  |   | { type: "success", value: number }
+  |   | { type: "error", message: string };
+  |
+  | declare const state: State;
+  | if (state.type === "success") { console.log(state.value); }
+  | if (state.type === "error"  ) { console.error(state.message); }
+  ```
 
-interface IPerson {                        <···  any object with the properties is compliant
-  readonly name: string;                         <··· readonly (Typescript 3.1+) (except in constructor)
-  readonly age?: number;                         <··· '?' implies optional prop.
-  move(): void;
-}
-const p1 : IPerson = { name: "Bobby",          move: () => { } }; // <··· OK, age is optional.
-const p2 : IPerson = { name: "Bobby", age: 42, move: () => { } };
-const p3 : IPerson = { name: "Bobby", age: true                }; // <··· Error. Missing move()
+## Template literal Types
+  ```
+  | type OrderSize = "regular" | "large";          <··· Template Literal Types
+  | type OrderItem = "Espresso" | "Cappuccino";         Use: CREATE COMPLEX STRING TYPES!!!
+  | type Order = `A ${OrderSize} ${OrderItem}`;
+  | const order1: Order = "A regular Cappuccino";
+  | const order2: Order = "A large Espresso";
+  | const order3: Order = "A small Espresso";           <··· Error!!!
+  ```
 
-interface ISearchFunc {                         <··· Interface describing a function type
-  (source: string, subString: string): boolean; <··· Only input&output (returned) params matter.
-}
-const mySearch: ISearchFunc
-       = (src: string, sub: string) : boolean
-         => { return src.search(sub) != -1; }
+## Iterators and Generators
+  ```
+  | for..of statement                          <·· iterate over list of values
+  ```
 
-class Point  implements IPerson {  <··· Class definition.
-  static origin = new Point(0, 0);   <·· Static member Point:origin
-  x: number;   <··· members Public by default.
+## Debugging TypeSCript in Firefox DevTools
+REFs:
+* <https://hacks.mozilla.org/2019/09/debugging-typescript-in-firefox-devtools/>
+* <https://www.techgeeknext.com/angular/angular-typescript-map>
+* It is done through a source-map, created by the TS compiler.
+  ```
+  | $ npm install -g typescript
+  | $ tsc hello.ts --sourceMap <···  generates hello.js with a 'final line':
+  |                                  + //# sourceMappingURL=hello.js.map
+  ```
+* The source map allows to visually "click" on a line to debug (either
+   in the original ts file or the final js one and map to its "peer" file).
+* It also allows to map generated variables to the original variable and scope.
+* to see the original variables (used in the original TypeScript code)
+  "click" on the Map checkbox (in Firefox debugger).
 
-  constructor(
-    x: number,                  <·· 'public'/'private' keywords in this context will generate
-    public y: number = 0            boiler plate code for the property and the initialization in the
-    name : string                   constructor.
-  )
-  {
-    this.x = x;
-    this.name = name;
-  }
+# WHAT'S NEW <!-- { --> 
+* Node 12+:
+  * ES Modules support. ("replacing" Node.js custom CommonJS module mechanism)
+    ```
+    | $ cat typescript.conf
+    |   "compilerOptions": { "module": "nodenext" }
+    ```
+* <https://betterprogramming.pub/whats-new-in-typescript-4-5-57d6b88b1e72>
+  * Experimental ECMAScript Module Support in Node.js
+    WARN: Available only under nightly releases and subject to future changes
+  * There are now two new module config settings: nodenext and node12.
+<!-- } -->
 
-  dist(): number {
-    return Math.sqrt(this.x * this.x + this.y * this.y);
-  }
-
-  // IPerson implementation, missing properties will cause compile-time error.
-  name: string
-  move() {}
-}
-const p1 = new Point(10, 20);
-const p2 = new Point(25); //y will be 0
-
-class Point3D extends Point { <··· Inheritance (Discouraged)
-  constructor(x: number, y: number, public z: number = 0) {
-    super(x, y); // <··· Calling super class constructor
-                         at constructor start is  mandatory
-    ...
-  }
-
-  dist(): number {  <···· Overwrite parent function
-    let d = super.dist();
-    return Math.sqrt(d * d + this.z * this.z);
-  }
-}
-
-namespace Geometry {       <·· (previously called modules).
-
-  export class Square {
-    constructor(public sideLength: number = 0) {
-    }
-    area() {
-      return Math.pow(this.sideLength, 2);
-    }
-  }
-}
-let s1 = new Geometry.Square(5);
-import G = Geometry;       <·· Local alias for namespace
-let s2 = new G.Square(10); <·· Namespace usssage.
-
-class Tuple<T1, T2> {      <·· Generics for classes/interfaces/functions
-  constructor(public item1: T1, public item2: T2) {
-  }
-}
-let pairToTuple = function <T>(p: Pair<T>) {
-  return new Tuple(p.item1, p.item2);
-};
-let tuple = pairToTuple({ item1: "hello", item2: "world" });
-
-// Including references to a definition file:
-/// <reference path="jquery.d.ts" />
-
-let multiline = `Hi ${name},              <·· (multiline) template string
-, how are you?`;
-
-type State =                       <··· Tagged Union Types
-  | { type: "loading" }
-  | { type: "success", value: number }
-  | { type: "error", message: string };
-
-
-declare const state: State;
-if (state.type === "success") { console.log(state.value); }
-if (state.type === "error"  ) { console.error(state.message); }
-
-
-
-type OrderSize = "regular" | "large";          <··· Template Literal Types
-type OrderItem = "Espresso" | "Cappuccino";         Use: CREATE COMPLEX STRING TYPES!!!
-type Order = `A ${OrderSize} ${OrderItem}`;
-const order1: Order = "A regular Cappuccino";
-const order2: Order = "A large Espresso";
-const order3: Order = "A small Espresso";           <··· Error!!!
-
-// Iterators and Generators
-// for..of statement
-// iterate over the list of values on the object being iterated
-# Debugging TypeSCript in Firefox DevTools:
-@[https://hacks.mozilla.org/2019/09/debugging-typescript-in-firefox-devtools/]
-  debugging TypeScript is done through a source-map,
-  created by the TS compiler.
-
-$ npm install -g typescript
-$ tsc hello.ts --sourceMap <···  generates hello.js with a 'final line':
-                                 + //# sourceMappingURL=hello.js.map
-The source map allows to visually "click" on a line to debug (either
-in the original ts file or the final js one and map to its "peer" file).
-
-It also allows to map generated variables to the original variable and scope.
-
--> to see the original variables (used in the original TypeScript code)
-   "click" on the Map checkbox (in Firefox debugger).
-
-
-## Typscript Maps [[{01_PM.TODO]]
-https://www.techgeeknext.com/angular/angular-typescript-map
-[[}]]
-
-# What's new [[{]]
-https://betterprogramming.pub/whats-new-in-typescript-4-5-57d6b88b1e72
-
-Experimental ECMAScript Module Support in Node.js
-⚠️ Available only under nightly releases and subject to future changes
-
-The module foundation of Node.js has been CommonJS. As there is a
-shift for polymorphic apps the urge of supporting ECMAScript modules
-has grown. For the past years, Node.js has been working to support
-those. From the Node 12 version onwards the support for the ES
-Modules is widely available.
-
-There are now two new module config settings: nodenext and node12.
-
-{
-  "compilerOptions": { "module": "nodenext" }
-}
-[[}]]
-
+## References to a definition files:
+  ```
+  // Including references to a definition file:
+  /// <reference path="jquery.d.ts" />
+  ```
 [[dev_lang.ts}]]

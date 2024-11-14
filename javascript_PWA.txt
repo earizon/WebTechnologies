@@ -19,7 +19,7 @@
 * S.Workers do NOT rely on server-specified caching headers .
 * preserved after closing the tab/window.
 * When a browser loads the web page/app, service workers loads first.
-  •@[https://serviceworke.rs/]
+  •<https://serviceworke.rs/>
     Service Worker Cookbook:collection of working, practical examples       [[{20_qa]]
     of using service workers in modern web apps.
     - Network or cache: try fetch from network, fallback to cache.
@@ -43,7 +43,7 @@
       Request Deferrer, Cache then Network, Render Store                  [[}]]
 
 
-  • @[https://www.infoq.com/news/2019/08/postMessage-performance-study/]
+  • <https://www.infoq.com/news/2019/08/postMessage-performance-study/>
       Surma, Web Advocate at Google, recently published a study on the
     performance of postMessage, the method used by web workers to
     communicate. Surma concludes that while postMessage comes with some
@@ -56,19 +56,19 @@
   • allows to do anything with each request/response received by a browser.
     (cancel requests, re-route, modify/cache responses, ...)
   Workbox library                                                     [[{01_PM.low_code]]
-@[https://developers.google.com/web/tools/workbox/]
+<https://developers.google.com/web/tools/workbox/>
   • rapidly integrate common Service Worker functionality like
     precaching, runtime caching, request routing, background sync, and more.
   • Fully async, compatible with XHR and localStorage.
 [[}]]
 
 * External resources:
-  • @[https://developer.mozilla.org/en-US/docs/Web/API/Service_Worker_API]    [TODO]
-  • @[https://developers.google.com/web/fundamentals/primers/service-workers/]TODO]
+  • <https://developer.mozilla.org/en-US/docs/Web/API/Service_Worker_API>    [TODO]
+  • <https://developers.google.com/web/fundamentals/primers/service-workers/>TODO]
 [[}]]
 
 # Progressive WebApps Summary [[{standards,20_qa.usability,mobile]] #[]
-@[https://developer.mozilla.org/en-US/Apps]
+<https://developer.mozilla.org/en-US/Apps>
 * apps built using standard Web technologies, working in any modern Web browser.
 * Compared to standard web apps/sites:
   · Apps are installed by a user, they are self-contained and don't always
@@ -83,7 +83,7 @@
   # "Hello World!" PWA #
   ######################
   SUMMARY FROM
-@[https://medium.com/james-johnson/a-simple-progressive-web-app-tutorial-f9708e5f2605]
+<https://medium.com/james-johnson/a-simple-progressive-web-app-tutorial-f9708e5f2605>
   by James Johnson
 * PWA layout:
   Hello-PWA/

@@ -1,20 +1,18 @@
 # API Management
 [[{20_qa.api_management,api_management.101,standards.api_management,use_case.crm,use_case.erp,security.aaa,use_case.payments,use_case.monetization,standards,security.privacy,use_case.b2b]]
-#[openapi_summary]
-# OpenAPI Spec 3.x
-@[https://swagger.io/specification/]
-* language-agnostic RESTful APIs interface definition for computers and humans .
+## OpenAPI Spec 3.x <!-- { --> 
+<https://swagger.io/specification/>
+* language-agnostic RESTful APIs interface definition for computers and humans.
 * can also be used as documentation.
 * External Resources:
-  · Collection of OpenAPI Tools: @[https://github.com/OpenAPITools]
-    · OpenAPI-diff:
-      @[https://github.com/quen2404/openapi-diff]
-  · OpenAPI topics @ github:
-    @[https://github.com/topics/openapi]
-    · ...
-
-
-Ex OpenAPi Definition:
+  * Collection of OpenAPI Tools: <https://github.com/OpenAPITools>
+    * OpenAPI-diff:
+      <https://github.com/quen2404/openapi-diff>
+  * OpenAPI topics @ github:
+    * <https://github.com/topics/openapi>
+    * ...
+  * Ex OpenAPi Definition:
+  ```
    | openapi: '3.0.3'
    |
    | info:
@@ -88,221 +86,43 @@ Ex OpenAPi Definition:
    |         "application/json":
    |           schema:
    |             $ref: '#/components/schemas/entity01'
+   ```
 
-────────────────────────────────────────────────────────────────────────────────
+### OpenAPI Tools:
+* A collection of Editors, Linters, Parsers, Code Generators, Documentation, Testing 
+  <https://github.com/apisyouwonthate/openapi.tools>
+  * Auto Generators: Tools that will take your code and turn it into an OpenAPI Specification document
+  * Converters: 
+  * Data Validators:
+  * Description Validators: 
+  * Documentation: 
+  * DSL: 
+  * Gateways: 
+  * GUI Editors: 
+  * Learning: 
+  * Miscellaneous: 
+  * Mock Servers: 
+  * Monitoring: Monitoring tools let you know what is going on in your API.
+  * Parsers:
+  * SDK Generators: 
+  * Security: By poking around your OpenAPI description, some tools can look out for attack vectors you might not have noticed.
+  * Server Implementations: 
+  * Testing: Quickly execute API requests and validate responses on the fly. 
 
-# TOP Open APIs
-REF: @[https://projects.tmforum.org/wiki/display/API/Open+API+Table]
-## Account Management API
-     standardized mechanism for management of billing and settlement
-   accounts, as well as for financial accounting (account receivable)
-   either in B2B or B2B2C contexts.
-## Appointment API
-  standardized APIs to book appointment, including:
-  ✓ parameterized searching for free slots
-  ✓ nature and place of appointment.
-  ✓ ...
 
-## Customer Management API
-  standardized API for customer and customer account management
-  (creation, update, retrieval, deletion and notification of events).
+<!-- } -->
 
-## Partnership Type Management API
-  Standardized API for CRUD operations on partnership types.
-   It is one of the APIs involved in an onboarding process .
-   ✓ Identifies type of partnership among parties
-     (allowed role types list, e.g: [ Buyer, Seller, Developer].
-## Party Management API :
-
-  Standardized API for CRUD party management.
-  Party := individual | organization
-
-## Party Role Management API
- standardized API for general CRUD party roles and notification of events.
-
-## Product Catalog Management API
-  standardized API for adding partners' products to existing Catalog.
-  It brings the capability for Service Providers to directly
-  feed partners systems with the technical description of the products they
-  propose to them.
-
-## Product Inventory Management API
-  standardized API for CRUD (representation of)product inventory management
-  and product lifecycle event notification.
-
-## Product Offering Qualification API :
-  One of Pre-Ordering Management API Family.
-
-## Product Ordering API :
-  standardized API for placing a product order.
-  simple set of operations to interact with CRM/Order negotiation systems
-  in a consistent manner.
-
-## Quote Management API :
-  one of the Pre-Ordering Management APIs.
-
-## Shopping Cart API :
-  standardized API for shopping-carts CRUD and events management.
-  used for the temporary selection and reservation of product
-  offerings in e-commerce and retail purchase.
-
-## Trouble Ticket API :
-  standardized API to Trouble Ticket Management Systems CRUD among
-  partners as result of an issue or problem identified by a customer
-  or another system.
-  Examples of Trouble Ticket API clients include CRM applications,
-  network management or fault management systems, or other trouble
-  ticket management systems (e.g. B2B).
-
-## Agreement Management API :
-  standardized API for managing agreements, especially in the context
-  of partnerships between partners.
-
-## Communication API :
-  create+send communications, notifications, and instructions to
-  Parties, Individuals, Organizations or Users.
-
-## Entity Catalog Management API :
-  The entity catalog is intended to provide any SID entity to consumers via a
-  catalog, with its specification and policy providing governance over its
-  content. The API provides management of the entity specifications and their
-  associations thru CRUD operations.
-
-## Federated Identity API :                                                      [aaa]
-  management of principals of any kind (persons, objects, …) and their
-  access to resources in an open environment which can span across different
-  enterprise boundaries. It relies on authentication, authorization and consent
-  mechanisms to protect privacy with a simple and easy user experience.
-  Different parties can provide identity services
-  (operators, social networks, GSMA, …).
-
-## Geographic Address Management API :
-  Standardized client interface to an (worldwide) Address management system,
-  validating and searching for geographic address data:
-  1) searching an area as a start (city, town ...)
-  2) zooming on the streets of this area
-  3) listing all the street segments (numbers) in a street.
-
-## Geographic Location Management API :
-  Provides the information of a geographic region of the entity (customer,
-  equipment, address).
-
-## Geographic Site Management API :
-  CRUD ops to manage sites that can be associated with customers, accounts,
-  service delivery or other entities.
-
-## Loyalty Management API :                                   [monetization]
-  Supports the management of loyalty program specifications, loyalty program
-  members, their associated products and loyalty accounts with loyalty balances
-  https://www.tmforum.org/resources/specification/tmf658-loyalty-management-api-rest-specification-r17-0-1/
-
-## Partnership Type Management API :
-  Standardized mechanisms for creating partnership types. It is one of the APIs
-  involved in an onboarding process.
-
-## Party Interaction Management API :
-  A User Interaction captures information about past interactions in order to
-  reuse it in future ones. This allows agents to serve users better by knowing
-  the steps they went through. It also allows customers to see better the
-  actions they have performed and how they interacted with us.
-
-## Party Management API :
-  Provides a standardized API for party CRUD management.
-
-## Party Role Management API
-  Provides a standardized API for general party roles CRUD management.
-
-## Payment Management API :                                                      [payments]
-  standardized client interface to Payment Systems for notifying about
-  performed payments or refunds.
-  Examples of Payment API originators (clients) include:
-  Web servers, mobile app servers, Contact center dashboards or retail
-  store systems.
-
-## Payment Methods API :                                                         [payments]
-  This API supports the frequently-used payment methods for the customer to
-  choose and pay the usage, including voucher card, coupon, and money transfer.
-
-## Prepay Balance Management API                                                 [payments]
-  REST API for Balance Management. It includes the model definition as well as
-  all available operations for prepay balance management. Prepaid subscribers
-  pay fees before using services. Therefore, the subscribers must have
-  sufficient balances. Operators can provide multiple recharge channels for
-  subscribers. Subscribers can pass credit between different subscriptions,
-  therefore transferring the balance from one account to another.
-
-## Privacy Management API :                                                      [privacy]
-  The Privacy management API provides standardized mechanisms for privacy
-  profile types, privacy profiles and privacy agreements such as creation,
-  update, retrieval, deletion and notification of events..
-
-## Product Catalog Management API :
-  standardized API for rapidly adding partners' products to an existing
-  Catalog. It brings the capability for Service Providers to directly
-  feed partners systems with the technical description of the products they
-  propose to them.
-
-## Product Inventory Management API :
-  standardized API for CRUD of representation-of-product in inventory.
-
-## Product Offering Qualification API :
-  One of Pre-Ordering Management API Family, providing Product Offering
-  commercial eligibility.
-
-## Product Ordering API :
-  standardized API for placing a product order interacting with CRM/
-  Order negotiation systems in a consistent manner.
-
-## Quote Management API :                                                       [payments]
-  One of the Pre-Ordering Management APIs allowing to place a customer
-  quote with all of the necessary quote parameters.
-
-## Resource Catalog Management API :
-  API spec allowing the management of the entire lifecycle of the
-  Resource Catalog elements and the consultation of resource catalog
-  elements during several processes such as ordering process.
-
-## Resource Function Activation and Configuration API :
-  This API introduces Resource Function which is used to represent a Network
-  Service as well as a Network Function. The Network Service and Network
-  Function class definitions and associations in TR244 (which, in turn, builds
-  on concepts from the SID addenda on Logical Resource and Service) are
-  utilized to define the Resource Function
-
-## Trouble Ticket API :
-  standardized client interface to Trouble Ticket Management Systems
-  for creating, tracking and managing trouble tickets among partners as a
-  result of an issue or problem identified by a customer or another system.
-  API clients include CRM applications, network management or fault
-  management systems, or other trouble ticket management systems (e.g. B2B).
-
-## Usage Consumption Management API :                                            [monetization]
-  API allowing real-time view of the balance of the various buckets
-  (SMS, Voice, Data for example) that a user consumes with each of his devices
-  and the usages done out of the bucket.  Usage report retrieves the data
-  related to these balances.
-   This API should also allow performing a direct top-up on the balance of
-  a prepaid bucket with voucher references or with a given credit value after
-  a payment done by a credit card or with a credit value transfer.
-
-## Usage Management API :
-   Provides standardized mechanism for collection-of-usages CRUD management.
-  E.g: It allows a service provider to
-       1) retrieve usage generated by a partner service platform in order to rate it
-       2) provide rated usage to a partner for consumption follow up purposes.
-
-## User Roles&Permissions API :
-  user role : entity that defines a set of privileges covering various functions
-              and/or manageable assets.
-              (session) User are assigned a given role then it is actually allocated
-              all the privileges defined for that role type and the corresponding
-              permissions are created for that user.
-
-[[}]]
+## WSO2 API Manager:
+* Number 1 Open Source API Management Platform.
+* full lifecycle API management platform for building, integrating, 
+  securing, and exposing an enterprise's digital services as managed 
+  APIs in cloud, on-premises, and hybrid architectures. Fast-track your 
+  API strategy with all the capabilities needed by API designers, 
+  product managers, operations, and consumers.
 
 # How to Write API Tests (in 7 Easy Steps)  [[{]]
-https://nordicapis.com/how-to-write-api-tests-in-7-easy-steps/ 
 
+* <https://nordicapis.com/how-to-write-api-tests-in-7-easy-steps/>
 1. Understand the Scope of the API
    * understand what the API does and what its responsibilities are.
    * What is the purpose of this API?
@@ -331,10 +151,10 @@ https://nordicapis.com/how-to-write-api-tests-in-7-easy-steps/ 
 [[}]]
 
 
-[[{api_management,standards,arch.async,01_PM.TODO]]
+[[{api_management,standards,arch.async,PM.TODO]]
 # Open Data Protocol
-@[https://www.odata.org/]
-* ISO/IEC approved, OASIS standard
+* <https://www.odata.org/>
+* ISO/IEC approved, OASIS standard.
 * It defines   set of best practices for building and consuming
   RESTful APIs to focus on business logic without worrying
   about different approaches to define request/response headers,
@@ -359,21 +179,20 @@ https://nordicapis.com/how-to-write-api-tests-in-7-easy-steps/ 
       locally or on private networks.
 [[}]]
 
-[[{arch.async,standards.api_management,api_management.101,20_qa,01_PM.TODO]]
+[[{arch.async,standards.api_management,api_management.101,20_qa,PM.TODO]]
 # asyncapi.org/ #[asyncapi_summary]
-@[https://www.asyncapi.org/]
+<https://www.asyncapi.org/>
 * Low level standard (vs OpenAPI high-level/business oriented)
   to architect future event-driven architectures.
 * Open source tools to easily build and maintain your event-driven
   architecture. All powered by the AsyncAPI specification, the industry
   standard for defining asynchronous APIs.
 * Compatible with OpenAPI Spec, allowing to re-use schema definitions.
-
-See comparative with OpenAPI and CloudEvents at:
-@[https://www.asyncapi.com/blog/async_standards_compare]
+* See comparative with OpenAPI and CloudEvents at:
+  <https://www.asyncapi.com/blog/async_standards_compare>
 
 ## Extracted from ebay anouncement to adopt AsyncAPI:
-@[https://www.infoq.com/news/2021/05/ebay-adopts-asyncapi/]
+<https://www.infoq.com/news/2021/05/ebay-adopts-asyncapi/>
     One of the critical AsyncAPI features that eBay's team has found
   particularly useful is   clean separation between channels,
   operations, and servers.
@@ -385,10 +204,9 @@ See comparative with OpenAPI and CloudEvents at:
   message-driven ecosystem.
 [[}]]
 
-[[{01_PM.low_code,api_management,20_qa.testing,01_PM.TODO]]
+[[{PM.low_code,api_management,20_qa.testing,PM.TODO]]
 # Mirage: Fast Prototyping
-@[https://miragejs.com]
-
+* <https://miragejs.com>
 * Mirage JS is an API mocking library that lets you build, test and
   share a complete working JavaScript application without having to
   rely on any backend services.
@@ -400,7 +218,7 @@ See comparative with OpenAPI and CloudEvents at:
 * It can reduce build time from hours to minutes.
 [[}]]
 
-[[{api_management.apigee,01_PM.TODO]]
+[[{api_management.apigee,PM.TODO]]
 # APIgee: x-Cloud API Mng
 - The Cross-Cloud API Management Platform
   https://cloud.google.com/apigee/
@@ -539,7 +357,7 @@ REF: http://www.postmanlabs.com/postman-collection/tutorial-concepts.html
     // .deep causes all .equal|.include|.members|.keys|.property
     // assertions that follow in the chain to use deep/loose
     // equality (vs strict '===' equality).
-    // '.eql' also compares loosely but doesn't apply to             [[{02_doc_has.comparative]]
+    // '.eql' also compares loosely but doesn't apply to             [[{doc_has.comparative]]
     // assertions following in the chain, while .eql does.           [[}]]
   });
 
@@ -712,7 +530,7 @@ REF: http://www.postmanlabs.com/postman-collection/tutorial-concepts.html
     --color off \
     --disable-unicode  \
     --insecure \
-    project01_collection.json
+    projectcollection.json
 
   # BASIC OPTIONS:
   # ==============
@@ -973,7 +791,7 @@ REF: http://www.postmanlabs.com/postman-collection/tutorial-concepts.html
 http://appium.io/docs/en/about-appium/getting-started/?lang=es 
 [[}]]
 
-[[{api_management,01_PM.TODO]]
+[[{api_management,PM.TODO]]
 ## Packaging APIs for consumers with Red Hat 3scale API Management
 https://developers.redhat.com/blog/2021/03/02/packaging-apis-for-consumers-with-red-hat-3scale-api-management/
 [[}]]
@@ -1002,7 +820,7 @@ FE App ···> Krakend ···· /stock  warehouse.api.com server
                      ·
                      ··· /orders   finance.api.com server
 
-### Krakend Shadow API Testing [[{01_PM.low_code,20_qa,01_PM.TODO]]
+### Krakend Shadow API Testing [[{PM.low_code,20_qa,PM.TODO]]
  https://www.krakend.io/blog/krakend-shadow-testing/?1627926585889
  Traffic mirroring: test your APIs automatically, without writing tests
  [[}]]

@@ -1,11 +1,11 @@
 [[{dev_lang.js]]
 # Javascript Summary [[{101]]
-- State Of JS: @[https://stateofjs.com/] lib/frameworks widely adopted, satisfaction ratings, ...
--@[https://developer.mozilla.org/en-US/]
--@[https://eloquentjavascript.net/]
--@[https://www.infoq.com/articles/javascript-web-development-trends]
+- State Of JS: <https://stateofjs.com/> lib/frameworks widely adopted, satisfaction ratings, ...
+-<https://developer.mozilla.org/en-US/>
+-<https://eloquentjavascript.net/>
+-<https://www.infoq.com/articles/javascript-web-development-trends>
 - Browser Built-in objects:
-@[http://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects]
+<http://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects>
 
 
 # const Let vs Var [[{101,20_qa.inmutability]]
@@ -18,7 +18,7 @@
   Object.freeze(objInstance) <·· Really make object inmutable
 
   See also:
-  @[https://facebook.github.io/immutable-js/] [[{01_PM.TODO}]]
+  <https://facebook.github.io/immutable-js/> [[{01_PM.TODO}]]
 [[}]]
 
 # Array(.prototype)                                        [[{data_structure.lists,data_structure.arrays]]
@@ -231,7 +231,7 @@ JavaScript language.
   await start();                        <·· 3) Wait for execution completion.
 
 ## async/await explained
-@[https://2ality.com/2016/10/asynchronous-iteration.html]
+<https://2ality.com/2016/10/asynchronous-iteration.html>
   by Domenic Denicola and Kevin Smith.
 
   async/await serve for "Asynchronous Iteration"
@@ -342,12 +342,12 @@ JavaScript language.
   const [{value:v1},{value:v2}] = await
     Promise.all( [ asyncGenObj.next(), asyncGenObj.next(),..] );
 
-(See original source @[https://2ality.com/2016/10/asynchronous-iteration.html]
+(See original source <https://2ality.com/2016/10/asynchronous-iteration.html>
  for more details and complex examples)
 
 - Related caolan/async: [[{01_PM.TODO]]
-  @[https://github.com/caolan/async]
-  @[http://caolan.github.io/async/v3/]
+  <https://github.com/caolan/async>
+  <http://caolan.github.io/async/v3/>
   - Lib. providing around 70 functions that include the usual
     'functional' suspects (map, reduce, filter, each...) as well as some
     common patterns for asynchronous control flow (parallel, series,
@@ -383,7 +383,7 @@ https://hyperfetch.bettertyped.com/docs/Getting%20Started/Overview
 
 ## dump object to string: JSON.stringify(myJS_object)
   To avoid cicular dependencies problems redefine stringify like:
-  REF: @[https://stackoverflow.com/questions/11616630/how-can-i-print-a-circular-structure-in-a-json-like-format]
+  REF: <https://stackoverflow.com/questions/11616630/how-can-i-print-a-circular-structure-in-a-json-like-format>
   JSON.stringifySec = function (circ) {
     cache = []
     result = JSON.stringify(circ, function(key, value) {
@@ -416,8 +416,8 @@ https://hyperfetch.bettertyped.com/docs/Getting%20Started/Overview
   # debugging async code #
   ########################
   NodeJS Dump async function chain ("async stack-trace")          [async]
-@[https://stackoverflow.com/questions/40300996/nodejs-is-is-possible-to-show-the-stack-trace-of-a-calling-async-function]
-@[https://gist.github.com/lll000111/3d6a53da4d53beb909189793c7631ba6]
+<https://stackoverflow.com/questions/40300996/nodejs-is-is-possible-to-show-the-stack-trace-of-a-calling-async-function>
+<https://gist.github.com/lll000111/3d6a53da4d53beb909189793c7631ba6>
 
   • Context:  fnThrowingError is call asynchronously
     const   fnThrowingError = async () => {
@@ -429,7 +429,7 @@ https://hyperfetch.bettertyped.com/docs/Getting%20Started/Overview
 
   • Alternative 1: Node.js 12+. (2019-08-04+)
     Async Stack Traces come out of the box  using flag '--async-stack-traces'
-  @[https://medium.com/@nodejs/introducing-node-js-12-76c41a1b3f3f]
+  <https://medium.com/@nodejs/introducing-node-js-12-76c41a1b3f3f>
 
 
   • Alternative 2:
@@ -488,7 +488,7 @@ https://hyperfetch.bettertyped.com/docs/Getting%20Started/Overview
   ###################
   # advanced tricks #
   ###################
-## REF:@[https://raygun.io/blog/2015/06/useful-javascript-debugging-tips-you-didnt-know/]
+## REF:<https://raygun.io/blog/2015/06/useful-javascript-debugging-tips-you-didnt-know/>
   console.table(animals);      ← Display object as tables in the console: (Chrome only?)
 
   this.funcZ = function(){
@@ -513,7 +513,7 @@ https://hyperfetch.bettertyped.com/docs/Getting%20Started/Overview
     https://developer.chrome.com/devtools/docs/blackboxing
 
 ## SOURCE MAPPING
-  REF: @[http://blog.getsentry.com/2015/10/29/debuggable-javascript-with-source-maps.html]
+  REF: <http://blog.getsentry.com/2015/10/29/debuggable-javascript-with-source-maps.html>
   • source maps : JS's version of debug symbols:
   • Include with:
     //# sourceMappingURL=/path/to/app.min.js.map
@@ -531,7 +531,7 @@ https://hyperfetch.bettertyped.com/docs/Getting%20Started/Overview
 [[dev_lang.js.101.debugging}]]
 
 ## Mintmproxy Swiss-Army Knife Proxy for HTTP SSL/TLS  [[{01_PM.TODO]]
-@[https://docs.mitmproxy.org/stable/]
+<https://docs.mitmproxy.org/stable/>
 https://github.com/tldr-pages/tldr/blob/master/pages/common/mitmproxy.md
 
 * Set of tools that provide an interactive, SSL/TLS-capable
@@ -597,7 +597,7 @@ for React, Angular, Vue, ...
 [[}]]
 
 # YSlow Profiler [[{dev_lang.js.101,performance.profiling.yslow,20_qa,troubleshooting.performance]]
-## home page: @[http://yslow.org]
+## home page: <http://yslow.org>
 ## YSlow analyzes web pages and why they're slow
   based on Yahoo!'s rules for high performance web sites
 ## Feature highlights:
@@ -634,7 +634,7 @@ for React, Angular, Vue, ...
   ❌ Do Not Scale Images in HTML
 ───────────────────────────────────────────────────────────────────────
 # Mozilla Perf.Tool
-## REF: @[https://developer.mozilla.org/en-US/docs/Tools/Performance]
+## REF: <https://developer.mozilla.org/en-US/docs/Tools/Performance>
 ## Performance tool gives insights into a site's general responsiveness,
   JS and layout performance.
 ## It allows to create a recording(profile), of a site over a period of time.
@@ -643,7 +643,7 @@ for React, Angular, Vue, ...
 [[}]]
 
 # Trusted Web Code [[{dev_lang.js,devops.security,01_PM.TODO]]
-@[https://www.infoq.com/articles/encryption-defense-native-browser-apps/]
+<https://www.infoq.com/articles/encryption-defense-native-browser-apps/>
 ## Trusted code: first-line-of-defense for browser security.
   Reusing libraries makes web development faster at the cost
   of increasing the risk of introducing malicious code.
@@ -723,11 +723,11 @@ for React, Angular, Vue, ...
 [[}]]
 
 ## ES6 in depth [[{]]
-@[https://hacks.mozilla.org/category/es6-in-depth/]
+<https://hacks.mozilla.org/category/es6-in-depth/>
 
 ## es6 design Patterns
-@[https://github.com/loredanacirstea/js-design-patterns] !!!
-@[http://loredanacirstea.github.io/es6-design-patterns/]
+<https://github.com/loredanacirstea/js-design-patterns> !!!
+<http://loredanacirstea.github.io/es6-design-patterns/>
 [[}]]
 
 # Signia: New Incremental Computing Lib Delivers Better UX for Single-Page Apps
@@ -745,32 +745,32 @@ for React, Angular, Vue, ...
 [[01_PM.TODO}]]
 
 # Stork: Wasm in-browser Full-text Search!!!  [[{data_mng.text_search,performance,01_PM.TODO]]
-@[https://www.infoq.com/news/2020/03/stork-wasm-rust-text-search/]
+<https://www.infoq.com/news/2020/03/stork-wasm-rust-text-search/>
 Stork, a Rust/Wasm-Based Fast Full-Text Search for the JAMStack
 [[}]]
 
 # HTML Editors (in HTML) [[{data_mng.text_input,dev_lang.js,01_PM.BACKLOG]]
 * Monaco Editor(used by VSCode,Che...)
   • Blazeling fast web-editor (Used by VSCode, Che, ...)
-  @[https://code.visualstudio.com/docs/editor/editingevolved]
+  <https://code.visualstudio.com/docs/editor/editingevolved>
 * Quill.js WySiWyG Editor
-@[https://www.scalablepath.com/blog/using-quill-js-build-wysiwyg-editor-website/]
+<https://www.scalablepath.com/blog/using-quill-js-build-wysiwyg-editor-website/>
 [[}]]
 
 
 # Tensorflow on WebGL [[{IA]]
 Tensorflow using JS + WebGL
-@[https://js.tensorflow.org/]
+<https://js.tensorflow.org/>
 [[}]]
 
 # Face&Speech Recog.  [[{IA.cognitive,01_PM.BACKLOG]]
-@[https://dzone.com/articles/tutorial-how-to-build-a-pwa-with-face-and-speechrecognition?edition=636291]
+<https://dzone.com/articles/tutorial-how-to-build-a-pwa-with-face-and-speechrecognition?edition=636291>
 * Face detection API:
   face recognition in the browser:
-@[https://justadudewhohacks.github.io/face-api.js/docs/index.html]
+<https://justadudewhohacks.github.io/face-api.js/docs/index.html>
 * Web speech API:
   enables "Speech to text" in the app.
-@[https://developer.mozilla.org/en-US/docs/Web/API/Web_Speech_API/Using_the_Web_Speech_API]
+<https://developer.mozilla.org/en-US/docs/Web/API/Web_Speech_API/Using_the_Web_Speech_API>
 
   (above APIs can only work when enabling
   "Experimental Web Platform features" in the
@@ -781,7 +781,7 @@ $ $ git clone https://github.com/petereijgermans11/progressive-web-app
 
 [[{dev_lang.js,arch.async,01_PM.low_code,security,data_mng,01_PM.TODO]]
 # axios
-@[https://www.npmjs.com/package/axios]
+<https://www.npmjs.com/package/axios>
 Promise based HTTP client for the browser and node.js
 Features
 * Make XMLHttpRequests from the browser and
@@ -789,7 +789,7 @@ Features
 * Supports the Promise API
 * Intercept request and response
 * Transform request and response data
-  (See service workers @[#service_workers_summary]
+  (See service workers <#service_workers_summary>
    for advanced/complementary alternative)
 * Cancel requests.
 * Automatic transforms for JSON data.
@@ -830,7 +830,7 @@ https://pouchdb.com/ (46KB gzipped)
 
 [[{IA.cognitive,01_PM.BACKLOG]]
 # trackingjs Face detection
-@[https://trackingjs.com]
+<https://trackingjs.com>
 * computer vision algorithms into the browser environment.
 * Enables real-time color tracking, face detection and much more.
 * lightweight core (~7 KB)
@@ -876,11 +876,11 @@ structured cloning [HTML] and transfer algorithms.
 [[}]]
 
 ## JS Decorators [[{dev_lang.js,01_PM.TODO]]
-@[https://medium.com/google-developers/exploring-es7-decorators-76ecb65fb841]
+<https://medium.com/google-developers/exploring-es7-decorators-76ecb65fb841>
 [[}]]
 
 ## Gtk+ to JS [[{01_PM.TODO]]
-@[https://www.rollapp.com/]
+<https://www.rollapp.com/>
 GTK+ apps ported to Javascript (HTML5)
 [[}]]
 
@@ -891,7 +891,7 @@ https://developer.mozilla.org/en-US/docs/Web/JavaScript/Guide/Modules
 ## es5, babel, es6 performance  WARN,WARN,WARN!!!: [[{]]
 - Some JS constructions can be 2 order of magnitude faster/slower
   according to:
-@[http://incaseofstairs.com/six-speed/]
+<http://incaseofstairs.com/six-speed/>
   In case of trouble check the link above.
 [[}]]
 

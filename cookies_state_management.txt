@@ -8,7 +8,10 @@
 * ```
   |Server as S
   |UserAgent as C (client)
-  |S -> C: Set-Cookie: SID=31d4d96e407aad42; 
+  |
+  |C -> S: HTTP GET/POST/... request
+  |S -> C: HTTP Response, with Set-Cookie's headers
+  |        Set-Cookie: SID=31d4d96e407aad42; 
   |                    └──────────┬───────┘ 
   |                     Cookie (name,value) pairs
   |                     (returned back by the user agent)
@@ -16,8 +19,7 @@
   |        Set-Cookie: lang=en-US; Path=/; scope=... ;
   |        Set-Cookie: ...         └───────┬───────┘ 
   |           ...      ·           Cookie attributes
-  |        └────┬────┘ ·          (not returned back by user-agent)
-  |        HTTP Header ·                   ·
+  |                    ·          (not returned back by user-agent)
   |        ┌───────────┴───────────────────┘
   |        Cookie attributes include:
   |        Domain=example.com; <·· (Sub)domain list to send cookies back

@@ -1,5 +1,5 @@
 # Mock Service Worker MSW (REST/GraphQL Testing) [[{20_qa.testing,01_PM.low_code,01_PM.TODO]]
-@[https://www.infoq.com/news/2020/11/msw-mocking-graphql-rest-api/]
+<https://www.infoq.com/news/2020/11/msw-mocking-graphql-rest-api/>
 * test UI components webapps without actual back-end, setting up mock server,
   or stubbing native http/https/fetch implementations.
 * test  as much as possible in the same conditions and in the same way
@@ -15,7 +15,7 @@
 [[}]]
 
 # Mocha API-REST/Functional Testing[[{20_qa.testing,02_doc_has.comparative]]
-@[https://mochajs.org/]
+<https://mochajs.org/>
 * Easy testing of async services / REST APIs / ...
   better than Jasmine                                  [comparative]
 * JS based, runs in browser and NodeJS.
@@ -54,16 +54,16 @@
 * See official doc for info about hooks (before, after, afterEach)
   Retry Tests, Timeouts, Diffs, ...
 * Official examples at:
-@[https://github.com/mochajs/mocha-examples/tree/master/packages]
+<https://github.com/mochajs/mocha-examples/tree/master/packages>
   selenium, rxjs, react-webpack,programmatic-usage
 [[}]]
 
 # Selenium (Web test Automation) [[{20_qa.testing,01_PM.low_code,security.aaa]]
 * External Resources:
-  ·@[http://docs.seleniumhq.org/]
-  ·@[http://docs.seleniumhq.org/projects/ide/]
-  ·@[http://code.tutsplus.com/tutorials/headless-functional-testing-with-selenium-and-phantomjs--net-30545]
-  ·@[http://stackoverflow.com/search?q=selenium]
+  ·<http://docs.seleniumhq.org/>
+  ·<http://docs.seleniumhq.org/projects/ide/>
+  ·<http://code.tutsplus.com/tutorials/headless-functional-testing-with-selenium-and-phantomjs--net-30545>
+  ·<http://stackoverflow.com/search?q=selenium>
 
 * Automate browser execution applying test on expected elements, URL, events ....
 * Oldest and most widely adopted End-to-End automation framework.
@@ -99,8 +99,8 @@
      ✓ partial link text   ✓ xpath
 
 * Selenium IDE: Firefox/Chrome extension to automatically record/save/replay tests
-  @[https://examples.javacodegeeks.com/enterprise-java/selenium/selenium-ide-commands-example/]
-  @[https://www.youtube.com/watch?v=ZG3VFDMaAlk]
+  <https://examples.javacodegeeks.com/enterprise-java/selenium/selenium-ide-commands-example/>
+  <https://www.youtube.com/watch?v=ZG3VFDMaAlk>
 
 * Alternatives to Selenium include:
   ✓ Cypress :  JS centric framework, probably more friendly to web developers. [TODO]
@@ -141,7 +141,7 @@
 
 
 # Fiddler Proxy [[{20_qa.testing,troubleshooting]]
-@[www.telerik.com/fiddler]
+<www.telerik.com/fiddler>
 * Allows to replace remote html/css/AJAX responses with local/mocked ones.
   Very useful when deploying to remote server can be "slow" due
   to CI constrains.
@@ -152,12 +152,12 @@
 
 # qawolf [[{20_qa.testing,01_PM.low_code,01_PM.TODO]]
 - run Browser GUI functional testing 10x faster.
-@[https://www.qawolf.com/]
+<https://www.qawolf.com/>
 [[}]]
 
  qawolf [[{20_qa.testing,01_PM.low_code,01_PM.TODO]]
 - run Browser GUI functional testing 10x faster.
-@[https://www.qawolf.com/]
+<https://www.qawolf.com/>
 [[}]]
 
 

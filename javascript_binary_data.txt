@@ -1,10 +1,10 @@
 # Binary Data [[{dev_lang.js,performance,multimedia,data_mng,01_PM.BACKLOG]]
-@[https://github.com/jDataView]
+<https://github.com/jDataView>
 - jBinary High-level API for working with binary data.
 - jDataView. DataView. Extended. Anywhere.
-@[https://github.com/jDataView/jBinary/wiki/jBinary-Constructor]
-@[https://github.com/jDataView/jDataView]
-@[http://www.khronos.org/registry/typedarray/specs/latest/]
+<https://github.com/jDataView/jBinary/wiki/jBinary-Constructor>
+<https://github.com/jDataView/jDataView>
+<http://www.khronos.org/registry/typedarray/specs/latest/>
   | "* BufferArray: Array of Bytes. Constructor BufferArray(byte length)
   | * TypedArray: Type view of the Buffer Array (Ui|i)nt(8|16|32)Array , Float(32|64)Array
   |     Constructors:

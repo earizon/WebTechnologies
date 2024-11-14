@@ -1,44 +1,74 @@
 ## Apropos:
   Content is versioned in git.  commits, issues and pull-requests welcome!
-@[https://www.github.com/earizon/WebTechnologies]
+<https://www.github.com/earizon/WebTechnologies>
+
+## RFC3986
+
+* Berners-Lee, T., Fielding, R., and L. Masinter, "Uniform
+  Resource Identifier (URI): Generic Syntax", STD 66,
+  RFC 3986, DOI 10.17487/RFC3986, January 2005,
+  <http://www.rfc-editor.org/info/rfc3986>.
+
+## DNS0: Safe DNS for a secure Internet <!-- { -->
+* <https://dns0.eu>
+* Public European DNS service to protect citizens and companies in the UE.
+* Kids friendly, without banners, porn, cite-places, pirate webs, and
+  adult YouTube videos.
+* By Romain Cointepas y Olivier Poitrey, cofounder os NextDNS service.
+
+```
+Standard DNS0     | ZERO                 | KIDS
+-----------------------------------------+-------------------------
+dns0.eu           | zero.dns0.eu         | kids.dns0.eu            <·· DNS-over-TLS/QUIC
+https://dns0.eu/  | https://zero.dns0.eu | https://kids.dns0.eu    <·· DNS-over-HTTPS
+                  |                      | 
+193.110.81.0      | 193.110.81.9         | 193.110.81.1            <·· DNS53 (IPv4)
+185.253.5.0       | 185.253.5.9          | 185.253.5.1
+                  |                      | 
+2a0f:fc80::       | 2a0f:fc80::9         | 2a0f:fc80::1            <·· DNS53 (IPv6)
+2a0f:fc81::       | 2a0f:fc81::9         | 2a0f:fc81::1
+```
+<!-- } -->
 
 ## External Links [[{]]
 * The size of the World Wide Web (The Internet)
-@[https://www.worldwidewebsize.com/]
+<https://www.worldwidewebsize.com/>
 * HTML Spec:
-@[https://html.spec.whatwg.org/]
+<https://html.spec.whatwg.org/>
 * how well does your browser support HTML5?
-@[http://html5test.com/]
+<http://html5test.com/>
 * webplatform. Your Web, Documented.
- @[https://webplatform.github.io/]
+ <https://webplatform.github.io/>
   The latest information on how to use the technology
   that runs the web — HTML, CSS, JavaScript and more.  WebPlatform.org is a
   work in progress. We could use your help in making it better. Join us.
 * Great blog about CSS design and  HTML5
-@[http://www.smashingmagazine.com/]
-* Map of GitHub:
- @[ https://anvaka.github.io/map-of-github/#2/0/0
+<http://www.smashingmagazine.com/>
+* Map of GitHub: <https://anvaka.github.io/map-of-github/#2/0/0>
 [[}]]
 
-# Awesome Search Engines (Others that Google)  [[{]]
-  by Dr. AngShuMan Ghosh
-  https://www.linkedin.com/feed/update/activity:6898851104516296704 by
+# Awesome Search Engines (Others that Google)  [[{search_engines,]]
+  by Dr. AngShuMan Ghosh <https://www.linkedin.com/feed/update/activity:6898851104516296704>
 
-Search engines that specialize in books, science, and other smart information.
-* @[https://www.refseek.com]     search engine for academic resources. More than a billion sources
-* @[https://www.worldcat.org]    search the content of 20,000 global libraries.
-* @[https://https://link.springer.com] -10M+ scientific documents: books, articles,
-* @[https://www.bioline.org.br]  library of published bioscientific journals
-* @[https://http://repec.org]    Volunteers from 102 countries collected nearly 4 million publications
-* @[https://www.science.gov]     U.S. government search engine for more than 2200 scientific sites.
-* @[https://www.pdfdrive.com]    largest website for free download of PDF books. 225M+ titles.
-* @[https://www.base-search.net] one of the most powerful search engines for academic research texts.
+## Search engines that specialize in books, science, and other smart information.
+* <https://www.refseek.com>     search engine for academic resources. 
+                                More than a billion sources.
+* <https://www.worldcat.org>    search the content of 20,000 global libraries.
+* <https://https://link.springer.com> -10M+ scientific documents: books, articles,
+* <https://www.bioline.org.br>  library of published bioscientific journals
+* <https://http://repec.org>    Volunteers from 102 countries collected nearly 4 million publications
+* <https://www.science.gov>     U.S. government search engine for more than 2200 scientific sites.
+* <https://www.pdfdrive.com>    largest website for free download of PDF books. 225M+ titles.
+* <https://www.base-search.net> one of the most powerful search engines for academic research texts.
                                  100M+ scientific articles, 70% of which are free.
+* <https://www.qwant.com>        Google Like engine preserving user's privacy (made in France).
+* <https://www.duckduckgo.com>   Google Like engine preserving user's privacy (made in Canada).
+* <https://openwebsearch.eu/the-project/>  Promoting EU's Independence in Web Search
 [[}]]
 
-# Open Web Search – Promoting EU's Independence in Web Search [[{101]]
-https://openwebsearch.eu/the-project/
-[[}]]
+# Online translation services
+* DeepL <https://www.deepl.com>
+* Google Translate: <https://translate.google.com>
 
 # W3C Consortium  [[{]]
 - W3C stands for Wide Web Consortium (W3C)
@@ -49,34 +79,34 @@ https://openwebsearch.eu/the-project/
 - W3C is jointly hosted by :
   - the MIT Computer Science and AI Lab (MIT CSAIL)
     in the United States:
-  @[https://www.csail.mit.edu/]
+  <https://www.csail.mit.edu/>
 - European Research Consortium for Informatics and Mathematics</a>
   (ERCIM) headquartered in France
-  @[https://www.ercim.eu/]
+  <https://www.ercim.eu/>
 
 - Keio University Japan
-@[https://www.keio.ac.jp/]
+<https://www.keio.ac.jp/>
 
 - Beihang University in China.
-@[http://ev.buaa.edu.cn/]
+<http://ev.buaa.edu.cn/>
 [[}]]
 
 # HTTP Made Really Easy [[{protocol.http.101,01_PM.TODO.now]]
-@[https://www.jmarshall.com/easy/http/]
+<https://www.jmarshall.com/easy/http/>
 [[}]]
 
 
 
 [[{standards.data_mng,01_PM.TODO]]
 # JSON-LD #[json-ld_summary]
-@[https://json-ld.org/]                                                   [TODO]
+<https://json-ld.org/>                                                   [TODO]
 * JSON-based format used to serialize Linked Data primarily targeting
    Web environments in order to build interoperable Web services, and
    to store Linked Data in JSON-based storage engines.
 * Provides smooth upgrade path from JSON to JSON-LD.
 
 ## Linked Data Proofs 1.0
-  @[https://w3c-ccg.github.io/ld-proofs/]
+  <https://w3c-ccg.github.io/ld-proofs/>
     This specification describes a mechanism for ensuring the
   authenticity and integrity of Linked Data documents using
   mathematical proofs.
@@ -84,7 +114,7 @@ https://openwebsearch.eu/the-project/
 [[}]]
 
 # XML Standard Schemas Classification: [[{data_structure,DATA_MNG.xml,standards,xml,01_PM.TODO]]
-@[https://schemas.liquid-technologies.com/]
+<https://schemas.liquid-technologies.com/>
 - Agriculture
 - Authoring
   - National Information Exchange Model (NEIM)
@@ -111,7 +141,7 @@ https://openwebsearch.eu/the-project/
     communicate data in common terms and define and register
     business processes.
   • FpML® - Financial products Markup Language (FpML®)
-    @[../Architecture/financial_architecture#fpml_summary]
+    <../Architecture/financial_architecture#fpml_summary>
   • HR-XML - HR-XML - Human Resources XML
     enable e-business and the automation of human
     resources-related data exchanges.
@@ -207,7 +237,7 @@ https://openwebsearch.eu/the-project/
 
 
 ## HTTP/3  #[http3_summary] [[{protocol.http/3,performance.http/3]]
-@[https://www.infoq.com/news/2020/01/http-3-status/]
+<https://www.infoq.com/news/2020/01/http-3-status/>
 * HTTP/2 introduced the concept of first-class streams embedded
   in the same TCP connection enabling multiplexing simultaneous
   request-response exchanges.
@@ -219,7 +249,6 @@ https://openwebsearch.eu/the-project/
 * QUIC (HTTP/3 or HTTP over UPD) has first-class streams. solving
   HTTP/2 issues.
 [[}]]
-
 
 # HTML Tips   [[{]]
 https://markodenic.com/html-tips/

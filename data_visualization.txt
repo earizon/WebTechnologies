@@ -91,8 +91,8 @@
 
 [[{data_mng.visualization,data_mng.visualization.real_time,stack.react,01_PM.BACKLOG]]
 # Perspective #[perspective_summary]
-@[https://github.com/jpmorganchase/perspective]
-@[https://perspective.finos.org/]
+<https://github.com/jpmorganchase/perspective>
+<https://perspective.finos.org/>
 * interactive visualization for large, real-time datasets
   and customizable analytics.
 * JS engine, runs on any modern browser.
@@ -105,11 +105,11 @@
 [[{data_mng.visualization.real_time,data_mng.visualization,02_doc_has.comparative,]]
 # D3.js
 * External resouces:
-@[https://d3js.org/]
-@[https://github.com/d3/d3]
-@[https://www.youtube.com/watch?v=_8V5o2UHG0E&t=894s]
+<https://d3js.org/>
+<https://github.com/d3/d3>
+<https://www.youtube.com/watch?v=_8V5o2UHG0E&t=894s>
 * White-paper summary:
- @[http://idl.cs.washington.edu/files/2011-D3-InfoVis.pdf]
+ <http://idl.cs.washington.edu/files/2011-D3-InfoVis.pdf>
   · ...based on CSS these libraries (jQuery) share the concept
     of a selection:
     identify a set ofe lements using simple predicates, then
@@ -199,9 +199,9 @@
 
 
 * used as "kernel" library for other high level ones
-  e.g.: @[#vega_lite_summary]
+  e.g.: <#vega_lite_summary>
 
-* Extracted from @[https://observablehq.com/@d3/learn-d3]
+* Extracted from <https://observablehq.com/@d3/learn-d3>
  • D3 stands for "Data Driven Documents".
  • D3 allows to bind arbitrary data to a Document Object Model (DOM),
    and then apply data-driven transformations to the document.
@@ -220,8 +220,8 @@
   Math components for React apps.
 
 # Vega Lite!!! @ma #[vega_lite_summary]
-@[https://vega.github.io/vega-lite/]
-@[https://vega.github.io/vega-lite/examples/]
+<https://vega.github.io/vega-lite/>
+<https://vega.github.io/vega-lite/examples/>
 * HIGH-LEVEL GRAMMAR OF INTERACTIVE GRAPHICS with declarative JSON syntax.
   by University of Washington Interactive Data Lab
 * visualizations for data analysis and presentation.
@@ -236,7 +236,7 @@
   implementation: vega lite → vega → d3.js
 
 * HOWTO: STEP 1) HTML SETUP
-@[https://vega.github.io/vega-lite/tutorials/getting_started.html]
+<https://vega.github.io/vega-lite/tutorials/getting_started.html>
  ┌──────────────────────────────────────────────────────────────────────────┐
  │ <!DOCTYPE html>                                                          │
  │ <html>                                                                   │
@@ -271,7 +271,7 @@
  └──────────────────────────────────────────────────────────────────────────┘
 
 * HOWTO: STEP 2) DATA and Visualization SETUP
-@[https://vega.github.io/vega-lite/tutorials/getting_started.html]
+<https://vega.github.io/vega-lite/tutorials/getting_started.html>
   TABULAR DATA SET │ EQUIVALENT VEGA-LITE
                    │ JSON ARRAY + RENDER PROP
   ================ │ ========================
@@ -303,11 +303,11 @@ gorical    rical   │     "values" : [         Other data sources type supporte
                    │      }                                           ^
                    │   }                                          "mark" : "bar"
                    │ }
-                     *  @[https://vega.github.io/vega-lite/docs/encoding.html#type]
+                     *  <https://vega.github.io/vega-lite/docs/encoding.html#type>
                     TIP: Vega-Lite will auto. add axis-with-labels for different-categories + axis title.
 
 * EXPLORING DATA EXAMPLES
-@[https://vega.github.io/vega-lite/tutorials/explore.html]
+<https://vega.github.io/vega-lite/tutorials/explore.html>
 
   QUANTITATIVE CONTINUOUS            SAME QUANTITATIVE VAR DISCRETIZED
   VAR DISTRIBUTION ALONG X AXIS      AS BAR HISTOGRAM ALONG X/Y AXES
@@ -395,8 +395,8 @@ gorical    rical   │     "values" : [         Other data sources type supporte
 
 [[{data_mng.visualization,data_mng.visualization,]]
 # JointJS #[jointjs_summary]
-@[http://www.jointjs.com/tutorial]
-@[http://www.jointjs.com/demos/umlcd]
+<http://www.jointjs.com/tutorial>
+<http://www.jointjs.com/demos/umlcd>
 * JointJS
 
   INPUT                        PROCESSING              OUTPUT
@@ -463,16 +463,16 @@ gorical    rical   │     "values" : [         Other data sources type supporte
 
 [[{data_mng.visualization,data_mng.visualization,01_PM.TODO]]
 # JS Pivot Tables
-See also Vega-Lite pivot charts @[#vega_lite_summary]
-@[https://github.com/search?q=pivot+table]
-@[https://pivottable.js.org/examples/]
-@[https://github.com/nicolaskruchten/pivottable]
-@[https://www.flexmonster.com/demos/pivot-table-js/]
+See also Vega-Lite pivot charts <#vega_lite_summary>
+<https://github.com/search?q=pivot+table>
+<https://pivottable.js.org/examples/>
+<https://github.com/nicolaskruchten/pivottable>
+<https://www.flexmonster.com/demos/pivot-table-js/>
 [[}]]
 
 [[{performance.visualization,data_mng.visualization.real_time,data_mng.visualization,01_PM.BACKLOG]]
 # Complex Model Real Time Render
-@[https://www.infoq.com/presentations/autodesk-forge-viewer/]
+<https://www.infoq.com/presentations/autodesk-forge-viewer/>
 Shwetha Nagaraja & Federico Rocha explore in detail some of the most
 interesting heavily-optimized techniques and strategies that Autodesk
 Forge Viewer introduces for viewing extremely large 2D and 3D models
@@ -483,7 +483,7 @@ overhead.
 
 [[{stack.react,data_mng.visualization,data_mng.visualization,01_PM.BACKLOG]]
 # Visx
-* @[https://www.infoq.com/news/2020/12/airbnb-visx-data-visualization/]
+* <https://www.infoq.com/news/2020/12/airbnb-visx-data-visualization/>
   Airbnb Releases Visx, a Set of Low-Level Primitives for Interactive
   Visualizations with React components that can be composed into interactive
   visualizations.
