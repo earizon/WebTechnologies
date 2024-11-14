@@ -1,0 +1,19 @@
+...  (2017) Big data: According to IBM5, 2.5 trillion6 data bytes are 
+generated every day, and 90% of the global data was created during 
+the past 2 years. These data come from sensors, messages posted on 
+social networks, pictures and videos published on the Internet, from 
+geolocation (for example, GPS or NFC) from mobile devices 
+(smartphones, tablets, smart watches), traceability logs for online 
+payments (for example from e-payments or m-payments), keywords 
+entered in search engines and, more generally, any digital 
+information that can be used for interpretation (scientific data, 
+fraud detection, medical, personal, behavioral data, etc.). Big data 
+can be defined by “3V”: volume (“data tsunami”: 20 petabytes7 of data 
+are processed every day by Google, and this has been the case since 
+2010, 1.88 zettabytes were produced in 2011, meaning a 50% increase 
+per year), variety (web data from social networks, linked data from 
+semantic web, public data, open data and mobiquitous data coming from 
+tagged objects and sensor networks, etc.) and velocity (data flow 
+from sensors and social networks, real-time “on the fly”), to which 
+we add a fourth “V”: variability (evolution), and a fifth “V”: 
+valorization (improvement and enrichment).

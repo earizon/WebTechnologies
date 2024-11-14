@@ -1,0 +1,106 @@
+<!--
+REF:
+ https://merge.dev/blog/openapi-tutorial-how-to-automatically-generate-tests-for-openapi-generator-sdks
+-->
+[openapi-generator](https://openapi-generator.tech)
+
+  |OpenAPI.json| ··> openapi-generator ¹  ··> go/python/... client/server SDK
+                        ^
+                        ·
+  Golang/Python/.. ·····┘
+  Mustache template/s
+
+
+  ¹: docker run -v ${PWD}/:/local \
+     openapitools/openapi-generator-cli:v5.1.1 \
+     generate -i https://api.merge.dev/api/ats/v1/schema \
+     -g python \
+     -o ./local/python-sdk
+
+## Template Basic: 
+Tipical worklfow:
+- override default Mustache template files with custom configuration
+  by simply creating a new file locally that has the same name! 
+
+  -t ./local/REPLACE-WITH-YOUR-TEMPLATES-FOLDER
+
+                               
+JSON    ················>  MUSTACHE    ······>  OUTPUT
+----                       ----------           -------
+OpenAPI spec               test.mustache
+{                          {{#list1}}           item1
+    "list1": [               {{{.}}}            
+        "item1",           {{/list1}}           item2
+        "item2"
+        ...
+    ],
+    "existingName": "foo"
+}                          ^^^^^^^^^^
+                           Similar to HTML 
+                           with {{}} vs <> 
+
+
+
+The (tests) SDK is going to contain:
+- Client code wraping http connections and auth configuration
+- API methods matching our OpenAPI spec.
+- Model classes matching request+response payloads
+  basic test:
+  - deserializing a model class from (example) json payload.
+
+## Modifying `model_test.mustache` Golang/Python/... Template
+
+
+def test{{classname}}(self):
+  """Test {{classname}}"""
+  # FIXME: construct object with mandatory
+  #        attributes with example values
+  # model = {{classname}}()  # noqa: E501
+  # Add this
+{{{.}}}              <·· Mustache debug: see raw json payload
+
+
+{{#vendorExtensions}}
+{{#x-merge-sample-json}} <··· custom property manually added to OpenAPI 3.0
+  raw_json = """
+    {{{.}}}
+{{/x-merge-sample-json}}
+{{^x-merge-sample-json}} <··· we lack "if-conditionals". {{^...}} for "branching"
+  """                         common pattern all over default templates 
+    No test json responses defined for {{classname}}
+    """
+    raw_json = None
+{{/x-merge-sample-json}}
+{{/vendorExtensions}}
+
+
+Final generated code will be something like:
+
+  model_sync_status_test.go: 
+
+  /* ... */
+  package merge_hris_client
+  
+  import "testing"
+  
+  func TestDeserializeSyncStatus(t *testing.T) {
+    var rawJson     = []byte(
+     `{"model_name": "Candidate", "model_id": "ats.Candidate", ...}`)
+    var result01 SyncStatus
+
+    err := NewAPIClient(NewConfiguration()).decode(
+      &result01, rawJson, "application/json")
+    if err != nil { ... }
+  }
+
+
+### Generating custom Output Files:
+  {
+    "templateDir": "/local",
+      "files": {
+        "PATH_TO_YOUR_TEMPLATES/go_test.mustache": {
+          "templateType": "Model",
+          "destinationFilename": "_test.go"
+        }
+      }
+  }
